@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="farmfarm@ffrds.cnogahgjp3qc.ap-northeast-2.rds.amazonaws.com" uuid="f2e9b4c7-ef99-4f21-9ffa-42205c916c80">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://ffrds.cnogahgjp3qc.ap-northeast-2.rds.amazonaws.com:3306/farmfarm</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
