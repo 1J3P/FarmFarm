@@ -14,7 +14,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="FarmFarm" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -51,13 +53,6 @@
     <orderEntry type="library" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.7" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.jaxb:txw2:2.3.7" level="project" />
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.12" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.7.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.7.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.7.6" level="project" />
@@ -99,7 +94,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-oxm:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-core:3.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.ws:spring-xml:3.1.4" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.mysql:mysql-connector-j:8.0.31" level="project" />
+    <orderEntry type="library" name="Maven: com.mysql:mysql-connector-j:8.0.31" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.oracle.database.jdbc:ojdbc8:21.5.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.7.6" level="project" />
@@ -134,5 +129,13 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.security:spring-security-test:5.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:5.7.5" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.7.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.7.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
   </component>
 </module>
