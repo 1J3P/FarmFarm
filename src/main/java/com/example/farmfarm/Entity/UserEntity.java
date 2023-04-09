@@ -3,6 +3,7 @@ package com.example.farmfarm.Entity;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name="user")
@@ -18,7 +19,7 @@ public class UserEntity {
     private String password;
 
     @CreationTimestamp
-    private String create_time;
+    private Timestamp create_time;
 
     private String id;
 
