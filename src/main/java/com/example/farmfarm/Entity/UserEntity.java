@@ -1,5 +1,9 @@
 package com.example.farmfarm.Entity;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,30 +11,35 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="user")
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserEntity {
     @Id
     @GeneratedValue
-    private int u_id;
+    private Long u_id;
 
-    private String username;
+    //카카오에서 주는 id
+    private Long id;
+
+    private String nickname;
 
     private String email;
-
-    private String password;
 
     @CreationTimestamp
     private Timestamp create_time;
 
-    private String id;
-
     private String user_role;
 
+    //혹시나 일반 로그인이나 naver 로그인 등 다른 로그인 수단 도입시 필요
     private String platform;
 
-    private String nickname;
-
-    private String user_code;
-
-    private String phone;
-
+    @Builder
+    public UserEntity(Long id, String nickname, String email, String user_role, String platform) {
+        this.id = id;
+        this.nickname = nickname;
+        this.email = email;
+        this.user_role = user_role;
+        this.platform = platform;
+    }
 }
