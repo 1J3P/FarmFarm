@@ -43,15 +43,15 @@ public class FarmService {
 
         if (Objects.equals(user.getU_id(), newFarm.getUser().getU_id())){
             // 수정되는 것들  (농장 이름, 위치-시, 위치-구, 상세, 이미지, 경매시간, 경매 참여 여부, 생성 시간?)
-            farm.setName(farm.getName());
-            farm.setLocation_city(farm.getLocation_city());
-            farm.setLocation_gu(farm.getLocation_gu());
-            farm.setDetail(farm.getDetail());
-            farm.setImage(farm.getImage());
-            farm.setAuction_time(farm.getAuction_time());
-            farm.set_auction(farm.is_auction()); // 이게 왜 이런걸까요 ?
-            farm.setCreated_at(farm.getCreated_at());
-            farm.setDetail(farm.getDetail());
+            newFarm.setName(farm.getName());
+            newFarm.setLocation_city(farm.getLocation_city());
+            newFarm.setLocation_gu(farm.getLocation_gu());
+            newFarm.setDetail(farm.getDetail());
+            newFarm.setImage(farm.getImage());
+            newFarm.setAuction_time(farm.getAuction_time());
+            newFarm.set_auction(farm.is_auction()); // 이게 왜 이런걸까요 ?
+            newFarm.setCreated_at(farm.getCreated_at());
+            newFarm.setDetail(farm.getDetail());
             farmRepository.save(newFarm);
             return newFarm;
         }

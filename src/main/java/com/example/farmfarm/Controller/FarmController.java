@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@RequestMapping("/farm")
 @Controller
 public class FarmController {
     @Autowired
@@ -23,7 +24,7 @@ public class FarmController {
     // 농장 개설
     @ResponseBody
     @PostMapping("/{u_id}")
-    public ResponseEntity<Object> createFarm(HttpServletRequest request, @PathVariable("uId") long uId, @RequestBody FarmEntity farm) {
+    public ResponseEntity<Object> createFarm(HttpServletRequest request, @PathVariable("u_id") long uId, @RequestBody FarmEntity farm) {
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         return ResponseEntity.ok().body(newFarm);
@@ -31,21 +32,21 @@ public class FarmController {
 
     // 농장 리스트 조회 (전체 조회)
     @GetMapping("/")
-    public ResponseEntity<Object> getAllFarm(HttpServletRequest request) {
+    public List<FarmEntity> getAllFarm(HttpServletRequest request) {
         List farmList = farmService.gatAllFarm();
-        return ResponseEntity.ok().body("farm 전체 리스트 조회");
+        return farmList;
     }
 
     // 농장 조회 ( 전체 농장 리스트에서 클릭 시 해당 농장 페이지로 이동)
     @GetMapping("/{f_id}")
-    public ResponseEntity<Object> getFarm(@PathVariable("fId") long fId) {
+    public ResponseEntity<Object> getFarm(@PathVariable("f_id") long fId) {
         FarmEntity fa = farmService.getFarm(fId);
         return ResponseEntity.ok().body("특정 farm 조회" + fa);
     }
 
     // 농장 정보 수정
     @PutMapping("/{f_id}")
-    public ResponseEntity<Object> putFarm(HttpServletRequest request, @PathVariable("fId") long fId, @RequestBody FarmEntity farm) {
+    public ResponseEntity<Object> putFarm(HttpServletRequest request, @PathVariable("f_id") long fId, @RequestBody FarmEntity farm) {
         FarmEntity updateFarm = farmService.updateFarm(request, fId, farm);
         if (updateFarm == null) {
             return ResponseEntity.badRequest().body("user not match");
@@ -55,7 +56,7 @@ public class FarmController {
 
     // 농장 삭제
     @DeleteMapping("/{f_id}")
-    public ResponseEntity<Object> deleteFarm(HttpServletRequest request, @PathVariable("fId") long fId)  {
+    public ResponseEntity<Object> deleteFarm(HttpServletRequest request, @PathVariable("f_id") long fId)  {
         try {
             farmService.deleteFarm(request, fId);
         } catch (Exception e) {
