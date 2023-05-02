@@ -85,6 +85,7 @@ public class UserService {
 
         //(1)findProfile()이라는 메소드를 이용해 엑세스 토큰으로 카카오 서버에서 사용자 정보를 가져온다. 해당 메소드는 saveUser() 메소드 아래에 구현한다.
         KakaoProfile profile = findProfile(token);
+        System.out.println("saveUserAndGetToken : " + profile);
 
         //(2)UserReapository 에 만들어뒀던 findByKakaoEmail() 메소드를 이용해 User 객체에 담아준다.
         UserEntity user = userRepository.findByEmail(profile.getKakao_account().getEmail());
@@ -142,6 +143,9 @@ public class UserService {
                 kakaoProfileRequest,
                 String.class
         );
+        System.out.println("kakaoProfileResponse : " + kakaoProfileResponse);
+        System.out.println("kakaoProfileResponse1 : " + kakaoProfileResponse.getStatusCode());
+        System.out.println("kakaoProfileResponse2 : " + kakaoProfileResponse.getBody());
 
         //(1-7)Json 응답을 KakaoProfile 객체로 변환해 리턴해준다.
         ObjectMapper objectMapper = new ObjectMapper();
@@ -158,8 +162,7 @@ public class UserService {
 
         Long userCode = (Long) request.getAttribute("userCode");
         System.out.println("유저코드임"+userCode);
-        int uc = userCode.intValue();
-        UserEntity user = userRepository.findByUserCode(uc);
+        UserEntity user = userRepository.findById(userCode);
         return user;
     }
 

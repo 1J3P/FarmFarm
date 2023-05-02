@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+
 @Entity
 @Table(name="farm")
 @NoArgsConstructor
@@ -30,6 +31,7 @@ public class FarmEntity {
     private Timestamp created_at;
 
     //Status 추가해야함
+
 
     @OneToOne
     @JoinColumn(name="user")
