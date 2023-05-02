@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/farm")
 public class FarmController {
     @Autowired
@@ -22,7 +22,8 @@ public class FarmController {
     private UserService userService;
 
     // 농장 개설
-    @PostMapping("/")
+    @ResponseBody
+    @PostMapping(value="/")
     public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
         System.out.println("되니?");
         UserEntity user = userService.getUser(request);
