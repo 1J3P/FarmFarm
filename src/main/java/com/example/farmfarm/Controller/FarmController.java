@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RequestMapping("/farm")
 @Controller
+@RequestMapping("/farm")
 public class FarmController {
     @Autowired
     private FarmService farmService;
@@ -22,9 +22,9 @@ public class FarmController {
     private UserService userService;
 
     // 농장 개설
-    @ResponseBody
-    @PostMapping("/{u_id}")
-    public ResponseEntity<Object> createFarm(HttpServletRequest request, @PathVariable("u_id") long uId, @RequestBody FarmEntity farm) {
+    @PostMapping("/")
+    public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
+        System.out.println("되니?");
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         return ResponseEntity.ok().body(newFarm);
@@ -32,16 +32,18 @@ public class FarmController {
 
     // 농장 리스트 조회 (전체 조회)
     @GetMapping("/")
-    public List<FarmEntity> getAllFarm(HttpServletRequest request) {
-        List farmList = farmService.gatAllFarm();
-        return farmList;
+    public ResponseEntity<Object> getAllFarm(HttpServletRequest request) {
+        List allFarm = farmService.getAllFarm();
+        System.out.println("전체 farm 조회");
+        return ResponseEntity.ok().body(allFarm);
     }
 
     // 농장 조회 ( 전체 농장 리스트에서 클릭 시 해당 농장 페이지로 이동)
     @GetMapping("/{f_id}")
     public ResponseEntity<Object> getFarm(@PathVariable("f_id") long fId) {
         FarmEntity fa = farmService.getFarm(fId);
-        return ResponseEntity.ok().body("특정 farm 조회" + fa);
+        System.out.println("특정 farm 조회");
+        return ResponseEntity.ok().body(fa);
     }
 
     // 농장 정보 수정

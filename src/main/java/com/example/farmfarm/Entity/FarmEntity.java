@@ -1,25 +1,25 @@
 package com.example.farmfarm.Entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 
+@Data
 @Entity
-@Table(name="farm")
 @NoArgsConstructor
+@DynamicUpdate
+@Table(name="farm")
 @Getter
 @Setter
 public class FarmEntity {
     @Id
     @GeneratedValue
     @Column(name="f_id")
-    private long fId;
+    private Long fId;
     private String name;
     private String location_city;
     private String location_gu;
@@ -30,12 +30,22 @@ public class FarmEntity {
     @CreationTimestamp
     private Timestamp created_at;
 
-    //Status 추가해야함
-
-
     @OneToOne
     @JoinColumn(name="user")
     private UserEntity user;
+
+    @Builder
+    public FarmEntity(Long fId, String name, String location_city, String location_gu, String detail, String image, Timestamp auction_time, boolean is_auction, Timestamp created_at) {
+        this.fId = fId;
+        this.name = name;
+        this.location_city = location_city;
+        this.location_gu = location_gu;
+        this.detail = detail;
+        this.image = image;
+        this.auction_time = auction_time;
+        this.is_auction = is_auction;
+        this.created_at = created_at;
+    }
 }
 
 
