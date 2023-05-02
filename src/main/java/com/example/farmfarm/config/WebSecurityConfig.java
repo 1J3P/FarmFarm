@@ -13,7 +13,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests() // 인증이 필요한 모든 요청에 대해
                 .antMatchers("/**").permitAll() // "/", "/hello" 는 인증정보 필요 없음.
-                .anyRequest().authenticated() // 그 외 모든 요청은 인증정보 필요함.
+                //.anyRequest().authenticated() // 그 외 모든 요청은 인증정보 필요함.
                 .and()
                 .formLogin() // formLogin 사용할 거임.
                 .and()
