@@ -17,7 +17,8 @@ import java.sql.Timestamp;
 public class UserEntity {
     @Id
     @GeneratedValue
-    private Long u_id;
+    @Column(name="u_id")
+    private Long uId;
 
     //카카오에서 주는 id
     private Long id;

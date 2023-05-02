@@ -12,11 +12,14 @@ public class KakaoProfile {
     @Data
     public class Properties { //(1)
         public String nickname;
+        public String profile_image; // 이미지 경로 필드1
+        public String thumbnail_image;
     }
 
     @Data
     public class KakaoAccount { //(2)
         public Boolean profile_nickname_needs_agreement;
+        public Boolean profile_image_needs_agreement;
         public Profile profile;
         public Boolean has_email;
         public Boolean email_needs_agreement;
@@ -27,6 +30,9 @@ public class KakaoProfile {
         @Data
         public class Profile {
             public String nickname;
+            public String thumbnail_image_url;
+            public String profile_image_url; // 이미지 경로 필드2
+            public Boolean is_default_image;
         }
     }
 }
