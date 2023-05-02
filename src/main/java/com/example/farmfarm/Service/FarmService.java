@@ -3,6 +3,7 @@ package com.example.farmfarm.Service;
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Repository.FarmRepository;
+import com.example.farmfarm.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
@@ -26,22 +27,22 @@ public class FarmService {
     }
 
     // 농장 조회 (전체 리스트 조회)
-    public List<FarmEntity> gatAllFarm() {
-        return (List<FarmEntity>) farmRepository.findAll();
+    public List<FarmEntity> getAllFarm() {
+        return (List) farmRepository.findAll();
     }
 
     // 농장 상세 조회
     public FarmEntity getFarm(Long fId) {
-        FarmEntity fa = farmRepository.findByFId(fId);
+        FarmEntity fa = farmRepository.findByfId(fId);
         return fa;
     }
 
     // 농장 수정
     public FarmEntity updateFarm(HttpServletRequest request, Long fId, FarmEntity farm){
         UserEntity user = userService.getUser(request);
-        FarmEntity newFarm = farmRepository.findByFId(fId);
+        FarmEntity newFarm = farmRepository.findByfId(fId);
 
-        if (Objects.equals(user.getU_id(), newFarm.getUser().getU_id())){
+        if (Objects.equals(user.getUId(), newFarm.getUser().getUId())){
             // 수정되는 것들  (농장 이름, 위치-시, 위치-구, 상세, 이미지, 경매시간, 경매 참여 여부, 생성 시간?)
             newFarm.setName(farm.getName());
             newFarm.setLocation_city(farm.getLocation_city());
@@ -63,12 +64,11 @@ public class FarmService {
     // 농장 삭제
     public void deleteFarm(HttpServletRequest request, Long fId) throws Exception{
         UserEntity user = userService.getUser(request);
-        FarmEntity farm = farmRepository.findByFId(fId);
-        if(Objects.equals(user.getU_id(), farm.getUser().getU_id())){
+        FarmEntity farm = farmRepository.findByfId(fId);
+        if(Objects.equals(user.getUId(), farm.getUser().getUId())){
             farmRepository.delete(farm);
         } else {
             throw new Exception();
         }
     }
-
 }
