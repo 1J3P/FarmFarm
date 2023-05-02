@@ -1,8 +1,15 @@
 package com.example.farmfarm.Entity;
 
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Data
+@Entity
+@Table(name="product")
 public class ProductEntity {
-<<<<<<< 18c288297abf2d0988ccb157e71569f69f3a7bc7
-=======
     @Id
     @GeneratedValue
     @Column(name = "p_id")
@@ -39,5 +46,4 @@ public class ProductEntity {
     @JoinColumn(name="product_category_c_id")
     private ProductCategoryEntity productCategory;
 
->>>>>>> product crud commit #2
 }
