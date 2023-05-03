@@ -35,6 +35,8 @@ public class UserEntity {
     //혹시나 일반 로그인이나 naver 로그인 등 다른 로그인 수단 도입시 필요
     private String platform;
 
+    private String status;
+
     @Builder
     public UserEntity(Long id, String nickname, String email, String user_role, String platform) {
         this.id = id;
