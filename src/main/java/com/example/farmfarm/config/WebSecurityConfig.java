@@ -1,4 +1,4 @@
-package com.example.farmfarm.config;
+package com.example.farmfarm.Config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
