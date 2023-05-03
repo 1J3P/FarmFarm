@@ -12,8 +12,8 @@ import java.util.Objects;
 
 @Service
 public class EnquiryService {
-    //@Autowired
-    //EnquiryRepository enquiryRepository;
+    @Autowired
+    EnquiryRepository enquiryRepository;
     @Autowired
     UserService userService;
 
@@ -27,12 +27,11 @@ public class EnquiryService {
     public EnquiryEntity updateEnquiry(HttpServletRequest request, Long eId, EnquiryEntity enquiry) {
         UserEntity user = userService.getUser(request);
 
-        //EnquiryEntity en = enquiryRepository.findByEId(eId);
-        EnquiryEntity en = null;
+        EnquiryEntity en = enquiryRepository.findByeId(eId);
         if (Objects.equals(user.getUId(), en.getUser().getUId())) {
             en.setContent(enquiry.getContent());
             en.setIs_secret(enquiry.getIs_secret());
-            //enquiryRepository.save(en);
+            enquiryRepository.save(en);
             return en;
         }
         else
@@ -40,10 +39,9 @@ public class EnquiryService {
     }
     public void deleteEnquiry(HttpServletRequest request, Long eId) throws Exception{
         UserEntity user = userService.getUser(request);
-        EnquiryEntity en = null;
-        //EnquiryEntity en = enquiryRepository.findByEId(eId);
+        EnquiryEntity en = enquiryRepository.findByeId(eId);
         if (Objects.equals(user.getUId(), en.getUser().getUId())) {
-            //enquiryRepository.delete(en);
+            enquiryRepository.delete(en);
         } else {
             throw new Exception();
         }

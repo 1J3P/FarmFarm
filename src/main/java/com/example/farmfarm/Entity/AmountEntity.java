@@ -17,7 +17,7 @@ public class AmountEntity {
     @Column(name="a_id")
     private int aId;
     private int total;
-    private int taxFree;
+    private int tax_free;
     private int vat;
     private int point;
     private int discount;
