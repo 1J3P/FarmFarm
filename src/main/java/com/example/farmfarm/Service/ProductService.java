@@ -31,7 +31,7 @@ public class ProductService {
 
     // 상품 리스트 조회
     public List<ProductEntity> getAllProduct() {
-        return (List<ProductEntity>)productRepository.findAll();
+        return (List<ProductEntity>) productRepository.findAll();
     }
 
     // 상품 수정

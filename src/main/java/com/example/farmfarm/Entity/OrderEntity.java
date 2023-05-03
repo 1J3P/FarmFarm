@@ -15,8 +15,8 @@ import java.sql.Timestamp;
 public class OrderEntity {
     @Id
     @GeneratedValue
-    @Column(name="pu_id")
-    private long puId;
+    @Column(name="o_id")
+    private long oId;
     private String status;
     private boolean isDelivery;
     private String deliveryAddress;
