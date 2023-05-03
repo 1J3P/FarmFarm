@@ -33,4 +33,6 @@ public class EnquiryEntity {
     @JoinColumn(name="user")
     private UserEntity user;
 
+    private String status;
+
 }

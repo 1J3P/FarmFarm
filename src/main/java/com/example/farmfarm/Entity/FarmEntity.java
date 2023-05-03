@@ -34,6 +34,8 @@ public class FarmEntity {
     @JoinColumn(name="user")
     private UserEntity user;
 
+    private String status;
+
     @Builder
     public FarmEntity(Long fId, String name, String location_city, String location_gu, String detail, String image, Timestamp auction_time, boolean is_auction, Timestamp created_at) {
         this.fId = fId;

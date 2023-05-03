@@ -36,7 +36,4 @@ public class GroupEntity {
     @ManyToOne
     @JoinColumn(name="user_2")
     private UserEntity user2;
-    @ManyToOne
-    @JoinColumn(name="user_3")
-    private UserEntity user3;
 }
