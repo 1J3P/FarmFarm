@@ -4,36 +4,34 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Data
 @Entity
 @NoArgsConstructor
 @DynamicUpdate
-@Table(name="group")
+@Table(name="auction")
 @Getter
 @Setter
-public class GroupEntity {
+public class AuctionEntity {
     @Id
     @GeneratedValue
-    @Column(name="g_id")
-    private Long gId;
-    private int capacity;
-    @CreationTimestamp
-    private Timestamp created_at;
+    @Column(name="au_id")
+    private long auId;
+
+    private int quantity;
+
+    private int price;
+
+    private String status;
 
     @ManyToOne
     @JoinColumn(name="product")
     private ProductEntity product;
 
     @ManyToOne
-    @JoinColumn(name="user_1")
-    private UserEntity user1;
-    @ManyToOne
-    @JoinColumn(name="user_2")
-    private UserEntity user2;
+    @JoinColumn(name="user")
+    private UserEntity user;
 }

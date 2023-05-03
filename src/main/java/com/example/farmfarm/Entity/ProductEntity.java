@@ -1,14 +1,22 @@
 package com.example.farmfarm.Entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
 @Entity
+@NoArgsConstructor
+@DynamicUpdate
 @Table(name="product")
+@Getter
+@Setter
 public class ProductEntity {
     @Id
     @GeneratedValue
