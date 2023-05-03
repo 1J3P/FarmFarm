@@ -18,17 +18,17 @@ public class OrderEntity {
     @Column(name="pu_id")
     private long puId;
     private String status;
-    private boolean isDelivery;
-    private String deliveryAddress;
-    private String deliveryDetail;
-    private String deliveryName;
-    private String deliveryPhone;
-    private Timestamp createdAt;
-    private String deliveryMemo;
+    private boolean is_delivery;
+    private String delivery_address;
+    private String delivery_detail;
+    private String delivery_name;
+    private String delivery_phone;
+    private Timestamp created_at;
+    private String delivery_memo;
     private int quantity;
     private int type;
-    private int auctionApId;
-    private int groupGId;
+    private int auction_ap_id;
+    private int group_g_id;
 
     @OneToOne
     @JoinColumn(name="product")
@@ -37,5 +37,8 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name="user")
     private UserEntity user;
-    //private PaymentEntity payment;
+
+    @OneToOne
+    @JoinColumn(name="payment")
+    private PaymentEntity payment;
 }
