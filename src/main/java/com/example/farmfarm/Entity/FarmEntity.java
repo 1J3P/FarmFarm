@@ -34,6 +34,7 @@ public class FarmEntity {
     @JoinColumn(name="user")
     private UserEntity user;
 
+
     private String status;
 
     @Builder

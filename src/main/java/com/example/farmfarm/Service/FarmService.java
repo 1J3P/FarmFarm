@@ -37,6 +37,13 @@ public class FarmService {
         return fa;
     }
 
+    //나의 농장 조회
+    public  FarmEntity getMyFarm(HttpServletRequest request) {
+        UserEntity user = userService.getUser(request);
+        FarmEntity myFarm = farmRepository.findByUser(user);
+        return myFarm;
+    }
+
     // 농장 수정
     public FarmEntity updateFarm(HttpServletRequest request, Long fId, FarmEntity farm){
         UserEntity user = userService.getUser(request);

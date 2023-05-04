@@ -24,14 +24,13 @@ public class FarmController {
     // 농장 개설
     @PostMapping("/")
     public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
-        System.out.println("되니?");
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         return ResponseEntity.ok().body(newFarm);
     }
 
     // 농장 리스트 조회 (전체 조회)
-    @GetMapping("/")
+    @GetMapping("/list")
     public ResponseEntity<Object> getAllFarm(HttpServletRequest request) {
         List allFarm = farmService.getAllFarm();
         System.out.println("전체 farm 조회");
@@ -44,6 +43,15 @@ public class FarmController {
         FarmEntity fa = farmService.getFarm(fId);
         System.out.println("특정 farm 조회");
         return ResponseEntity.ok().body(fa);
+    }
+
+    // 나의 농장 조회
+    @GetMapping("/my")
+    public String getMyFarm(HttpServletRequest request) {
+        FarmEntity myFarm = farmService.getMyFarm(request);
+        String fId = myFarm.getFId().toString();
+        System.out.println("나의 farm Id 조회: " + fId);
+        return "redirect:" + fId ;
     }
 
     // 농장 정보 수정
