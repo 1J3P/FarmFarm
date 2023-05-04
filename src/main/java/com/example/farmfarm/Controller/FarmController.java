@@ -29,11 +29,11 @@ public class FarmController {
         return ResponseEntity.ok().body(newFarm);
     }
 
-    // 농장 리스트 조회 (전체 조회)
+    //농장 전체 조회, 농장 정렬
     @GetMapping("/list")
-    public ResponseEntity<Object> getAllFarm(HttpServletRequest request) {
-        List allFarm = farmService.getAllFarm();
-        System.out.println("전체 farm 조회");
+    public ResponseEntity<Object> getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria) {
+        List allFarm = farmService.getFarmsOrderBy(criteria);
+        System.out.println("farm 정렬 기준: " + criteria);
         return ResponseEntity.ok().body(allFarm);
     }
 
