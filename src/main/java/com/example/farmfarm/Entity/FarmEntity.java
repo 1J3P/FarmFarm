@@ -51,6 +51,9 @@ public class FarmEntity {
         this.is_auction = is_auction;
         this.created_at = created_at;
     }
+
+    public FarmEntity(FarmEntity farmEntity) {
+    }
 }
 
 

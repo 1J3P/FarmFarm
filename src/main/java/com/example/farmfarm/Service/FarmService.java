@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FarmService {
@@ -35,6 +37,23 @@ public class FarmService {
                 return farmRepository.findAll(Sort.by(Sort.Direction.DESC, "fId"));
             default:
                 return farmRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+        }
+    }
+
+    //농장 검색
+    public List<FarmEntity> searchFarms(String keyword) {
+        return farmRepository.findAllByNameContaining(keyword);
+    }
+
+    //농장 검색, 농장 정렬 같이
+    public List<FarmEntity> searchSortFarms(String keyword, String criteria) {
+        switch (criteria) {
+            case "old":
+                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.ASC, "fId"));
+            case "new":
+                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.DESC, "fId"));
+            default:
+                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.DESC, "rating"));
         }
     }
 

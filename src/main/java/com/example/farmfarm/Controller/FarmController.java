@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,9 +32,14 @@ public class FarmController {
 
     //농장 전체 조회, 농장 정렬
     @GetMapping("/list")
-    public ResponseEntity<Object> getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria) {
-        List allFarm = farmService.getFarmsOrderBy(criteria);
-        System.out.println("farm 정렬 기준: " + criteria);
+    public ResponseEntity<Object> getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria,
+                                                @RequestParam(required = false, defaultValue = "", value = "keyword") String keyword) {
+        List allFarm = new ArrayList<>();
+        if (keyword.equals("")) {
+            allFarm = farmService.getFarmsOrderBy(criteria);
+        } else {
+            allFarm = farmService.searchSortFarms(keyword, criteria);
+        }
         return ResponseEntity.ok().body(allFarm);
     }
 
@@ -74,6 +80,5 @@ public class FarmController {
         }
         return ResponseEntity.ok().body("delete OK");
     }
-
 }
 
