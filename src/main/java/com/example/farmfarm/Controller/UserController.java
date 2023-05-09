@@ -9,14 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService; //(1)만들어둔 UserRepository 를 @Autowired 해준다.
@@ -65,8 +63,18 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    @GetMapping("/test")
-    public @ResponseBody String getString(HttpServletRequest request) {
-        return "hi";
+    @DeleteMapping("/")
+    public ResponseEntity<Object> deleteUser(HttpServletRequest request) {
+        UserEntity user = userService.getUser(request);
+        UserEntity newUser = userService.deleteUser(user);
+        return ResponseEntity.ok().body(newUser);
     }
+
+    //@GetMapping("/nickname")
+//    @PostMapping("/nickname")
+//    public ResponseEntity<Object> setNickname(HttpServletRequest request, @RequestParam) {
+//        UserEntity user = userService.getUser(request);
+//        return null;
+//        //TODO : 여기 부분 채우기
+//    }
 }

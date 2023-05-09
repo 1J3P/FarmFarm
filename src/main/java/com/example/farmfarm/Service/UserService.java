@@ -165,5 +165,8 @@ public class UserService {
         UserEntity user = userRepository.findById(userCode);
         return user;
     }
-
+    public UserEntity deleteUser(UserEntity user) {
+        user.setStatus("delete");
+        return user;
+    }
 }
