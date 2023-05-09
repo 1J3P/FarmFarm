@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,17 +25,21 @@ public class FarmController {
     // 농장 개설
     @PostMapping("/")
     public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
-        System.out.println("되니?");
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         return ResponseEntity.ok().body(newFarm);
     }
 
-    // 농장 리스트 조회 (전체 조회)
-    @GetMapping("/")
-    public ResponseEntity<Object> getAllFarm(HttpServletRequest request) {
-        List allFarm = farmService.getAllFarm();
-        System.out.println("전체 farm 조회");
+    //농장 전체 조회, 농장 정렬
+    @GetMapping("/list")
+    public ResponseEntity<Object> getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria,
+                                                @RequestParam(required = false, defaultValue = "", value = "keyword") String keyword) {
+        List allFarm = new ArrayList<>();
+        if (keyword.equals("")) {
+            allFarm = farmService.getFarmsOrderBy(criteria);
+        } else {
+            allFarm = farmService.searchSortFarms(keyword, criteria);
+        }
         return ResponseEntity.ok().body(allFarm);
     }
 
@@ -44,6 +49,15 @@ public class FarmController {
         FarmEntity fa = farmService.getFarm(fId);
         System.out.println("특정 farm 조회");
         return ResponseEntity.ok().body(fa);
+    }
+
+    // 나의 농장 조회
+    @GetMapping("/my")
+    public String getMyFarm(HttpServletRequest request) {
+        FarmEntity myFarm = farmService.getMyFarm(request);
+        String fId = myFarm.getFId().toString();
+        System.out.println("나의 farm Id 조회: " + fId);
+        return "redirect:" + fId ;
     }
 
     // 농장 정보 수정
@@ -66,6 +80,5 @@ public class FarmController {
         }
         return ResponseEntity.ok().body("delete OK");
     }
-
 }
 
