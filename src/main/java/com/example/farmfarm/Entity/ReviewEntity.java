@@ -22,7 +22,9 @@ public class ReviewEntity {
     @Column(name="rp_id")
     private long rpId;
 
-    private double star;
+    private double productStar;
+
+    private double farmStar;
 
     private String comment;
 
