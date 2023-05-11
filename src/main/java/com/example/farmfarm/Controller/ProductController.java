@@ -5,6 +5,7 @@ import com.example.farmfarm.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     // 상품 등록 Form
-    @GetMapping("/new")
+    @GetMapping("/")
     public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
         HttpSession session = req.getSession(false);
         Long f_id = (long)session.getAttribute("f_id");
@@ -43,10 +44,20 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
 
-    // 상품 리스트 조회
-    @GetMapping("/")
-    public ResponseEntity<Object> getAllProduct(HttpServletRequest request){
-        List productList = productService.getAllProduct();
+    // 상품 리스트 조회, 검색, 정렬(신상품순-기본, 인기순, 낮은 가격순, 높은 가격순)
+    @GetMapping("/list")
+    public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+        List<ProductEntity> productList;
+
+        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
+            productList = productService.getSearchProduct(keyword);
+        }
+        else if (!StringUtils.isEmpty(sort)) { // 정렬
+            productList = productService.getSortedProduct(sort);
+        }
+        else {
+            productList = productService.getAllProduct();
+        }
         return ResponseEntity.ok().body(productList);
     }
 
@@ -66,18 +77,9 @@ public class ProductController {
         try {
             productService.deleteProduct(request, p_id);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("");
+            return ResponseEntity.badRequest().body("user not match");
         }
         return ResponseEntity.ok().body("delete OK");
     }
 
-    // 상품 검색
-    public String searchProduct() {
-        return null;
-    }
-
-    // 상품 리스트 정렬
-    public String sortProductList() {
-        return null;
-    }
 }

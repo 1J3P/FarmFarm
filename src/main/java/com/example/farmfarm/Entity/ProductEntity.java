@@ -25,6 +25,10 @@ public class ProductEntity {
 
     private String name;
 
+    private Double rating; // 상품 별점
+
+    private int sales; // 주문량
+
     private String detail;
 
     private String image;
@@ -44,7 +48,7 @@ public class ProductEntity {
 
     private int low_price;  // 경매 최저가
 
-    private Byte is_auction;  // 변경 불가 - 경매 여부
+    private Boolean is_auction;  // 변경 불가 - 경매 여부
 
     @ManyToOne
     @JoinColumn(name="farm")
