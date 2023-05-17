@@ -6,10 +6,13 @@ import com.example.farmfarm.Service.UserService;
 import com.example.farmfarm.config.jwt.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,7 +57,19 @@ public class UserController {
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
         System.out.println("our Token : " + jwtToken);
         //JWT 가 담긴 헤더와 200 ok 스테이터스 값, "success" 라는 바디값을 ResponseEntity 에 담아 프론트 측에 전달한다.
-        return ResponseEntity.ok().headers(headers).body(null);
+        System.out.println(ResponseEntity.ok().headers(headers).body(null));
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity request = new HttpEntity(headers);
+        ResponseEntity<UserEntity> response = restTemplate.exchange(
+                "http://localhost:9000/user/me",
+                HttpMethod.GET,
+                request,
+                UserEntity.class
+        );
+        if (response.getBody().getNickname() == null) {
+            return ResponseEntity.ok().headers(headers).body("redirect:/user/nickname");
+        }
+        return ResponseEntity.ok().headers(headers).body("index");
     }
 
     @GetMapping("/me")
@@ -70,11 +85,18 @@ public class UserController {
         return ResponseEntity.ok().body(newUser);
     }
 
-    //@GetMapping("/nickname")
-//    @PostMapping("/nickname")
-//    public ResponseEntity<Object> setNickname(HttpServletRequest request, @RequestParam) {
-//        UserEntity user = userService.getUser(request);
-//        return null;
-//        //TODO : 여기 부분 채우기
-//    }
+    @GetMapping("/nickname")
+    public String getNicknameForm(HttpServletRequest request) {
+        UserEntity user = userService.getUser(request);
+        if (user.getNickname() == null)
+            return "nicknameForm";
+        return "index";
+    }
+
+    @PostMapping("/nickname")
+    public ResponseEntity<Object> setNickname(HttpServletRequest request, String nickname) {
+        UserEntity newUser = userService.setNickname(userService.getUser(request), nickname);
+        return ResponseEntity.ok().body(newUser);
+
+    }
 }
