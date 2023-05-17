@@ -157,7 +157,7 @@
 					<div class="container px-15">
 						<a
 							href="/signin/"
-							class="button-large button button-fill"
+							class="button-large btn button-fill"
 							><img src="../images/kakao_login_medium_wide.png" alt=""
 						/></a>
 					</div>
