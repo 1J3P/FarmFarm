@@ -169,4 +169,11 @@ public class UserService {
         user.setStatus("delete");
         return user;
     }
+
+    public UserEntity setNickname(UserEntity user, String nickname) {
+        if (user.getNickname()== null && !nickname.equals("")) {
+            user.setNickname(nickname);
+        }
+        return userRepository.save(user);
+    }
 }
