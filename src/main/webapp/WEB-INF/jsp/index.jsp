@@ -86,20 +86,14 @@
 										<div class="slide-media">
 											<div class="logo-icon">
 												<img
-													src="../images/logo-icon.png"
+													src="../style/images/logo-icon.png"
 													alt=""
 												/>
 											</div>
 											<img
-												src="../images/logo-text-dark.png"
+												src="../style/images/logo-text-dark.png"
 												width="130"
 												class="logo-dark"
-												alt="logo"
-											/>
-											<img
-												src="../images/logo-text-light.png"
-												width="130"
-												class="logo-light"
 												alt="logo"
 											/>
 										</div>
@@ -114,40 +108,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="slide-info">
-										<div class="slide-media">
-
-										</div>
-										<div class="slide-content">
-											<h1 class="text-uppercase dz-title">
-												We provide best quality product
-												to your family
-											</h1>
-											<p>
-												Lorem ipsum dolor sit amet,
-												consectetur adipiscing elit, sed
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="slide-info">
-										<div class="slide-media">
-										</div>
-										<div class="slide-content">
-											<h1 class="text-uppercase dz-title">
-												Fast and responsibily
-												<br />delivery by our courir
-											</h1>
-											<p>
-												Lorem ipsum dolor sit amet,
-												consectetur adipiscing elit, sed
-												do eiusmod tempor
-											</p>
-										</div>
-									</div>
-								</div>
 							</div>
 							<div class="swiper-pagination"></div>
 						</div>
@@ -158,8 +118,8 @@
 						<a
 							href="/signin/"
 							class="button-large btn button-fill"
-							><img src="../images/kakao_login_medium_wide.png" alt=""
-						/></a>
+							><img src="../style/images/kakao_login_medium_wide.png" alt=""/>
+                        </a>
 					</div>
 				</div>
 			</div>
