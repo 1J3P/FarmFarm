@@ -8,6 +8,6 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         System.out.println("/ 요청");
-        return "productDetails_review";
+        return "productGroupPurchase";
     }
 }
