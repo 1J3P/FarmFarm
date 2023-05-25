@@ -270,9 +270,6 @@
             </h3>
             <h4 class="price">경매 시작가 2,000원</h4>
           </div>
-
-
-
         </div>
       </div>
     </div>

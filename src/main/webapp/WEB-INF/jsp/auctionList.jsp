@@ -80,55 +80,42 @@
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">거래 방식</div>
+            <div class="title">경매 전체보기</div>
             <div class="right"></div>
         </div>
     </div>
-    <div class="fixed-content py-30">
+    <div class="page-content content-area pt-30 bottom-sp80">
         <div class="container">
-            <div class="tabs" style="margin-top: 50px">
-                <div class="tab tab-active form-elements tabs">
-                    <form class="tab tab-active" id="tabA1">
-                        <div class="list mb-0">
-                            <ul class="row">
-                                <li class="item-content item-input col-100 item-input-with-value">
-                                    <div class="item-inner">
-                                        <h4>이름</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="이름을 입력하세요" id="username" class="form-control"/>
-                                        </div>
-                                        <h4>이메일</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="email" placeholder="이메일을 입력하세요" id="email" class="form-control"/>
-                                        </div>
-                                        <h4>전화번호</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="전화번호를 입력하세요" id="phone" class="form-control"/>
-                                        </div>
-                                        <h4>거래 방식</h4>
-                                        <div class="item-input-wrap">
-                                            <label><input type="checkbox" id="direct" name="direct" value="direct" checked />직거래</label>
-                                            <label><input type="checkbox" id="shipping" name="shipping" value="shipping " />배송</label>
-                                        </div>
-                                        <h4>주소</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="주소를 입력하세요" id="address" class="form-control"/>
-                                        </div>
-                                        <h4>우편번호</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="우편번호를 입력하세요" id="zip_code" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="list" style="margin-top: 50px">
-                            <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">결제하기</a></li>
-                            </ul>
-                        </div>
-                    </form>
+            <div class="col-50 medium-25" style="margin-top: 50px">
+                <h4>진행 중인 경매 2개</h4>
+                <div class="item-box">
+                    <div class="item-media">
+                        <img src="../style/images/logo_icon.png" alt="" />
+                    </div>
+                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="item-content">
+                        <h5>팜팜 농장</h5>
+                        <h3 class="title">
+                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
+                        </h3>
+                        <h4 class="price">경매 시작가 2,000원</h4>
+                    </div>
                 </div>
+                <div class="item-box">
+                    <div class="item-media">
+                        <img src="img/categories/logo_icon.jpg" alt="" />
+                    </div>
+                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="item-content">
+                        <h5>팜팜 농장</h5>
+                        <h3 class="title">
+                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
+                        </h3>
+                        <h4 class="price">경매 시작가 2,000원</h4>
+                    </div>
+                </div>
+                <!-- 진행 중인 경매가 없을시 -->
+                <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
             </div>
         </div>
     </div>
