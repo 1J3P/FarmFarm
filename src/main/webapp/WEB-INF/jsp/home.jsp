@@ -78,7 +78,7 @@
     <div class="container">
       <div class="notification-bar">
         <div class="info">
-          <h1 class="title">Farm Farm</h1>
+          <h1 class="title"><img src="../images/farmfarm_logo2.png"></h1>
         </div>
         <div class="media">
           <a href="/notifications-app/" class="notibell">
@@ -88,64 +88,30 @@
         </div>
       </div>
 
-      <div
-              data-space-between="10"
-              data-slides-per-view="auto"
-              data-centered-slides="false"
-              class="swiper swiper-init mb-30 post-area"
-      >
+      <div class="banner">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="post-card">
               <div class="post-media">
-                <img src="img/post/pic1.jpg" alt="" />
-              </div>
-              <div class="post-info">
-                <h3 class="title">Recomended Recipe Today</h3>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post-card">
-              <div class="post-media">
-                <img src="img/post/pic2.jpg" alt="" />
-              </div>
-              <div class="post-info">
-                <h3 class="title">Fresh Fruits Delivery</h3>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post-card">
-              <div class="post-media">
-                <img src="img/post/pic1.jpg" alt="" />
-              </div>
-              <div class="post-info">
-                <h3 class="title">Recomended Recipe Today</h3>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post-card">
-              <div class="post-media">
-                <img src="img/post/pic2.jpg" alt="" />
-              </div>
-              <div class="post-info">
-                <h3 class="title">Fresh Fruits Delivery</h3>
+                <img src="../images/banner_image.png" alt="" />
+                <div class="banner-text">
+                  <h2>신선하게 공수한<br>방울 토마토 500g</h2>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="title-bar mb-15">
         <h2 class="dz-title my-5">이 상품 어때요?</h2>
         <a href="/deals/"><i class="flaticon-right"></i></a>
       </div>
-      <div class="row">
+      <div class="row banner">
         <div class="col-50 medium-25">
           <div class="item-box">
             <div class="item-media">
-              <img src="img/categories/pic1.jpg" alt="" />
+              <img src="../images/categories/pic1.jpg" alt="" />
             </div>
             <label class="bookmark-btn">
               <input type="checkbox" checked />
@@ -162,7 +128,7 @@
         <div class="col-50 medium-25">
           <div class="item-box">
             <div class="item-media">
-              <img src="img/categories/pic2.jpg" alt="" />
+              <img src="../images/categories/pic2.jpg" alt="" />
             </div>
             <label class="bookmark-btn">
               <input type="checkbox" />
@@ -177,9 +143,9 @@
           </div>
         </div>
         <div class="col-50 medium-25">
-          <div class="item-box">
+          <div class="item-box" style="margin-bottom:0;">
             <div class="item-media">
-              <img src="img/categories/pic3.jpg" alt="" />
+              <img src="../images/categories/pic3.jpg" alt="" />
             </div>
             <label class="bookmark-btn">
               <input type="checkbox" />
@@ -194,9 +160,9 @@
           </div>
         </div>
         <div class="col-50 medium-25">
-          <div class="item-box">
+          <div class="item-box" style="margin-bottom:0;">
             <div class="item-media">
-              <img src="img/categories/pic4.jpg" alt="" />
+              <img src="../images/categories/pic4.jpg" alt="" />
             </div>
             <label class="bookmark-btn">
               <input type="checkbox" />
@@ -243,7 +209,7 @@
           </div>
         </a>
       </div>
-      <div class="col-100">
+      <div class="col-100 banner">
         <a href="/deals/" class="item-category">
           <div class="item-info">
             <h3 class="title">5. 토마토마토 농장</h3>
@@ -257,7 +223,7 @@
       <div class="col-50 medium-25">
         <div class="item-box">
           <div class="item-media">
-            <img src="img/categories/pic2.jpg" alt="" />
+            <img src="../images/categories/pic2.jpg" alt="" />
           </div>
           <label class="bookmark-btn">
             <input type="checkbox" />
