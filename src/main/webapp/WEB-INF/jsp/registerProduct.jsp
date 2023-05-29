@@ -145,6 +145,7 @@
             </ul>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/tabbar.jsp" %>
 </div>
 </body>
 </html>

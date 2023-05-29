@@ -1316,6 +1316,37 @@ h6 {
   padding-top: 15px;
   width:100%;
 }
+
+.enquriy_list{
+  border-bottom: 0.5px solid #f0f0f0;
+  position:relative;
+}
+.enquriy_list .li_pro_name{
+  color:#0A3C48;
+  font-weight:700;
+}
+.enquriy_list .li_en{
+  margin-top:-5px;
+}
+.enquriy_list h4{
+  background: #f0f0f0;
+  padding:17px;
+  border-radius:18px;
+}
+.enquriy_list .fa-pencil{
+  position: absolute;
+  right: 40px;
+  top: 0;
+  font-size: 23px;
+  cursor: pointer;
+}
+.enquriy_list .fa-trash-can{
+  position: absolute;
+  right: 0px;
+  top: 0;
+  font-size: 23px;
+  cursor: pointer;
+}
 .logo-light {
   display: none; }
 
