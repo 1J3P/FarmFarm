@@ -86,16 +86,10 @@
 										<div class="slide-media">
 											<div class="logo-icon">
 												<img
-													src="../style/images/logo-icon.png"
+													src="../images/farmfarm_logo.png"
 													alt=""
 												/>
 											</div>
-											<img
-												src="../style/images/logo-text-dark.png"
-												width="130"
-												class="logo-dark"
-												alt="logo"
-											/>
 										</div>
 										<div class="slide-content color-white">
 											<h1 class="text-uppercase dz-title">
@@ -118,7 +112,7 @@
 						<a
 							href="/signin/"
 							class="button-large btn button-fill"
-							><img src="../style/images/kakao_login_medium_wide.png" alt=""/>
+							><img src="../images/kakao_login_medium_wide.png" alt=""/>
                         </a>
 					</div>
 				</div>

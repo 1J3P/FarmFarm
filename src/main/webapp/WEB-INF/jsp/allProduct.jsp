@@ -81,7 +81,7 @@
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">Categories</div>
+            <div class="title">상품 전체 보기</div>
             <div class="right"></div>
         </div>
     </div>
