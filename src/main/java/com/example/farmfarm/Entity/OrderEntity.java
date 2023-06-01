@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="order")
@@ -17,28 +19,35 @@ public class OrderEntity {
     @GeneratedValue
     @Column(name="o_id")
     private long oId;
-    private String status;
-    private boolean is_delivery;
-    private String delivery_address;
-    private String delivery_detail;
-    private String delivery_name;
-    private String delivery_phone;
-    private Timestamp created_at;
-    private String delivery_memo;
-    private int quantity;
-    private int type;
-    private int auction_ap_id;
-    private int group_g_id;
 
-    @OneToOne
-    @JoinColumn(name="product")
-    private ProductEntity product;
+    private long total_price;
+
+    private int total_quantity;
+
+    private String status;
+
+    private boolean is_delivery;
+
+    private String delivery_address;
+
+    private String delivery_address_detail;
+
+    private String delivery_name;
+
+    private String delivery_phone;
+
+    private String delivery_memo;
+
+    private Timestamp created_at;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetailEntity> orders = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="user")
+    @JoinColumn(name="u_id")
     private UserEntity user;
 
     @OneToOne
-    @JoinColumn(name="payment")
+    @JoinColumn(name="pa_id")
     private PaymentEntity payment;
 }
