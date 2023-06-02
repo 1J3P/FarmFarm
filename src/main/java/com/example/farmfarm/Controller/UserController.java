@@ -35,7 +35,7 @@ public class UserController {
     private String KakaoApiUrl;
 
     @ResponseBody
-    @GetMapping(value = "/login/getKakaoAuthUrl")
+    @GetMapping(value = "login/getKakaoAuthUrl")
     public String getKakaoAuthUrl(HttpServletRequest request){
         String reqUrl = KakaoAuthUrl + "/oauth/authorize?client_id=" + KakaoApiKey + "&redirect_uri="+ RedirectURI + "&response_type=code";
         System.out.println(reqUrl);
