@@ -31,8 +31,9 @@ public class OrderDetailService {
         } else {
             order.setType(0);
         }
-        orderDetailRepository.save(order);
-        return order;
+        order.setStatus(0);
+        order.setProduct(product);
+        return orderDetailRepository.save(order);
     }
 
     // read
