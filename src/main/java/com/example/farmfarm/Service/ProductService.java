@@ -20,8 +20,7 @@ public class ProductService {
 
     // 상품 등록
     public ProductEntity saveProduct(ProductEntity product){
-        productRepository.save(product);
-        return product;
+        return productRepository.save(product);
     }
 
     // 상품 상세 조회
@@ -50,8 +49,7 @@ public class ProductService {
             newProduct.setPrice(product.getPrice());
             newProduct.setDirect_location(product.getDirect_location());
             newProduct.setLow_price(product.getLow_price());
-            productRepository.save(newProduct);
-            return newProduct;
+            return productRepository.save(newProduct);
         }
         else {
             return null;

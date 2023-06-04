@@ -25,9 +25,13 @@ public class OrderDetailEntity {
     //0 일반, 1 공동, 2 경매
     private int type;
 
-    private int auction_ap_id;
+    @ManyToOne
+    @JoinColumn(name="au_id")
+    private AuctionEntity auction;
 
-    private int group_g_id;
+    @ManyToOne
+    @JoinColumn(name="g_id")
+    private GroupEntity group;
 
     @OneToOne
     @JoinColumn(name="p_id")
