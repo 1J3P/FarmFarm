@@ -1,4 +1,122 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
+import com.example.farmfarm.Entity.kakaoPay.KakaoReadyResponse;
+import com.example.farmfarm.Entity.kakaoPay.RefundPaymentEntity;
+import com.example.farmfarm.Repository.ApprovePaymentRepository;
+import com.example.farmfarm.Repository.RefundPaymentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+@Service
 public class PaymentService {
+    @Autowired
+    ApprovePaymentRepository approvePaymentRepository;
+    @Autowired
+    RefundPaymentRepository refundPaymentRepository;
+    private String cid = "TC0ONETIME";
+
+    @Value("${kakaoAdminKey}")
+    private String adminKey;
+
+    private KakaoReadyResponse response;
+
+    public KakaoReadyResponse kakaoPayReady() {
+
+        // 카카오페이 요청 양식
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", cid);
+        parameters.add("partner_order_id", "1");
+        parameters.add("partner_user_id", "2");
+        parameters.add("item_name", "초코파이");
+        parameters.add("quantity", "2");
+        parameters.add("total_amount", "2200");
+        parameters.add("vat_amount", "200");
+        parameters.add("tax_free_amount", "0");
+        parameters.add("approval_url", "http://localhost:9000/pay/success"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://localhost:9000/pay/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://localhost:9000/pay/fail"); // 실패 시 redirect url
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+        response = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/ready",
+                requestEntity,
+                KakaoReadyResponse.class);
+        return response;
+    }
+
+    /**
+     * 카카오 요구 헤더값
+     */
+    private HttpHeaders getHeaders() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        String auth = "KakaoAK " + adminKey;
+
+        httpHeaders.set("Authorization", auth);
+        httpHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        return httpHeaders;
+    }
+
+    public ApprovePaymentEntity approveResponse(String pgToken) {
+
+        // 카카오 요청
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", cid);
+        parameters.add("tid", response.getTid());
+        parameters.add("partner_order_id", "1");
+        parameters.add("partner_user_id", "2");
+        parameters.add("pg_token", pgToken);
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        ApprovePaymentEntity approveResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/approve",
+                requestEntity,
+                ApprovePaymentEntity.class);
+
+        return approvePaymentRepository.save(approveResponse);
+    }
+
+    public RefundPaymentEntity kakaoRefund() {
+
+        // 카카오페이 요청
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", cid);
+        parameters.add("tid", "T47c73b60dc40ec94460");
+        parameters.add("cancel_amount", "2200");
+        parameters.add("cancel_tax_free_amount", "0");
+        parameters.add("cancel_vat_amount", "200");
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        RefundPaymentEntity refundResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/cancel",
+                requestEntity,
+                RefundPaymentEntity.class);
+
+        return refundPaymentRepository.save(refundResponse);
+    }
+
 }

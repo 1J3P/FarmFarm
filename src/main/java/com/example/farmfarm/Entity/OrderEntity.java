@@ -1,5 +1,6 @@
 package com.example.farmfarm.Entity;
 
+import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,5 +50,5 @@ public class OrderEntity {
 
     @OneToOne
     @JoinColumn(name="pa_id")
-    private PaymentEntity payment;
+    private ApprovePaymentEntity payment;
 }
