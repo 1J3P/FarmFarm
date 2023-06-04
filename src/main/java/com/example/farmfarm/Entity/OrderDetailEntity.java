@@ -22,9 +22,6 @@ public class OrderDetailEntity {
 
     private long price;
 
-    // 0 장바구니에 담을 때, 1 주문하기 누를 때
-    private int status;
-
     //0 일반, 1 공동, 2 경매
     private int type;
 
