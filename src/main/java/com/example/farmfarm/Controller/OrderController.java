@@ -23,7 +23,7 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
-    //TODO:일반 구매<리스트>
+    //TODO:일반 구매<리스트>-장바구니....!!!!!!
 
     //TODO:일반 구매<단일>
 
