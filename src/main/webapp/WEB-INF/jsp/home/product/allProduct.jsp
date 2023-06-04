@@ -109,7 +109,7 @@
                 <div class="col-50 medium-25">
                     <div class="item-box">
                         <div class="item-media">
-                            <img src="img/categories/pic1.jpg" alt="" />
+                            <img src="../images/categories/pic1.jpg" alt="" />
                         </div>
                         <label class="bookmark-btn">
                             <input type="checkbox" checked />
@@ -126,7 +126,7 @@
                 <div class="col-50 medium-25">
                     <div class="item-box">
                         <div class="item-media">
-                            <img src="img/categories/pic2.jpg" alt="" />
+                            <img src="../images/categories/pic2.jpg" alt="" />
                         </div>
                         <label class="bookmark-btn">
                             <input type="checkbox" />
@@ -143,7 +143,7 @@
                 <div class="col-50 medium-25">
                     <div class="item-box">
                         <div class="item-media">
-                            <img src="img/categories/pic3.jpg" alt="" />
+                            <img src="../images/categories/pic3.jpg" alt="" />
                         </div>
                         <label class="bookmark-btn">
                             <input type="checkbox" />
@@ -160,7 +160,7 @@
                 <div class="col-50 medium-25">
                     <div class="item-box">
                         <div class="item-media">
-                            <img src="img/categories/pic4.jpg" alt="" />
+                            <img src="../images/categories/pic4.jpg" alt="" />
                         </div>
                         <label class="bookmark-btn">
                             <input type="checkbox" />
@@ -177,6 +177,7 @@
             </div>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

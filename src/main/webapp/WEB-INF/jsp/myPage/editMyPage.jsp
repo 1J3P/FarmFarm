@@ -81,37 +81,26 @@
           <i class="icon flaticon-left"></i>
         </a>
       </div>
-      <div class="title"><b>상품 후기 작성</b></div>
+      <div class="title"><b>마이페이지</b></div>
       <div class="right">
       </div>
     </div>
   </div>
-  <div class="page-content pt-80 bottom-sp90">
-    <div class="container">
-      <div class="write-reviews-box">
+  <div class="page-content pt-80 bottom-sp90" style="text-align: center;">
+    <div class="container" style="text-align: center;">
+      <div class="write-reviews-box" style="text-align: center;">
+        <img src="../images/avatar/1.jpg" class="user-media" alt="" style="border-radius: 50%;"/>
         <div class="reviews-head">
-          <h3 class="title"><b>상품의 후기를 작성해주세요</b></h3>
-          <p>받아보신 상품은 어떠셨나요?<br>
-            다른 고객님들을 위해 솔직한 의견 남겨주세요:)</p>
+          <p></p>
+          <h3><span class="title"><b>김팜팜</b></span><b>님</b></h3>
         </div>
-        <div class="rating-box">
-          <h2 class="rating-text">3.0</h2>
-          <ul class="rating-list">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-          </ul>
-        </div>
-        <form class="form-elements">
-          <div class="list">
+        <form class="form-elements" style="text-align: center;">
+          <div class="list" style="text-align: center;">
             <ul class="row">
               <li class="item-content item-input col-100 item-input-with-value">
                 <div class="item-inner">
-                  <label class="form-label"><b>상품에 대한 의견을 남겨주세요</b></label>
                   <div class="item-input-wrap">
-                    <textarea placeholder="이곳에 의견을 남겨주세요" class="form-control"/></textarea>
+                    <input type="text" placeholder="닉네임을 입력해주세요" value="" class="form-control"/>
                   </div>
                 </div>
               </li>
@@ -119,30 +108,31 @@
           </div>
         </form>
       </div>
-    </div>
-    <div class="container px-15">
-      <a href="/home/" class="button-large button button-fill">리뷰 등록하기</a>
-    </div>
-  </div>
-  <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
-    <div class="toolbar-inner">
-      <a href="/home/" class="tab-link active">
-        <i class="flaticon-home"></i>
-      </a>
-      <a href="/categories/" class="tab-link">
-        <i class="fa-solid fa-bars"></i>
-      </a>
-      <a href="/search/" class="tab-link">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </a>
-      <a href="/shopping-cart/" class="tab-link cart-in">
-        <i class="flaticon-shopping-cart"></i>
-      </a>
-      <a href="/user/" class="tab-link">
-        <img src="/style/images/avatar/1.jpg" class="user-media" alt="" />
-      </a>
+      <div class="container px-15">
+        <a href="/home/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
+        <a href="/home/" class="button-large button button-fill" style="margin-top: 10px;">프로필 수정하기</a>
+      </div>
     </div>
   </div>
-</div>
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
+      <div class="toolbar-inner">
+        <a href="/home/" class="tab-link active">
+          <i class="flaticon-home"></i>
+        </a>
+        <a href="/categories/" class="tab-link">
+          <i class="fa-solid fa-bars"></i>
+        </a>
+        <a href="/search/" class="tab-link">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+        <a href="/shopping-cart/" class="tab-link cart-in">
+          <i class="flaticon-shopping-cart"></i>
+        </a>
+        <a href="/user/" class="tab-link">
+          <img src="../images/avatar/1.jpg" class="user-media" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
