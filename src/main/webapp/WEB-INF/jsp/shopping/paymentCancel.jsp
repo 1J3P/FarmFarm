@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hyunsu
+  Date: 2023-06-04
+  Time: 오후 9:21
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,7 +12,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Title</title>
+  <title>결제 취소</title>
   <meta charset="UTF-8"/>
   <meta
           name="viewport"
@@ -73,6 +80,7 @@
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="page page-homepage light" data-name="homepage">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
@@ -81,40 +89,19 @@
           <i class="flaticon-left"></i>
         </a>
       </div>
-      <div class="title">상품 문의 내역</div>
+      <div class="title">결제</div>
       <div class="right"></div>
     </div>
   </div>
   <div class="page-content content-area pt-30 bottom-sp80">
-    <div class="container allProduct">
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
-      </div>
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
-      </div>
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
+    <div class="container allProduct product">
+      <div class="check">
+        <div>결제가 취소되었습니다.</div>
+        <i class="fa-solid fa-circle-xmark"></i>
       </div>
     </div>
   </div>
-  <%@ include file="/WEB-INF/jsp/tabbar.jsp" %>
+  <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
-
 </body>
 </html>

@@ -149,7 +149,7 @@
             <td class= "myProfile" style="vertical-align: middle;">
               <div class="myPage_container">
                 <div class="item-media">
-                  <img src="../style/images/avatar/2.jpg" width="50">
+                  <img src="../images/avatar/2.jpg" width="50">
                 </div>
                 <div class="username">김팜팜님</div>
               </div>
@@ -164,7 +164,7 @@
             <td class= "myFarm" style="vertical-align: middle;">
               <div class="myPage_container">
               <div class="item-media">
-                <img src="../style/images/avatar/2.jpg" width="50">
+                <img src="../images/avatar/2.jpg" width="50">
               </div>
               <div class="farmName">팜팜농장</div>
               </div>

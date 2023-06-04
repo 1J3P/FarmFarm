@@ -1,3 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hyunsu
+  Date: 2023-06-04
+  Time: 오후 9:50
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: Hyunsu
+  Date: 2023-06-03
+  Time: 오후 10:50
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,7 +19,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Title</title>
+  <title>주문 성공</title>
   <meta charset="UTF-8"/>
   <meta
           name="viewport"
@@ -73,66 +87,29 @@
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="page light">
+
+<div class="page page-homepage light" data-name="homepage">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
         <a href="#" class="link back">
-          <i class="icon flaticon-left"></i>
+          <i class="flaticon-left"></i>
         </a>
       </div>
-      <div class="title"><b>마이페이지</b></div>
-      <div class="right">
+      <div class="title">주문</div>
+      <div class="right"></div>
+    </div>
+  </div>
+  <div class="page-content content-area pt-30 bottom-sp80">
+    <div class="container allProduct product">
+      <div class="check">
+        <div>주문이 완료되었습니다.</div>
+        <i class="fa-solid fa-circle-check"></i>
       </div>
     </div>
   </div>
-  <div class="page-content pt-80 bottom-sp90" style="text-align: center;">
-    <div class="container" style="text-align: center;">
-      <div class="write-reviews-box" style="text-align: center;">
-        <img src="/style/images/avatar/1.jpg" class="user-media" alt="" style="border-radius: 50%;"/>
-        <div class="reviews-head">
-          <p></p>
-          <h3><span class="title"><b>김팜팜</b></span><b>님</b></h3>
-        </div>
-        <form class="form-elements" style="text-align: center;">
-          <div class="list" style="text-align: center;">
-            <ul class="row">
-              <li class="item-content item-input col-100 item-input-with-value">
-                <div class="item-inner">
-                  <div class="item-input-wrap">
-                    <input type="text" placeholder="닉네임을 입력해주세요" value="" class="form-control"/>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </form>
-      </div>
-      <div class="container px-15">
-        <a href="/home/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
-        <a href="/home/" class="button-large button button-fill" style="margin-top: 10px;">프로필 수정하기</a>
-      </div>
-    </div>
-  </div>
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
-      <div class="toolbar-inner">
-        <a href="/home/" class="tab-link active">
-          <i class="flaticon-home"></i>
-        </a>
-        <a href="/categories/" class="tab-link">
-          <i class="fa-solid fa-bars"></i>
-        </a>
-        <a href="/search/" class="tab-link">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </a>
-        <a href="/shopping-cart/" class="tab-link cart-in">
-          <i class="flaticon-shopping-cart"></i>
-        </a>
-        <a href="/user/" class="tab-link">
-          <img src="/style/images/avatar/1.jpg" class="user-media" alt="" />
-        </a>
-      </div>
-    </div>
-  </div>
+  <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
+</div>
 </body>
 </html>
+

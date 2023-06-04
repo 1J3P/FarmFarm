@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hyunsu
+  Date: 2023-06-03
+  Time: 오후 10:50
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,7 +12,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>결제 성공</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -70,8 +77,10 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="page page-homepage light" data-name="homepage">
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
@@ -80,58 +89,19 @@
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">거래 방식</div>
+            <div class="title">결제</div>
             <div class="right"></div>
         </div>
     </div>
-    <div class="fixed-content py-30">
-        <div class="container">
-            <div class="tabs" style="margin-top: 50px">
-                <div class="tab tab-active form-elements tabs">
-                    <form class="tab tab-active" id="tabA1">
-                        <div class="list mb-0">
-                            <ul class="row">
-                                <li class="item-content item-input col-100 item-input-with-value">
-                                    <div class="item-inner">
-                                        <h4>이름</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="이름을 입력하세요" id="username" class="form-control"/>
-                                        </div>
-                                        <h4>이메일</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="email" placeholder="이메일을 입력하세요" id="email" class="form-control"/>
-                                        </div>
-                                        <h4>전화번호</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="전화번호를 입력하세요" id="phone" class="form-control"/>
-                                        </div>
-                                        <h4>거래 방식</h4>
-                                        <div class="item-input-wrap">
-                                            <label><input type="checkbox" id="direct" name="direct" value="direct" checked />직거래</label>
-                                            <label><input type="checkbox" id="shipping" name="shipping" value="shipping " />배송</label>
-                                        </div>
-                                        <h4>주소</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="주소를 입력하세요" id="address" class="form-control"/>
-                                        </div>
-                                        <h4>우편번호</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" placeholder="우편번호를 입력하세요" id="zip_code" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="list" style="margin-top: 50px">
-                            <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">결제하기</a></li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
+    <div class="page-content content-area pt-30 bottom-sp80">
+        <div class="container allProduct product">
+            <div class="check">
+                <div>결제를 성공했습니다.</div>
+                <i class="fa-solid fa-circle-check"></i>
             </div>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

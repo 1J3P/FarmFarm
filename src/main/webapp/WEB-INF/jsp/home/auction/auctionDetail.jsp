@@ -91,13 +91,13 @@
         <div data-pagination='{"el": ".swiper-pagination"}' class="swiper swiper-slider-wrapper swiper-init demo-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide1.jpg" alt="">
+                    <img src="../images/slider/slide1.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide2.jpg" alt="">
+                    <img src="../images/slider/slide2.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide1.jpg" alt="">
+                    <img src="../images/slider/slide1.jpg" alt="">
                 </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -146,6 +146,7 @@
             </div>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

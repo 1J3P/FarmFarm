@@ -72,7 +72,6 @@
     />
 </head>
 <body>
-
 <div class="page page-homepage light" data-name="homepage">
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
@@ -81,71 +80,46 @@
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">상품 등록</div>
+            <div class="title">경매 전체보기</div>
             <div class="right"></div>
         </div>
     </div>
     <div class="page-content content-area pt-30 bottom-sp80">
-        <div class="container allProduct product">
-            <div class="product_type">
-                <h3 style="margin-bottom:-5px">상품 유형</h3>
-                <p style="font-size:12px;color:#999999">상품 유형을 선택해주세요.</p>
-                <div>
-                    <input type="radio" name="pro_type" value="일반 상품"><span>일반 상품</span>
-                    <input type="radio" name="pro_type" value="공동 구매"><span>공동 구매</span>
-                    <input type="radio" name="pro_type" value="경매 상품"><span>경매 상품</span>
+        <div class="container">
+            <div class="col-50 medium-25" style="margin-top: 50px">
+                <h4>진행 중인 경매 2개</h4>
+                <div class="item-box">
+                    <div class="item-media">
+                        <img src="../images/card/card1.png" alt="" />
+                    </div>
+                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="item-content">
+                        <h5>팜팜 농장</h5>
+                        <h3 class="title">
+                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
+                        </h3>
+                        <h4 class="price">경매 시작가 2,000원</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="product_name">
-                <h3>상품 이름</h3>
-                <input type="text" placeholder="상품 이름을 입력해주세요.">
-            </div>
-            <div class="product_category">
-                <h3>상품 카테고리</h3>
-                <select>
-                    <option value="" disabled selected style="display:none">카테고리를 선택해주세요.</option>
-                    <option value="fruit">과일</option>
-                    <option value="vegetable">채소</option>
-                </select>
-            </div>
-            <div class="product_quantity">
-                <h3>상품 수량</h3>
-                <input type="text" placeholder="상품 수량을 입력해주세요.">
-            </div>
-            <div class="product_details">
-                <h3 style="margin-bottom:-5px">상품 설명</h3>
-                <p style="font-size:12px;color:#999999">상품과 관련된 내용들을 자유롭게 작성해주세요. </p>
-                <textarea rows="10" cols="100%" placeholder="상품에 대한 자세한 설명을 작성해주세요."></textarea>
-            </div>
-            <div class="product_price">
-                <h3 style="margin-bottom:-5px">상품 가격</h3>
-                <p style="font-size:12px;color:#999999">판매하시는 상품의 가격을 입력해주세요.</p>
-                <input type="text" placeholder="상품 가격을 입력해주세요.">
-            </div>
-            <div class="product_trade">
-                <h3 style="margin-bottom:-5px">거래 방법</h3>
-                <p style="font-size:12px;color:#999999">상품을 거래할 방법을 선택해주세요.</p>
-                <div>
-                    <input type="radio" name="pro_type" value="직거래"><span>직거래</span>
-                    <input type="radio" name="pro_type" value="배송"><span>배송</span>
+                <div class="item-box">
+                    <div class="item-media">
+                        <img src="../images/card/card2.png" alt="" />
+                    </div>
+                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="item-content">
+                        <h5>팜팜 농장</h5>
+                        <h3 class="title">
+                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
+                        </h3>
+                        <h4 class="price">경매 시작가 2,000원</h4>
+                    </div>
                 </div>
+                <!-- 진행 중인 경매가 없을시 -->
+                <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
             </div>
-            <div class="product_pic">
-                <h3>사진을 올려주세요 <span>(선택)</span></h3>
-                <div>
-                    <img src="../images/product_img_add.png" style="width:150px;cursor:pointer">
-                </div>
-                <p style="font-size:12px;color:#999999">상품과 무관한 사진을 첨부하면 노출 제한 처리될 수 있습니다.<br>
-                    사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.</p>
-            </div>
-        </div>
-        <div class="list">
-            <ul>
-                <li class="mb-15"><a href="/home/" class="button-large button button-fill">상품 등록</a></li>
-            </ul>
         </div>
     </div>
-    <%@ include file="/WEB-INF/jsp/tabbar.jsp" %>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

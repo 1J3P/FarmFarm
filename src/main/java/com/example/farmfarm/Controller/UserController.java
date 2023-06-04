@@ -90,7 +90,7 @@ public class UserController {
         UserEntity user = userService.getUser(request);
         if (user.getNickname() == null)
             return "nicknameForm";
-        return "index";
+        return "common/index";
     }
 
     @PostMapping("/nickname")

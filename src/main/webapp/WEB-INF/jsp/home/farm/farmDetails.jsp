@@ -152,13 +152,13 @@
              class="swiper swiper-slider-wrapper swiper-init demo-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide1.jpg" alt="">
+                    <img src="../images/slider/slide1.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide2.jpg" alt="">
+                    <img src="../images/slider/slide2.jpg" alt="">
                 </div>
                 <div class="swiper-slide">
-                    <img src="../style/images/slider/slide1.jpg" alt="">
+                    <img src="../images/slider/slide1.jpg" alt="">
                 </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -202,7 +202,7 @@
                                     <div class="col-50 medium-25">
                                         <div class="item-box">
                                             <div class="item-media">
-                                                <img src="img/categories/pic1.jpg" alt=""/>
+                                                <img src="../images/categories/pic1.jpg" alt=""/>
                                             </div>
                                             <label class="bookmark-btn">
                                                 <input type="checkbox" checked/>
@@ -218,7 +218,7 @@
                                     <div class="col-50 medium-25">
                                         <div class="item-box">
                                             <div class="item-media">
-                                                <img src="img/categories/pic2.jpg" alt=""/>
+                                                <img src="../images/categories/pic2.jpg" alt=""/>
                                             </div>
                                             <label class="bookmark-btn">
                                                 <input type="checkbox"/>
@@ -234,7 +234,7 @@
                                     <div class="col-50 medium-25">
                                         <div class="item-box">
                                             <div class="item-media">
-                                                <img src="img/categories/pic3.jpg" alt=""/>
+                                                <img src="../images/categories/pic3.jpg" alt=""/>
                                             </div>
                                             <label class="bookmark-btn">
                                                 <input type="checkbox"/>
@@ -250,7 +250,7 @@
                                     <div class="col-50 medium-25">
                                         <div class="item-box">
                                             <div class="item-media">
-                                                <img src="img/categories/pic4.jpg" alt=""/>
+                                                <img src="../images/categories/pic4.jpg" alt=""/>
                                             </div>
                                             <label class="bookmark-btn">
                                                 <input type="checkbox"/>
@@ -271,7 +271,7 @@
                                 <h4>진행 중인 경매 2개</h4>
                                 <div class="item-box">
                                     <div class="item-media">
-                                        <img src="../style/images/logo_icon.png" alt=""/>
+                                        <img src="../images/card/card1.png" alt=""/>
                                     </div>
                                     <div class="auction_time"><h3>00 : 27 : 21</h3></div>
                                     <div class="item-content">
@@ -284,7 +284,7 @@
                                 </div>
                                 <div class="item-box">
                                     <div class="item-media">
-                                        <img src="img/categories/logo_icon.jpg" alt=""/>
+                                        <img src="../images/card/card2.png" alt=""/>
                                     </div>
                                     <div class="auction_time">
                                         <h3>00 : 27 : 21</h3>
@@ -306,6 +306,7 @@
             </div>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

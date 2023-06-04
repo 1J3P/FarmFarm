@@ -71,6 +71,43 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script>
+    //탭 로직
+    document.addEventListener('DOMContentLoaded', function () {
+      var tabLinks = document.querySelectorAll('.tab-link');
+      var tabs = document.querySelectorAll('.tab');
+
+      // 초기에 첫 번째 탭만 보이도록 설정
+      tabs[0].style.display = 'block';
+
+      // 탭 클릭 이벤트 처리
+      tabLinks.forEach(function (link, index) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // 모든 탭 숨기기
+          tabs.forEach(function (tab) {
+            tab.style.display = 'none';
+          });
+
+          // 클릭한 탭의 내용만 보이도록 설정
+          var targetTabId = this.getAttribute('href');
+          document.querySelector(targetTabId).style.display = 'block';
+
+          // 선택된 탭 스타일 적용
+          tabLinks.forEach(function (link) {
+            link.classList.remove('tab-link-active');
+          });
+          this.classList.add('tab-link-active');
+        });
+      });
+    });
+  </script>
+  <style>
+    #tab-2, #tab-3 {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <div class="page light">
@@ -91,13 +128,13 @@
     <div data-pagination='{"el": ".swiper-pagination"}' class="swiper swiper-slider-wrapper swiper-init demo-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="../style/images/slider/slide1.jpg" alt="">
+          <img src="../images/slider/slide1.jpg" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="../style/images/slider/slide2.jpg" alt="">
+          <img src="../images/slider/slide2.jpg" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="../style/images/slider/slide1.jpg" alt="">
+          <img src="../images/slider/slide1.jpg" alt="">
         </div>
       </div>
       <div class="swiper-pagination"></div>
@@ -118,7 +155,7 @@
           <div class="stepper stepper-small stepper-round stepper-init">
             <div class="stepper-button-minus"></div>
             <div class="stepper-input-wrap">
-              <input type="text" value="4" min="0" max="100" step="1" readonly>
+              <input type="text" value="4" name="quantity" min="0" max="100" step="1" readonly>
             </div>
             <div class="stepper-button-plus"></div>
           </div>
@@ -130,20 +167,68 @@
             <p class="reviews-text">(128 reviews)</p>
           </div>
           <div class="avatar-group">
-            <img src="../style/images/avatar/1.jpg" alt="">
-            <img src="../style/images/avatar/2.jpg" alt="">
-            <img src="../style/images/avatar/3.jpg" alt="">
+            <img src="../images/avatar/1.jpg" alt="">
+            <img src="../images/avatar/2.jpg" alt="">
+            <img src="../images/avatar/3.jpg" alt="">
           </div>
         </div>
         <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
           <div class="toolbar-inner">
-            <a href="#tab-1" class="tab-link">상품 설명</a>
+            <a href="#tab-1" class="tab-link tab-link-active">상품 설명</a>
             <a href="#tab-2" class="tab-link">후기</a>
-            <a href="#tab-3" class="tab-link tab-link-active">문의</a>
+            <a href="#tab-3" class="tab-link">문의</a>
           </div>
         </div>
         <div class="tabs-swipeable-wrap tabs-height-auto">
           <div class="tabs">
+            <div id="tab-1" class="tab tab-active">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            </div>
+            <div id="tab-2" class="tab">
+              <div class="list media-list review-list">
+                <ul>
+                  <li class="list">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">James Logan</div>
+                          <div class="item-after stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                          </div>
+                        </div>
+                        <div class="item-subtitle">27 August 2020</div>
+                        <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="list">
+                    <div href="#" class="item-link item-content">
+                      <div class="item-media"><img src="../images/avatar/2.jpg" width="50"></div>
+                      <div class="item-inner">
+                        <div class="item-title-row">
+                          <div class="item-title">Leo Tucker</div>
+                          <div class="item-after stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                          </div>
+                        </div>
+                        <div class="item-subtitle">15 June 2020</div>
+                        <div class="item-text">Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
             <div id="tab-3" class="tab">
               <div class="list media-list review-list">
                 <form class="form-elements">
@@ -160,16 +245,13 @@
                     </ul>
                   </div>
                 </form>
-                <div class="container px-15">
-                  <a href="/home/" class="button-large button button-fill">작성 완료</a>
-                </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   <div class="toolbar toolbar-bottom footer-button padding border-top item-details-btn">
     <div class="container px-15">
       <div class="row">
@@ -183,6 +265,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 </body>
