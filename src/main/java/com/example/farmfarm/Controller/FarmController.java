@@ -1,6 +1,7 @@
 package com.example.farmfarm.Controller;
 
 import com.example.farmfarm.Entity.FarmEntity;
+import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.UserService;
@@ -58,6 +59,13 @@ public class FarmController {
         String fId = myFarm.getFId().toString();
         System.out.println("나의 farm Id 조회: " + fId);
         return "redirect:" + fId ;
+    }
+
+    //ToDo: 농장별 상품 보기 
+    @GetMapping("/{f_id}/product")
+    public List<ProductEntity> getMyProduct(@PathVariable("f_id") long fId){
+        FarmEntity fa = farmService.getFarm(fId);
+        return null;
     }
 
     // 농장 정보 수정
