@@ -24,8 +24,7 @@ public class FarmService {
     // 농장 등록
     public FarmEntity saveFarm(UserEntity user, FarmEntity farm){
         farm.setUser(user);
-        farmRepository.save(farm);
-        return farm;
+        return farmRepository.save(farm);
     }
 
     //농장 전체 조회 및 정렬 (rating: 인기순 , old: 오래된 순, new: 신규순), Default: rating
