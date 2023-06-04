@@ -22,7 +22,9 @@ public class GroupEntity {
     @GeneratedValue
     @Column(name="g_id")
     private Long gId;
+
     private int capacity;
+
     @CreationTimestamp
     private Timestamp created_at;
 

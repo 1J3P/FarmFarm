@@ -1,4 +1,37 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.GroupEntity;
+import com.example.farmfarm.Entity.ProductEntity;
+import com.example.farmfarm.Entity.UserEntity;
+import com.example.farmfarm.Repository.GroupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class GroupService {
+    @Autowired
+    private GroupRepository groupRepository;
+
+    public GroupEntity createGroup(UserEntity user, GroupEntity group, ProductEntity product) {
+        if (product.getIs_group()) {
+            group.setProduct(product);
+            group.setUser1(user);
+            group.setCapacity(1);
+            return groupRepository.save(group);
+        }
+        return null; //TODO:나중에 에러 처리 해야할듯
+    }
+
+    public GroupEntity getGroup(long gId) {
+        return groupRepository.findBygId(gId);
+    }
+
+    public GroupEntity attendGroup(long gId, UserEntity user) {
+        GroupEntity group = getGroup(gId);
+        group.setUser2(user);
+        group.setCapacity(0);
+        return groupRepository.save(group);
+    }
+
+
 }
