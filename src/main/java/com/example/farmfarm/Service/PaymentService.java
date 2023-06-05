@@ -38,7 +38,7 @@ public class PaymentService {
         parameters.add("partner_order_id", String.valueOf(order.getOId()));
         parameters.add("partner_user_id", String.valueOf(order.getUser().getUId()));
         if (order.getOrders().size() > 1) {
-            parameters.add("item_name", order.getOrders().get(0).getProduct().getName() + "외 " + (order.getOrders().size() - 1) + "건");
+            parameters.add("item_name", order.getOrders().get(0).getProduct().getName() + " 외 " + (order.getOrders().size() - 1) + "건");
         } else {
             parameters.add("item_name", order.getOrders().get(0).getProduct().getName());
         }
