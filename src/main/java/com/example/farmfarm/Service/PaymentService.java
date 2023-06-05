@@ -44,7 +44,7 @@ public class PaymentService {
         }
         parameters.add("quantity", String.valueOf(order.getTotal_quantity()));
         parameters.add("total_amount", String.valueOf(order.getTotal_price()));
-        parameters.add("vat_amount", String.valueOf(order.getTotal_price() * 0.1));
+        parameters.add("vat_amount", String.valueOf(Math.round(order.getTotal_price() * 0.1)));
         parameters.add("tax_free_amount", "0");
         parameters.add("approval_url", "http://localhost:9000/pay/success/" + String.valueOf(order.getOId())); // 성공 시 redirect url
         parameters.add("cancel_url", "http://localhost:9000/pay/cancel"); // 취소 시 redirect url

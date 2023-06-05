@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @DynamicUpdate
-@Table(name="group")
+@Table(name="group_table")
 @Getter
 @Setter
 public class GroupEntity {
