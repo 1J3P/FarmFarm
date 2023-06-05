@@ -54,4 +54,8 @@ public class OrderDetailService {
         OrderDetailEntity product = orderDetailRepository.findByodId(od_id);
         orderDetailRepository.delete(product);
     }
+
+    public OrderDetailEntity createOrderDetail(OrderDetailEntity order) {
+       return orderDetailRepository.save(order);
+    }
 }
