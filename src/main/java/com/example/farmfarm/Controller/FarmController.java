@@ -4,7 +4,9 @@ import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Service.FarmService;
+import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
+import org.apache.http.protocol.ResponseServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ public class FarmController {
     private FarmService farmService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductService productService;
 
     // 농장 개설
     @PostMapping("/")
@@ -61,11 +65,12 @@ public class FarmController {
         return "redirect:" + fId ;
     }
 
-    //ToDo: 농장별 상품 보기 
+    // 농장별 상품 보기
     @GetMapping("/{f_id}/product")
-    public List<ProductEntity> getMyProduct(@PathVariable("f_id") long fId){
-        FarmEntity fa = farmService.getFarm(fId);
-        return null;
+    public ResponseEntity<Object> getFarmProduct(@PathVariable("f_id") long fId){
+        FarmEntity farm = farmService.getFarm(fId);
+        List<ProductEntity> productList = productService.getFarmProduct(farm);
+        return ResponseEntity.ok().body(productList);
     }
 
     // 농장 정보 수정
