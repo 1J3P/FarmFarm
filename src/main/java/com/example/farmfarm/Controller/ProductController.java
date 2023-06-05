@@ -1,9 +1,12 @@
 package com.example.farmfarm.Controller;
 
+
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
-import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
+import com.example.farmfarm.Entity.FarmEntity;
+import com.example.farmfarm.Entity.ProductEntity;
+import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private FarmService farmService;
 
     // 상품 등록 Form
     @GetMapping("/")
@@ -39,7 +44,8 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/")
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product) {
-        ProductEntity newProduct = productService.saveProduct(product);
+        FarmEntity myFarm = farmService.getMyFarm(request);
+        ProductEntity newProduct = productService.saveProduct(product, myFarm);
         return ResponseEntity.ok().body(newProduct);
     }
 

@@ -1,5 +1,6 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Repository.ProductRepository;
@@ -19,8 +20,10 @@ public class ProductService {
     private UserService userService;
 
     // 상품 등록
-    public ProductEntity saveProduct(ProductEntity product){
-        return productRepository.save(product);
+    public ProductEntity saveProduct(ProductEntity product, FarmEntity farm){
+        ProductEntity addProduct = product;
+        addProduct.setFarm(farm);
+        return productRepository.save(addProduct);
     }
 
     // 상품 상세 조회
@@ -32,6 +35,11 @@ public class ProductService {
     // 상품 리스트 조회(신상품순 - 기본)
     public List<ProductEntity> getAllProduct() {
         return (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+    }
+
+    // 농장별 상품 리스트 조회
+    public List<ProductEntity> getFarmProduct(FarmEntity farm) {
+        return productRepository.findAllByFarm(farm);
     }
 
     // 상품 수정
@@ -94,4 +102,5 @@ public class ProductService {
         }
         return productList;
     }
+
 }
