@@ -20,22 +20,5 @@ public class CartController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/product/{p_id}/cart")
-//    @ResponseBody
-    public String addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session) {
-        UserEntity user = userService.getUser(request);
-        ProductEntity product = productService.getProduct(p_id);
-        Item item = new Item();
-        Cart cart = (Cart)session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
-        }
-        System.out.println(cart.toString());
-        item.setU_id(user.getUId());
-        item.setP_id(product.getPId());
-        item.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        cart.push(item);
-        return "productDetails_review";
-    }
+
 }

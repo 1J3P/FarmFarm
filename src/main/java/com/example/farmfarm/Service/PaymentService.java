@@ -1,10 +1,12 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.OrderEntity;
 import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
 import com.example.farmfarm.Entity.kakaoPay.KakaoReadyResponse;
 import com.example.farmfarm.Entity.kakaoPay.RefundPaymentEntity;
 import com.example.farmfarm.Repository.ApprovePaymentRepository;
 import com.example.farmfarm.Repository.RefundPaymentRepository;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -28,19 +30,23 @@ public class PaymentService {
 
     private KakaoReadyResponse response;
 
-    public KakaoReadyResponse kakaoPayReady() {
+    public KakaoReadyResponse kakaoPayReady(OrderEntity order) {
 
         // 카카오페이 요청 양식
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
-        parameters.add("partner_order_id", "1");
-        parameters.add("partner_user_id", "2");
-        parameters.add("item_name", "초코파이");
-        parameters.add("quantity", "2");
-        parameters.add("total_amount", "2200");
-        parameters.add("vat_amount", "200");
+        parameters.add("partner_order_id", String.valueOf(order.getOId()));
+        parameters.add("partner_user_id", String.valueOf(order.getUser().getUId()));
+        if (order.getOrders().size() > 1) {
+            parameters.add("item_name", order.getOrders().get(0).getProduct().getName() + "외 " + (order.getOrders().size() - 1) + "건");
+        } else {
+            parameters.add("item_name", order.getOrders().get(0).getProduct().getName());
+        }
+        parameters.add("quantity", String.valueOf(order.getTotal_quantity()));
+        parameters.add("total_amount", String.valueOf(order.getTotal_price()));
+        parameters.add("vat_amount", String.valueOf(order.getTotal_price() * 0.1));
         parameters.add("tax_free_amount", "0");
-        parameters.add("approval_url", "http://localhost:9000/pay/success"); // 성공 시 redirect url
+        parameters.add("approval_url", "http://localhost:9000/pay/success/" + String.valueOf(order.getOId())); // 성공 시 redirect url
         parameters.add("cancel_url", "http://localhost:9000/pay/cancel"); // 취소 시 redirect url
         parameters.add("fail_url", "http://localhost:9000/pay/fail"); // 실패 시 redirect url
         // 파라미터, 헤더
@@ -71,14 +77,14 @@ public class PaymentService {
         return httpHeaders;
     }
 
-    public ApprovePaymentEntity approveResponse(String pgToken) {
+    public ApprovePaymentEntity approveResponse(OrderEntity order, String pgToken) {
 
         // 카카오 요청
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
         parameters.add("tid", response.getTid());
-        parameters.add("partner_order_id", "1");
-        parameters.add("partner_user_id", "2");
+        parameters.add("partner_order_id", String.valueOf(order.getOId()));
+        parameters.add("partner_user_id", String.valueOf(order.getUser().getUId()));
         parameters.add("pg_token", pgToken);
 
         // 파라미터, 헤더
