@@ -1,6 +1,8 @@
 package com.example.farmfarm.Controller;
 
+import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
+import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private FarmService farmService;
 
     // 상품 등록 Form
     @GetMapping("/")
@@ -33,7 +37,8 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/")
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product) {
-        ProductEntity newProduct = productService.saveProduct(product);
+        FarmEntity myFarm = farmService.getMyFarm(request);
+        ProductEntity newProduct = productService.saveProduct(product, myFarm);
         return ResponseEntity.ok().body(newProduct);
     }
 

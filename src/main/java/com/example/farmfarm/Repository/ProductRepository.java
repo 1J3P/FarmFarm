@@ -1,6 +1,8 @@
 package com.example.farmfarm.Repository;
 
+import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
+import org.apache.http.conn.routing.HttpRouteDirector;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,4 +17,5 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
     //낮은 가격순
     public List<ProductEntity> findAllByOrderByPriceAsc();
     Object findAll(Sort pId);
+    public List<ProductEntity> findAllByFarm(FarmEntity farm);
 }
