@@ -28,7 +28,7 @@ public class FarmController {
     private ProductService productService;
 
     // 농장 개설
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);

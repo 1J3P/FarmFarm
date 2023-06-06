@@ -41,11 +41,13 @@ public class PaymentController {
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
 
+    //TODO: 여기로 잘 오는지
     @GetMapping("/cancel")
     public void cancel() {
-        System.out.println("결제 실패");
+        System.out.println("결제 취소");
     }
 
+    //TODO: 여기로 잘 오는지
     @GetMapping("/fail")
     public void fail() {
         System.out.println("결제 실패");

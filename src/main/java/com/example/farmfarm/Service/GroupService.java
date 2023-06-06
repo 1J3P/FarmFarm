@@ -12,8 +12,9 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public GroupEntity createGroup(UserEntity user, GroupEntity group, ProductEntity product) {
+    public GroupEntity createGroup(UserEntity user, ProductEntity product) {
         if (product.getIs_group()) {
+            GroupEntity group = new GroupEntity();
             group.setProduct(product);
             group.setUser1(user);
             group.setCapacity(1);

@@ -29,8 +29,7 @@ public class OrderController {
     private OrderDetailService orderDetailService;
     @Autowired
     private GroupService groupService;
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+
 
     //장바구니에서 오더디테일 객체 세션 저장
     @GetMapping("/cart")
@@ -64,15 +63,33 @@ public class OrderController {
     //gId 없으면 내가 새로 만드는거.. 이런식으로 해야할까?
     @PostMapping("/group/{gId}")
     public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId) {
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         List<OrderDetailEntity> details = new ArrayList<>();
         OrderDetailEntity orderDetail = new OrderDetailEntity();
-        GroupEntity group = groupService.getGroup(gId);
+        UserEntity user = userService.getUser(request);
+        GroupEntity group = groupService.attendGroup(gId, user);
         orderDetail.setGroup(group);
         orderDetail.setProduct(group.getProduct());
         orderDetail.setType(1);
-        orderDetail.setQuantity(1);
+        orderDetail.setQuantity(quantity);
         orderDetail.setPrice((long)((long)group.getProduct().getPrice() * 0.9));
         details.add(orderDetail);
+        session.setAttribute("orderDetail", details);
+        return "home/product/productShippingAddress";
+    }
+    @PostMapping("/product/{pId}/group")
+    public String createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session) {
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        List<OrderDetailEntity> details = new ArrayList<>();
+        UserEntity user = userService.getUser(request);
+        ProductEntity product = productService.getProduct(pId);
+        GroupEntity group = groupService.createGroup(user, product);
+        OrderDetailEntity orderDetail = new OrderDetailEntity();
+        orderDetail.setGroup(group);
+        orderDetail.setProduct(group.getProduct());
+        orderDetail.setType(1);
+        orderDetail.setQuantity(quantity);
+        orderDetail.setPrice((long)((long)group.getProduct().getPrice() * 0.9));
         session.setAttribute("orderDetail", details);
         return "home/product/productShippingAddress";
     }
@@ -122,6 +139,7 @@ public class OrderController {
         return ResponseEntity.ok().body(getOrder);
     }
 
+    //TODO: 이거 동작 확인해보기
     @GetMapping("")
     public ResponseEntity<Object> myOrderList(HttpServletRequest request) {
         UserEntity user = userService.getUser(request);
