@@ -101,15 +101,15 @@ public class PaymentService {
         return approvePaymentRepository.save(approveResponse);
     }
 
-    public RefundPaymentEntity kakaoRefund() {
+    public RefundPaymentEntity kakaoRefund(ApprovePaymentEntity order) {
 
         // 카카오페이 요청
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("cid", cid);
-        parameters.add("tid", "T47c73b60dc40ec94460");
-        parameters.add("cancel_amount", "2200");
-        parameters.add("cancel_tax_free_amount", "0");
-        parameters.add("cancel_vat_amount", "200");
+        parameters.add("tid", order.getTid());
+        parameters.add("cancel_amount", String.valueOf(order.getAmount().getTotal()));
+        parameters.add("cancel_tax_free_amount", String.valueOf(order.getAmount().getTax_free()));
+//        parameters.add("cancel_vat_amount", "0");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -123,6 +123,10 @@ public class PaymentService {
                 RefundPaymentEntity.class);
 
         return refundPaymentRepository.save(refundResponse);
+    }
+
+    public ApprovePaymentEntity getApprovePayment(long paId) {
+        return approvePaymentRepository.findBypaId(paId);
     }
 
 }

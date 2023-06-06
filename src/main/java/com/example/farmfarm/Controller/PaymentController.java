@@ -51,11 +51,10 @@ public class PaymentController {
         System.out.println("결제 실패");
     }
 
-    @PostMapping("/refund")
-    public ResponseEntity refund() {
-
-        RefundPaymentEntity kakaoCancelResponse = paymentService.kakaoRefund();
-
+    @PostMapping("/refund/{paId}")
+    public ResponseEntity<Object> refund(@PathVariable("paId") long paId) {
+        ApprovePaymentEntity approve = paymentService.getApprovePayment(paId);
+        RefundPaymentEntity kakaoCancelResponse = paymentService.kakaoRefund(approve);
         return new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
     }
 }
