@@ -99,7 +99,7 @@ public class OrderController {
 
     //order 생성! - 이후 결제 진행
     @PostMapping("")
-    public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, OrderEntity order) {
+    public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
         UserEntity user = userService.getUser(request);
         List<OrderDetailEntity> details = (List<OrderDetailEntity>) session.getAttribute("orderDetail");
         order.setUser(user);
@@ -115,7 +115,7 @@ public class OrderController {
         OrderEntity saveOrder = orderService.createOrder(order);
         OrderEntity getOrder = orderService.getOrder(saveOrder.getOId());
         for (OrderDetailEntity d : details) {
-            d.setOrder(saveOrder);
+            d.setOrder(getOrder);
             orderDetailService.createOrderDetail(d);
         }
         System.out.println("주문 정보 : " + getOrder.toString());

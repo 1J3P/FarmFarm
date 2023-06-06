@@ -4,6 +4,7 @@ import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="order")
+@Table(name="order_table")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -39,6 +40,7 @@ public class OrderEntity {
 
     private String delivery_memo;
 
+    @CreationTimestamp
     private Timestamp created_at;
 
     @OneToMany(mappedBy = "order")
