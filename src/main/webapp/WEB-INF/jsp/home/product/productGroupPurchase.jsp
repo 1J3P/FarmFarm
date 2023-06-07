@@ -77,8 +77,7 @@
             right:20px;
         }
         button {
-            background-color: #F6C64F;
-            border-color: #F6C64F;
+            border: none;
             border-radius: 16px;
             color: white;
             width: 95px;
@@ -87,6 +86,10 @@
             font-weight: bold;
             position: relative;
             bottom: 7px;
+            cursor: pointer;
+        }
+        .parti{
+            background-color: #F6C64F;
         }
         .group_1 {
             display: inline-block;
@@ -97,6 +100,29 @@
             margin-top: 0;
             margin-bottom: 0;
             text-align: right;
+        }
+        .group_open {
+            margin:20px 0 0 auto;
+            cursor: pointer;
+            text-align: center;
+            padding: 0 20px;
+
+            border-radius: 16px;
+            color: white;
+            font-size: 16px;
+            height: 40px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+        .open{
+            background: #94C015;
+        }
+        .flaticon-cancel{
+            cursor: pointer;
+            font-size:25px !important;
+        }
+        .toolbar-inner > p{
+            font-weight:bold;
         }
     </style>
 </head>
@@ -112,14 +138,15 @@
                         <form class="tab tab-active" id="tabA1">
                             <div class="title-bar mb-20">
                                 <h3 class="dz-title ma-0">공동구매 참여하기</h3>
-                            </div>
-                            <div class="right">
                                 <i class="icon flaticon-cancel"></i>
+                            </div>
+                            <div class="title-bar">
+                                <div class="group_open"><button class="open">공구 개설</button></div>
                             </div>
                             <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
                                 <div class="toolbar-inner">
                                     <div class="avatar-group">
-                                        <img src="../style/images/avatar/1.jpg" alt="">
+                                        <img src="../images/avatar/1.jpg" alt="">
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                     <p>권*빈 (1/2)</p>
                                     <div class="right">
@@ -127,15 +154,15 @@
                                             <h5 class="group_2">1명 남음</h5>
                                             <h5 class="group_2">23:54:36</h5>
                                         </div>
-                                        <div class="group_1"><button>주문 참여</button></div>
+                                        <div class="group_1"><button class="parti">주문 참여</button></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
                                 <div class="toolbar-inner">
                                     <div class="avatar-group">
-                                        <img src="../style/images/avatar/1.jpg" alt="">
-                                        <img src="../style/images/avatar/2.jpg" alt="">
+                                        <img src="../images/avatar/1.jpg" alt="">
+                                        <img src="../images/avatar/2.jpg" alt="">
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                     <p>고*용 (2/2)</p>
                                     <div class="right">
@@ -146,8 +173,8 @@
                             <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
                                 <div class="toolbar-inner">
                                     <div class="avatar-group">
-                                        <img src="../style/images/avatar/1.jpg" alt="">
-                                        <img src="../style/images/avatar/2.jpg" alt="">
+                                        <img src="../images/avatar/1.jpg" alt="">
+                                        <img src="../images/avatar/2.jpg" alt="">
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                     <p>류*혁 (2/2)</p>
                                     <div class="right">
@@ -158,8 +185,8 @@
                             <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
                                 <div class="toolbar-inner">
                                     <div class="avatar-group">
-                                        <img src="../style/images/avatar/1.jpg" alt="">
-                                        <img src="../style/images/avatar/2.jpg" alt="">
+                                        <img src="../images/avatar/1.jpg" alt="">
+                                        <img src="../images/avatar/2.jpg" alt="">
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                     <p>임*철 (2/2)</p>
                                     <div class="right">
@@ -170,8 +197,8 @@
                             <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
                                 <div class="toolbar-inner">
                                     <div class="avatar-group">
-                                        <img src="../style/images/avatar/1.jpg" alt="">
-                                        <img src="../style/images/avatar/2.jpg" alt="">
+                                        <img src="../images/avatar/1.jpg" alt="">
+                                        <img src="../images/avatar/2.jpg" alt="">
                                     </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                     <p>백*현 (2/2)</p>
                                     <div class="right">

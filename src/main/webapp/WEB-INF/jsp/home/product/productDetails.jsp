@@ -71,6 +71,7 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     //탭 로직
     document.addEventListener('DOMContentLoaded', function () {
@@ -102,10 +103,103 @@
         });
       });
     });
+
+    function ViewLayer(){
+      document.querySelector(".layer-page").style.display='block';
+      document.getElementById("mask").style.display='block';
+    }
+    function CloseLayer(){
+      document.querySelector(".layer-page").style.display='none';
+      document.getElementById("mask").style.display='none';
+    }
+
+    $(document).ready(function (){
+      $(".write-enquiry").click(function (){
+        $(".enquiry_form").toggle();
+      });
+    });
   </script>
   <style>
     #tab-2, #tab-3 {
       display: none;
+    }
+    .right {
+      position:absolute;
+      top:0;
+      right:20px;
+    }
+    button {
+      border: none;
+      border-radius: 16px;
+      color: white;
+      width: 95px;
+      height: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      position: relative;
+      bottom: 7px;
+      cursor: pointer;
+    }
+    .parti{
+      background-color: #F6C64F;
+    }
+    .group_1 {
+      display: inline-block;
+      margin-left: 5px;
+      margin-rignt: 5px;
+    }
+    .group_2 {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: right;
+    }
+    .group_open {
+      margin:20px 0 0 auto;
+      cursor: pointer;
+      text-align: center;
+      padding: 0 20px;
+      border-radius: 16px;
+      color: white;
+      font-size: 16px;
+      height: 40px;
+      line-height: 40px;
+      font-weight: bold;
+    }
+    .open{
+      background: #94C015;
+    }
+    .flaticon-cancel{
+      cursor: pointer;
+      font-size:25px !important;
+    }
+    .toolbar-inner > p{
+      font-weight:bold;
+    }
+    .layer-page{
+      display:none;
+      box-sizing: border-box;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      transform: none;
+      background-color: var(--f7-page-bg-color);
+      z-index: 9999;
+      background: var(--f7-theme-color-light);
+      border-radius:20px;
+    }
+    .layer-border{
+      border-radius: 20px;
+    }
+    #mask {
+      width:100%;
+      height:100%;
+      position:fixed;
+      background:rgba(0,0,0,0.7) repeat;
+      top:0;
+      left:0;
+      z-index:999;
+      display:none;
     }
   </style>
 </head>
@@ -233,18 +327,56 @@
               <div class="list media-list review-list">
                 <form class="form-elements">
                   <div class="list">
-                    <ul class="row">
-                      <li class="item-content item-input col-100 item-input-with-value">
-                        <div class="item-inner">
-                          <label class="form-label"><b>1:1 문의 작성</b></label>
-                          <div class="item-input-wrap">
-                            <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control"/></textarea>
+                    <div class="list">
+                      <ul>
+                        <li class="mb-15"><div class="button-large button button-fill write-enquiry">문의 작성하기</div></li>
+                      </ul>
+                    </div>
+                    <div class="enquiry_form" style="display:none">
+                      <ul class="row">
+                        <li class="item-content item-input col-100 item-input-with-value">
+                          <div class="item-inner">
+                            <label class="form-label"><b>1:1 문의 작성</b></label>
+                            <div class="item-input-wrap">
+                              <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control"/></textarea>
+                            </div>
                           </div>
-                        </div>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                      <div class="list">
+                        <ul style="margin-top:0;">
+                          <li class="mb-15"><a href="/home/" class="button-large button button-fill">작성 완료</a></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </form>
+                <div class="page-content content-area pt-30 bottom-sp80">
+                  <div class="enquriy_list">
+                    <p class="li_pro_name">대저 토마토 1KG</p>
+                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
+                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
+                      이내로 배송이 될 예정입니다.</h4>
+                    <i class="fa-solid fa-pencil"></i>
+                    <i class="fa-regular fa-trash-can"></i>
+                  </div>
+                  <div class="enquriy_list">
+                    <p class="li_pro_name">대저 토마토 1KG</p>
+                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
+                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
+                      이내로 배송이 될 예정입니다.</h4>
+                    <i class="fa-solid fa-pencil"></i>
+                    <i class="fa-regular fa-trash-can"></i>
+                  </div>
+                  <div class="enquriy_list">
+                    <p class="li_pro_name">대저 토마토 1KG</p>
+                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
+                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
+                      이내로 배송이 될 예정입니다.</h4>
+                    <i class="fa-solid fa-pencil"></i>
+                    <i class="fa-regular fa-trash-can"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -256,7 +388,7 @@
     <div class="container px-15">
       <div class="row">
         <div class="col-30">
-          <a href="javascript:void(0);" class="button-large button btn-block button-fill add-cart-btn active together-order">
+          <a href="javascript:ViewLayer();" class="button-large button btn-block button-fill add-cart-btn active together-order">
             같이 주문하기<span class="price">7,980원</span>
           </a>
         </div>
@@ -266,6 +398,91 @@
       </div>
     </div>
   </div>
+  </div>
+</div>
+<div id="mask"></div>
+<div class="layer-page">
+  <div class="page-content account-area layer-border">
+    <div class="fixed-content py-30">
+      <div class="container">
+        <div class="tabs">
+          <div class="layer-tab tab-active form-elements tabs">
+            <form class="layer-tab tab-active" id="tabA1">
+              <div class="title-bar mb-20">
+                <h3 class="dz-title ma-0">공동구매 참여하기</h3>
+                <a href="javascript:CloseLayer();" style="color:#0A3C48"><i class="icon flaticon-cancel" ></i></a>
+              </div>
+              <div class="title-bar">
+                <div class="group_open"><button class="open">공구 개설</button></div>
+              </div>
+              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                <div class="toolbar-inner">
+                  <div class="avatar-group">
+                    <img src="../images/avatar/1.jpg" alt="">
+                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>권*빈 (1/2)</p>
+                  <div class="right">
+                    <div class="group_1">
+                      <h5 class="group_2">1명 남음</h5>
+                      <h5 class="group_2">23:54:36</h5>
+                    </div>
+                    <div class="group_1"><button class="parti">주문 참여</button></div>
+                  </div>
+                </div>
+              </div>
+              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                <div class="toolbar-inner">
+                  <div class="avatar-group">
+                    <img src="../images/avatar/1.jpg" alt="">
+                    <img src="../images/avatar/2.jpg" alt="">
+                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>고*용 (2/2)</p>
+                  <div class="right">
+                    <p>공동구매완료</p>
+                  </div>
+                </div>
+              </div>
+              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                <div class="toolbar-inner">
+                  <div class="avatar-group">
+                    <img src="../images/avatar/1.jpg" alt="">
+                    <img src="../images/avatar/2.jpg" alt="">
+                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>류*혁 (2/2)</p>
+                  <div class="right">
+                    <p>공동구매완료</p>
+                  </div>
+                </div>
+              </div>
+              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                <div class="toolbar-inner">
+                  <div class="avatar-group">
+                    <img src="../images/avatar/1.jpg" alt="">
+                    <img src="../images/avatar/2.jpg" alt="">
+                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>임*철 (2/2)</p>
+                  <div class="right">
+                    <p>공동구매완료</p>
+                  </div>
+                </div>
+              </div>
+              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                <div class="toolbar-inner">
+                  <div class="avatar-group">
+                    <img src="../images/avatar/1.jpg" alt="">
+                    <img src="../images/avatar/2.jpg" alt="">
+                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p>백*현 (2/2)</p>
+                  <div class="right">
+                    <p>공동구매완료</p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </body>
