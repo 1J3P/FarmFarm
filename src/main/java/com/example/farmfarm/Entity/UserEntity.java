@@ -37,7 +37,7 @@ public class UserEntity {
 
     private String status;
 
-    private String image_url;
+    private String image;
 
     @Builder
     public UserEntity(Long id, String nickname, String email, String user_role, String platform) {

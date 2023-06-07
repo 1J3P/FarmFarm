@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +25,21 @@ public class ProductService {
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm){
         ProductEntity addProduct = product;
         addProduct.setFarm(farm);
+        if(addProduct.getIs_auction()) {
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            cal.set(Calendar.YEAR, product.getDate().getYear() + 1900);
+            cal.set(Calendar.MONTH, product.getDate().getMonth());
+            cal.set(Calendar.DATE, product.getDate().getDay());
+            cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time());
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            String openDate = format.format(cal.getTime());
+            addProduct.setOpenCalendar(openDate);
+            cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time() + 3);
+            String closeDate = format.format(cal.getTime());
+            addProduct.setCloseCalendar(closeDate);
+        }
         return productRepository.save(addProduct);
     }
 
@@ -52,7 +69,9 @@ public class ProductService {
         if (Objects.equals(user.getUId(), newProduct.getFarm().getUser().getUId())) {
             newProduct.setName(product.getName());
             newProduct.setDetail(product.getDetail());
-            newProduct.setImage(product.getImage());
+            newProduct.setImage1(product.getImage1());
+            newProduct.setImage2(product.getImage2());
+            newProduct.setImage3(product.getImage3());
             newProduct.setQuantity(product.getQuantity());
             newProduct.setPrice(product.getPrice());
             newProduct.setDirect_location(product.getDirect_location());

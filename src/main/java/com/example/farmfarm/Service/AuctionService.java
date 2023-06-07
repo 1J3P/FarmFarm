@@ -30,6 +30,6 @@ public class AuctionService {
 
     //상품별 경매 참여 내역
     public List<AuctionEntity> auctionList(ProductEntity product) {
-        return auctionRepository.findAllByProduct(product);
+        return auctionRepository.findAllByProductOrderByPriceDesc(product);
     }
 }

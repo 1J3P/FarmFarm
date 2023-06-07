@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -31,12 +32,22 @@ public class ProductEntity {
 
     private String detail;
 
-    private String image;
+    private String image1;
+
+    private String image2;
+
+    private String image3;
 
     private Boolean is_group;  // 변경 불가 - 공구 여부
 
     @CreationTimestamp
     private Timestamp created_at;
+
+    private Date date;
+
+    private String openCalendar;
+
+    private String closeCalendar;
 
     private int quantity;
 
@@ -49,6 +60,8 @@ public class ProductEntity {
     private int low_price;  // 경매 최저가
 
     private Boolean is_auction;  // 변경 불가 - 경매 여부
+
+    private int open_status; //0이면 아직 안열림, 1이면 열려있음, 2이면 열렸다가 닫힘 -> 처음값은 무조건 0
 
     @ManyToOne
     @JoinColumn(name="farm")
