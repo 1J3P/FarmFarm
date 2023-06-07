@@ -1,4 +1,4 @@
-package com.example.farmfarm.config.jwt;
+package com.example.farmfarm.Config.jwt;
 
 
 import com.auth0.jwt.JWT;

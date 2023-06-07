@@ -26,7 +26,7 @@ public class FarmEntity {
     private String detail;
     private Double rating;
     private String image;
-    private Timestamp auction_time;
+    private int auction_time;
     private boolean is_auction;
     @CreationTimestamp
     private Timestamp created_at;
@@ -39,7 +39,7 @@ public class FarmEntity {
     private String status;
 
     @Builder
-    public FarmEntity(Long fId, String name, String location_city, String location_gu, String detail, Double rating, String image, Timestamp auction_time, boolean is_auction, Timestamp created_at) {
+    public FarmEntity(Long fId, String name, String location_city, String location_gu, String detail, Double rating, String image, int auction_time, boolean is_auction, Timestamp created_at) {
         this.fId = fId;
         this.name = name;
         this.location_city = location_city;

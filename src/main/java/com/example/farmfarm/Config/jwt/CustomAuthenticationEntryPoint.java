@@ -1,4 +1,5 @@
-package com.example.farmfarm.config.jwt;
+package com.example.farmfarm.Config.jwt;
+import com.example.farmfarm.Config.jwt.JwtProperties;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

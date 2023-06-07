@@ -13,6 +13,6 @@ public interface AuctionRepository extends CrudRepository<AuctionEntity, Integer
 
     public List<AuctionEntity> findAllByUser(UserEntity user);
 
-    public List<AuctionEntity> findAllByProduct(ProductEntity product);
+    public List<AuctionEntity> findAllByProductOrderByPriceDesc(ProductEntity product);
 
 }

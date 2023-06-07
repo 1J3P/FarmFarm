@@ -1,4 +1,4 @@
-package com.example.farmfarm.config.jwt;
+package com.example.farmfarm.Config.jwt;
 
 public interface JwtProperties { //(1)인터페이스 내에 정의되는 필드는 자동으로 public static final이 붙는다.
     String SECRET = "farmfarm"; //(2)JWT 의 Signatuer 를 해싱할 때 사용되는 비밀 키이다. 영어로 원하는 단어를 적어주면 된다.
