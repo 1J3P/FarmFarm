@@ -46,13 +46,22 @@ public class ProductController {
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product) {
         FarmEntity myFarm = farmService.getMyFarm(request);
         ProductEntity newProduct = productService.saveProduct(product, myFarm);
+        if (newProduct == null) { // 나중에 적절하게 수정
+            return null;
+        }
         return ResponseEntity.ok().body(newProduct);
     }
 
-    // 상품 조회
+    // 상품 조회 (일반 상품일 경우 detail 페이지로, 경매 상품일 경우 경매 참여 form으로
     @GetMapping("/{p_id}")
     public ResponseEntity<Object> getProduct(@PathVariable("p_id") long p_id) {
         ProductEntity product = productService.getProduct(p_id);
+//        if (product.getIs_auction() == true) { // 경매일 경우
+//
+//        }
+//        else { // 일반일 경우
+//
+//        }
         return ResponseEntity.ok().body(product);
     }
 
@@ -60,6 +69,7 @@ public class ProductController {
     @GetMapping("/list")
     public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
+        List<ProductEntity> result = null;
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
             productList = productService.getSearchProduct(keyword);
@@ -69,6 +79,11 @@ public class ProductController {
         }
         else {
             productList = productService.getAllProduct();
+        }
+        for (ProductEntity val : productList) {
+            if (val.getIs_auction() == false) {
+                result.add(val);
+            }
         }
         return ResponseEntity.ok().body(productList);
     }
@@ -111,6 +126,29 @@ public class ProductController {
         item.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         cart.push(item);
         return "productDetails_review";
+    }
+
+    // 경매 상품 리스트 조회
+    @GetMapping("/auction/list")
+    public ResponseEntity<Object> getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+        List<ProductEntity> productList;
+        List<ProductEntity> result = null;
+
+        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
+            productList = productService.getSearchProduct(keyword);
+        }
+        else if (!StringUtils.isEmpty(sort)) { // 정렬
+            productList = productService.getSortedProduct(sort);
+        }
+        else {
+            productList = productService.getAllProduct();
+        }
+        for (ProductEntity val : productList) {
+            if (val.getIs_auction() == true) {
+                result.add(val);
+            }
+        }
+        return ResponseEntity.ok().body(productList);
     }
 
 }

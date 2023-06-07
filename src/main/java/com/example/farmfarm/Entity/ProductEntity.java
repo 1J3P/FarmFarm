@@ -40,6 +40,8 @@ public class ProductEntity {
 
     private int quantity;
 
+    private int auction_quantity;
+
     private int price;
 
     private Boolean is_direct;  // 변경 불가 - 직거래 여부
