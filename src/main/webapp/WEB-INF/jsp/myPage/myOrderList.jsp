@@ -94,9 +94,11 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                        <h6 class="category" style="display: inline-block;">팜팜농장</h6>
+                                        <h6 class="category" style="float: right; display: inline-block;">2023.05.23</h6>
+                                         <div style="clear:both; font-weight: bold"></div>
+                                        <a href="" style="float:right;">리뷰 작성</a>
+                                        <h2 class="item-title" style="margin-bottom: 0;"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
                                     <div class="item-foot">
@@ -122,9 +124,11 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                        <h6 class="category" style="display: inline-block;">팜팜농장</h6>
+                                        <h6 class="category" style="float: right; display: inline-block;">2023.05.23</h6>
+                                        <div style="clear:both; font-weight: bold"></div>
+                                        <a href="" style="float:right;">리뷰 작성</a>
+                                        <h2 class="item-title" style="margin-bottom: 0;"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
                                     <div class="item-foot">
@@ -150,9 +154,11 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                        <h6 class="category" style="display: inline-block;">팜팜농장</h6>
+                                        <h6 class="category" style="float: right; display: inline-block;">2023.05.23</h6>
+                                        <div style="clear:both; font-weight: bold"></div>
+                                        <a href="" style="float:right;">리뷰 작성</a>
+                                        <h2 class="item-title" style="margin-bottom: 0;"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
                                     <div class="item-foot">
@@ -178,9 +184,11 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                        <h6 class="category" style="display: inline-block;">팜팜농장</h6>
+                                        <h6 class="category" style="float: right; display: inline-block;">2023.05.23</h6>
+                                        <div style="clear:both; font-weight: bold"></div>
+                                        <a href="" style="float:right;">리뷰 작성</a>
+                                        <h2 class="item-title" style="margin-bottom: 0;"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
                                     <div class="item-foot">
@@ -202,25 +210,7 @@
             </div>
         </div>
     </div>
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
-        <div class="toolbar-inner">
-            <a href="/home/" class="tab-link active">
-                <i class="flaticon-home"></i>
-            </a>
-            <a href="/categories/" class="tab-link">
-                <i class="fa-solid fa-bars"></i>
-            </a>
-            <a href="/search/" class="tab-link">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a href="/shopping-cart/" class="tab-link cart-in">
-                <i class="flaticon-shopping-cart"></i>
-            </a>
-            <a href="/user/" class="tab-link">
-                <img src="/style/images/avatar/1.jpg" class="user-media" alt="" />
-            </a>
-        </div>
-    </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>
