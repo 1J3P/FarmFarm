@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @DynamicUpdate
-@Table(name="review")
+@Table(name="review_table")
 @Getter
 @Setter
 public class ReviewEntity {
@@ -28,13 +28,11 @@ public class ReviewEntity {
 
     private String comment;
 
-    private String image;
-
     @ManyToOne
     @JoinColumn(name="user")
     private UserEntity user;
 
     @OneToOne
-    @JoinColumn(name="order")
-    private OrderEntity order;
+    @JoinColumn(name="order_detail")
+    private OrderDetailEntity orderDetail;
 }
