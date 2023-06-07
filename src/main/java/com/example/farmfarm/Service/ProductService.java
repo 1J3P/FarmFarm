@@ -21,14 +21,16 @@ public class ProductService {
 
     // 상품 등록
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
-        if (product.getIs_auction() == true) { // 경매 상품인 경우
-            if (farm.is_auction() == false) { // 농장이 경매 농장인지 확인해야함. 아닐 경우 에러. 추후에 적절히 수정.
-                return null;
-            }
-        }
         ProductEntity addProduct = product;
         addProduct.setFarm(farm);
-        addProduct.setAuction_quantity(product.getQuantity());
+        if (product.getIs_auction() == true) { // 경매 상품인 경우 농장이 경매 농장인지 확인해야함.
+            if (farm.is_auction() == true) { // 경매 농장일 경우 auction_quantity 설정
+                addProduct.setAuction_quantity(product.getQuantity());
+            }
+            else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)
+               return null;
+            }
+        }
         return productRepository.save(addProduct);
     }
 
