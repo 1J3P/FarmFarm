@@ -52,7 +52,7 @@
   />
   <meta name="format-detection" content="telephone=no" />
 
-  <title>Kede - Grocery Mobile App HTML ( Framework 7 + PWA )</title>
+  <title>검색</title>
 
   <link rel="stylesheet" href="../style/framework7-bundle.min.css" />
   <link rel="stylesheet" href="../style/app.css" />
@@ -104,7 +104,6 @@
     <div class="dz-banner-heading">
       <div class="container">
         <h2 class="head-title text-white">검색</h2>
-        <p class="item-qty text-white">몇개</p>
         <div class="category-icon">
           <img src="img/svg/grapes.svg" alt="">
         </div>
@@ -122,17 +121,19 @@
             </div>
           </form>
         </div>
-        <div class="search_result container">
+        <div class="search_result container fixed-content">
           <p>검색결과 : 총 <span>4</span>개의 상품이 있습니다.</p>
         </div>
-        <div class="list simple-list searchbar-not-found">
-          <ul>
-            <li>Nothing found</li>
-          </ul>
+        <!-- 결과 == 0 일때 -->
+        <div class="list simple-list search-not-found" style="height: 300px">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>검색된 상품이 없습니다.<br>다른 검색어를 입력해주세요.</p>
         </div>
       </div>
+      <!-- 결과 != 0 일때 -->
+      <!--
       <div class="container pt-10">
-        <div class="list search-list searchbar-found mt-0 mb-0">
+        <div class="list search-list searchbar-found mt-0 mb-0" style="padding-bottom: 70px;">
           <div class="row">
             <div class="col-50 medium-25">
               <div class="item-box">
@@ -273,6 +274,7 @@
           </div>
         </div>
       </div>
+      -->
     </div>
   </div>
   <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
