@@ -71,6 +71,11 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <style>
+        .fa-trash-can {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="page light">
@@ -84,6 +89,12 @@
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
+            <!-- 장바구니 비었을때 -->
+<%--            <div class="list simple-list search-not-found" style="height: 300px">--%>
+<%--                <i class="fa-solid fa-cart-shopping"></i>--%>
+<%--                <p>장바구니가 비었습니다.--%>
+<%--            </div>--%>
+            <!-- 장바구니에 물건 있을때 -->
             <div class="list cart-list">
                 <ul>
                     <li class="swipeout cart-item">
@@ -94,7 +105,9 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
+                                        <h6 class="category" style="float: left;">팜팜농장</h6>
+                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                        <div style="clear:both; font-weight: bold"></div>
                                         <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
@@ -123,7 +136,9 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
+                                        <h6 class="category" style="float: left;">팜팜농장</h6>
+                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                        <div style="clear:both; font-weight: bold"></div>
                                         <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
@@ -152,7 +167,9 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
+                                        <h6 class="category" style="float: left;">팜팜농장</h6>
+                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                        <div style="clear:both; font-weight: bold"></div>
                                         <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
@@ -181,7 +198,9 @@
                                 </div>
                                 <div class="item-info">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
+                                        <h6 class="category" style="float: left;">팜팜농장</h6>
+                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                        <div style="clear:both; font-weight: bold"></div>
                                         <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
                                         <h5 class="item-title"><span>7,500</span>원</h5>
                                     </div>
