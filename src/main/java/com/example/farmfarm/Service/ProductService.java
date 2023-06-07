@@ -22,24 +22,28 @@ public class ProductService {
     private UserService userService;
 
     // 상품 등록
-    public ProductEntity saveProduct(ProductEntity product, FarmEntity farm){
+    public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
         ProductEntity addProduct = product;
         addProduct.setFarm(farm);
         if(addProduct.getIs_auction()) {
-            Calendar cal = Calendar.getInstance();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            cal.set(Calendar.YEAR, product.getDate().getYear() + 1900);
-            cal.set(Calendar.MONTH, product.getDate().getMonth());
-            cal.set(Calendar.DATE, product.getDate().getDay());
-            cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time());
-            cal.set(Calendar.MINUTE, 0);
-            cal.set(Calendar.SECOND, 0);
-            String openDate = format.format(cal.getTime());
-            addProduct.setOpenCalendar(openDate);
-            cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time() + 3);
-            String closeDate = format.format(cal.getTime());
-            addProduct.setCloseCalendar(closeDate);
-        }
+            if (farm.is_auction() == true) { // 경매 농장일 경우 auction_quantity 설정
+                addProduct.setAuction_quantity(product.getQuantity());
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                cal.set(Calendar.YEAR, product.getDate().getYear() + 1900);
+                cal.set(Calendar.MONTH, product.getDate().getMonth());
+                cal.set(Calendar.DATE, product.getDate().getDay());
+                cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time());
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                String openDate = format.format(cal.getTime());
+                addProduct.setOpenCalendar(openDate);
+                cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time() + 3);
+                String closeDate = format.format(cal.getTime());
+                addProduct.setCloseCalendar(closeDate);
+            } else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)
+               return null;
+            }
         return productRepository.save(addProduct);
     }
 
