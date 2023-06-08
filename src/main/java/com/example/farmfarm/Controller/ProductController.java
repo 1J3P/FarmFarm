@@ -81,7 +81,7 @@ public class ProductController {
             productList = productService.getAllProduct();
         }
         for (ProductEntity val : productList) {
-            if (val.getIs_auction() == false) {
+            if (val.is_auction() == false) {
                 result.add(val);
             }
         }
@@ -144,7 +144,7 @@ public class ProductController {
             productList = productService.getAllProduct();
         }
         for (ProductEntity val : productList) {
-            if (val.getIs_auction() == true) {
+            if (val.is_auction() == true) {
                 result.add(val);
             }
         }

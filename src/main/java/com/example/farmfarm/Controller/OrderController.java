@@ -42,9 +42,9 @@ public class OrderController {
             orderDetail.setQuantity(i.getQuantity());
             ProductEntity product = productService.getProduct(i.getP_id());
             orderDetail.setPrice(product.getPrice() * i.getQuantity());
-            if (product.getIs_group() == true) {
+            if (product.is_group() == true) {
                 orderDetail.setType(1);
-            } else if (product.getIs_auction() == true) {
+            } else if (product.is_auction() == true) {
                 orderDetail.setType(2);
             } else {
                 orderDetail.setType(0);
@@ -99,7 +99,7 @@ public class OrderController {
     public String saveOrderDetailAuction(HttpSession session, HttpServletRequest request, @PathVariable("pId") long pId, AuctionEntity auction) {
         ProductEntity product = productService.getProduct(pId);
         UserEntity user = userService.getUser(request);
-        if (product.getIs_auction()) {
+        if (product.is_auction()) {
             List<OrderDetailEntity> details = new ArrayList<>();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
             auction.setProduct(product);

@@ -25,7 +25,7 @@ public class ProductService {
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
         ProductEntity addProduct = product;
         addProduct.setFarm(farm);
-        if(addProduct.getIs_auction()) {
+        if (addProduct.is_auction()) {
             if (farm.is_auction() == true) { // 경매 농장일 경우 auction_quantity 설정
                 addProduct.setAuction_quantity(product.getQuantity());
                 Calendar cal = Calendar.getInstance();
@@ -42,8 +42,9 @@ public class ProductService {
                 String closeDate = format.format(cal.getTime());
                 addProduct.setCloseCalendar(closeDate);
             } else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)
-               return null;
+                return null;
             }
+        }
         return productRepository.save(addProduct);
     }
 
@@ -53,8 +54,13 @@ public class ProductService {
         return product;
     }
 
-    // 상품 리스트 조회(신상품순 - 기본)
+    // 일반 상품 리스트 조회(신상품순 - 기본)
     public List<ProductEntity> getAllProduct() {
+        return (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+    }
+
+    //Todo : 경매 상품 리스트 조회(기본)
+    public List<ProductEntity> getAllAuctionProduct() {
         return (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
     }
 
