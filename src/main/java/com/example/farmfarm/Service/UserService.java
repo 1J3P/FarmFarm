@@ -6,7 +6,7 @@ import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Entity.oauth.KakaoProfile;
 import com.example.farmfarm.Entity.oauth.OauthToken;
 import com.example.farmfarm.Repository.UserRepository;
-import com.example.farmfarm.config.jwt.JwtProperties;
+import com.example.farmfarm.Config.jwt.JwtProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

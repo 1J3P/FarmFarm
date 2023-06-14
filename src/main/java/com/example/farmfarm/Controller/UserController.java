@@ -3,7 +3,7 @@ package com.example.farmfarm.Controller;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Entity.oauth.OauthToken;
 import com.example.farmfarm.Service.UserService;
-import com.example.farmfarm.config.jwt.JwtProperties;
+import com.example.farmfarm.Config.jwt.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
