@@ -45,7 +45,7 @@
   />
   <meta name="format-detection" content="telephone=no"/>
 
-  <title>Kede - Grocery Mobile App HTML ( Framework 7 + PWA )</title>
+  <title>리뷰 작성</title>
 
   <link rel="stylesheet" href="../style/framework7-bundle.min.css"/>
   <link rel="stylesheet" href="../style/app.css"/>
@@ -71,6 +71,54 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var farmRating = 0; // 농장 별점을 저장할 변수
+      var productRating = 0; // 상품 별점을 저장할 변수
+
+      // 농장 별점 클릭 이벤트 처리
+      $('.rating-box:first .rating-list li').click(function() {
+        var index = $(this).index() + 1;
+
+        // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
+        $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
+
+        // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
+        $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
+
+        // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
+        $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
+
+        // 선택한 별의 숫자를 농장 별점 변수에 저장합니다
+        farmRating = index;
+
+        // 농장 별점 값을 출력합니다
+        console.log('농장 별점:', farmRating);
+      });
+
+      // 상품 별점 클릭 이벤트 처리
+      $('.rating-box:last .rating-list li').click(function() {
+        var index = $(this).index() + 1;
+
+        // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
+        $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
+
+        // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
+        $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
+
+        // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
+        $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
+
+        // 선택한 별의 숫자를 상품 별점 변수에 저장합니다
+        productRating = index;
+
+        // 상품 별점 값을 출력합니다
+        console.log('상품 별점:', productRating);
+      });
+    });
+  </script>
+  </script>
 </head>
 <body>
 <div class="page light">
@@ -81,7 +129,7 @@
           <i class="icon flaticon-left"></i>
         </a>
       </div>
-      <div class="title"><b>상품 후기 작성</b></div>
+      <div class="title"><b>리뷰 작성</b></div>
       <div class="right">
       </div>
     </div>
@@ -90,12 +138,23 @@
     <div class="container">
       <div class="write-reviews-box">
         <div class="reviews-head">
-          <h3 class="title"><b>상품의 후기를 작성해주세요</b></h3>
+          <h3 class="title"><b>농장의 별점을 입력해주세요. </b></h3>
+        </div>
+        <div class="rating-box">
+          <ul class="rating-list">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star-o"></i></li>
+            <li><i class="fa fa-star-o"></i></li>
+          </ul>
+        </div>
+        <div class="reviews-head">
+          <h3 class="title"><b>상품의 리뷰를 작성해주세요</b></h3>
           <p>받아보신 상품은 어떠셨나요?<br>
             다른 고객님들을 위해 솔직한 의견 남겨주세요:)</p>
         </div>
         <div class="rating-box">
-          <h2 class="rating-text">3.0</h2>
           <ul class="rating-list">
             <li><i class="fa fa-star"></i></li>
             <li><i class="fa fa-star"></i></li>

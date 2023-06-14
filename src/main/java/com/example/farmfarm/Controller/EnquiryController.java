@@ -60,20 +60,29 @@ public class EnquiryController {
     //상품별 문의사항 조회
     @GetMapping("/{p_id}")
     public ResponseEntity<Object> getProductEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId) {
-        List productEnquiry = new ArrayList<>();
-        productEnquiry = enquiryService.getProductEnquiry(pId);
-        System.out.println("상품별 문의사항 조회");
-        return ResponseEntity.ok().body(productEnquiry);
+        List<EnquiryEntity> productEnquiry = enquiryService.getProductEnquiry(pId);
+        ProductEntity product = productService.getProduct(pId);
+        List<EnquiryEntity> publicEnquiry = new ArrayList<>();
+        UserEntity user = userService.getUser(request);
+        if (user == product.getFarm().getUser()) {
+            for (EnquiryEntity enquiry : productEnquiry) {
+                if(enquiry.getIs_secret() == false) {
+                    publicEnquiry.add(enquiry);
+                }
+            }
+        } else {
+            System.out.println("농장 주인 : 상품별 문의사항 조회");
+            return ResponseEntity.ok().body(productEnquiry);
+        }
+        System.out.println("비밀글 제외 상품별 문의사항 조회");
+        return ResponseEntity.ok().body(publicEnquiry);
     }
 
     //내가 쓴 문의사항 보기 - 리스트일듯
     @GetMapping("/my")
     public ResponseEntity<Object> getMyEnquiry(HttpServletRequest request) {
-        List myEnquiry = new ArrayList<>();
-        myEnquiry = enquiryService.getMyEnquiry(request);
+        List<EnquiryEntity> myEnquiry = enquiryService.getMyEnquiry(request);
         System.out.println("내가 쓴 문의사항 조회");
         return ResponseEntity.ok().body(myEnquiry);
     }
 }
-
-
