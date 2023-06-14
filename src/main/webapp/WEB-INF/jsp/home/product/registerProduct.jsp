@@ -70,6 +70,41 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function(){
+            $("input[name='pro_type']").change(function(){
+                if($("input[name='pro_type']:checked").val() == '경매 상품'){
+                    $('.auction-date').show();
+                }
+                else if($("input[name='pro_type']:checked").val() == '일반 상품'){
+                    $('.auction-date').hide();
+                }
+                else if($("input[name='pro_type']:checked").val() == '공동 구매'){
+                    $('.auction-date').hide();
+                }
+            });
+        });
+    </script>
+    <style>
+        .auction-date{
+            display:none;
+        }
+        .file-label {
+            margin: 30px 0;
+            background-color: #94C015;
+            color: #fff;
+            text-align: center;
+            font-size:13px;
+            padding: 7px 20px;
+            width: 60%;
+            border-radius: 13px;
+            cursor: pointer;
+        }
+        .file {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -94,6 +129,10 @@
                     <input type="radio" name="pro_type" value="일반 상품"><span>일반 상품</span>
                     <input type="radio" name="pro_type" value="공동 구매"><span>공동 구매</span>
                     <input type="radio" name="pro_type" value="경매 상품"><span>경매 상품</span>
+                </div>
+                <div style="margin-top:30px" class="auction-date">
+                    <h3>경매 날짜를 선택해주세요</h3>
+                    <input type="date">
                 </div>
             </div>
             <div class="product_name">
@@ -133,17 +172,19 @@
             <div class="product_pic">
                 <h3>사진을 올려주세요 <span>(선택)</span></h3>
                 <div>
-                    <img src="../images/product_img_add.png" style="width:150px;cursor:pointer">
+                    <label class="file-label" for="chooseFile">파일 선택</label>
+                    <input class="file" id="chooseFile" type="file">
                 </div>
                 <p style="font-size:12px;color:#999999">상품과 무관한 사진을 첨부하면 노출 제한 처리될 수 있습니다.<br>
                     사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.</p>
             </div>
+            <div class="list">
+                <ul>
+                    <li class="mb-15"><a href="/home/" class="button-large button button-fill">상품 등록</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="list">
-            <ul>
-                <li class="mb-15"><a href="/home/" class="button-large button button-fill">상품 등록</a></li>
-            </ul>
-        </div>
+
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>

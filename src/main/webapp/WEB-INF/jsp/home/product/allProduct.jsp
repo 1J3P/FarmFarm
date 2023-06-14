@@ -100,9 +100,6 @@
                             <option>높은 가격순</option>
                         </select>
                     </div>
-                    <div class="filter">
-                        <h5>필터</h5>
-                    </div>
                 </div>
             </div>
             <div class="row">

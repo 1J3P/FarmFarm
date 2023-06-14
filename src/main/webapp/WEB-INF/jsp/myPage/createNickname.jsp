@@ -70,12 +70,76 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <style>
+        .layer-page{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 9999;
+            width: 100%;
+            border-radius: 20px;
+        }
+        #mask {
+            width:100%;
+            height:100%;
+            position:fixed;
+            background:rgba(0,0,0,0.7) repeat;
+            top:0;
+            left:0;
+            z-index:999;
+        }
+    </style>
 </head>
 <body>
-<div class="page">
-    <div class="page-content account-area">
-        <div class="dz-banner" style="background-image:url(img/banner/bnr-2.jpg); background-repeat:no-repeat; background-size:cover;"></div>
-        <div class="dz-banner-height"></div>
+<div id="app">
+    <div class="page page-onboading" data-name="home">
+        <div class="page-content pb-100 container">
+            <div class="started-swiper-box">
+                <div
+                        data-pagination='{"el": ".swiper-pagination", "hideOnClick": true}'
+                        class="swiper swiper-init swiper-container-initialized swiper-container-horizontal get-started"
+                >
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="slide-info">
+                                <div class="slide-media">
+                                    <div class="logo-icon">
+                                        <img
+                                                src="../images/farmfarm_logo.png"
+                                                alt=""
+                                        />
+                                    </div>
+                                </div>
+                                <div class="slide-content color-white">
+                                    <h1 class="text-uppercase dz-title">
+                                        팜팜에 오신걸 환영합니다:&#41;
+                                    </h1>
+                                    <p>
+                                        팜팜에서 다양한 서비스를
+                                        이용해보세요!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar toolbar-bottom footer-button padding">
+            <div class="container px-15">
+                <a
+                        href="/signin/"
+                        class="button-large btn button-fill"
+                ><img src="../images/kakao_login_medium_wide.png" alt=""/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="mask"></div>
+<div class="layer-page">
+    <div class="page-content account-area" style="border-radius: 20px 20px 0 0;">
         <div class="fixed-content py-30">
             <div class="container">
                 <div class="tabs">
@@ -98,7 +162,7 @@
                             <br><br><br>
                             <div class="list">
                                 <ul>
-                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill">Sign In</a></li>
+                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill">등록하기</a></li>
                                 </ul>
                             </div>
                         </form>

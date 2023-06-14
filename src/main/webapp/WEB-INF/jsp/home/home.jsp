@@ -81,7 +81,7 @@
                     <h1 class="title"><img src="../images/farmfarm_logo2.png"></h1>
                 </div>
                 <div class="media">
-                    <a href="product/allProduct.jsp" class="notibell">
+                    <a href="/" class="notibell">
                         <i class="fa fa-bell"></i>
                         <div class="badge"></div>
                     </a>
@@ -105,9 +105,28 @@
 
             <div class="title-bar mb-15">
                 <h2 class="dz-title my-5">이 상품 어때요?</h2>
-                <a href="/deals/"><i class="flaticon-right"></i></a>
+                <a href="/product/list" class="home-product"><i class="flaticon-right"></i></a>
             </div>
             <div class="row banner">
+<%--                <c:forEach var="product" items="${productList}">--%>
+<%--                    <div class="col-50 medium-25">--%>
+<%--                        <div class="item-box">--%>
+<%--                            <div class="item-media">--%>
+<%--                                <img src="../images/categories/pic1.jpg" alt="" />--%>
+<%--                            </div>--%>
+<%--                            <label class="bookmark-btn">--%>
+<%--                                <input type="checkbox" checked />--%>
+<%--                            </label>--%>
+<%--                            <div class="item-content">--%>
+<%--                                <h5>${product.farm.name}</h5>--%>
+<%--                                <h3 class="title">--%>
+<%--                                    <a href="/item-details/">${product.name}</a>--%>
+<%--                                </h3>--%>
+<%--                                <h4 class="price">${product.price}</h4>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </c:forEach>--%>
                 <div class="col-50 medium-25">
                     <div class="item-box">
                         <div class="item-media">
@@ -179,8 +198,17 @@
             </div>
             <div class="title-bar mb-15">
                 <h2 class="dz-title my-5">이런 농장 어때요?</h2>
-                <a href="/deals/"><i class="flaticon-right"></i></a>
+                <a href="/farm/list"><i class="flaticon-right"></i></a>
             </div>
+<%--            <c:forEach var="farm" items="${farmList}" varStatus="status">--%>
+<%--                <div class="col-100">--%>
+<%--                    <a href="/deals/" class="item-category">--%>
+<%--                        <div class="item-info">--%>
+<%--                            <h3 class="title">${status.count} ${farm.name}</h3>--%>
+<%--                        </div>--%>
+<%--                    </a>--%>
+<%--                </div>--%>
+<%--            </c:forEach>--%>
             <div class="col-100">
                 <a href="/deals/" class="item-category">
                     <div class="item-info">
@@ -236,9 +264,6 @@
                         </h3>
                         <h4 class="price">경매 시작가 2,000원</h4>
                     </div>
-
-
-
                 </div>
             </div>
         </div>

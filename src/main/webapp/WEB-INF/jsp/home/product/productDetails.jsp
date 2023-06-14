@@ -201,6 +201,14 @@
       z-index:999;
       display:none;
     }
+    .fa-pencil{
+      margin-right:20px;
+    }
+    .flaticon-share{
+      cursor: pointer;
+      font-size:28px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -214,7 +222,9 @@
       </div>
       <div class="title"> </div>
       <div class="right">
-        <i class="icon flaticon-share"></i>
+<%--        <i class="icon flaticon-share"></i>--%>
+        <i class="fa-solid fa-pencil"></i>
+        <i class="fa-regular fa-trash-can"></i>
       </div>
     </div>
   </div>
@@ -225,7 +235,7 @@
           <img src="../images/slider/slide1.jpg" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="../images/slider/slide2.jpg" alt="">
+          <img src="../images/slider/slide1.jpg" alt="">
         </div>
         <div class="swiper-slide">
           <img src="../images/slider/slide1.jpg" alt="">
@@ -240,6 +250,9 @@
           <div class="clearfix">
             <h3 class="category">팜팜농장</h3>
             <h2 class="item-title">대저 토마토 (1KG)</h2>
+          </div>
+          <div>
+            <i class="icon flaticon-share"></i>
           </div>
         </div>
         <div class="item-info">

@@ -117,7 +117,7 @@
 					</div>
 				</div>
 			</div>
-		</div>\
+		</div>
 		<script src="${pageContext.request.contextPath}/js/framework7-bundle.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/routes.js"></script>
 		<script src="${pageContext.request.contextPath}/js/store.js"></script>

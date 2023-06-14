@@ -58,19 +58,19 @@ public class ProductController {
 
     // 상품 리스트 조회, 검색, 정렬(신상품순-기본, 인기순, 낮은 가격순, 높은 가격순)
     @GetMapping("/list")
-    public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+    public ModelAndView getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort) {
         List<ProductEntity> productList;
+        ModelAndView mav = new ModelAndView("home/home");
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
             productList = productService.getSearchProduct(keyword);
-        }
-        else if (!StringUtils.isEmpty(sort)) { // 정렬
+        } else if (!StringUtils.isEmpty(sort)) { // 정렬
             productList = productService.getSortedProduct(sort);
-        }
-        else {
+        } else {
             productList = productService.getAllProduct();
         }
-        return ResponseEntity.ok().body(productList);
+        mav.addObject("productList", productList);
+        return mav;
     }
 
     // 상품 수정

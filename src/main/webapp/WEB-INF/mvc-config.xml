@@ -13,10 +13,10 @@
 
 	<mvc:default-servlet-handler />
 
-	<mvc:view-controller path="/" view-name="index." />
+<!--	<mvc:view-controller path="/" view-name="index" />-->
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 </beans>
