@@ -16,6 +16,6 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
     public List<ProductEntity> findAllByOrderByPriceDesc();
     //낮은 가격순
     public List<ProductEntity> findAllByOrderByPriceAsc();
-    Object findAll(Sort pId);
+    List<ProductEntity> findAll(Sort pId);
     public List<ProductEntity> findAllByFarm(FarmEntity farm);
 }

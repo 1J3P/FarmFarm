@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -37,15 +38,18 @@ public class FarmController {
 
     //농장 전체 조회, 농장 정렬
     @GetMapping("/list")
-    public ResponseEntity<Object> getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria,
+    public ModelAndView getSortedFarm(@RequestParam(required = false, defaultValue = "rating", value = "sort") String criteria,
                                                 @RequestParam(required = false, defaultValue = "", value = "keyword") String keyword) {
         List allFarm = new ArrayList<>();
+        ModelAndView mav = new ModelAndView("home/farm/allFarm");
+
         if (keyword.equals("")) {
             allFarm = farmService.getFarmsOrderBy(criteria);
         } else {
             allFarm = farmService.searchSortFarms(keyword, criteria);
         }
-        return ResponseEntity.ok().body(allFarm);
+        mav.addObject("farmList", allFarm);
+        return mav;
     }
 
     // 농장 조회 ( 전체 농장 리스트에서 클릭 시 해당 농장 페이지로 이동)

@@ -70,6 +70,11 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <style>
+        .sort_type{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -77,7 +82,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -89,7 +94,7 @@
         <div class="container allProduct">
             <div class="allProduct_text">
                 <div class="total">
-                    <h5>총 <span>100</span>개</h5>
+                    <h5>총 <span>${productList.size()}</span>개</h5>
                 </div>
                 <div class="sort">
                     <div class="sort_type">
@@ -100,80 +105,96 @@
                             <option>높은 가격순</option>
                         </select>
                     </div>
-                    <div class="filter">
-                        <h5>필터</h5>
-                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic1.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" checked />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">대저 토마토 (1KG)</a>
-                            </h3>
-                            <h4 class="price">8,980원</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic2.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>가지가지 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">브로콜리 (1개)</a>
-                            </h3>
-                            <h4 class="price">8,000원</h4>
+                <c:forEach var="product" items="${productList}">
+                    <div class="col-50 medium-25">
+                        <div class="item-box">
+                            <div class="item-media">
+                                <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
+                            </div>
+                            <label class="bookmark-btn">
+                                <input type="checkbox" checked />
+                            </label>
+                            <div class="item-content">
+                                <h5>${product.farm.name}</h5>
+                                <h3 class="title">
+                                    <a href="/item-details/">${product.name}</a>
+                                </h3>
+                                <h4 class="price">${product.price}</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic3.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">아보카도 (1개)</a>
-                            </h3>
-                            <h4 class="price">7,000원</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic4.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">아보카도 (1개)</a>
-                            </h3>
-                            <h4 class="price">7,000원</h4>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
+<%--                <div class="col-50 medium-25">--%>
+<%--                    <div class="item-box">--%>
+<%--                        <div class="item-media">--%>
+<%--                            <img src="../images/categories/pic1.jpg" alt="" />--%>
+<%--                        </div>--%>
+<%--                        <label class="bookmark-btn">--%>
+<%--                            <input type="checkbox" checked />--%>
+<%--                        </label>--%>
+<%--                        <div class="item-content">--%>
+<%--                            <h5>팜팜 농장</h5>--%>
+<%--                            <h3 class="title">--%>
+<%--                                <a href="/item-details/">대저 토마토 (1KG)</a>--%>
+<%--                            </h3>--%>
+<%--                            <h4 class="price">8,980원</h4>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="col-50 medium-25">--%>
+<%--                    <div class="item-box">--%>
+<%--                        <div class="item-media">--%>
+<%--                            <img src="../images/categories/pic2.jpg" alt="" />--%>
+<%--                        </div>--%>
+<%--                        <label class="bookmark-btn">--%>
+<%--                            <input type="checkbox" />--%>
+<%--                        </label>--%>
+<%--                        <div class="item-content">--%>
+<%--                            <h5>가지가지 농장</h5>--%>
+<%--                            <h3 class="title">--%>
+<%--                                <a href="/item-details/">브로콜리 (1개)</a>--%>
+<%--                            </h3>--%>
+<%--                            <h4 class="price">8,000원</h4>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="col-50 medium-25">--%>
+<%--                    <div class="item-box">--%>
+<%--                        <div class="item-media">--%>
+<%--                            <img src="../images/categories/pic3.jpg" alt="" />--%>
+<%--                        </div>--%>
+<%--                        <label class="bookmark-btn">--%>
+<%--                            <input type="checkbox" />--%>
+<%--                        </label>--%>
+<%--                        <div class="item-content">--%>
+<%--                            <h5>팜팜 농장</h5>--%>
+<%--                            <h3 class="title">--%>
+<%--                                <a href="/item-details/">아보카도 (1개)</a>--%>
+<%--                            </h3>--%>
+<%--                            <h4 class="price">7,000원</h4>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="col-50 medium-25">--%>
+<%--                    <div class="item-box">--%>
+<%--                        <div class="item-media">--%>
+<%--                            <img src="../images/categories/pic4.jpg" alt="" />--%>
+<%--                        </div>--%>
+<%--                        <label class="bookmark-btn">--%>
+<%--                            <input type="checkbox" />--%>
+<%--                        </label>--%>
+<%--                        <div class="item-content">--%>
+<%--                            <h5>팜팜 농장</h5>--%>
+<%--                            <h3 class="title">--%>
+<%--                                <a href="/item-details/">아보카도 (1개)</a>--%>
+<%--                            </h3>--%>
+<%--                            <h4 class="price">7,000원</h4>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>

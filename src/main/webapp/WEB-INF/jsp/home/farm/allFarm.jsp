@@ -96,7 +96,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -126,46 +126,12 @@
             <div class="row">
                 <table class="table">
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>영린이네 과수원</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>영린이네 과수원</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>감현수 감사세요</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>하린 농장</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>영린이네 과수원</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>감현수 감사세요</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>장현아 다팔아 농장</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>영린이네 과수원</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>감현수 감사세요</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>감현수 감사세요</td>
-                    </tr>
+                    <c:forEach var="farm" items="${farmList}" varStatus="status">
+                        <tr>
+                            <th scope="row">${status.count}</th>
+                            <td>${farm.name}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
