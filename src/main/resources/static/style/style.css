@@ -1250,8 +1250,9 @@ h6 {
   .container.px-15 {
     padding-left: 15px;
     padding-right: 15px; }
+
 .allProduct, .allFarm{
-  margin-top:70px;
+  margin-top:30px;
 }
 .allProduct_text{
   display: flex;
@@ -1263,6 +1264,7 @@ h6 {
 }
 .allProduct_text .sort .sort_type select{
   font-size:14px;
+  width:100%;
 }
 .product input,
 .product_category select{
@@ -1272,7 +1274,8 @@ h6 {
   width: 100%;
   padding-left: 20px;
 }
-.product>div>h3{
+.product>div>h3,
+.product_type>div>h3{
   margin-bottom:15px;
   font-size:17px;
 }

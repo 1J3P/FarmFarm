@@ -31,7 +31,7 @@ public class ProductController {
     private FarmService farmService;
 
     // 상품 등록 Form
-    @GetMapping("/")
+    @GetMapping("")
     public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
         HttpSession session = req.getSession(false);
         Long f_id = (long)session.getAttribute("f_id");
@@ -42,7 +42,7 @@ public class ProductController {
 
     // 상품 등록
     @ResponseBody
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product) {
         FarmEntity myFarm = farmService.getMyFarm(request);
         ProductEntity newProduct = productService.saveProduct(product, myFarm);
@@ -67,9 +67,10 @@ public class ProductController {
 
     // 상품 리스트 조회, 검색, 정렬(신상품순-기본, 인기순, 낮은 가격순, 높은 가격순)
     @GetMapping("/list")
-    public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+    public ModelAndView getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
         List<ProductEntity> result = null;
+        ModelAndView mav = new ModelAndView("home/product/allProduct");
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
             productList = productService.getSearchProduct(keyword);
@@ -80,12 +81,13 @@ public class ProductController {
         else {
             productList = productService.getAllProduct();
         }
-        for (ProductEntity val : productList) {
-            if (val.is_auction() == false) {
-                result.add(val);
-            }
-        }
-        return ResponseEntity.ok().body(productList);
+//        for (ProductEntity val : productList) {
+//            if (val.is_auction() == false) {
+//                result.add(val);
+//            }
+//        }
+        mav.addObject("productList", productList);
+        return mav;
     }
 
     // 상품 수정
