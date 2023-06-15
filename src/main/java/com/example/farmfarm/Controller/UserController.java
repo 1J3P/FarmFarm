@@ -6,15 +6,16 @@ import com.example.farmfarm.Service.UserService;
 import com.example.farmfarm.Config.jwt.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 
 @Controller
 @RequestMapping("/user")
@@ -44,7 +45,7 @@ public class UserController {
 
     // 프론트에서 인가코드 받아오는 url
     @GetMapping("/login/oauth_kakao")
-    public ResponseEntity getLogin(@RequestParam("code") String code) {
+    public String getLogin(RedirectAttributes attr, @RequestParam("code") String code) {
         System.out.println("code : " + code);
         // 넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken= userService.getAccessToken(code);
@@ -57,19 +58,25 @@ public class UserController {
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
         System.out.println("our Token : " + jwtToken);
         //JWT 가 담긴 헤더와 200 ok 스테이터스 값, "success" 라는 바디값을 ResponseEntity 에 담아 프론트 측에 전달한다.
-        System.out.println(ResponseEntity.ok().headers(headers).body(null));
+        //System.out.println(ResponseEntity.ok().headers(headers).body(null));
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity request = new HttpEntity(headers);
+        HttpEntity req = new HttpEntity(headers);
         ResponseEntity<UserEntity> response = restTemplate.exchange(
                 "http://localhost:9000/user/me",
                 HttpMethod.GET,
-                request,
+                req,
                 UserEntity.class
         );
+        //request.setAttribute("Authorization", headers.get("Authorization"));
+        attr.addFlashAttribute("Authorization", headers.get("Authorization"));
+
+        System.out.println("kakaoLoginNickname1 : " + response.getBody().toString());
+        System.out.println("kakaoLoginNickname2 : " + response.getBody().getNickname());
         if (response.getBody().getNickname() == null) {
-            return ResponseEntity.ok().headers(headers).body("redirect:/user/nickname");
+            return "redirect:/user/nickname";
+        } else {
+            return "redirect:/";
         }
-        return ResponseEntity.ok().headers(headers).body("index");
     }
 
     @GetMapping("/me")
@@ -86,17 +93,20 @@ public class UserController {
     }
 
     @GetMapping("/nickname")
-    public String getNicknameForm(HttpServletRequest request) {
-        UserEntity user = userService.getUser(request);
-        if (user.getNickname() == null)
-            return "nicknameForm";
-        return "common/index";
+    public String getNicknameForm(Model model, @ModelAttribute("Authorization") String Auth) {
+
+        System.out.println("ATTRIBUTE!!!!!!!" + Auth);
+        //System.out.println("ATTR : " + request.getAttributeNames());
+        //System.out.println("**********request.getheader" + request.getHeader("Authorization"));
+        model.addAttribute("Authorization", Auth);
+        return "myPage/createNickname";
     }
 
-    @PostMapping("/nickname")
-    public ResponseEntity<Object> setNickname(HttpServletRequest request, String nickname) {
-        UserEntity newUser = userService.setNickname(userService.getUser(request), nickname);
-        return ResponseEntity.ok().body(newUser);
+    @GetMapping("/nickname/create")
+    public String setNickname(HttpServletRequest request, @RequestParam String nickname) {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + nickname);
+        UserEntity newUser = userService.setNickname(userService.getUser(request), request.getParameter("nickname"));
+        return "redirect:localhost:9000/";
 
     }
 }

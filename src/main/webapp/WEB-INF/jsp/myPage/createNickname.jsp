@@ -1,3 +1,4 @@
+<%@ page import="org.apache.tomcat.util.http.parser.Authorization" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -70,6 +71,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
         .layer-page{
             position: fixed;
@@ -91,6 +93,7 @@
     </style>
 </head>
 <body>
+<input type="hidden" value="${Authorization}" id="Auth">
 <div id="app">
     <div class="page page-onboading" data-name="home">
         <div class="page-content pb-100 container">
@@ -162,7 +165,7 @@
                             <br><br><br>
                             <div class="list">
                                 <ul>
-                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill">등록하기</a></li>
+                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill" id="submit-btn">등록하기</a></li>
                                 </ul>
                             </div>
                         </form>
@@ -192,5 +195,32 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload = function (){
+        var auth = document.getElementById("Auth").value;
+
+        console.log(auth);
+
+        $("#submit-btn").on("click", function (){
+            var nickname = document.getElementById("demo-username-22").value;
+            console.log(nickname);
+            $.ajax({
+                type:"GET",
+                async:false,
+                url:"/user/nickname/create",
+                data:{"nickname" : nickname},
+                dataType:"json",
+                contentType:"application/json; charset=utf-8",
+                beforeSend:function (xhr){
+                    xhr.setRequestHeader("Content-type","application/json");
+                    xhr.setRequestHeader("Authorization", auth);
+                },
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+    }
+</script>
 </body>
 </html>
