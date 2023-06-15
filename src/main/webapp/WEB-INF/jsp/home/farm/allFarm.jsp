@@ -70,28 +70,62 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+
+    <style>
+        table {
+            border-collapse: collapse;
+            font-size: 18px;
+            width: 400px;
+        }
+
+        table td, table th {
+            height: 40px;
+            border-bottom: 1px solid #F3F3F3;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        th[scope="row"] {
+            color: #94C015;
+        }
+
+        .searchbar-input-wrap {
+            display: flex;
+            align-items: center;
+            padding-top: 15px;
+        }
+
+        .searchbar-input-wrap input {
+            order: 1;
+            width: 400px;
+        }
+
+        .searchbar-input-wrap i {
+            order: 2;
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function handleSearchIconClick() {
+            const selectElement = document.querySelector('.sort_type select');
+            const selectedValue = selectElement.value;
+            const inputValue = document.querySelector('.searchbar-input-wrap input').value;
+            let url = 'http://localhost:9000/farm/list';
+            if (selectedValue) {
+                url += '?sort=' + encodeURIComponent(selectedValue);
+            }
+            if (inputValue) {
+                url += (selectedValue ? '&' : '?') + 'keyword=' + encodeURIComponent(inputValue);
+            }
+            window.location.href = url;
+        }
+
+        const searchIcon = document.querySelector('.searchbar-input-wrap i');
+        searchIcon.addEventListener('click', handleSearchIconClick);
+    </script>
+
 </head>
 <body>
-
-<style>
-    table {
-        border-collapse: collapse;
-        font-size: 18px;
-        width: 400px;
-    }
-
-    table td, table th {
-        height: 40px;
-        border-bottom: 1px solid #F3F3F3;
-        padding: 10px
-    }
-
-    th[scope="row"] {
-        color: #94C015;
-    }
-
-</style>
-
 <div class="page page-homepage light" data-name="homepage">
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
@@ -101,25 +135,28 @@
                 </a>
             </div>
             <div class="title">농장 전체 보기</div>
-            <div class="right"></div>
+            <div class="right">
+            </div>
         </div>
     </div>
     <div class="page-content content-area pt-30 bottom-sp80">
         <div class="container allProduct">
+            <div class="searchbar-input-wrap">
+                <input id="searchInput" type="search" placeholder="검색어를 입력해주세요." />
+                <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="handleSearchIconClick()"></i>
+            </div>
             <div class="allProduct_text">
                 <div class="total">
-                    <h5>총 <span>100</span>개</h5>
+                    <h5>총 <span id="totalProductsCount">${farmList.size()}</span>개</h5>
                 </div>
                 <div class="sort">
                     <div class="sort_type">
-                        <select>
-                            <option>인기순</option>
-                            <option>신규순</option>
-                            <option>오래된순</option>
+                        <select id="sortSelect" onchange="handleSearchIconClick()">
+                            <option value="type" style="display: none;">정렬</option>
+                            <option value="rating">인기순</option>
+                            <option value="new">신규순</option>
+                            <option value="old">오래된순</option>
                         </select>
-                    </div>
-                    <div class="filter">
-                        <h5>필터</h5>
                     </div>
                 </div>
             </div>
@@ -129,7 +166,7 @@
                     <c:forEach var="farm" items="${farmList}" varStatus="status">
                         <tr>
                             <th scope="row">${status.count}</th>
-                            <td>${farm.name}</td>
+                            <td><a href="/farm/${farm.FId}" style="color: black;">${farm.name}</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

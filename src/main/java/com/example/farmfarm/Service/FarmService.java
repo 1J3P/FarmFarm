@@ -100,6 +100,7 @@ public class FarmService {
         if(Objects.equals(user.getUId(), farm.getUser().getUId())){
             farmRepository.delete(farm);
         } else {
+            System.out.println("유저가 다름!!!!");
             throw new Exception();
         }
     }
