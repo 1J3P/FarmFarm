@@ -56,14 +56,16 @@ public class PaymentController {
 
     //TODO: 여기로 잘 오는지
     @GetMapping("/cancel")
-    public void cancel() {
+    public String cancel() {
         System.out.println("결제 취소");
+        return "shopping/paymentCancel";
     }
 
     //TODO: 여기로 잘 오는지
     @GetMapping("/fail")
-    public void fail() {
+    public String fail() {
         System.out.println("결제 실패");
+        return "shopping/paymentFail";
     }
 
     @PostMapping("/refund/{paId}")
