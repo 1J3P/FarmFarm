@@ -1,7 +1,9 @@
 package com.example.farmfarm.Entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.mapping.ToOne;
 
@@ -13,6 +15,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @DynamicUpdate
 @Table(name="enquiry")
+@Getter
+@Setter
 public class EnquiryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +25,8 @@ public class EnquiryEntity {
 
     private String content;
 
-    private Boolean is_secret;
+    @Column(name="is_secret")
+    private boolean secret;
 
     private Timestamp created_at;
 

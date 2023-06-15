@@ -36,7 +36,7 @@ public class EnquiryService {
         System.out.print(newEnquiry);
         if (Objects.equals(user.getUId(), newEnquiry.getUser().getUId())) {
             newEnquiry.setContent(enquiry.getContent());
-            newEnquiry.setIs_secret(enquiry.getIs_secret());
+            newEnquiry.setSecret(enquiry.isSecret());
             newEnquiry.setCreated_at(enquiry.getCreated_at());
             enquiryRepository.save(newEnquiry);
             return newEnquiry;

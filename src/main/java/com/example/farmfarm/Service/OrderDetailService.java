@@ -24,9 +24,9 @@ public class OrderDetailService {
         OrderDetailEntity order = new OrderDetailEntity();
         order.setQuantity(1);
         order.setPrice(product.getPrice());
-        if (product.is_group() == true) {
+        if (product.isGroup() == true) {
             order.setType(1);
-        } else if (product.is_auction() == true) {
+        } else if (product.isAuction() == true) {
             order.setType(2);
         } else {
             order.setType(0);

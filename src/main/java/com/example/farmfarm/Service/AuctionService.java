@@ -15,7 +15,7 @@ public class AuctionService {
     private AuctionRepository auctionRepository;
 
     public AuctionEntity createAuction(UserEntity user, AuctionEntity auction, ProductEntity product) {
-        if (product.is_auction()) {
+        if (product.isAuction()) {
             auction.setUser(user);
             auction.setProduct(product);
             return auctionRepository.save(auction);

@@ -146,7 +146,7 @@ public class ProductController {
             productList = productService.getAllProduct();
         }
         for (ProductEntity val : productList) {
-            if (val.is_auction() == true) {
+            if (val.isAuction() == true) {
                 result.add(val);
             }
         }
