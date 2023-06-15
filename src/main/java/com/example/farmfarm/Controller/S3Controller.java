@@ -18,6 +18,7 @@ public class S3Controller {
     FileService fileService;
     @PostMapping("/file")
     public ResponseEntity<FileEntity> uploadFile(@RequestPart MultipartFile multipartFile) {
+        System.out.println("file 요청");
         try {
             String filename = S3Service.uploadFile(multipartFile);
             String url = S3Service.getUrl(filename);
@@ -25,6 +26,7 @@ public class S3Controller {
             FileEntity newfile = fileService.save(files);
             return ResponseEntity.ok().body(newfile);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(null);
         }
     }
