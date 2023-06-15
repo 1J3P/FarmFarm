@@ -42,9 +42,9 @@ public class OrderController {
             orderDetail.setQuantity(i.getQuantity());
             ProductEntity product = productService.getProduct(i.getP_id());
             orderDetail.setPrice(product.getPrice() * i.getQuantity());
-            if (product.isGroup() == true) {
+            if (product.isGroup()) {
                 orderDetail.setType(1);
-            } else if (product.isAuction() == true) {
+            } else if (product.isAuction()) {
                 orderDetail.setType(2);
             } else {
                 orderDetail.setType(0);
@@ -143,12 +143,9 @@ public class OrderController {
     @GetMapping("")
     public ResponseEntity<Object> myOrderList(HttpServletRequest request) {
         UserEntity user = userService.getUser(request);
-        return ResponseEntity.ok().body(orderService.myOrderList(user));
+        List<OrderEntity> orderList = orderService.getMyOrderList(user);
+        return ResponseEntity.ok().body(orderList);
     }
-
-
-
-
 
     // read - 담은 상품을 조회할 때 동작
     @GetMapping("/order/{od_id}")

@@ -109,7 +109,7 @@
             </div>
             <div class="row">
                 <c:forEach var="product" items="${productList}">
-                    <div class="col-50 medium-25">
+                    <div class="col-50 medium-25" onclick="location.href='/product/${product.PId}'">
                         <div class="item-box">
                             <div class="item-media">
                                 <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
@@ -120,7 +120,7 @@
                             <div class="item-content">
                                 <h5>${product.farm.name}</h5>
                                 <h3 class="title">
-                                    <a href="/item-details/">${product.name}</a>
+                                    ${product.name}
                                 </h3>
                                 <h4 class="price">${product.price}</h4>
                             </div>

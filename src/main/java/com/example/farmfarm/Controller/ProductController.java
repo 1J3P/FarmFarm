@@ -1,23 +1,21 @@
 package com.example.farmfarm.Controller;
 
 
+import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
-import com.example.farmfarm.Entity.UserEntity;
-import com.example.farmfarm.Entity.FarmEntity;
-import com.example.farmfarm.Entity.ProductEntity;
-import com.example.farmfarm.Service.FarmService;
-import com.example.farmfarm.Service.ProductService;
-import com.example.farmfarm.Service.UserService;
+import com.example.farmfarm.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,13 +27,17 @@ public class ProductController {
     private UserService userService;
     @Autowired
     private FarmService farmService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private EnquiryService enquiryService;
 
     // 상품 등록 Form
     @GetMapping("")
     public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
         HttpSession session = req.getSession(false);
         Long f_id = (long)session.getAttribute("f_id");
-        ModelAndView mav = new ModelAndView("");    // 추후에 이동할 view 이름 지정하기
+        ModelAndView mav = new ModelAndView("home/product/registerProduct");
         mav.addObject("farm_id", f_id);
         return mav;
     }
@@ -54,22 +56,37 @@ public class ProductController {
 
     // 상품 조회 (일반 상품일 경우 detail 페이지로, 경매 상품일 경우 경매 참여 form으로
     @GetMapping("/{p_id}")
-    public ResponseEntity<Object> getProduct(@PathVariable("p_id") long p_id) {
+    public ModelAndView getProduct(@PathVariable("p_id") long p_id) {
         ProductEntity product = productService.getProduct(p_id);
-//        if (product.getIs_auction() == true) { // 경매일 경우
-//
-//        }
-//        else { // 일반일 경우
-//
-//        }
-        return ResponseEntity.ok().body(product);
+        List<ReviewEntity> reviewList = new ArrayList<>();
+        reviewList =  reviewService.getProductReview(p_id);
+        List<EnquiryEntity> enquiryList = new ArrayList<>();
+        enquiryList = enquiryService.getProductEnquiry(p_id);
+        ModelAndView mav_general = new ModelAndView("home/product/productDetails");
+        ModelAndView mav_auction = new ModelAndView("home/auction/auctionDetail");
+        mav_general.addObject("product", product);
+        mav_general.addObject("reviews", reviewList);
+        mav_general.addObject("enquiries", enquiryList);
+        mav_auction.addObject("product", product);
+        mav_auction.addObject("reviews", reviewList);
+        if (product.isAuction()) { // 경매일 경우
+            return mav_auction;
+        }
+        else { // 일반일 경우
+            return mav_general;
+        }
     }
+//    @GetMapping("/{p_id}")
+//    public ResponseEntity<Object> getProduct(@PathVariable("p_id") long p_id) {
+//        ProductEntity product = productService.getProduct(p_id);
+//        return ResponseEntity.ok().body(product);
+//    }
 
     // 상품 리스트 조회, 검색, 정렬(신상품순-기본, 인기순, 낮은 가격순, 높은 가격순)
     @GetMapping("/list")
     public ModelAndView getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
-        List<ProductEntity> result = null;
+        List<ProductEntity> resultList = new ArrayList<>();
         ModelAndView mav = new ModelAndView("home/product/allProduct");
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
@@ -81,14 +98,34 @@ public class ProductController {
         else {
             productList = productService.getAllProduct();
         }
-//        for (ProductEntity val : productList) {
-//            if (val.is_auction() == false) {
-//                result.add(val);
-//            }
-//        }
-        mav.addObject("productList", productList);
+        for (ProductEntity val : productList) {
+            if (val.isAuction() == false) {
+                resultList.add(val);
+            }
+        }
+        mav.addObject("productList", resultList);
         return mav;
     }
+//    public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+//        List<ProductEntity> productList;
+//        List<ProductEntity> resultList = new ArrayList<>();
+//
+//        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
+//            productList = productService.getSearchProduct(keyword);
+//        }
+//        else if (!StringUtils.isEmpty(sort)) { // 정렬
+//            productList = productService.getSortedProduct(sort);
+//        }
+//        else {
+//            productList = productService.getAllProduct();
+//        }
+//        for (ProductEntity val : productList) {
+//            if (!val.isAuction()) {
+//                resultList.add(val);
+//            }
+//        }
+//       return ResponseEntity.ok().body(resultList);
+//    }
 
     // 상품 수정
     @PutMapping("/{p_id}")
@@ -112,7 +149,6 @@ public class ProductController {
     }
 
     @GetMapping("/{p_id}/cart")
-//    @ResponseBody
     public String addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session) {
         UserEntity user = userService.getUser(request);
         ProductEntity product = productService.getProduct(p_id);
@@ -127,14 +163,36 @@ public class ProductController {
         item.setP_id(product.getPId());
         item.setQuantity(Integer.parseInt(request.getParameter("quantity")));
         cart.push(item);
-        return "productDetails_review";
+        return "home/product/productDetails";
     }
 
     // 경매 상품 리스트 조회
     @GetMapping("/auction/list")
+//    public ModelAndView getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+//        List<ProductEntity> productList;
+//        List<ProductEntity> resultList = new ArrayList<>();
+//        ModelAndView mav = new ModelAndView("home/auction/auctionList");
+//
+//        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
+//            productList = productService.getSearchProduct(keyword);
+//        }
+//        else if (!StringUtils.isEmpty(sort)) { // 정렬
+//            productList = productService.getSortedProduct(sort);
+//        }
+//        else {
+//            productList = productService.getAllAuctionProduct();
+//        }
+//        for (ProductEntity val : productList) {
+//            if (val.isAuction()) {
+//                resultList.add(val);
+//            }
+//        }
+//        mav.addObject("productList", resultList);
+//        return mav;
+//    }
     public ResponseEntity<Object> getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
-        List<ProductEntity> result = null;
+        List<ProductEntity> resultList = new ArrayList<>();
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
             productList = productService.getSearchProduct(keyword);
@@ -143,14 +201,13 @@ public class ProductController {
             productList = productService.getSortedProduct(sort);
         }
         else {
-            productList = productService.getAllProduct();
+            productList = productService.getAllAuctionProduct();
         }
         for (ProductEntity val : productList) {
-            if (val.isAuction() == true) {
-                result.add(val);
+            if (val.isAuction()) {
+                resultList.add(val);
             }
         }
-        return ResponseEntity.ok().body(productList);
+        return ResponseEntity.ok().body(resultList);
     }
-
 }

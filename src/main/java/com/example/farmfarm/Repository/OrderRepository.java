@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<OrderEntity, Integer> {
+public interface OrderRepository extends CrudRepository<OrderEntity, Long> {
     public OrderEntity findByoId(Long oId);
-    public List<OrderEntity> findByUser(UserEntity user);
+    public List<OrderEntity> findAllByUser(UserEntity user);
 }

@@ -118,6 +118,57 @@
         $(".enquiry_form").toggle();
       });
     });
+
+    function decreaseValue() {
+      var input = document.getElementById('quantityInput');
+      var currentValue = parseInt(input.value);
+      if (currentValue > 0) {
+        input.value = currentValue - 1;
+      }
+    }
+
+    function increaseValue() {
+      var input = document.getElementById('quantityInput');
+      var currentValue = parseInt(input.value);
+      var maxValue = parseInt(input.max);
+      if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+      }
+    }
+
+    window.onload = function (){
+      function objectifyForm(formArray){
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+          returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+      }
+      $("#openBtn").on("click", function (){
+        var formsubmitSerialArray = $("#form").serializeArray();
+        var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+        var pId = ${p_id};
+        console.log("a : " + formsubmitSerialArray);
+        console.log("b : " + formsubmit);
+        $.ajax({
+          type:"POST",
+          async:true,
+          url:"http://localhost:9000/enquiry/4",
+          data:formsubmit,
+          dataType:"json",
+          contentType:"application/json; charset=utf-8",
+          success:function (data){
+            alert("success");
+            console.log(data);
+          },
+          error:function (request, status, error){
+            console.log(request);
+            console.log(status);
+            console.log(error);
+          }
+        });
+      });
+    };
   </script>
   <style>
     #tab-2, #tab-3 {
@@ -248,8 +299,8 @@
       <div class="container">
         <div class="item-info">
           <div class="clearfix">
-            <h3 class="category">팜팜농장</h3>
-            <h2 class="item-title">대저 토마토 (1KG)</h2>
+            <h3 class="category">${product.farm.name}</h3>
+            <h2 class="item-title">${product.name}</h2>
           </div>
           <div>
             <i class="icon flaticon-share"></i>
@@ -257,20 +308,20 @@
         </div>
         <div class="item-info">
           <div class="clearfix">
-            <h2 class="text-primary item-price">8,980원</h2>
+            <h2 class="text-primary item-price">${product.price}원</h2>
           </div>
           <div class="stepper stepper-small stepper-round stepper-init">
-            <div class="stepper-button-minus"></div>
+            <div class="stepper-button-minus" onclick="decreaseValue()"></div>
             <div class="stepper-input-wrap">
-              <input type="text" value="4" name="quantity" min="0" max="100" step="1" readonly>
+              <input type="text" value="1" name="quantity" min="0" max="100" step="1" id="quantityInput" readonly>
             </div>
-            <div class="stepper-button-plus"></div>
+            <div class="stepper-button-plus" onclick="increaseValue()"></div>
           </div>
         </div>
         <div class="item-info">
           <div class="reviews-info">
             <i class="fa fa-star"></i>
-            <h5 class="reviews">4.5</h5>
+            <h5 class="reviews">${product.rating}</h5>
             <p class="reviews-text">(128 reviews)</p>
           </div>
           <div class="avatar-group">
@@ -289,56 +340,38 @@
         <div class="tabs-swipeable-wrap tabs-height-auto">
           <div class="tabs">
             <div id="tab-1" class="tab tab-active">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+              <p>${product.detail}</p>
             </div>
             <div id="tab-2" class="tab">
               <div class="list media-list review-list">
                 <ul>
-                  <li class="list">
-                    <div href="#" class="item-link item-content">
-                      <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
-                      <div class="item-inner">
-                        <div class="item-title-row">
-                          <div class="item-title">James Logan</div>
-                          <div class="item-after stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
+                  <c:forEach var="review" items="${reviews}">
+                    <li class="list">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">${review.user.nickname}</div>
+                            <div class="item-after stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
                           </div>
+                          <!-- <div class="item-subtitle">27 August 2020</div>-->
+                          <div class="item-text">${review.comment}</div>
                         </div>
-                        <div class="item-subtitle">27 August 2020</div>
-                        <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
                       </div>
-                    </div>
-                  </li>
-                  <li class="list">
-                    <div href="#" class="item-link item-content">
-                      <div class="item-media"><img src="../images/avatar/2.jpg" width="50"></div>
-                      <div class="item-inner">
-                        <div class="item-title-row">
-                          <div class="item-title">Leo Tucker</div>
-                          <div class="item-after stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                          </div>
-                        </div>
-                        <div class="item-subtitle">15 June 2020</div>
-                        <div class="item-text">Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  </c:forEach>
                 </ul>
               </div>
             </div>
             <div id="tab-3" class="tab">
               <div class="list media-list review-list">
-                <form class="form-elements">
+                <form class="form-elements" id="form">
                   <div class="list">
                     <div class="list">
                       <ul>
@@ -351,44 +384,29 @@
                           <div class="item-inner">
                             <label class="form-label"><b>1:1 문의 작성</b></label>
                             <div class="item-input-wrap">
-                              <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control"/></textarea>
+                              <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control" name="content"/></textarea>
                             </div>
                           </div>
                         </li>
                       </ul>
                       <div class="list">
                         <ul style="margin-top:0;">
-                          <li class="mb-15"><a href="/home/" class="button-large button button-fill">작성 완료</a></li>
+                          <li class="mb-15"><button class="button-large button button-fill" type="button" id="openBtn">작성 완료</button></li>
                         </ul>
                       </div>
                     </div>
                   </div>
                 </form>
                 <div class="page-content content-area pt-30 bottom-sp80">
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
+                  <c:forEach var="enquiry" items="${enquiries}">
+                    <div class="enquiry_list">
+                      <p class="li_pro_name">${enquiry.product.name}</p>
+                      <p class="li_en">${enquiry.content}</p>
+                      <h4>02-123-4567로 전화 문의 바랍니다^^</h4>
+                      <i class="fa-solid fa-pencil"></i>
+                      <i class="fa-regular fa-trash-can"></i>
+                    </div>
+                  </c:forEach>
                 </div>
               </div>
             </div>

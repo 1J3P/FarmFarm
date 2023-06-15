@@ -6,7 +6,6 @@ import com.example.farmfarm.Repository.OrderRepository;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -23,9 +22,8 @@ public class OrderService {
         return orderRepository.findByoId(oId);
     }
 
-    public List<OrderEntity> myOrderList(UserEntity user) {
-        return orderRepository.findByUser(user);
+    public List<OrderEntity> getMyOrderList(UserEntity user) {
+        return orderRepository.findAllByUser(user);
     }
-
 
 }

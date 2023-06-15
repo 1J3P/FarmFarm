@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("review")
+@RequestMapping("/review")
 public class ReviewController {
     @Autowired
     ReviewService reviewService;
@@ -56,12 +57,14 @@ public class ReviewController {
     }
 
     //상품별 리뷰 조회
-    @GetMapping("/{p_id}")
-    public ResponseEntity<Object> getProductReview(HttpServletRequest request, @PathVariable("p_id") long pId) {
-        List productReview = new ArrayList<>();
+    @GetMapping("")
+    public ModelAndView getProductReview(HttpServletRequest request, @RequestParam("p_id") long pId) {
+        List<ReviewEntity> productReview = new ArrayList<>();
+        ModelAndView mav = new ModelAndView("home/product/productDetails");
         productReview = reviewService.getProductReview(pId);
         System.out.println("상품별 리뷰 조회");
-        return ResponseEntity.ok().body(productReview);
+        mav.addObject("reviews", productReview);
+        return mav;
     }
 
     //내가 쓴 리뷰 보기 - 리스트일듯
