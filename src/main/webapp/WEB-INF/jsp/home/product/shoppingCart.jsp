@@ -79,11 +79,16 @@
 </head>
 <body>
 <div class="page light">
-    <div class="navbar navbar-style-2">
+    <div class="navbar navbar-style-1">
         <div class="navbar-inner">
-            <div class="title">장바구니</div>
+            <div class="left">
+                <a href="/home" class="link back">
+                    <i class="flaticon-left"></i>
+                </a>
+            </div>
+            <div class="title">카테고리</div>
             <div class="right">
-                <a href="/shipping-address/">주문하기</a>
+                <a href="/shipping-address/">주문</a>
             </div>
         </div>
     </div>
