@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -27,13 +28,15 @@ public class EnquiryController {
     ProductService productService;
 
     //문의사항 작성
-    @ResponseBody
     @PostMapping("/{p_id}")
-    public ResponseEntity<Object> createEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
+    public ModelAndView createEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
+        System.out.println(enquiry.getContent());
+        ModelAndView mav = new ModelAndView("home/home");
         UserEntity user = userService.getUser(request);
         ProductEntity product = productService.getProduct(pId);
         EnquiryEntity newEnquiry = enquiryService.saveEnquiry(user, product, enquiry);
-        return ResponseEntity.ok().body(newEnquiry);
+        mav.addObject("newEnquiry", newEnquiry);
+        return mav;
     }
 
     //문의사항 수정
@@ -59,23 +62,27 @@ public class EnquiryController {
 
     //상품별 문의사항 조회
     @GetMapping("/{p_id}")
-    public ResponseEntity<Object> getProductEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId) {
+    public ModelAndView getProductEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId) {
+        System.out.println(pId + "성공!!");
+        ModelAndView mav = new ModelAndView("home/product/productDetails");
         List<EnquiryEntity> productEnquiry = enquiryService.getProductEnquiry(pId);
         ProductEntity product = productService.getProduct(pId);
         List<EnquiryEntity> publicEnquiry = new ArrayList<>();
         UserEntity user = userService.getUser(request);
-        if (user == product.getFarm().getUser()) {
+        if (user != product.getFarm().getUser()) { // 농장 주인이 아닐 때
             for (EnquiryEntity enquiry : productEnquiry) {
                 if(!enquiry.isSecret()) {
                     publicEnquiry.add(enquiry);
                 }
             }
-        } else {
-            System.out.println("농장 주인 : 상품별 문의사항 조회");
-            return ResponseEntity.ok().body(productEnquiry);
+            System.out.println("비밀글 제외 상품별 문의사항 조회");
+            mav.addObject("enquiries", publicEnquiry);
         }
-        System.out.println("비밀글 제외 상품별 문의사항 조회");
-        return ResponseEntity.ok().body(publicEnquiry);
+        else { // 농장 주인일 때
+            System.out.println("농장 주인 : 상품별 문의사항 조회");
+            mav.addObject("enquiries", productEnquiry);
+        }
+        return mav;
     }
 
     //내가 쓴 문의사항 보기 - 리스트일듯

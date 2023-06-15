@@ -135,6 +135,40 @@
         input.value = currentValue + 1;
       }
     }
+
+    window.onload = function (){
+      function objectifyForm(formArray){
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+          returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+      }
+      $("#openBtn").on("click", function (){
+        var formsubmitSerialArray = $("#form").serializeArray();
+        var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+        var pId = ${p_id};
+        console.log("a : " + formsubmitSerialArray);
+        console.log("b : " + formsubmit);
+        $.ajax({
+          type:"POST",
+          async:true,
+          url:"http://localhost:9000/enquiry/4",
+          data:formsubmit,
+          dataType:"json",
+          contentType:"application/json; charset=utf-8",
+          success:function (data){
+            alert("success");
+            console.log(data);
+          },
+          error:function (request, status, error){
+            console.log(request);
+            console.log(status);
+            console.log(error);
+          }
+        });
+      });
+    };
   </script>
   <style>
     #tab-2, #tab-3 {
@@ -337,7 +371,7 @@
             </div>
             <div id="tab-3" class="tab">
               <div class="list media-list review-list">
-                <form class="form-elements">
+                <form class="form-elements" id="form">
                   <div class="list">
                     <div class="list">
                       <ul>
@@ -350,44 +384,29 @@
                           <div class="item-inner">
                             <label class="form-label"><b>1:1 문의 작성</b></label>
                             <div class="item-input-wrap">
-                              <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control"/></textarea>
+                              <textarea style="height: 150px;" rows="5" placeholder="1:1 문의 내용을 작성해주세요" class="form-control" name="content"/></textarea>
                             </div>
                           </div>
                         </li>
                       </ul>
                       <div class="list">
                         <ul style="margin-top:0;">
-                          <li class="mb-15"><a href="/home/" class="button-large button button-fill">작성 완료</a></li>
+                          <li class="mb-15"><button class="button-large button button-fill" type="button" id="openBtn">작성 완료</button></li>
                         </ul>
                       </div>
                     </div>
                   </div>
                 </form>
                 <div class="page-content content-area pt-30 bottom-sp80">
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
-                  <div class="enquriy_list">
-                    <p class="li_pro_name">대저 토마토 1KG</p>
-                    <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-                    <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-                      이내로 배송이 될 예정입니다.</h4>
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-regular fa-trash-can"></i>
-                  </div>
+                  <c:forEach var="enquiry" items="${enquiries}">
+                    <div class="enquiry_list">
+                      <p class="li_pro_name">${enquiry.product.name}</p>
+                      <p class="li_en">${enquiry.content}</p>
+                      <h4>02-123-4567로 전화 문의 바랍니다^^</h4>
+                      <i class="fa-solid fa-pencil"></i>
+                      <i class="fa-regular fa-trash-can"></i>
+                    </div>
+                  </c:forEach>
                 </div>
               </div>
             </div>

@@ -1,16 +1,10 @@
 package com.example.farmfarm.Controller;
 
 
+import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
-import com.example.farmfarm.Entity.ReviewEntity;
-import com.example.farmfarm.Entity.UserEntity;
-import com.example.farmfarm.Entity.FarmEntity;
-import com.example.farmfarm.Entity.ProductEntity;
-import com.example.farmfarm.Service.FarmService;
-import com.example.farmfarm.Service.ProductService;
-import com.example.farmfarm.Service.ReviewService;
-import com.example.farmfarm.Service.UserService;
+import com.example.farmfarm.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,6 +29,8 @@ public class ProductController {
     private FarmService farmService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private EnquiryService enquiryService;
 
     // 상품 등록 Form
     @GetMapping("")
@@ -64,10 +60,13 @@ public class ProductController {
         ProductEntity product = productService.getProduct(p_id);
         List<ReviewEntity> reviewList = new ArrayList<>();
         reviewList =  reviewService.getProductReview(p_id);
+        List<EnquiryEntity> enquiryList = new ArrayList<>();
+        enquiryList = enquiryService.getProductEnquiry(p_id);
         ModelAndView mav_general = new ModelAndView("home/product/productDetails");
         ModelAndView mav_auction = new ModelAndView("home/auction/auctionDetail");
         mav_general.addObject("product", product);
         mav_general.addObject("reviews", reviewList);
+        mav_general.addObject("enquiries", enquiryList);
         mav_auction.addObject("product", product);
         mav_auction.addObject("reviews", reviewList);
         if (product.isAuction()) { // 경매일 경우
