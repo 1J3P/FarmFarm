@@ -69,7 +69,12 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet"
 		/>
-
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<script>
+			// $.noConflict();
+			// var _$ = jQuery
+			jQuery.noConflict();
+		</script>
 	</head>
 	<body>
 		<div id="app">
@@ -109,18 +114,51 @@
 				</div>
 				<div class="toolbar toolbar-bottom footer-button padding">
 					<div class="container px-15">
-						<a
-							href="/signin/"
+						<li
+							href="http://localhost:9000/user/login/getKakaoAuthUrl"
 							class="button-large btn button-fill"
+							id="kakaoLogin"
 							><img src="../images/kakao_login_medium_wide.png" alt=""/>
-                        </a>
+                        </li>
 					</div>
 				</div>
 			</div>
-		</div>\
+		</div>
 		<script src="${pageContext.request.contextPath}/js/framework7-bundle.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/routes.js"></script>
 		<script src="${pageContext.request.contextPath}/js/store.js"></script>
 		<script src="${pageContext.request.contextPath}/js/app.js"></script>
+		<script>
+			window.onload=function () {
+				const a = document.getElementById("kakaoLogin");
+				jQuery.ajax({
+					type:"GET",
+					async:true,
+					url:"/user/login/getKakaoAuthUrl",
+					success:function (data){
+						a.setAttribute("onclick", "location.href='" + data + "'");
+						// a.setAttribute("href", data);
+						// console.log(data);
+						// jQuery.ajax({
+						// 	type:"GET",
+						// 	async:true,
+						// 	url:data,
+						// 	dataType:"json",
+						// 	success:function (data, status, xhr){
+						// 		console.log(xhr.getResponseHeader("Content-Type"));
+						// 	}
+						// })
+					},
+					error:function (request, status, error){
+						console.log(request);
+						console.log(status);
+						console.log(error);
+					}
+				});
+				// $("#kakaoLogin").on("click", function (){
+				//
+				// })
+			}
+		</script>
 	</body>
 </html>

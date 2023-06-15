@@ -19,7 +19,7 @@ public class SchedulerService {
 
     @Autowired
     private AuctionService auctionService;
-    @Scheduled(cron = "0 0 * * * *")
+    //@Scheduled(cron = "0 0 * * * *")
     public void openAuction() throws ParseException {
         List<ProductEntity> products = productService.getAllAuctionProduct();
         Calendar current = Calendar.getInstance();
