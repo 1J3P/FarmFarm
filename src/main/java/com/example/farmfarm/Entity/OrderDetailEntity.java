@@ -1,5 +1,6 @@
 package com.example.farmfarm.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +40,7 @@ public class OrderDetailEntity {
 
     @ManyToOne
     @JoinColumn(name="o_id")
+    @JsonIgnore
     private OrderEntity order;
 
 }

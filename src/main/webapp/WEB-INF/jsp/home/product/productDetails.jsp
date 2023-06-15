@@ -118,6 +118,23 @@
         $(".enquiry_form").toggle();
       });
     });
+
+    function decreaseValue() {
+      var input = document.getElementById('quantityInput');
+      var currentValue = parseInt(input.value);
+      if (currentValue > 0) {
+        input.value = currentValue - 1;
+      }
+    }
+
+    function increaseValue() {
+      var input = document.getElementById('quantityInput');
+      var currentValue = parseInt(input.value);
+      var maxValue = parseInt(input.max);
+      if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+      }
+    }
   </script>
   <style>
     #tab-2, #tab-3 {
@@ -248,8 +265,8 @@
       <div class="container">
         <div class="item-info">
           <div class="clearfix">
-            <h3 class="category">팜팜농장</h3>
-            <h2 class="item-title">대저 토마토 (1KG)</h2>
+            <h3 class="category">${product.farm.name}</h3>
+            <h2 class="item-title">${product.name}</h2>
           </div>
           <div>
             <i class="icon flaticon-share"></i>
@@ -257,20 +274,20 @@
         </div>
         <div class="item-info">
           <div class="clearfix">
-            <h2 class="text-primary item-price">8,980원</h2>
+            <h2 class="text-primary item-price">${product.price}원</h2>
           </div>
           <div class="stepper stepper-small stepper-round stepper-init">
-            <div class="stepper-button-minus"></div>
+            <div class="stepper-button-minus" onclick="decreaseValue()"></div>
             <div class="stepper-input-wrap">
-              <input type="text" value="4" name="quantity" min="0" max="100" step="1" readonly>
+              <input type="text" value="1" name="quantity" min="0" max="100" step="1" id="quantityInput" readonly>
             </div>
-            <div class="stepper-button-plus"></div>
+            <div class="stepper-button-plus" onclick="increaseValue()"></div>
           </div>
         </div>
         <div class="item-info">
           <div class="reviews-info">
             <i class="fa fa-star"></i>
-            <h5 class="reviews">4.5</h5>
+            <h5 class="reviews">${product.rating}</h5>
             <p class="reviews-text">(128 reviews)</p>
           </div>
           <div class="avatar-group">
@@ -289,50 +306,32 @@
         <div class="tabs-swipeable-wrap tabs-height-auto">
           <div class="tabs">
             <div id="tab-1" class="tab tab-active">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+              <p>${product.detail}</p>
             </div>
             <div id="tab-2" class="tab">
               <div class="list media-list review-list">
                 <ul>
-                  <li class="list">
-                    <div href="#" class="item-link item-content">
-                      <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
-                      <div class="item-inner">
-                        <div class="item-title-row">
-                          <div class="item-title">James Logan</div>
-                          <div class="item-after stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
+                  <c:forEach var="review" items="${reviews}">
+                    <li class="list">
+                      <div href="#" class="item-link item-content">
+                        <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">${review.user.nickname}</div>
+                            <div class="item-after stars">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
                           </div>
+                          <!-- <div class="item-subtitle">27 August 2020</div>-->
+                          <div class="item-text">${review.comment}</div>
                         </div>
-                        <div class="item-subtitle">27 August 2020</div>
-                        <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
                       </div>
-                    </div>
-                  </li>
-                  <li class="list">
-                    <div href="#" class="item-link item-content">
-                      <div class="item-media"><img src="../images/avatar/2.jpg" width="50"></div>
-                      <div class="item-inner">
-                        <div class="item-title-row">
-                          <div class="item-title">Leo Tucker</div>
-                          <div class="item-after stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                          </div>
-                        </div>
-                        <div class="item-subtitle">15 June 2020</div>
-                        <div class="item-text">Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  </c:forEach>
                 </ul>
               </div>
             </div>

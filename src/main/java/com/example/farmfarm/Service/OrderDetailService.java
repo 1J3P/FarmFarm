@@ -58,4 +58,8 @@ public class OrderDetailService {
     public OrderDetailEntity createOrderDetail(OrderDetailEntity order) {
        return orderDetailRepository.save(order);
     }
+
+    public List<OrderDetailEntity> getAllOrderDetail() {
+        return (List<OrderDetailEntity>) orderDetailRepository.findAll();
+    }
 }

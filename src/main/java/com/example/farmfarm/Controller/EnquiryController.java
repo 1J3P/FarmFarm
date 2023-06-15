@@ -66,7 +66,7 @@ public class EnquiryController {
         UserEntity user = userService.getUser(request);
         if (user == product.getFarm().getUser()) {
             for (EnquiryEntity enquiry : productEnquiry) {
-                if(enquiry.isSecret() == false) {
+                if(!enquiry.isSecret()) {
                     publicEnquiry.add(enquiry);
                 }
             }

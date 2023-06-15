@@ -159,7 +159,6 @@ public class UserService {
         return kakaoProfile;
     }
     public UserEntity getUser(HttpServletRequest request) {
-
         Long userCode = (Long) request.getAttribute("userCode");
         System.out.println("유저코드임"+userCode);
         UserEntity user = userRepository.findById(userCode);

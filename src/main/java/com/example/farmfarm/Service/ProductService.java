@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -56,12 +57,25 @@ public class ProductService {
 
     // 일반 상품 리스트 조회(신상품순 - 기본)
     public List<ProductEntity> getAllProduct() {
-        return (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+        List<ProductEntity> productList =  (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+        List<ProductEntity> resultList = new ArrayList<>();
+        for (ProductEntity val : productList) {
+            if (!val.isAuction()) {
+                resultList.add(val);
+            }
+        }
+        return resultList;
     }
 
-    //Todo : 경매 상품 리스트 조회(기본)
     public List<ProductEntity> getAllAuctionProduct() {
-        return (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+        List<ProductEntity> productList =  (List<ProductEntity>) productRepository.findAll(Sort.by(Sort.Direction.DESC, "pId"));
+        List<ProductEntity> resultList = new ArrayList<>();
+        for (ProductEntity val : productList) {
+            if (val.isAuction()) {
+                resultList.add(val);
+            }
+        }
+        return resultList;
     }
 
     // 농장별 상품 리스트 조회
