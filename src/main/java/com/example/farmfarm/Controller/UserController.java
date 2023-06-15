@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
 @Controller
+@SessionAttributes("Authorization")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -45,7 +46,7 @@ public class UserController {
 
     // 프론트에서 인가코드 받아오는 url
     @GetMapping("/login/oauth_kakao")
-    public String getLogin(RedirectAttributes attr, @RequestParam("code") String code) {
+    public String getLogin(RedirectAttributes attr, @RequestParam("code") String code, Model model) {
         System.out.println("code : " + code);
         // 넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken= userService.getAccessToken(code);
@@ -57,6 +58,7 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
         System.out.println("our Token : " + jwtToken);
+        String Auth = JwtProperties.TOKEN_PREFIX + jwtToken;
         //JWT 가 담긴 헤더와 200 ok 스테이터스 값, "success" 라는 바디값을 ResponseEntity 에 담아 프론트 측에 전달한다.
         //System.out.println(ResponseEntity.ok().headers(headers).body(null));
         RestTemplate restTemplate = new RestTemplate();
@@ -72,6 +74,7 @@ public class UserController {
 
         System.out.println("kakaoLoginNickname1 : " + response.getBody().toString());
         System.out.println("kakaoLoginNickname2 : " + response.getBody().getNickname());
+        model.addAttribute("Authorization", Auth);
         if (response.getBody().getNickname() == null) {
             return "redirect:/user/nickname";
         } else {

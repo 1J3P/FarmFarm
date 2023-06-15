@@ -71,7 +71,7 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script>
     //탭 로직
     document.addEventListener('DOMContentLoaded', function () {
@@ -136,39 +136,6 @@
       }
     }
 
-    window.onload = function (){
-      function objectifyForm(formArray){
-        var returnArray = {};
-        for (var i = 0; i < formArray.length; i++) {
-          returnArray[formArray[i]['name']] = formArray[i]['value'];
-        }
-        return returnArray;
-      }
-      $("#openBtn").on("click", function (){
-        var formsubmitSerialArray = $("#form").serializeArray();
-        var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-        var pId = ${p_id};
-        console.log("a : " + formsubmitSerialArray);
-        console.log("b : " + formsubmit);
-        $.ajax({
-          type:"POST",
-          async:true,
-          url:"http://localhost:9000/enquiry/4",
-          data:formsubmit,
-          dataType:"json",
-          contentType:"application/json; charset=utf-8",
-          success:function (data){
-            alert("success");
-            console.log(data);
-          },
-          error:function (request, status, error){
-            console.log(request);
-            console.log(status);
-            console.log(error);
-          }
-        });
-      });
-    };
   </script>
   <style>
     #tab-2, #tab-3 {
@@ -260,14 +227,18 @@
       font-size:28px;
       font-weight: bold;
     }
+    #openBtn {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
+<input type="hidden" value="${Authorization}" id="Auth">
 <div class="page light">
   <div class="navbar navbar-style-1 navbar-transparent">
     <div class="navbar-inner">
       <div class="left">
-        <a href="#" class="link back">
+        <a href="/product/list" class="link back">
           <i class="icon flaticon-left"></i>
         </a>
       </div>
@@ -517,4 +488,46 @@
   </div>
 </div>
 </body>
+<script>
+  window.onload = function (){
+    function objectifyForm(formArray){
+      var returnArray = {};
+      for (var i = 0; i < formArray.length; i++) {
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+      }
+      return returnArray;
+    }
+    var auth = document.getElementById("Auth").value;
+    console.log("auth 확인" + auth);
+    $("#openBtn").on("click", function (){
+      var formsubmitSerialArray = $("#form").serializeArray();
+      var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+      var pId = ${p_id};
+      console.log(formsubmitSerialArray);
+      console.log(formsubmit);
+      $.ajax({
+        type:"POST",
+        async:false,
+        url:"/enquiry/" + pId,
+        data:formsubmit,
+        dataType:"json",
+        contentType:"application/json; charset=utf-8",
+        beforeSend:function (xhr){
+          xhr.setRequestHeader("Content-type","application/json");
+          xhr.setRequestHeader("Authorization", auth);
+        },
+        success:function (data){
+          alert("success");
+          console.log(data);
+          location.href="/product/" + pId;
+        },
+        error:function (request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });
+    });
+  };
+</script>
 </html>
