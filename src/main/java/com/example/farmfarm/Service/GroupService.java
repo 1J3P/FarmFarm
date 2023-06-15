@@ -13,7 +13,7 @@ public class GroupService {
     private GroupRepository groupRepository;
 
     public GroupEntity createGroup(UserEntity user, ProductEntity product) {
-        if (product.is_group()) {
+        if (product.isGroup()) {
             GroupEntity group = new GroupEntity();
             group.setProduct(product);
             group.setUser1(user);

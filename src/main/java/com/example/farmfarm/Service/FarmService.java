@@ -82,7 +82,7 @@ public class FarmService {
             newFarm.setDetail(farm.getDetail());
             newFarm.setImage(farm.getImage());
             newFarm.setAuction_time(farm.getAuction_time());
-            newFarm.set_auction(farm.is_auction()); // 이게 왜 이런걸까요 ?
+            newFarm.setAuction(farm.isAuction()); // 이게 왜 이런걸까요 ?
             newFarm.setCreated_at(farm.getCreated_at());
             newFarm.setDetail(farm.getDetail());
             farmRepository.save(newFarm);

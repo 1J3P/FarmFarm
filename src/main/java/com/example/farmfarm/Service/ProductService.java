@@ -25,8 +25,8 @@ public class ProductService {
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
         ProductEntity addProduct = product;
         addProduct.setFarm(farm);
-        if (addProduct.is_auction()) {
-            if (farm.is_auction() == true) { // 경매 농장일 경우 auction_quantity 설정
+        if (addProduct.isAuction()) {
+            if (farm.isAuction() == true) { // 경매 농장일 경우 auction_quantity 설정
                 addProduct.setAuction_quantity(product.getQuantity());
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

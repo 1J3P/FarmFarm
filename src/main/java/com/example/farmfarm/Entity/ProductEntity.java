@@ -38,7 +38,8 @@ public class ProductEntity {
 
     private String image3;
 
-    private boolean is_group;  // 변경 불가 - 공구 여부
+    @Column(name="is_group")
+    private boolean group;  // 변경 불가 - 공구 여부
 
     @CreationTimestamp
     private Timestamp created_at;
@@ -55,13 +56,15 @@ public class ProductEntity {
 
     private int price;
 
-    private boolean is_direct;  // 변경 불가 - 직거래 여부
+    @Column(name="is_direct")
+    private boolean direct;  // 변경 불가 - 직거래 여부
 
     private String direct_location;  // 직거래 장소
 
     private int low_price;  // 경매 최저가
 
-    private boolean is_auction;  // 변경 불가 - 경매 여부
+    @Column(name="is_auction")
+    private boolean auction;  // 변경 불가 - 경매 여부
 
     private int open_status; //0이면 아직 안열림, 1이면 열려있음, 2이면 열렸다가 닫힘 -> 처음값은 무조건 0
 

@@ -28,7 +28,8 @@ public class OrderEntity {
 
     private String status;
 
-    private boolean is_delivery;
+    @Column(name="is_delivery")
+    private boolean delivery;
 
     private String delivery_address;
 
