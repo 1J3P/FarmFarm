@@ -78,23 +78,35 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framework7@6"></script>
+  <script>
+    function changeTab(tab) {
+      // Remove active class from all tab links
+      var tabLinks = document.querySelectorAll('.tab-link');
+      tabLinks.forEach(function (link) {
+        link.classList.remove('active');
+      });
+      tab.classList.add('active');
+    }
+
+  </script>
 </head>
 <body>
 <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
   <div class="toolbar-inner">
-    <a href="/home/" class="tab-link active">
+    <a href="/home" class="tab-link" onclick="changeTab(this)">
       <i class="flaticon-home"></i>
     </a>
-    <a href="/categories/" class="tab-link">
+    <a href="/category" class="tab-link" onclick="changeTab(this)">
       <i class="fa-solid fa-bars"></i>
     </a>
-    <a href="/search/" class="tab-link">
+    <a href="/search" class="tab-link" onclick="changeTab(this)">
       <i class="fa-solid fa-magnifying-glass"></i>
     </a>
-    <a href="/shopping-cart/" class="tab-link cart-in">
+    <a href="/cart" class="tab-link cart-in" onclick="changeTab(this)">
       <i class="flaticon-shopping-cart"></i>
     </a>
-    <a href="/user/" class="tab-link">
+    <a href="/myPage" class="tab-link" onclick="changeTab(this)">
       <img src="images/avatar/1.jpg" class="user-media" alt="" />
     </a>
   </div>

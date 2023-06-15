@@ -132,15 +132,17 @@
 <div class="page page-homepage light" data-name="homepage">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
-      <div class="left" style="width: 100px">
-        <div class="title">마이페이지</div>
+      <div class="left">
+        <a href="/home" class="link back">
+          <i class="flaticon-left"></i>
+        </a>
       </div>
-      <div class="title"></div>
+      <div class="title">마이페이지</div>
       <div class="right"></div>
     </div>
   </div>
 
-  <div class="page-content content-area bottom-sp80">
+  <div class="page-content pt-60 bottom-sp60">
     <div class="container allProduct">
       <div class="row">
         <table class="table">
@@ -154,7 +156,7 @@
                 <div class="username">김팜팜님</div>
               </div>
               <div>
-                <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                <a href="javascript:void(0);" class="button myPage-btn ">
                   프로필 관리
                 </a>
               </div>
@@ -169,7 +171,7 @@
               <div class="farmName">팜팜농장</div>
               </div>
               <div>
-                <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                <a href="javascript:void(0);" class="button myPage-btn">
                   농장 관리
                 </a>
               </div>
@@ -208,6 +210,7 @@
       </div>
     </div>
   </div>
+  <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>
