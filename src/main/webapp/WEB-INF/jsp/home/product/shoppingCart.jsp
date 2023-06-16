@@ -104,20 +104,25 @@
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">카테고리</div>
+            <div class="title">장바구니</div>
             <div class="right">
-                <a href="/order/cart">주문하기</a>
+                <c:if test="${not empty itemList}">
+                    <a href="/order/cart">주문</a>
+                </c:if>
             </div>
         </div>
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
             <!-- 장바구니 비었을때 -->
+            <c:if test="${empty itemList}">
             <div class="list simple-list search-not-found" style="height: 300px">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <p>장바구니가 비었습니다.
             </div>
+            </c:if>
             <!-- 장바구니에 물건 있을때 -->
+            <c:if test="${not empty itemList}">
             <div class="list cart-list">
                 <ul>
                     <c:forEach var="item" items="${itemList}">
@@ -155,6 +160,7 @@
                     </c:forEach>
                 </ul>
             </div>
+            </c:if>
         </div>
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>

@@ -5,6 +5,7 @@ import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
 import com.example.farmfarm.Repository.OrderDetailRepository;
 import com.example.farmfarm.Service.*;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,10 +35,10 @@ public class OrderController {
     //Todo 이하린 여기부터
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
-    public ResponseEntity<Object> saveOrderDetailCart(HttpSession session) {
+    public String saveOrderDetailCart(HttpSession session) {
         List<OrderDetailEntity> details = new ArrayList<>();
         Cart cart = (Cart)session.getAttribute("cart");
-
+        System.out.println(cart.getItemList().get(0));
         for (Item i : cart.getItemList()) {
             OrderDetailEntity orderDetail = new OrderDetailEntity();
             orderDetail.setQuantity(i.getQuantity());
@@ -54,14 +55,14 @@ public class OrderController {
             details.add(orderDetail);
         }
         session.setAttribute("orderDetail", details);
-        return ResponseEntity.ok().body(details);
+        return "home/product/productShippingAddress";
     }
 
     //order 생성! - 이후 결제 진행
     @PostMapping("")
     public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
-        UserEntity user = userService.getUser(request);
-        List<OrderDetailEntity> details = (List<OrderDetailEntity>) session.getAttribute("orderDetail");
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        List<OrderDetailEntity> details = (List<OrderDetailEntity>)session.getAttribute("orderDetail");
         order.setUser(user);
         int totalP = 0;
         int totalQ = 0;

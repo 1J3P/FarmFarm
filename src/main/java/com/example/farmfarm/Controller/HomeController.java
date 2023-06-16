@@ -29,7 +29,7 @@ public class HomeController {
     public String control(HttpServletRequest request, HttpSession session) {
         try {
             System.out.println("print session Authorization : " + session.getAttribute("Authorization"));
-            if (request.getAttribute("Authorization") != null || session.getAttribute("user") != null) {
+            if (session.getAttribute("user") != null) {
                 System.out.println("ATTRIBUTE!!!!!!!" + request.getAttribute("Authorization").toString());
                 return "redirect:http://localhost:9000/";
             }
