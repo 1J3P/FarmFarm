@@ -28,9 +28,8 @@ public class HomeController {
     @GetMapping("/index")
     public String control(HttpServletRequest request, HttpSession session) {
         try {
-            System.out.println("print session Authorization : " + session.getAttribute("Authorization"));
+            System.out.println("print session Authorization : " + session.getAttribute("user"));
             if (session.getAttribute("user") != null) {
-                System.out.println("ATTRIBUTE!!!!!!!" + request.getAttribute("Authorization").toString());
                 return "redirect:http://localhost:9000/";
             }
 //            UserEntity user = userService.getUser(request);
@@ -38,6 +37,9 @@ public class HomeController {
 //            if (user == null) {
 //                return "common/index";
 //            }
+            else if (session.getAttribute("user") == null){
+                return "redirect:/kakao";
+            }
             return "redirect:/kakao";
         } catch (Exception e) {
             return "redirect:/kakao";

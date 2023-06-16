@@ -160,7 +160,8 @@
                 success:function (data){
                     alert("success");
                     console.log(data);
-                    location.href="/";
+                    console.log(data.oid);
+                    //location.href="/";
                 },
                 error:function (request, status, error){
                     console.log(request);
