@@ -114,11 +114,10 @@
                 </div>
                 <div class="item-info" style="margin-top: -30px">
                     <h4>경매 시작가 ${product.low_price}원</h4>
-
                 </div>
                 <div class="auction_time"><h3 class="ac-time" data-date="${product.date}" style="color: #9DBF3F"></h3></div>
                 <div style="text-align: center">
-                    <h4>현재 최고가 : 3박스 - 2000원(1박스당)</h4>
+                    <h4>${product.detail}</h4>
                 </div>
                 <div class="tab tab-active form-elements tabs">
                     <form class="tab tab-active" id="tabA1">
@@ -140,7 +139,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">경매 참여하기</a></li>
+                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill">경매 참여하기</a></li>
                             </ul>
                         </div>
                     </form>

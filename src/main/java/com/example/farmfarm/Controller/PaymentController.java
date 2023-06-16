@@ -58,7 +58,12 @@ public class PaymentController {
             int sales = od.getProduct().getSales();
             int updateSales = sales + od.getQuantity();
             od.getProduct().setSales(updateSales);
+            // orderDetail이 경매일 경우, auction에 paId 등록하기
+            if (od.getType() == 2) {
+                od.getAuction().setPaId(kakaoApprove.getPaId());
+            }
         }
+        order.setStatus("결제완료");
         ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
         mav.addObject("kakaoApprove", kakaoApprove);
         return mav;
