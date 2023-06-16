@@ -106,7 +106,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/myPage" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -118,146 +118,158 @@
         <div class="container cart-list-area">
             <div class="list cart-list">
                 <ul>
-                    <div class="order-date">
-                        <p>2023.6.14</p>
-                    </div>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
+                    <c:forEach var="order" items="${orderList}">
+                        <div class="order-date">
+                            <p><fmt:formatDate pattern="yyyy-MM-dd" value="${order.created_at}"/></p>
+                        </div>
+                        <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
+                            <c:forEach var="orderDetail" items="${order.orders}">
+                                <div class="item-content swipeout-content">
+                                    <div class="item-inner">
+                                        <div class="item-info">
+                                            <div class="item-head">
+                                                <h6 class="category">${orderDetail.product.farm.name}</h6>
+                                                <h2 class="item-title"><a href="/item-details/">${orderDetail.product.name}</a></h2>
+                                                <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
+                                            </div>
+                                            <div class="item-foot">
+                                                <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원</h3>
+                                                <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                    <div class="stepper-input-wrap stepperFont">
+                                                        X <span>${orderDetail.quantity}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                                </div>
+                            </c:forEach>
+
+
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category">팜팜농장</h6>
+                                            <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                            <h5 class="item-title"><span>7,500</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                            <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                <div class="stepper-input-wrap stepperFont">
+                                                    X <span>3</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category">팜팜농장</h6>
+                                            <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                            <h5 class="item-title"><span>7,500</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                            <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                <div class="stepper-input-wrap stepperFont">
+                                                    X <span>3</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </li>
+
+
+
+
+
+
+                        <div class="order-date">
+                            <p>2023.6.4</p>
                         </div>
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                        <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category">팜팜농장</h6>
+                                            <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                            <h5 class="item-title"><span>7,500</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                            <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                <div class="stepper-input-wrap stepperFont">
+                                                    X <span>3</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </li>
+                        <div class="order-date">
+                            <p>2023.5.29</p>
                         </div>
-                    </li>
-                    <div class="order-date">
-                        <p>2023.6.4</p>
-                    </div>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                        <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category">팜팜농장</h6>
+                                            <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                            <h5 class="item-title"><span>7,500</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                            <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                <div class="stepper-input-wrap stepperFont">
+                                                    X <span>3</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="swipeout-actions-right">
+                                <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
+                            </div>
+                        </li>
+                        <div class="order-date">
+                            <p>2023.5.23</p>
                         </div>
-                    </li>
-                    <div class="order-date">
-                        <p>2023.5.29</p>
-                    </div>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                        <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category">팜팜농장</h6>
+                                            <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
+                                            <h5 class="item-title"><span>7,500</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                            <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                <div class="stepper-input-wrap stepperFont">
+                                                    X <span>3</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <div class="order-date">
-                        <p>2023.5.23</p>
-                    </div>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="swipeout-actions-right">
+                                <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
                             </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>

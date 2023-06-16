@@ -140,7 +140,7 @@ public class OrderController {
 
     //TODO: 이거 동작 확인해보기
     public ModelAndView myOrderList(HttpServletRequest request, HttpSession session) {
-        ModelAndView mav = new ModelAndView("myPage/myOrderList");
+        ModelAndView mav = new ModelAndView("myPage/orderList");
         UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderEntity> orderList = orderService.getMyOrderList(user);
         mav.addObject("orderList", orderList);

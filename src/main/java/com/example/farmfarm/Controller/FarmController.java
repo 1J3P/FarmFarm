@@ -33,8 +33,8 @@ public class FarmController {
 
     // 농장 개설
     @PostMapping("")
-    public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm, Model model) {
-        UserEntity user = userService.getUser(request);
+    public ResponseEntity<Object> createFarm( @RequestBody FarmEntity farm, Model model, HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         model.addAttribute("myFarm", newFarm);
         return ResponseEntity.ok().body(newFarm);
