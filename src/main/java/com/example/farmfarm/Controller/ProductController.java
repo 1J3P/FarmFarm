@@ -35,6 +35,8 @@ public class ProductController {
     private ReviewService reviewService;
     @Autowired
     private EnquiryService enquiryService;
+    @Autowired
+    private GroupService groupService;
 
     // 상품 등록 Form
     @GetMapping("")
@@ -61,7 +63,7 @@ public class ProductController {
 
     // 상품 조회 (일반 상품일 경우 detail 페이지로, 경매 상품일 경우 경매 참여 form으로
     @GetMapping("/{p_id}")
-    public ModelAndView getProduct(@PathVariable("p_id") long p_id) {
+    public ModelAndView getProduct(@PathVariable("p_id") long p_id, HttpSession session) {
         ProductEntity product = productService.getProduct(p_id);
         List<ReviewEntity> reviewList = new ArrayList<>();
         reviewList =  reviewService.getProductReview(p_id);
@@ -72,6 +74,8 @@ public class ProductController {
         mav_general.addObject("product", product);
         mav_general.addObject("reviews", reviewList);
         mav_general.addObject("enquiries", enquiryList);
+        List<GroupEntity> groups = groupService.findByProduct(product);
+        mav_general.addObject("groups", groups);
         mav_auction.addObject("product", product);
         mav_auction.addObject("reviews", reviewList);
         if (product.isAuction()) { // 경매일 경우
@@ -217,6 +221,13 @@ public class ProductController {
         }
         mav.addObject("productList", resultList);
         return mav;
+    }
+    @GetMapping("/{p_id}/group")
+    public void getGroupList(HttpSession session, @PathVariable("p_id") long pId, Model model) {
+        ProductEntity product = productService.getProduct(pId);
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        List<GroupEntity> groups = groupService.findByProduct(product);
+        model.addAttribute("groups", groups);
     }
 
 }

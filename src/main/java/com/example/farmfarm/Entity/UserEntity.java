@@ -40,11 +40,13 @@ public class UserEntity {
     private String image;
 
     @Builder
-    public UserEntity(Long id, String nickname, String email, String user_role, String platform) {
+    public UserEntity(Long id, String nickname, String email, String user_role, String platform, String status, String image) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.user_role = user_role;
         this.platform = platform;
+        this.image = image;
+        this.status = status;
     }
 }

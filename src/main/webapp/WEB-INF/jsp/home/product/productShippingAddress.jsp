@@ -47,22 +47,22 @@
 
     <title>Kede - Grocery Mobile App HTML ( Framework 7 + PWA )</title>
 
-    <link rel="stylesheet" href="../style/framework7-bundle.min.css"/>
-    <link rel="stylesheet" href="../style/app.css"/>
+    <link rel="stylesheet" href="../../style/framework7-bundle.min.css"/>
+    <link rel="stylesheet" href="../../style/app.css"/>
 
     <link
             rel="stylesheet"
-            href="../style/font-awesome/css/font-awesome.min.css"
+            href="../../style/font-awesome/css/font-awesome.min.css"
     />
     <link
             rel="stylesheet"
-            href="../style/line-awesome/css/line-awesome.min.css"
+            href="../../style/line-awesome/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="../style/flaticons/flaticon.css"/>
+    <link rel="stylesheet" href="../../style/flaticons/flaticon.css"/>
 
-    <link rel="stylesheet" href="../style/style.css"/>
+    <link rel="stylesheet" href="../../style/style.css"/>
 
-    <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
+    <link rel="apple-touch-icon" href="../../images/f7-icon-square.png"/>
     <link rel="icon" href="../images/f7-icon.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>

@@ -127,6 +127,18 @@
       }
     }
 
+    function groupAttend(gId) {
+      console.log(gId);
+      var link = "http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
+      console.log(link);
+      location.href="http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
+      window.location.href("http://localhost:9000/order/group/" + gId + "?quantity=" + quantity);
+      window.location.href="http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
+      window.location.assign("http://localhost:9000/order/group/" + gId + "?quantity=" + quantity);
+      window.location.replace(link);
+      location.href="/order/group/" + gId;
+    }
+
     function increaseValue() {
       var input = document.getElementById('quantityInput');
       var currentValue = parseInt(input.value);
@@ -390,7 +402,7 @@
     <div class="container px-15">
       <div class="row">
         <div class="col-30">
-          <button type="button" class="button-large button btn-block button-fill add-cart-btn active together-order" style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number" value="${product.price * 0.9}" />원</span>
+          <button type="button" onclick="ViewLayer()" class="button-large button btn-block button-fill add-cart-btn active together-order" style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number" value="${product.price * 0.9}" />원</span>
           </button>
         </div>
         <div class="col-70">
@@ -414,71 +426,45 @@
                 <a href="javascript:CloseLayer();" style="color:#0A3C48"><i class="icon flaticon-cancel" ></i></a>
               </div>
               <div class="title-bar">
-                <div class="group_open"><button class="open">공구 개설</button></div>
+                <div class="group_open">
+                  <button class="open" id="group_open">공구 개설</button></div>
               </div>
-              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
-                <div class="toolbar-inner">
-                  <div class="avatar-group">
-                    <img src="../images/avatar/1.jpg" alt="">
-                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>권*빈 (1/2)</p>
-                  <div class="right">
-                    <div class="group_1">
-                      <h5 class="group_2">1명 남음</h5>
-                      <h5 class="group_2">23:54:36</h5>
+              <c:if test="${empty groups}">
+                <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                  <div class="toolbar-inner">
+                    공동 구매를 개설해보세요!
+                  </div>
+                </div>
+              </c:if>
+              <c:if test="${not empty groups}">
+                <c:forEach var="group" items="${groups}">
+                  <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
+                    <div class="toolbar-inner">
+                      <div class="avatar-group">
+                        <c:if test="${group.user1 ne null}">
+                          <img src="${group.user1.image}" alt="">
+                        </c:if>
+                        <c:if test="${group.user2 ne null}">
+                          <img src="${group.user2.image}" alt="">
+                        </c:if>
+                      </div> &nbsp;&nbsp;&nbsp;&nbsp;
+                      <p>${group.user1.nickname} (${2 - group.capacity}/2)</p>
+                      <div class="right">
+                        <c:if test="${group.capacity eq 1}">
+                          <div class="group_1">
+                            <h5 class="group_2">1명 남음</h5>
+                            <h5 class="group_2">23:54:36</h5>
+                          </div>
+                          <div class="group_1"><button class="parti" id="group_attend" onclick="groupAttend(${group.GId})">주문 참여</button></div>
+                        </c:if>
+                        <c:if test="${group.capacity eq 0}">
+                          <p>공동구매완료</p>
+                        </c:if>
+                      </div>
                     </div>
-                    <div class="group_1"><button class="parti">주문 참여</button></div>
                   </div>
-                </div>
-              </div>
-              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
-                <div class="toolbar-inner">
-                  <div class="avatar-group">
-                    <img src="../images/avatar/1.jpg" alt="">
-                    <img src="../images/avatar/2.jpg" alt="">
-                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>고*용 (2/2)</p>
-                  <div class="right">
-                    <p>공동구매완료</p>
-                  </div>
-                </div>
-              </div>
-              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
-                <div class="toolbar-inner">
-                  <div class="avatar-group">
-                    <img src="../images/avatar/1.jpg" alt="">
-                    <img src="../images/avatar/2.jpg" alt="">
-                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>류*혁 (2/2)</p>
-                  <div class="right">
-                    <p>공동구매완료</p>
-                  </div>
-                </div>
-              </div>
-              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
-                <div class="toolbar-inner">
-                  <div class="avatar-group">
-                    <img src="../images/avatar/1.jpg" alt="">
-                    <img src="../images/avatar/2.jpg" alt="">
-                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>임*철 (2/2)</p>
-                  <div class="right">
-                    <p>공동구매완료</p>
-                  </div>
-                </div>
-              </div>
-              <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
-                <div class="toolbar-inner">
-                  <div class="avatar-group">
-                    <img src="../images/avatar/1.jpg" alt="">
-                    <img src="../images/avatar/2.jpg" alt="">
-                  </div> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <p>백*현 (2/2)</p>
-                  <div class="right">
-                    <p>공동구매완료</p>
-                  </div>
-                </div>
-              </div>
+                </c:forEach>
+              </c:if>
             </form>
           </div>
         </div>
@@ -559,6 +545,20 @@
           console.log(error);
         }
       });
+    });
+    var group = document.getElementById("group_open");
+    group.addEventListener('click', function(e) {
+      var quantity = parseInt(document.getElementById('quantityInput').value);
+      e.preventDefault();
+      var pId = ${p_id};
+      console.log(pId);
+      var link = "http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
+      console.log(link);
+      location.href="http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
+      window.location.href("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
+      window.location.href="http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
+      window.location.assign("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
+      window.location.replace(link);
     });
   };
 </script>
