@@ -77,7 +77,7 @@
     <div class="navbar navbar-style-1 navbar-transparent">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/product/list" class="link back">
                     <i class="icon flaticon-left"></i>
                 </a>
             </div>
@@ -107,16 +107,16 @@
             <div class="container">
                 <div class="item-info">
                     <div class="clearfix">
-                        <h3 class="category">팜팜농장</h3>
-                        <h2 class="item-title">싱싱한 찰토마토 / 5박스 한정</h2>
+                        <h3 class="category">${product.farm.name}</h3>
+                        <h2 class="item-title">${product.name}</h2>
                     </div>
                 </div>
                 <div class="item-info" style="margin-top: -30px">
-                    <h4>경매 시작가 2,000원</h4>
+                    <h4>경매 시작가 : ${product.low_price}원</h4>
                     <h3 style="color: #9DBF3F">00 : 27 : 21</h3>
                 </div>
                 <div style="text-align: center">
-                    <h4>현재 최고가 : 3박스 - 2000원(1박스당)</h4>
+                    <h4>${product.detail}</h4>
                 </div>
                 <div class="tab tab-active form-elements tabs">
                     <form class="tab tab-active" id="tabA1">
@@ -138,7 +138,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">경매 참여하기</a></li>
+                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill">경매 참여하기</a></li>
                             </ul>
                         </div>
                     </form>

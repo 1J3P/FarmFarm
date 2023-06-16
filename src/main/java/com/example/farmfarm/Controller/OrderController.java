@@ -123,9 +123,9 @@ public class OrderController {
 
     //TODO:경매 구매<단일>
     @PostMapping("/product/{pId}")
-    public String saveOrderDetailAuction(HttpSession session, HttpServletRequest request, @PathVariable("pId") long pId, AuctionEntity auction) {
+    public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, AuctionEntity auction) {
         ProductEntity product = productService.getProduct(pId);
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         if (product.isAuction()) {
             List<OrderDetailEntity> details = new ArrayList<>();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
