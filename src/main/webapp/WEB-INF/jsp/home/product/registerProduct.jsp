@@ -121,7 +121,7 @@
         </div>
     </div>
     <div class="page-content content-area pt-30 bottom-sp80">
-        <div class="container allProduct product">
+        <div class="container allProduct product" style="padding-top:10px">
             <div class="product_type">
                 <h3 style="margin-bottom:-5px">상품 유형</h3>
                 <p style="font-size:12px;color:#999999">상품 유형을 선택해주세요.</p>
