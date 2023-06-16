@@ -79,19 +79,37 @@
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framework7@6"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var tabLinks = document.querySelectorAll('.tab-link');
+
+      tabLinks.forEach(function (link, index) {
+        link.addEventListener('click', function (e) {
+          tabLinks.forEach(function (link) {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 <input type="hidden" value="${Authorization}" id="Auth">
 <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
   <div class="toolbar-inner">
-    <a href="/home/" class="tab-link active">
+    <a href="/home/" class="tab-link">
       <i class="flaticon-home"></i>
     </a>
-    <a href="/categories/" class="tab-link">
+    <a href="/category" class="tab-link">
       <i class="fa-solid fa-bars"></i>
     </a>
-    <a href="/search/" class="tab-link">
+    <a href="/search" class="tab-link">
       <i class="fa-solid fa-magnifying-glass"></i></a>
+    <a href="/cart" class="tab-link">
+      <i class="flaticon-shopping-cart"></i>
+    </a>
     <a class="tab-link" id="myPage">
       <img src="images/avatar/1.jpg" class="user-media" alt="" />
     </a>

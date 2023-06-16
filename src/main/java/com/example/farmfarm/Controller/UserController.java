@@ -59,6 +59,7 @@ public class UserController {
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
         String Auth = JwtProperties.TOKEN_PREFIX + jwtToken;
         System.out.println("our Token : " + jwtToken);
+        String Auth = JwtProperties.TOKEN_PREFIX + jwtToken;
         //JWT 가 담긴 헤더와 200 ok 스테이터스 값, "success" 라는 바디값을 ResponseEntity 에 담아 프론트 측에 전달한다.
         //System.out.println(ResponseEntity.ok().headers(headers).body(null));
         RestTemplate restTemplate = new RestTemplate();

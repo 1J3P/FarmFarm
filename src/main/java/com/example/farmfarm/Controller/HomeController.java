@@ -75,7 +75,6 @@ public class HomeController {
         return "home/product/shoppingCart";
     }
 
-
     @PostMapping("/myPage")
     @ResponseBody
     public Map<String, Object> myPage(HttpServletRequest request, Model model, HttpSession session) {

@@ -134,16 +134,16 @@
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="/home/" class="link back">
+        <a href="/" class="link back">
           <i class="flaticon-left"></i>
         </a>
       </div>
-      <div class="title"></div>
+      <div class="title">마이페이지</div>
       <div class="right"></div>
     </div>
   </div>
 
-  <div class="page-content content-area bottom-sp80">
+  <div class="page-content pt-60 bottom-sp60">
     <div class="container allProduct">
       <div class="row">
         <table class="table">
@@ -157,7 +157,7 @@
                 <div class="username">${user.nickname}</div>님
               </div>
               <div>
-                <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                <a href="javascript:void(0);" class="button myPage-btn ">
                   프로필 관리
                 </a>
               </div>
@@ -183,7 +183,6 @@
                 <div class="item-media">
                   <img src="../images/avatar/2.jpg" width="50">
                 </div>
-
                 <div class="farmName">${myFarm.name}</div>
                 </div>
                 <div>
@@ -226,6 +225,7 @@
       </div>
     </div>
   </div>
+  <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>

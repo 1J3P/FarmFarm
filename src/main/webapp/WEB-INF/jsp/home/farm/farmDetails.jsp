@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>${farm.name}</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -95,7 +95,18 @@
             margin-bottom: 20px;
         }
 
+        .fa-pencil {
+            margin-right: 20px;
+        }
+
+        .flaticon-share {
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
         document.addEventListener('DOMContentLoaded', function () {
@@ -127,6 +138,25 @@
                 });
             });
         });
+
+        function confirmAndDeleteFarm(fId) {
+            // 알림 창을 표시하여 사용자의 확인을 받습니다.
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 보냅니다.
+                $.ajax({
+                    url: "/farm/" + fId,
+                    type: "DELETE",
+                    success: function(response) {
+                        alert("삭제 되었습니다.");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("삭제 요청을 처리할 수 없습니다.");
+                    }
+                });
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -134,16 +164,16 @@
     <div class="navbar navbar-style-1 navbar-transparent">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
-                    <i class="icon flaticon-left"></i>
+                <a href="/farm/list" class="link back">
+                    <i class="flaticon-left"></i>
                 </a>
             </div>
             <div class="title"></div>
             <div class="right">
-                <i class="icon flaticon-share"></i>
-            </div>
-            <div class="right">
-                <i class="icon flaticon-share"></i>
+                <!-- 수정 필요 -->
+                <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
+                <i class="fa-solid fa-pencil"></i>
+                <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${farm.FId})"></i>
             </div>
         </div>
     </div>
@@ -168,8 +198,11 @@
             <div class="container">
                 <div class="item-info">
                     <div class="clearfix">
-                        <p class="farm-location">서울시 성북구</p>
-                        <h2 class="item-title">팜팜농장</h2>
+                        <p class="farm-location">${farm.location_city}&nbsp;${farm.location_gu}</p>
+                        <h2 class="item-title">${farm.name}</h2>
+                    </div>
+                    <div>
+                        <i class="icon flaticon-share"></i>
                     </div>
                 </div>
                 <div class="toolbar toolbar-bottom tabbar tab-style-2 tabbar-scrollable">
@@ -182,12 +215,10 @@
                 <div class="tabs-swipeable-wrap tabs-height-auto">
                     <div class="tabs">
                         <div id="tab-1" class="tab tab-active">
-                            <p>안녕하세요. 각종 채소와 과일을 파는 팜팜 농장입니다.
-                                저희 상품들은 모두 프리미엄 상품들로 걱정 안하시고
-                                드셔도 됩니다:) 많은 관심 부탁드립니다.</p>
+                            <p>${farm.detail}</p>
                         </div>
                         <div id="tab-2" class="tab">
-                            <!--세션 ID = 농장 주인 ID 일때 판매 상품 등록 가능-->
+                            <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                             <div class="item-container" >
                                 <div class="sell-product-options">
                                     <select id="product-type">
@@ -197,110 +228,59 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="list media-list review-list">
-                                <div class="row">
-                                    <div class="col-50 medium-25">
+                            <div class="row">
+                                <c:forEach var="product" items="${productList}">
+                                    <c:if test="${!product.auction}">
+                                    <div class="col-50 medium-25" onclick="location.href='/product/${product.PId}'">
                                         <div class="item-box">
                                             <div class="item-media">
-                                                <img src="../images/categories/pic1.jpg" alt=""/>
+                                                <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
                                             </div>
                                             <label class="bookmark-btn">
-                                                <input type="checkbox" checked/>
+                                                <input type="checkbox" checked />
                                             </label>
                                             <div class="item-content">
+                                                <h5>${product.farm.name}</h5>
                                                 <h3 class="title">
-                                                    <a href="/item-details/">대저 토마토 (1KG)</a>
+                                                    ${product.name}
                                                 </h3>
-                                                <h4 class="price">8,980원</h4>
+                                                <h4 class="price">${product.price}원</h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-50 medium-25">
-                                        <div class="item-box">
-                                            <div class="item-media">
-                                                <img src="../images/categories/pic2.jpg" alt=""/>
-                                            </div>
-                                            <label class="bookmark-btn">
-                                                <input type="checkbox"/>
-                                            </label>
-                                            <div class="item-content">
-                                                <h3 class="title">
-                                                    <a href="/item-details/">브로콜리 (1개)</a>
-                                                </h3>
-                                                <h4 class="price">8,000원</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-50 medium-25">
-                                        <div class="item-box">
-                                            <div class="item-media">
-                                                <img src="../images/categories/pic3.jpg" alt=""/>
-                                            </div>
-                                            <label class="bookmark-btn">
-                                                <input type="checkbox"/>
-                                            </label>
-                                            <div class="item-content">
-                                                <h3 class="title">
-                                                    <a href="/item-details/">아보카도 (1개)</a>
-                                                </h3>
-                                                <h4 class="price">7,000원</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-50 medium-25">
-                                        <div class="item-box">
-                                            <div class="item-media">
-                                                <img src="../images/categories/pic4.jpg" alt=""/>
-                                            </div>
-                                            <label class="bookmark-btn">
-                                                <input type="checkbox"/>
-                                            </label>
-                                            <div class="item-content">
-                                                <h3 class="title">
-                                                    <a href="/item-details/">아보카도 (1개)</a>
-                                                </h3>
-                                                <h4 class="price">7,000원</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </c:if>
+                                </c:forEach>
                             </div>
                         </div>
-                        <div id="tab-3" class="tab">
-                            <div class="col-50 medium-25">
-                                <h4>진행 중인 경매 2개</h4>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab">
+                    <div class="col-50 medium-25">
+                        <c:set var="auctionCount" value="0" />
+                        <h4>진행 중인 경매</h4>
+                        <c:forEach var="product" items="${productList}">
+                            <c:if test="${product.auction}">
+                                <c:set var="auctionCount" value="${auctionCount + 1}" />
                                 <div class="item-box">
                                     <div class="item-media">
-                                        <img src="../images/card/card1.png" alt=""/>
-                                    </div>
-                                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
-                                    <div class="item-content">
-                                        <h5>팜팜 농장</h5>
-                                        <h3 class="title">
-                                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정 </a>
-                                        </h3>
-                                        <h4 class="price">경매 시작가 2,000원</h4>
-                                    </div>
-                                </div>
-                                <div class="item-box">
-                                    <div class="item-media">
-                                        <img src="../images/card/card2.png" alt=""/>
+                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
                                     </div>
                                     <div class="auction_time">
                                         <h3>00 : 27 : 21</h3>
                                     </div>
                                     <div class="item-content">
-                                        <h5>팜팜 농장</h5>
+                                        <h5>${product.farm.name}</h5>
                                         <h3 class="title">
-                                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정 </a>
+                                            <a href="/home/auction/auctionDetail">${product.name}</a>
                                         </h3>
-                                        <h4 class="price">경매 시작가 2,000원</h4>
+                                        <h4 class="price">경매 시작가 ${product.price}</h4>
                                     </div>
-                                    <!-- 진행 중인 경매가 없을시 -->
-                                    <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
                                 </div>
-                            </div>
-                        </div>
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${auctionCount == 0}">
+                            <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
+                        </c:if>
                     </div>
                 </div>
             </div>

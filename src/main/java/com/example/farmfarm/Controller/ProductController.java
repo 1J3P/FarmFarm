@@ -13,10 +13,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/product")
@@ -88,15 +90,18 @@ public class ProductController {
     public ModelAndView getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
         List<ProductEntity> resultList = new ArrayList<>();
-        ModelAndView mav = new ModelAndView("home/product/allProduct");
+        ModelAndView mav;
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
+            mav = new ModelAndView("search/search");
             productList = productService.getSearchProduct(keyword);
         }
         else if (!StringUtils.isEmpty(sort)) { // 정렬
+            mav = new ModelAndView("home/product/allProduct");
             productList = productService.getSortedProduct(sort);
         }
         else {
+            mav = new ModelAndView("home/product/allProduct");
             productList = productService.getAllProduct();
         }
         for (ProductEntity val : productList) {
@@ -149,9 +154,11 @@ public class ProductController {
         return ResponseEntity.ok().body("delete OK");
     }
 
-    @GetMapping("/{p_id}/cart")
-    public String addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session) {
+    @PostMapping("/{p_id}/cart")
+    @ResponseBody
+    public Cart addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session, @RequestBody Map<String, Integer> requestBody) {
         UserEntity user = userService.getUser(request);
+        System.out.println("유저 확인" + user.getUId());
         ProductEntity product = productService.getProduct(p_id);
         Item item = new Item();
         Cart cart = (Cart)session.getAttribute("cart");
@@ -159,12 +166,12 @@ public class ProductController {
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
-        System.out.println(cart.toString());
+        System.out.println("리퀘" + requestBody.get("quantity"));
         item.setU_id(user.getUId());
         item.setP_id(product.getPId());
-        item.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        item.setQuantity(requestBody.get("quantity"));
         cart.push(item);
-        return "home/product/productDetails";
+        return cart;
     }
 
     // 경매 상품 리스트 조회

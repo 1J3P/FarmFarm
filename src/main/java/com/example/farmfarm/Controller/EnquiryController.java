@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,18 @@ public class EnquiryController {
 
     //문의사항 작성
     @PostMapping("/{p_id}")
-    public ModelAndView createEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
-        System.out.println(enquiry.getContent());
-        ModelAndView mav = new ModelAndView("home/home");
+    @ResponseBody
+    public List<EnquiryEntity> createEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
+        System.out.println("문의사항 확인" + enquiry.getContent());
+//        ModelAndView mav = new ModelAndView("home/home");
         UserEntity user = userService.getUser(request);
+        System.out.println("유저 확인" + user.getNickname());
         ProductEntity product = productService.getProduct(pId);
+        System.out.println("상품 확인" + product.getName());
         EnquiryEntity newEnquiry = enquiryService.saveEnquiry(user, product, enquiry);
-        mav.addObject("newEnquiry", newEnquiry);
-        return mav;
+//        mav.addObject("newEnquiry", newEnquiry);
+        List<EnquiryEntity> enquiryList = enquiryService.getProductEnquiry(pId);
+        return enquiryList;
     }
 
     //문의사항 수정

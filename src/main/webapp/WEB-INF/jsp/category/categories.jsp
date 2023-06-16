@@ -112,7 +112,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/home/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -151,6 +151,7 @@
             </div>
         </div>
     </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>
