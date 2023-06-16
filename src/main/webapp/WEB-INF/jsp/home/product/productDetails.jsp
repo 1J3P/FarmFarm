@@ -279,7 +279,7 @@
         </div>
         <div class="item-info">
           <div class="clearfix">
-            <h2 class="text-primary item-price">${product.price}원</h2>
+            <h2 class="text-primary item-price"><fmt:formatNumber type="number" value="${product.price}" />원</h2>
           </div>
           <div class="stepper stepper-small stepper-round stepper-init">
             <div class="stepper-button-minus" onclick="decreaseValue()"></div>
@@ -390,12 +390,11 @@
     <div class="container px-15">
       <div class="row">
         <div class="col-30">
-          <a href="javascript:ViewLayer();" class="button-large button btn-block button-fill add-cart-btn active together-order">
-            같이 주문하기<span class="price">${product.price * 0.9}원</span>
-          </a>
+          <button type="button" class="button-large button btn-block button-fill add-cart-btn active together-order" style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number" value="${product.price * 0.9}" />원</span>
+          </button>
         </div>
         <div class="col-70">
-          <button type="button" class="button-large button add-cart-btn btn-block button-fill" id="onePurchaseBtn">혼자 주문하기<span class="price">${product.price}원</span></button>
+          <button type="button" class="button-large button add-cart-btn btn-block button-fill" id="onePurchaseBtn" style="width:100%">혼자 주문<span class="price"><fmt:formatNumber type="number" value="${product.price}" />원</span></button>
         </div>
       </div>
     </div>
