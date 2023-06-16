@@ -13306,8 +13306,8 @@ label.item-radio.active-state:after {
 .stepper-input-wrap, .stepper-value {
 	flex-shrink: 1;
 	text-align: center;
-	border-top: var(--f7-stepper-border-width) solid var(--f7-theme-color);
-	border-bottom: var(--f7-stepper-border-width) solid var(--f7-theme-color)
+	/*border-top: var(--f7-stepper-border-width) solid var(--f7-theme-color);*/
+	/*border-bottom: var(--f7-stepper-border-width) solid var(--f7-theme-color)*/
 }
 
 .stepper .stepper-input-wrap input, .stepper-value {

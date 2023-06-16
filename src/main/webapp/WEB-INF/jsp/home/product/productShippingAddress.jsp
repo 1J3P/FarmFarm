@@ -71,6 +71,32 @@
             rel="stylesheet"
     />
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("input[name='delivery']").change(function(){
+                if($("input[name='delivery']:checked").val() == 'true'){
+                    $('.check-delivery').show();
+                }
+                else if($("input[name='delivery']:checked").val() == 'false'){
+                    $('.check-delivery').hide();
+                }
+            });
+        });
+    </script>
+    <style>
+        .item-input-wrap [type="radio"]{
+            vertical-align: middle;
+            appearance: none;
+            background:#d9d9d9;
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            margin-right:10px;
+        }
+        .item-input-wrap [type="radio"]:checked{
+            background: #94C015;
+        }
+    </style>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
@@ -105,20 +131,22 @@
                                         </div>
                                         <h4>거래 방식</h4>
                                         <div class="item-input-wrap">
-                                            <label><input type="radio" id="false" name="delivery" value="false" checked />직거래</label>
-                                            <label><input type="radio" id="true" name="delivery" value="true " />배송</label>
+                                            <label><input type="radio" id="true" name="delivery" value="true" checked/>배송</label>
+                                            <label><input type="radio" id="false" name="delivery" value="false"/>직거래</label>
                                         </div>
-                                        <h4>배송 요청사항</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="email" name="delivery_memo" placeholder="배송 요청 사항을 입력하세요" id="email" class="form-control"/>
-                                        </div>
-                                        <h4>주소</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="delivery_address" placeholder="주소를 입력하세요" id="address" class="form-control"/>
-                                        </div>
-                                        <h4>상세 주소</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="delivery_address_detail" placeholder="상세 주소를 입력하세요" id="zip_code" class="form-control"/>
+                                        <div class="check-delivery">
+                                            <h4>배송 요청사항</h4>
+                                            <div class="item-input-wrap">
+                                                <input type="email" name="delivery_memo" placeholder="배송 요청 사항을 입력하세요" id="email" class="form-control"/>
+                                            </div>
+                                            <h4>주소</h4>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="delivery_address" placeholder="주소를 입력하세요" id="address" class="form-control"/>
+                                            </div>
+                                            <h4>상세 주소</h4>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="delivery_address_detail" placeholder="상세 주소를 입력하세요" id="zip_code" class="form-control"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

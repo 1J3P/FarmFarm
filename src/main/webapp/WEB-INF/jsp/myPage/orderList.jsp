@@ -89,10 +89,19 @@
             width:100%;
             text-align:center;
             border-bottom: 1px solid #F4F4F4;
+            position: relative;
         }
         .order-date p{
             font-weight: bold;
             margin:5px;
+        }
+        .order-date .is-payment{
+            position: absolute;
+            right:30px;
+            top:0;
+        }
+        .order-date .is-payment p{
+            font-size:13px;
         }
         .list .item-content{
             display: flex;
@@ -121,7 +130,16 @@
                     <c:forEach var="order" items="${orderList}">
                         <div class="order-date">
                             <p><fmt:formatDate pattern="yyyy.MM.dd" value="${order.created_at}"/></p>
+                            <div class="is-payment">
+                                <c:if test="${order.status eq '결제전'}">
+                                    <p>결제 대기</p>
+                                </c:if>
+                                <c:if test="${order.status eq '결제 완료'}">
+                                    <p>결제 완료</p>
+                                </c:if>
+                            </div>
                         </div>
+
                         <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
                             <c:forEach var="orderDetail" items="${order.orders}">
                                 <div class="item-content swipeout-content">
