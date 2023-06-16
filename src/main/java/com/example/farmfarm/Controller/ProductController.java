@@ -36,15 +36,16 @@ public class ProductController {
     @Autowired
     private EnquiryService enquiryService;
 
+    //43번째 줄 널포인터 익셉션 떠서 주석처리함
     // 상품 등록 Form
-    @GetMapping("")
-    public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
-        HttpSession session = req.getSession(false);
-        Long f_id = (long)session.getAttribute("f_id");
-        ModelAndView mav = new ModelAndView("home/product/registerProduct");
-        mav.addObject("farm_id", f_id);
-        return mav;
-    }
+//    @GetMapping("")
+//    public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
+//        HttpSession session = req.getSession(false);
+//        Long f_id = (long)session.getAttribute("f_id");
+//        ModelAndView mav = new ModelAndView("home/product/registerProduct");
+//        mav.addObject("farm_id", f_id);
+//        return mav;
+//    }
 
     // 상품 등록
     @ResponseBody

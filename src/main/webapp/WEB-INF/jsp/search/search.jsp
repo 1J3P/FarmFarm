@@ -104,27 +104,22 @@
   </script>
 </head>
 <body>
+
+
+
 <div class="page light">
-  <div class="navbar navbar-style-1 navbar-transparent">
+  <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
         <a href="/home/" class="link back">
-          <i class="icon flaticon-left"></i>
+          <i class="flaticon-left"></i>
         </a>
       </div>
-      <div class="title"> </div>
+      <div class="title">상품 검색</div>
       <div class="right"></div>
     </div>
   </div>
-  <div class="page-content pt-60 pb-0 bg-primary">
-    <div class="dz-banner-heading">
-      <div class="container">
-        <h2 class="head-title text-white">상품 검색</h2>
-        <div class="category-icon">
-          <img src="img/svg/grapes.svg" alt="">
-        </div>
-      </div>
-    </div>
+  <div class="page-content pt-60 pb-0">
     <div class="fixed-content">
       <div class="bg-white sticky-top deals-search">
         <div class="container">
