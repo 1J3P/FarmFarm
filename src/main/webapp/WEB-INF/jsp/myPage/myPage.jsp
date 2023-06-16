@@ -152,12 +152,12 @@
             <td class= "myProfile" style="vertical-align: middle;">
               <div class="myPage_container">
                 <div class="item-media">
-                  <img src="../images/avatar/2.jpg" width="50">
+                  <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png" class="user-media" alt="" style="border-radius: 50%; width: 50px;"/>
                 </div>
                 <div class="username">${user.nickname}</div>님
               </div>
               <div>
-                <a href="#" class="button mypage-btn" style="color:#fff;">
+                <a href="/user/profile" class="button mypage-btn" style="color:#fff;">
                   프로필 관리
                 </a>
               </div>
