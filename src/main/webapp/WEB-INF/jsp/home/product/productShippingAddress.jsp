@@ -161,7 +161,25 @@
                     alert("success");
                     console.log(data);
                     console.log(data.oid);
-                    //location.href="/";
+                    jQuery.ajax({
+                        type:"POST",
+                        async:true,
+                        url:"http://localhost:9000/pay/order/"+data.oid,
+                        dataType:"json",
+                        contentType:"application/json; charset=utf-8",
+                        success:function (data){
+                            alert("success");
+                            console.log(data);
+                            console.log(data.oid);
+                            console.log(data.next_redirect_pc_url);
+                            location.href=data.next_redirect_pc_url;
+                        },
+                        error:function (request, status, error){
+                            console.log(request);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
                 },
                 error:function (request, status, error){
                     console.log(request);

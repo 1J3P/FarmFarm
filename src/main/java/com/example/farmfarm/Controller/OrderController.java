@@ -80,7 +80,9 @@ public class OrderController {
             orderDetailService.createOrderDetail(d);
         }
         System.out.println("주문 정보 : " + getOrder.toString());
+        session.setAttribute("cart", null);
         return ResponseEntity.ok().body(getOrder);
+
     }
 
     //TODO:공동 구매<단일>
