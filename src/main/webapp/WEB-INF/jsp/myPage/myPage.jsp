@@ -71,6 +71,7 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   <style>
     table {
       border-collapse: collapse;
@@ -132,8 +133,10 @@
 <div class="page page-homepage light" data-name="homepage">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
-      <div class="left" style="width: 100px">
-        <div class="title">마이페이지</div>
+      <div class="left">
+        <a href="/home/" class="link back">
+          <i class="flaticon-left"></i>
+        </a>
       </div>
       <div class="title"></div>
       <div class="right"></div>
@@ -151,7 +154,7 @@
                 <div class="item-media">
                   <img src="../images/avatar/2.jpg" width="50">
                 </div>
-                <div class="username">김팜팜님</div>
+                <div class="username">${user.nickname}</div>님
               </div>
               <div>
                 <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
@@ -162,18 +165,33 @@
           </tr>
           <tr>
             <td class= "myFarm" style="vertical-align: middle;">
-              <div class="myPage_container">
-              <div class="item-media">
-                <img src="../images/avatar/2.jpg" width="50">
-              </div>
-              <div class="farmName">팜팜농장</div>
-              </div>
-              <div>
-                <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
-                  농장 관리
-                </a>
-              </div>
+              <c:if test="${myFarm eq null}">
+                <div class="myPage_container">
+                  <div class="item-media">
+                    <img src="../images/avatar/2.jpg" width="50">
+                  </div>
+                  <div class="farmName">농장이 아직 없어요</div>
+                </div>
+                <div>
+                  <a href="/farm" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                    농장 개설
+                  </a>
+                </div>
+              </c:if>
+              <c:if test="${myFarm ne null}">
+                <div class="myPage_container">
+                <div class="item-media">
+                  <img src="../images/avatar/2.jpg" width="50">
+                </div>
 
+                <div class="farmName">${myFarm.name}</div>
+                </div>
+                <div>
+                  <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                    농장 관리
+                  </a>
+                </div>
+              </c:if>
 <!-- 농장 개설이 안되어있을 경우, 분기 처리해서 사용할 부분!!-->
 <%--              <div class="myPage_container">--%>
 <%--                <div class="item-media">--%>
@@ -189,7 +207,7 @@
             </td>
           </tr>
           <tr>
-            <td class="row">주문 내역</td>
+            <td class="row"><a href="/order">주문 내역</a></td>
           </tr>
           <tr>
             <td class="row">경매 참가 내역</td>

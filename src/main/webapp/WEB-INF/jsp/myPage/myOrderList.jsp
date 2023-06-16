@@ -89,6 +89,7 @@
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
             <div class="list cart-list">
+                <c:forEach var="order" items="${orderList}">
                 <ul>
                     <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
                         <div class="item-content swipeout-content">
@@ -211,6 +212,7 @@
                         </div>
                     </li>
                 </ul>
+                </c:forEach>
             </div>
         </div>
     </div>

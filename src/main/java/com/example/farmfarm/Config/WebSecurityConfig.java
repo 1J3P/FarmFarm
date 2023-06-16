@@ -1,20 +1,26 @@
 package com.example.farmfarm.Config;
 
 import com.example.farmfarm.Config.jwt.JwtRequestFilter;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
 //@EnableWebSecurity
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final CorsConfig corsConfig;
-    private final JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    private CorsConfig corsConfig;
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -24,8 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin() // formLogin 사용할 거임.
                 .and()
-                .addFilter(corsConfig.corsFilter())
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                //.addFilter(jwtRequestFilter)
+                //.addFilter(corsConfig.corsFilter())
+                .httpBasic();
+                //.addFilterBefore(jwtRequestFilter, OncePerRequestFilter.class);
                 //.httpBasic() // httpBasic 도 사용할 거임.
 
         http.csrf().disable();

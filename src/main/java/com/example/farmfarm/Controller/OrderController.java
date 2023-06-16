@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -141,10 +142,12 @@ public class OrderController {
 
     //TODO: 이거 동작 확인해보기
     @GetMapping("")
-    public ResponseEntity<Object> myOrderList(HttpServletRequest request) {
-        UserEntity user = userService.getUser(request);
+    public ModelAndView myOrderList(HttpServletRequest request, HttpSession session) {
+        ModelAndView mav = new ModelAndView("myPage/myOrderList");
+        UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderEntity> orderList = orderService.getMyOrderList(user);
-        return ResponseEntity.ok().body(orderList);
+        mav.addObject("orderList", orderList);
+        return mav;
     }
 
     // read - 담은 상품을 조회할 때 동작

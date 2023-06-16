@@ -274,6 +274,7 @@
         success:function (data){
           alert("success");
           console.log(data);
+          location.href="/myPage";
         },
         error:function (request, status, error){
           console.log(request);
