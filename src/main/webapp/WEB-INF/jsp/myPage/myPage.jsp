@@ -110,23 +110,23 @@
     .username, .farmName {
       font-weight: bold;
       margin-left: 16px;
-      margin-right: 20px;
       align-items: center;
-      width: 280px;
     }
 
-    .myPage-btn {
+    .mypage-btn {
       width: auto;
-      height: auto;
-      padding: 7px;
-      background-color: #FFC42B;
+      height: auto !important;
+      padding: 7px !important;
+      background-color: #FFC42B !important;
     }
 
     .myPage_container {
       display:flex;
       align-items: center;
     }
-
+    .row>a{
+      color:#000000;
+    }
   </style>
 </head>
 <body>
@@ -144,7 +144,7 @@
   </div>
 
   <div class="page-content pt-60 bottom-sp60">
-    <div class="container allProduct">
+    <div class="container allProduct" style="margin-top:0;">
       <div class="row">
         <table class="table">
           <tbody>
@@ -157,7 +157,7 @@
                 <div class="username">${user.nickname}</div>님
               </div>
               <div>
-                <a href="javascript:void(0);" class="button myPage-btn ">
+                <a href="#" class="button mypage-btn" style="color:#fff;">
                   프로필 관리
                 </a>
               </div>
@@ -173,9 +173,7 @@
                   <div class="farmName">농장이 아직 없어요</div>
                 </div>
                 <div>
-                  <a href="/farm" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
-                    농장 개설
-                  </a>
+                  <a href="/farm" class="button btn-block button-fill add-cart-btn active together-order mypage-btn">농장 개설</a>
                 </div>
               </c:if>
               <c:if test="${myFarm ne null}">
@@ -186,7 +184,7 @@
                 <div class="farmName">${myFarm.name}</div>
                 </div>
                 <div>
-                  <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">
+                  <a href="#" class="button btn-block button-fill add-cart-btn active together-order mypage-btn">
                     농장 관리
                   </a>
                 </div>
@@ -209,16 +207,16 @@
             <td class="row"><a href="/order">주문 내역</a></td>
           </tr>
           <tr>
-            <td class="row">경매 참가 내역</td>
+            <td class="row"><a href="">경매 참가 내역</a></td>
           </tr>
           <tr>
-            <td class="row">상품 후기</td>
+            <td class="row"><a href="">상품 후기</a></td>
           </tr>
           <tr>
-            <td class="row">문의</td>
+            <td class="row"><a href="">문의</a></td>
           </tr>
           <tr>
-            <td class="row">로그아웃</td>
+            <td class="row"><a href="">로그아웃</a></td>
           </tr>
           </tbody>
         </table>
