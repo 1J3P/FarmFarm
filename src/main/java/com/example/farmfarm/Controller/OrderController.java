@@ -88,12 +88,12 @@ public class OrderController {
     //TODO:공동 구매<단일>
     //gId 있으면 있는거에 참여하는거
     //gId 없으면 내가 새로 만드는거.. 이런식으로 해야할까?
-    @PostMapping("/group/{gId}")
+    @GetMapping("/group/{gId}")
     public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId) {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         List<OrderDetailEntity> details = new ArrayList<>();
         OrderDetailEntity orderDetail = new OrderDetailEntity();
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         GroupEntity group = groupService.attendGroup(gId, user);
         orderDetail.setGroup(group);
         orderDetail.setProduct(group.getProduct());
@@ -104,11 +104,12 @@ public class OrderController {
         session.setAttribute("orderDetail", details);
         return "home/product/productShippingAddress";
     }
-    @PostMapping("/product/{pId}/group")
-    public String createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session) {
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+    @GetMapping("/product/{pId}/group")
+    public String createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session, @RequestParam int quantity) {
+        System.out.println("그룹 생성 동작");
         List<OrderDetailEntity> details = new ArrayList<>();
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         ProductEntity product = productService.getProduct(pId);
         GroupEntity group = groupService.createGroup(user, product);
         OrderDetailEntity orderDetail = new OrderDetailEntity();
@@ -123,9 +124,9 @@ public class OrderController {
 
     //TODO:경매 구매<단일>
     @PostMapping("/product/{pId}")
-    public String saveOrderDetailAuction(HttpSession session, HttpServletRequest request, @PathVariable("pId") long pId, AuctionEntity auction) {
+    public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, AuctionEntity auction) {
         ProductEntity product = productService.getProduct(pId);
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         if (product.isAuction()) {
             List<OrderDetailEntity> details = new ArrayList<>();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
