@@ -227,7 +227,7 @@
       font-size:28px;
       font-weight: bold;
     }
-    #openBtn {
+    #enquiryBtn {
       width: 100%;
     }
   </style>
@@ -293,7 +293,7 @@
           <div class="reviews-info">
             <i class="fa fa-star"></i>
             <h5 class="reviews">${product.rating}</h5>
-            <p class="reviews-text">(128 reviews)</p>
+            <p class="reviews-text">(${reviews.size()} reviews)</p>
           </div>
           <div class="avatar-group">
             <img src="../images/avatar/1.jpg" alt="">
@@ -362,7 +362,7 @@
                       </ul>
                       <div class="list">
                         <ul style="margin-top:0;">
-                          <li class="mb-15"><button class="button-large button button-fill" type="button" id="openBtn">작성 완료</button></li>
+                          <li class="mb-15"><button class="button-large button button-fill" type="button" id="enquiryBtn">작성 완료</button></li>
                         </ul>
                       </div>
                     </div>
@@ -391,11 +391,11 @@
       <div class="row">
         <div class="col-30">
           <a href="javascript:ViewLayer();" class="button-large button btn-block button-fill add-cart-btn active together-order">
-            같이 주문하기<span class="price">7,980원</span>
+            같이 주문하기<span class="price">${product.price * 0.9}원</span>
           </a>
         </div>
         <div class="col-70">
-          <a href="/shopping-cart/" class="button-large button add-cart-btn btn-block button-fill">혼자 주문하기<span class="price">8,980원</span></a>
+          <button type="button" class="button-large button add-cart-btn btn-block button-fill" id="onePurchaseBtn">혼자 주문하기<span class="price">${product.price}원</span></button>
         </div>
       </div>
     </div>
@@ -499,7 +499,7 @@
     }
     var auth = document.getElementById("Auth").value;
     console.log("auth 확인" + auth);
-    $("#openBtn").on("click", function (){
+    $("#enquiryBtn").on("click", function (){
       var formsubmitSerialArray = $("#form").serializeArray();
       var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
       var pId = ${p_id};
@@ -520,6 +520,39 @@
           alert("success");
           console.log(data);
           location.href="/product/" + pId;
+        },
+        error:function (request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });
+    });
+
+    $("#onePurchaseBtn").on("click", function (){
+      // var formsubmitSerialArray = $("#form").serializeArray();
+      // var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+      var pId = ${p_id};
+      var quantity = parseInt(document.getElementById('quantityInput').value);
+      // console.log(formsubmitSerialArray);
+      // console.log(formsubmit);
+      $.ajax({
+        type:"POST",
+        async:false,
+        url:"/product/" + pId + "/cart",
+        data:JSON.stringify({
+          "quantity": quantity
+        }),
+        dataType:"json",
+        contentType:"application/json; charset=utf-8",
+        beforeSend:function (xhr){
+          xhr.setRequestHeader("Content-type","application/json");
+          xhr.setRequestHeader("Authorization", auth);
+        },
+        success:function (data){
+          alert("장바구니에 상품이 담겼습니다.");
+          console.log(data);
+          location.href="/product/";
         },
         error:function (request, status, error){
           console.log(request);
