@@ -107,7 +107,7 @@
     </a>
     <a href="/search" class="tab-link">
       <i class="fa-solid fa-magnifying-glass"></i></a>
-    <a href="/cart" class="tab-link">
+    <a href="/order/cart" class="tab-link">
       <i class="flaticon-shopping-cart"></i>
     </a>
     <a class="tab-link" id="myPage">
