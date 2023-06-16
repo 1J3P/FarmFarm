@@ -111,14 +111,14 @@
       <i class="flaticon-shopping-cart"></i>
     </a>
     <a class="tab-link" id="myPage">
-      <img src="images/avatar/1.jpg" class="user-media" alt="" />
+      <i class="fas fa-user"></i>
     </a>
 
     <script>
         window.onload = function (){
           const myPage = document.getElementById("myPage");
           var auth = document.getElementById("Auth").value;
-          console.log("시발" + auth);
+          console.log(auth);
           myPage.addEventListener("click", (evt) => {
             jQuery.ajax({
               type:"POST",

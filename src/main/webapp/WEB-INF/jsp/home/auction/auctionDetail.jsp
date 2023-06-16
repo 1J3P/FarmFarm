@@ -70,6 +70,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -77,7 +78,7 @@
     <div class="navbar navbar-style-1 navbar-transparent">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/product/list" class="link back">
+                <a href="/product/auction/list" class="link back">
                     <i class="icon flaticon-left"></i>
                 </a>
             </div>
@@ -112,9 +113,9 @@
                     </div>
                 </div>
                 <div class="item-info" style="margin-top: -30px">
-                    <h4>경매 시작가 : ${product.low_price}원</h4>
-                    <h3 style="color: #9DBF3F">00 : 27 : 21</h3>
+                    <h4>경매 시작가 ${product.low_price}원</h4>
                 </div>
+                <div class="auction_time"><h3 class="ac-time" data-date="${product.date}" style="color: #9DBF3F"></h3></div>
                 <div style="text-align: center">
                     <h4>${product.detail}</h4>
                 </div>
@@ -148,5 +149,27 @@
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+    window.onload = function() {
+        const remainTimeElements = document.querySelectorAll(".ac-time");
+
+        remainTimeElements.forEach((element) => {
+            function updateCountdown() {
+                const targetDate = moment(element.dataset.date);
+                const currentDate = moment();
+                const diff = targetDate.diff(currentDate);
+
+                const diffDuration = moment.duration(diff);
+                const diffHour = String(diffDuration.hours()).padStart(2, "0");
+                const diffMin = String(diffDuration.minutes()).padStart(2, "0");
+                const diffSec = String(diffDuration.seconds()).padStart(2, "0");
+                element.innerText = diffHour + " : " + diffMin + " : " + diffSec;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    };
+</script>
 </body>
 </html>
