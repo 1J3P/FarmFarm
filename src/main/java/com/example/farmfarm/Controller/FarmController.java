@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("myFarm")
 @RequestMapping("/farm")
 public class FarmController {
     @Autowired
@@ -30,10 +33,15 @@ public class FarmController {
 
     // 농장 개설
     @PostMapping("")
-    public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm) {
+    public ResponseEntity<Object> createFarm(HttpServletRequest request, @RequestBody FarmEntity farm, Model model) {
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmService.saveFarm(user, farm);
+        model.addAttribute("myFarm", newFarm);
         return ResponseEntity.ok().body(newFarm);
+    }
+    @GetMapping("")
+    public String createFarmForm(HttpSession session) {
+        return "home/farm/registerFarm";
     }
 
     //농장 전체 조회, 농장 정렬
@@ -66,8 +74,9 @@ public class FarmController {
 
     // 나의 농장 조회
     @GetMapping("/my")
-    public String getMyFarm(HttpServletRequest request) {
-        FarmEntity myFarm = farmService.getMyFarm(request);
+    public String getMyFarm(HttpServletRequest request, HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        FarmEntity myFarm = farmService.getMyFarm(user);
         String fId = myFarm.getFId().toString();
         System.out.println("나의 farm Id 조회: " + fId);
         return "redirect:" + fId ;

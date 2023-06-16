@@ -47,8 +47,9 @@ public class ProductController {
     // 상품 등록
     @ResponseBody
     @PostMapping("")
-    public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product) {
-        FarmEntity myFarm = farmService.getMyFarm(request);
+    public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        FarmEntity myFarm = farmService.getMyFarm(user);
         ProductEntity newProduct = productService.saveProduct(product, myFarm);
         if (newProduct == null) { // 나중에 적절하게 수정
             return null;

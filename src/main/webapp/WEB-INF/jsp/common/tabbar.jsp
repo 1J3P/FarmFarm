@@ -78,6 +78,7 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/framework7@6"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -95,6 +96,7 @@
   </script>
 </head>
 <body>
+<input type="hidden" value="${Authorization}" id="Auth">
 <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
   <div class="toolbar-inner">
     <a href="/home/" class="tab-link">
@@ -104,15 +106,44 @@
       <i class="fa-solid fa-bars"></i>
     </a>
     <a href="/search" class="tab-link">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </a>
+      <i class="fa-solid fa-magnifying-glass"></i></a>
     <a href="/cart" class="tab-link">
       <i class="flaticon-shopping-cart"></i>
     </a>
-    <a href="/myPage" class="tab-link">
+    <a class="tab-link" id="myPage">
       <img src="images/avatar/1.jpg" class="user-media" alt="" />
     </a>
-  </div>
-</div>
+
+    <script>
+        window.onload = function (){
+          const myPage = document.getElementById("myPage");
+          var auth = document.getElementById("Auth").value;
+          console.log("시발" + auth);
+          myPage.addEventListener("click", (evt) => {
+            jQuery.ajax({
+              type:"POST",
+              async:true,
+              url:"http://localhost:9000/myPage",
+              dataType:"json",
+              contentType:"application/json; charset=utf-8",
+              beforeSend:function (xhr){
+                xhr.setRequestHeader("Content-type","application/json");
+                xhr.setRequestHeader("Authorization", auth);
+              },
+              success:function (data){
+                alert("success");
+                console.log(data);
+                location.href="/myPage"
+              },
+              error:function (request, status, error){
+                console.log(request);
+                console.log(status);
+                console.log(error);
+              }
+            });
+          });
+        };
+
+    </script>
 </body>
 </html>
