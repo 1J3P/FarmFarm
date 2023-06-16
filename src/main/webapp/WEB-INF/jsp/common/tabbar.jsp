@@ -118,7 +118,7 @@
         window.onload = function (){
           const myPage = document.getElementById("myPage");
           var auth = document.getElementById("Auth").value;
-          console.log("시발" + auth);
+          console.log(auth);
           myPage.addEventListener("click", (evt) => {
             jQuery.ajax({
               type:"POST",

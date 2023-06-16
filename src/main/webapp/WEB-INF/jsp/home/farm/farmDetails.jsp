@@ -70,6 +70,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
         .farm-location {
@@ -82,7 +83,7 @@
             display: none;
         }
 
-        #product-type {
+        .sell-product-options {
             font-weight: bold;
             font-size: 16px;
             color: #94C015;
@@ -109,7 +110,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
-        document.addEventListener('DOMContentLoaded1', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var tabLinks = document.querySelectorAll('.tab-link');
             var tabs = document.querySelectorAll('.tab');
 
@@ -220,12 +221,8 @@
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                             <div class="item-container" >
-                                <div class="sell-product-options">
-                                    <select id="product-type">
-                                        <option value="type" style="display: none;">판매 상품 등록</option>
-                                        <option value="regular">일반상품</option>
-                                        <option value="group-buying">공동구매</option>
-                                    </select>
+                                <div class="sell-product-options" onclick="location.href='여기에 추가하세요'">
+                                    판매 상품 등록
                                 </div>
                             </div>
                             <div class="row">
@@ -261,19 +258,17 @@
                         <c:forEach var="product" items="${productList}">
                             <c:if test="${product.auction}">
                                 <c:set var="auctionCount" value="${auctionCount + 1}" />
-                                <div class="item-box">
+                                <div class="item-box" onclick="location.href='/product/${product.PId}'">
                                     <div class="item-media">
                                         <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
                                     </div>
-                                    <div class="auction_time">
-                                        <h3>00 : 27 : 21</h3>
-                                    </div>
+                                    <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
                                     <div class="item-content">
                                         <h5>${product.farm.name}</h5>
                                         <h3 class="title">
                                             <a href="/home/auction/auctionDetail">${product.name}</a>
                                         </h3>
-                                        <h4 class="price">경매 시작가 ${product.price}</h4>
+                                        <h4 class="price">경매 시작가 ${product.price}원</h4>
                                     </div>
                                 </div>
                             </c:if>
@@ -288,5 +283,28 @@
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+    window.onload = function() {
+        const remainTimeElements = document.querySelectorAll(".ac-time");
+
+        remainTimeElements.forEach((element) => {
+            function updateCountdown() {
+                const targetDate = moment(element.dataset.date);
+                const currentDate = moment();
+                const diff = targetDate.diff(currentDate);
+
+                const diffDuration = moment.duration(diff);
+                const diffHour = String(diffDuration.hours()).padStart(2, "0");
+                const diffMin = String(diffDuration.minutes()).padStart(2, "0");
+                const diffSec = String(diffDuration.seconds()).padStart(2, "0");
+                element.innerText = diffHour + " : " + diffMin + " : " + diffSec;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    };
+
+</script>
 </body>
 </html>
