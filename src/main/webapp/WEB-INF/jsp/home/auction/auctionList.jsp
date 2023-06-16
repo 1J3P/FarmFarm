@@ -47,23 +47,23 @@
 
     <title>Kede - Grocery Mobile App HTML ( Framework 7 + PWA )</title>
 
-    <link rel="stylesheet" href="../style/framework7-bundle.min.css"/>
-    <link rel="stylesheet" href="../style/app.css"/>
+    <link rel="stylesheet" href="../../style/framework7-bundle.min.css"/>
+    <link rel="stylesheet" href="../../style/app.css"/>
 
     <link
             rel="stylesheet"
-            href="../style/font-awesome/css/font-awesome.min.css"
+            href="../../style/font-awesome/css/font-awesome.min.css"
     />
     <link
             rel="stylesheet"
-            href="../style/line-awesome/css/line-awesome.min.css"
+            href="../../style/line-awesome/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="../style/flaticons/flaticon.css"/>
+    <link rel="stylesheet" href="../../style/flaticons/flaticon.css"/>
 
-    <link rel="stylesheet" href="../style/style.css"/>
+    <link rel="stylesheet" href="../../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="../images/f7-icon.png"/>
+    <link rel="icon" href="../../images/f7-icon.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -96,7 +96,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/home/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -107,35 +107,26 @@
     <div class="page-content content-area pt-30 bottom-sp80">
         <div class="container">
             <div class="col-50 medium-25" style="margin-top: 50px">
-                <h4>진행 중인 경매 2개</h4>
-                <div class="item-box">
-                    <div class="item-media">
-                        <img src="../images/card/card1.png" alt="" />
-                    </div>
-                    <div class="auction_time"><h3 class="ac-time">00 : 27 : 21</h3></div>
-                    <div class="item-content">
-                        <h5>팜팜 농장</h5>
-                        <h3 class="title">
-                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
-                        </h3>
-                        <h4 class="price">경매 시작가 2,000원</h4>
-                    </div>
-                </div>
-                <div class="item-box">
-                    <div class="item-media">
-                        <img src="../images/card/card2.png" alt="" />
-                    </div>
-                    <div class="auction_time"><h3 class="ac-time">00 : 27 : 21</h3></div>
-                    <div class="item-content">
-                        <h5>팜팜 농장</h5>
-                        <h3 class="title">
-                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정</a>
-                        </h3>
-                        <h4 class="price">경매 시작가 2,000원</h4>
-                    </div>
-                </div>
-                <!-- 진행 중인 경매가 없을시 -->
-                <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
+                <c:set var="auctionCount" value="0" />
+                <h4>진행 중인 경매 ${productList.size()}개</h4>
+                <c:forEach var="product" items="${productList}">
+                        <div class="item-box">
+                            <div class="item-media">
+                                <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
+                            </div>
+                            <div class="auction_time"><h3 class="ac-time">00 : 27 : 21</h3></div>
+                            <div class="item-content">
+                                <h5>${product.farm.name}</h5>
+                                <h3 class="title">
+                                    <a href="/home/auction/auctionDetail">${product.name}</a>
+                                </h3>
+                                <h4 class="price">경매 시작가 ${product.price}원</h4>
+                            </div>
+                        </div>
+                </c:forEach>
+                <c:if test="${productList.size() == 0}">
+                    <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
+                </c:if>
             </div>
         </div>
     </div>
