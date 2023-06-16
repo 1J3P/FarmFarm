@@ -111,7 +111,7 @@
       <i class="flaticon-shopping-cart"></i>
     </a>
     <a class="tab-link" id="myPage">
-      <img src="images/avatar/1.jpg" class="user-media" alt="" />
+      <i class="fas fa-user"></i>
     </a>
 
     <script>
