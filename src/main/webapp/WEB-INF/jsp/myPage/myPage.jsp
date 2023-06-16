@@ -184,7 +184,7 @@
                 <div class="farmName">${myFarm.name}</div>
                 </div>
                 <div>
-                  <a href="#" class="button btn-block button-fill add-cart-btn active together-order mypage-btn">
+                  <a href="/farm/my" class="button btn-block button-fill add-cart-btn active together-order mypage-btn">
                     농장 관리
                   </a>
                 </div>
@@ -210,10 +210,10 @@
             <td class="row"><a href="">경매 참가 내역</a></td>
           </tr>
           <tr>
-            <td class="row"><a href="">상품 후기</a></td>
+            <td class="row"><a href="/review/my">상품 후기 내역</a></td>
           </tr>
           <tr>
-            <td class="row"><a href="">문의</a></td>
+            <td class="row"><a href="/enquiry/my">문의 내역</a></td>
           </tr>
           <tr>
             <td class="row"><a href="">로그아웃</a></td>

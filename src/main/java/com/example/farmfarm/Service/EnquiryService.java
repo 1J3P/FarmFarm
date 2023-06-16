@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,8 +64,8 @@ public class EnquiryService {
     }
 
     //나의 문의사항 가져오기
-    public List<EnquiryEntity> getMyEnquiry(HttpServletRequest request) {
-        UserEntity user = userService.getUser(request);
+    public List<EnquiryEntity> getMyEnquiry(HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         return enquiryRepository.findByUser(user);
     }
 }

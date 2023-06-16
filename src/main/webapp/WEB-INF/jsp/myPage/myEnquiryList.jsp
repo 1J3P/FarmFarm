@@ -71,45 +71,59 @@
           rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+  <style>
+    .item-inner {
+      position: relative;
+    }
+
+    .fa-solid.fa-pencil,
+    .fa-regular.fa-trash-can {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .fa-solid.fa-pencil {
+      right: 30px;
+    }
+
+    .fa-regular.fa-trash-can {
+      right: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="#" class="link back">
-          <i class="flaticon-left"></i>
+        <a href="/myPage" class="link back">
+          <i class="icon flaticon-left"></i>
         </a>
       </div>
-      <div class="title">상품 문의 내역</div>
+      <div class="title"><b>상품 문의 내역</b></div>
       <div class="right"></div>
     </div>
   </div>
-  <div class="page-content content-area pt-30 bottom-sp80">
-    <div class="container allProduct">
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
-      </div>
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
-      </div>
-      <div class="enquriy_list">
-        <p class="li_pro_name">대저 토마토 1KG</p>
-        <p class="li_en">이 상품 배송 언제 가능할까요 ?</p>
-        <h4>안녕하세요 고객님. 상품은 주문일자로부터 3일<br>
-          이내로 배송이 될 예정입니다.</h4>
-        <i class="fa-solid fa-pencil"></i>
-        <i class="fa-regular fa-trash-can"></i>
+  <div class="page-content pt-60 bottom-sp60">
+    <div class="container">
+      <div class="list media-list review-list">
+        <ul>
+          <c:forEach var="enquiry" items="${enquiries}">
+            <li class="list">
+              <div class="item-link item-content">
+                <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">${enquiry.product.name}</div>
+                  </div>
+                  <div class="item-text">${enquiry.content}</div>
+                  <i class="fa-solid fa-pencil"></i>
+                  <i class="fa-regular fa-trash-can"></i>
+                </div>
+              </div>
+            </li>
+          </c:forEach>
+        </ul>
       </div>
     </div>
   </div>

@@ -71,73 +71,66 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <style>
+        .item-inner {
+            position: relative;
+        }
+
+        .fa-solid.fa-pencil,
+        .fa-regular.fa-trash-can {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .fa-solid.fa-pencil {
+            right: 30px;
+        }
+
+        .fa-regular.fa-trash-can {
+            right: 0;
+        }
+    </style>
 </head>
 <body>
 <div class="page light">
-    <div class="navbar navbar-style-2">
+    <div class="navbar navbar-style-1">
         <div class="navbar-inner">
-            <div class="title">상품 후기 내역</div>
-            <div class="right">
+            <div class="left">
+                <a href="/myPage" class="link back">
+                    <i class="icon flaticon-left"></i>
+                </a>
             </div>
+            <div class="title"><b>상품 후기 내역</b></div>
+            <div class="right"></div>
         </div>
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container">
-            <div class="tabs-swipeable-wrap tabs-height-auto">
-                <div class="tabs">
-                    <div id="tab-2" class="tab">
-                        <div class="list media-list review-list">
-                            <ul>
-                                <li>
-                                    <div href="#" class="item-link item-content" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                                        <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
-                                        <div class="item-inner">
-                                            <div class="item-subtitle" style="margin-top: 5px">영린이네 농장</div>
-                                            <div class="item-title-row">
-                                                <div class="item-title">대저 토마토 1kg</div>
-                                                <div class="item-after stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-
-                                            <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-                                            <div style="float:left; margin-top: 7px;" class="item-subtitle">2023.05.25</div>
-                                            <div style="float:right; margin-top: 5px; margin-bottom: 5px;"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<i class="fa-regular fa-trash-can"></i></div>
+            <div class="list media-list review-list">
+                <ul>
+                    <c:forEach var="review" items="${reviews}">
+                        <li class="list">
+                            <div class="item-link item-content">
+                                <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">${review.orderDetail.product.name}</div>
+                                        <div class="item-after stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
                                         </div>
-
                                     </div>
-                                </li>
-                                <li>
-                                    <div href="#" class="item-link item-content" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                                        <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
-                                        <div class="item-inner">
-                                            <div class="item-subtitle" style="margin-top: 5px">영린이네 농장</div>
-                                            <div class="item-title-row">
-                                                <div class="item-title">대저 토마토 1kg</div>
-                                                <div class="item-after stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-
-                                            <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-                                            <div style="float:left; margin-top: 7px;" class="item-subtitle">2023.05.25</div>
-                                            <div style="float:right; margin-top: 5px; margin-bottom: 5px;"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<i class="fa-regular fa-trash-can"></i></div>
-                                        </div>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="item-text">${review.comment}</div>
+                                    <i class="fa-solid fa-pencil"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
             </div>
         </div>
     </div>

@@ -82,8 +82,7 @@
         </a>
       </div>
       <div class="title"><b>마이페이지</b></div>
-      <div class="right">
-      </div>
+      <div class="right"></div>
     </div>
   </div>
   <div class="page-content pt-80 bottom-sp90" style="text-align: center;">
