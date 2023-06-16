@@ -82,7 +82,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home" class="link back">
+                <a href="/home/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
