@@ -31,8 +31,8 @@ public class OrderController {
     @Autowired
     private GroupService groupService;
 
-
-    //장바구니에서 오더디테일 객체 세션 저장
+    //Todo 이하린 여기부터
+    //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
     public ResponseEntity<Object> saveOrderDetailCart(HttpSession session) {
         List<OrderDetailEntity> details = new ArrayList<>();
@@ -57,7 +57,30 @@ public class OrderController {
         return ResponseEntity.ok().body(details);
     }
 
-
+    //order 생성! - 이후 결제 진행
+    @PostMapping("")
+    public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
+        UserEntity user = userService.getUser(request);
+        List<OrderDetailEntity> details = (List<OrderDetailEntity>) session.getAttribute("orderDetail");
+        order.setUser(user);
+        int totalP = 0;
+        int totalQ = 0;
+        for (OrderDetailEntity d : details) {
+            totalP += d.getPrice();
+            totalQ += d.getQuantity();
+        }
+        order.setTotal_price(totalP);
+        order.setTotal_quantity(totalQ);
+        order.setStatus("결제전");
+        OrderEntity saveOrder = orderService.createOrder(order);
+        OrderEntity getOrder = orderService.getOrder(saveOrder.getOId());
+        for (OrderDetailEntity d : details) {
+            d.setOrder(getOrder);
+            orderDetailService.createOrderDetail(d);
+        }
+        System.out.println("주문 정보 : " + getOrder.toString());
+        return ResponseEntity.ok().body(getOrder);
+    }
 
     //TODO:공동 구매<단일>
     //gId 있으면 있는거에 참여하는거
@@ -115,33 +138,7 @@ public class OrderController {
         return null; //TODO: 에러페이지로 반드시 바꿀것
     }
 
-    //order 생성! - 이후 결제 진행
-    @PostMapping("")
-    public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
-        UserEntity user = userService.getUser(request);
-        List<OrderDetailEntity> details = (List<OrderDetailEntity>) session.getAttribute("orderDetail");
-        order.setUser(user);
-        int totalP = 0;
-        int totalQ = 0;
-        for (OrderDetailEntity d : details) {
-            totalP += d.getPrice();
-            totalQ += d.getQuantity();
-        }
-        order.setTotal_price(totalP);
-        order.setTotal_quantity(totalQ);
-        order.setStatus("결제전");
-        OrderEntity saveOrder = orderService.createOrder(order);
-        OrderEntity getOrder = orderService.getOrder(saveOrder.getOId());
-        for (OrderDetailEntity d : details) {
-            d.setOrder(getOrder);
-            orderDetailService.createOrderDetail(d);
-        }
-        System.out.println("주문 정보 : " + getOrder.toString());
-        return ResponseEntity.ok().body(getOrder);
-    }
-
     //TODO: 이거 동작 확인해보기
-    @GetMapping("")
     public ModelAndView myOrderList(HttpServletRequest request, HttpSession session) {
         ModelAndView mav = new ModelAndView("myPage/orderList");
         UserEntity user = (UserEntity)session.getAttribute("user");

@@ -76,6 +76,24 @@
             cursor: pointer;
         }
     </style>
+    <script>
+        function decreaseValue() {
+            var input = document.getElementById('quantityInput');
+            var currentValue = parseInt(input.value);
+            if (currentValue > 0) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        function increaseValue() {
+            var input = document.getElementById('quantityInput');
+            var currentValue = parseInt(input.value);
+            var maxValue = parseInt(input.max);
+            if (currentValue < maxValue) {
+                input.value = currentValue + 1;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="page light">
@@ -88,144 +106,53 @@
             </div>
             <div class="title">카테고리</div>
             <div class="right">
-                <a href="/shipping-address/">주문</a>
+                <a href="/order/cart">주문하기</a>
             </div>
         </div>
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
             <!-- 장바구니 비었을때 -->
-<%--            <div class="list simple-list search-not-found" style="height: 300px">--%>
-<%--                <i class="fa-solid fa-cart-shopping"></i>--%>
-<%--                <p>장바구니가 비었습니다.--%>
-<%--            </div>--%>
+            <div class="list simple-list search-not-found" style="height: 300px">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>장바구니가 비었습니다.
+            </div>
             <!-- 장바구니에 물건 있을때 -->
             <div class="list cart-list">
                 <ul>
-                    <li class="swipeout cart-item">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="../images/categories/pic1.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category" style="float: left;">팜팜농장</h6>
-                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
-                                        <div style="clear:both; font-weight: bold"></div>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
+                    <c:forEach var="item" items="${itemList}">
+                        <li class="swipeout cart-item">
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-media">
+                                        <img src="../images/categories/pic1.jpg" alt="">
                                     </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
-                                            <div class="stepper-button-minus"></div>
-                                            <div class="stepper-input-wrap">
-                                                <input type="text" value="4" min="0" max="100" step="1" readonly>
+                                    <div class="item-info">
+                                        <div class="item-head">
+                                            <h6 class="category" style="float: left;">${item.product.farm.name}</h6>
+                                            <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                            <div style="clear:both; font-weight: bold"></div>
+                                            <h2 class="item-title"><a href="/product/${item.p_id}">${item.product.name}</a></h2>
+                                            <h5 class="item-title"><span>${item.product.price}</span>원</h5>
+                                        </div>
+                                        <div class="item-foot">
+                                            <h3 class="text-primary item-total"><span>${item.product.price * item.quantity}</span>원</h3>
+                                            <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
+                                                <div class="stepper-button-minus" onclick="decreaseValue()"></div>
+                                                <div class="stepper-input-wrap">
+                                                    <input type="text" value="${item.quantity}" min="0" max="100" step="1" id="quantityInput" readonly/>
+                                                </div>
+                                                <div class="stepper-button-plus" onclick="increaseValue()"></div>
                                             </div>
-                                            <div class="stepper-button-plus"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <li class="swipeout cart-item">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="../images/categories/pic1.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category" style="float: left;">팜팜농장</h6>
-                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
-                                        <div style="clear:both; font-weight: bold"></div>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
-                                            <div class="stepper-button-minus"></div>
-                                            <div class="stepper-input-wrap">
-                                                <input type="text" value="4" min="0" max="100" step="1" readonly>
-                                            </div>
-                                            <div class="stepper-button-plus"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="swipeout-actions-right">
+                                <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
                             </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <li class="swipeout cart-item">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="../images/categories/pic1.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category" style="float: left;">팜팜농장</h6>
-                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
-                                        <div style="clear:both; font-weight: bold"></div>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
-                                            <div class="stepper-button-minus"></div>
-                                            <div class="stepper-input-wrap">
-                                                <input type="text" value="4" min="0" max="100" step="1" readonly>
-                                            </div>
-                                            <div class="stepper-button-plus"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <li class="swipeout cart-item">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="../images/categories/pic1.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category" style="float: left;">팜팜농장</h6>
-                                        <i class="fa-regular fa-trash-can" style="float: right;"></i>
-                                        <div style="clear:both; font-weight: bold"></div>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
-                                            <div class="stepper-button-minus"></div>
-                                            <div class="stepper-input-wrap">
-                                                <input type="text" value="4" min="0" max="100" step="1" readonly>
-                                            </div>
-                                            <div class="stepper-button-plus"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
