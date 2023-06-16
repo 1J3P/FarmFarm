@@ -5,6 +5,7 @@ import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
 import com.example.farmfarm.Service.*;
+import org.hibernate.procedure.ProcedureOutputs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -154,6 +155,7 @@ public class ProductController {
         return ResponseEntity.ok().body("delete OK");
     }
 
+    // 장바구니(세션)에 상품 담기
     @PostMapping("/{p_id}/cart")
     @ResponseBody
     public Cart addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session, @RequestBody Map<String, Integer> requestBody) {
@@ -170,37 +172,32 @@ public class ProductController {
         item.setU_id(user.getUId());
         item.setP_id(product.getPId());
         item.setQuantity(requestBody.get("quantity"));
+        item.setProduct(product);
         cart.push(item);
         return cart;
     }
 
+    // 장바구니로 이동해서 담은 상품 조회하기
+    @GetMapping("/cart")
+    public ModelAndView forwardToCart(HttpSession session) {
+        ModelAndView mav = new ModelAndView("/home/product/shoppingCart");
+        List<Item> itemList = new ArrayList<>();
+        Cart cart = (Cart)session.getAttribute("cart");
+        if (cart != null) {
+            for (Item i : cart.getItemList()) {
+                itemList.add(i);
+            }
+        }
+        mav.addObject("itemList", itemList);
+        return mav;
+    }
+
     // 경매 상품 리스트 조회
     @GetMapping("/auction/list")
-//    public ModelAndView getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
-//        List<ProductEntity> productList;
-//        List<ProductEntity> resultList = new ArrayList<>();
-//        ModelAndView mav = new ModelAndView("home/auction/auctionList");
-//
-//        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
-//            productList = productService.getSearchProduct(keyword);
-//        }
-//        else if (!StringUtils.isEmpty(sort)) { // 정렬
-//            productList = productService.getSortedProduct(sort);
-//        }
-//        else {
-//            productList = productService.getAllAuctionProduct();
-//        }
-//        for (ProductEntity val : productList) {
-//            if (val.isAuction()) {
-//                resultList.add(val);
-//            }
-//        }
-//        mav.addObject("productList", resultList);
-//        return mav;
-//    }
-    public ResponseEntity<Object> getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
+    public ModelAndView getAllAuctionProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
         List<ProductEntity> productList;
         List<ProductEntity> resultList = new ArrayList<>();
+        ModelAndView mav = new ModelAndView("home/auction/auctionList");
 
         if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
             productList = productService.getSearchProduct(keyword);
@@ -216,6 +213,8 @@ public class ProductController {
                 resultList.add(val);
             }
         }
-        return ResponseEntity.ok().body(resultList);
+        mav.addObject("productList", resultList);
+        return mav;
     }
+
 }
