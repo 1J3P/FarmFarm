@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -79,8 +80,8 @@ public class ReviewService {
     }
 
     //내가 쓴 리뷰 조회
-    public List<ReviewEntity> getMyEnquiry(HttpServletRequest request) {
-        UserEntity user = userService.getUser(request);
+    public List<ReviewEntity> getMyEnquiry(HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         return reviewRepository.findByUser(user);
     }
 }
