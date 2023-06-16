@@ -109,7 +109,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded1', function () {
             var tabLinks = document.querySelectorAll('.tab-link');
             var tabs = document.querySelectorAll('.tab');
 
