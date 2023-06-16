@@ -70,6 +70,26 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script>
+        window.onload = function (){
+            const remainTime = document.querySelectorAll(".ac-time");
+            remainTime.forEach((item) => {
+                function diffDay(){
+                    const masTime = new Date("2023-12-25");
+                    const todayTime = new Date();
+
+                    const diff = masTime - todayTime;
+
+                    const diffHour = String(Math.floor((diff / (1000*60*60)) % 24)).padStart(2,"0");
+                    const diffMin = String(Math.floor((diff / (1000*60)) % 60)).padStart(2,"0");
+                    const diffSec = String(Math.floor(diff / 1000 % 60)).padStart(2,"0");
+                    item.innerText =  diffHour + " : " + diffMin + " : " + diffSec;
+                }
+                setInterval(diffDay, 1000);
+            })
+        };
+
+    </script>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
@@ -92,7 +112,7 @@
                     <div class="item-media">
                         <img src="../images/card/card1.png" alt="" />
                     </div>
-                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="auction_time"><h3 class="ac-time">00 : 27 : 21</h3></div>
                     <div class="item-content">
                         <h5>팜팜 농장</h5>
                         <h3 class="title">
@@ -105,11 +125,11 @@
                     <div class="item-media">
                         <img src="../images/card/card2.png" alt="" />
                     </div>
-                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="auction_time"><h3 class="ac-time">00 : 27 : 21</h3></div>
                     <div class="item-content">
                         <h5>팜팜 농장</h5>
                         <h3 class="title">
-                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
+                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정</a>
                         </h3>
                         <h4 class="price">경매 시작가 2,000원</h4>
                     </div>

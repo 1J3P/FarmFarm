@@ -147,14 +147,11 @@
                     url: "/farm/" + fId,
                     type: "DELETE",
                     success: function(response) {
-                        // 삭제 요청이 성공한 경우 알림 창을 표시합니다.
                         alert("삭제 되었습니다.");
-                        // 추가적인 작업이 필요한 경우 여기에 작성합니다.
                     },
                     error: function(xhr, status, error) {
-                        // 삭제 요청이 실패한 경우 에러 처리를 수행합니다.
                         console.error(error);
-                        alert("삭제 요청을 처리할 수 없습니다." + fId);
+                        alert("삭제 요청을 처리할 수 없습니다.");
                     }
                 });
             }
@@ -260,10 +257,10 @@
                 <div id="tab-3" class="tab">
                     <div class="col-50 medium-25">
                         <c:set var="auctionCount" value="0" />
+                        <h4>진행 중인 경매</h4>
                         <c:forEach var="product" items="${productList}">
                             <c:if test="${product.auction}">
                                 <c:set var="auctionCount" value="${auctionCount + 1}" />
-                                <h4>진행 중인 경매 ${auctionCount}개</h4>
                                 <div class="item-box">
                                     <div class="item-media">
                                         <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
@@ -274,7 +271,7 @@
                                     <div class="item-content">
                                         <h5>${product.farm.name}</h5>
                                         <h3 class="title">
-                                            <a href="/item-details/">${product.name}</a>
+                                            <a href="/home/auction/auctionDetail">${product.name}</a>
                                         </h3>
                                         <h4 class="price">경매 시작가 ${product.price}</h4>
                                     </div>

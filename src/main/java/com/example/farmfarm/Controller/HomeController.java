@@ -47,4 +47,24 @@ public class HomeController {
         System.out.println("home!!! ㅅㅂ");
         return "home/home";
     }
+
+    @GetMapping("/category")
+    public String category() {
+        return "category/categories";
+    }
+
+    @GetMapping("/search")
+    public String search() {
+        return "search/search";
+    }
+
+    @GetMapping("/cart")
+    public String cart() {
+        return "home/product/shoppingCart";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage() {
+        return "myPage/myPage";
+    }
 }
