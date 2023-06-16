@@ -550,9 +550,9 @@
           xhr.setRequestHeader("Authorization", auth);
         },
         success:function (data){
-          alert("장바구니에 상품이 담겼습니다.");
+          alert(quantity + "개의 상품이 장바구니에 담겼습니다.");
           console.log(data);
-          location.href="/product/";
+          location.href="/product/cart";
         },
         error:function (request, status, error){
           console.log(request);
