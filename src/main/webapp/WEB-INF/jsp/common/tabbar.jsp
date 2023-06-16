@@ -81,7 +81,7 @@
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/framework7@6"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded2', function () {
       var tabLinks = document.querySelectorAll('.tab-link');
 
       tabLinks.forEach(function (link, index) {
@@ -99,7 +99,7 @@
 <input type="hidden" value="${Authorization}" id="Auth">
 <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
   <div class="toolbar-inner">
-    <a href="/home/" class="tab-link">
+    <a href="/" class="tab-link">
       <i class="flaticon-home"></i>
     </a>
     <a href="/category" class="tab-link">
@@ -107,7 +107,7 @@
     </a>
     <a href="/search" class="tab-link">
       <i class="fa-solid fa-magnifying-glass"></i></a>
-    <a href="/order/cart" class="tab-link">
+    <a href="/product/cart" class="tab-link">
       <i class="flaticon-shopping-cart"></i>
     </a>
     <a class="tab-link" id="myPage">

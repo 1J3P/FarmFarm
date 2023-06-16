@@ -70,17 +70,18 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/product/cart" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
-            <div class="title">거래 방식</div>
+            <div class="title">배송 정보 입력</div>
             <div class="right"></div>
         </div>
     </div>
@@ -95,28 +96,29 @@
                                     <div class="item-inner">
                                         <h4>이름</h4>
                                         <div class="item-input-wrap">
-                                            <input type="text" placeholder="이름을 입력하세요" id="username" class="form-control"/>
+                                            <input type="text" name="delivery_name" placeholder="이름을 입력하세요" id="username" class="form-control"/>
                                         </div>
-                                        <h4>이메일</h4>
-                                        <div class="item-input-wrap">
-                                            <input type="email" placeholder="이메일을 입력하세요" id="email" class="form-control"/>
-                                        </div>
+
                                         <h4>전화번호</h4>
                                         <div class="item-input-wrap">
-                                            <input type="text" placeholder="전화번호를 입력하세요" id="phone" class="form-control"/>
+                                            <input type="text" name="delivery_phone" placeholder="전화번호를 입력하세요" id="phone" class="form-control"/>
                                         </div>
                                         <h4>거래 방식</h4>
                                         <div class="item-input-wrap">
-                                            <label><input type="checkbox" id="direct" name="direct" value="direct" checked />직거래</label>
-                                            <label><input type="checkbox" id="shipping" name="shipping" value="shipping " />배송</label>
+                                            <label><input type="radio" id="false" name="delivery" value="false" checked />직거래</label>
+                                            <label><input type="radio" id="true" name="delivery" value="true " />배송</label>
+                                        </div>
+                                        <h4>배송 요청사항</h4>
+                                        <div class="item-input-wrap">
+                                            <input type="email" name="delivery_memo" placeholder="배송 요청 사항을 입력하세요" id="email" class="form-control"/>
                                         </div>
                                         <h4>주소</h4>
                                         <div class="item-input-wrap">
-                                            <input type="text" placeholder="주소를 입력하세요" id="address" class="form-control"/>
+                                            <input type="text" name="delivery_address" placeholder="주소를 입력하세요" id="address" class="form-control"/>
                                         </div>
-                                        <h4>우편번호</h4>
+                                        <h4>상세 주소</h4>
                                         <div class="item-input-wrap">
-                                            <input type="text" placeholder="우편번호를 입력하세요" id="zip_code" class="form-control"/>
+                                            <input type="text" name="delivery_address_detail" placeholder="상세 주소를 입력하세요" id="zip_code" class="form-control"/>
                                         </div>
                                     </div>
                                 </li>
@@ -124,7 +126,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">결제하기</a></li>
+                                <li class="mb-15"><a class="button-large button button-fill" id="createOrder">결제하기</a></li>
                             </ul>
                         </div>
                     </form>
@@ -133,5 +135,61 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload = function (){
+        function objectifyForm(formArray){
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+        $("#createOrder").on("click", function (){
+            var formsubmitSerialArray = $("#tabA1").serializeArray();
+            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+
+            console.log(formsubmitSerialArray);
+            console.log(formsubmit);
+            jQuery.ajax({
+                type:"POST",
+                async:true,
+                url:"http://localhost:9000/order",
+                data:formsubmit,
+                dataType:"json",
+                contentType:"application/json; charset=utf-8",
+                success:function (data){
+                    alert("success");
+                    console.log(data);
+                    console.log(data.oid);
+                    jQuery.ajax({
+                        type:"POST",
+                        async:true,
+                        url:"http://localhost:9000/pay/order/"+data.oid,
+                        dataType:"json",
+                        contentType:"application/json; charset=utf-8",
+                        success:function (data){
+                            alert("success");
+                            console.log(data);
+                            console.log(data.oid);
+                            console.log(data.next_redirect_pc_url);
+                            location.href=data.next_redirect_pc_url;
+                        },
+                        error:function (request, status, error){
+                            console.log(request);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                },
+                error:function (request, status, error){
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        });
+    };
+
+</script>
 </body>
 </html>

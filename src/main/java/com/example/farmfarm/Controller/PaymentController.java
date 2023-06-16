@@ -11,13 +11,16 @@ import com.example.farmfarm.Repository.ApprovePaymentRepository;
 import com.example.farmfarm.Service.OrderService;
 import com.example.farmfarm.Service.PaymentService;
 import com.example.farmfarm.Service.UserService;
+import org.h2.engine.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -30,15 +33,20 @@ public class PaymentController {
     @Autowired
     private OrderService orderService;
 
+
     @PostMapping("/order/{oId}")
-    public ResponseEntity<Object> pay(HttpServletRequest request, @PathVariable("oId") long oId)  {
+    public ResponseEntity<Object> pay(HttpSession session, @PathVariable("oId") long oId)  {
+        UserEntity current = (UserEntity)session.getAttribute("user");
         OrderEntity order = orderService.getOrder(oId);
+
         KakaoReadyResponse kakaoReadyResponse = paymentService.kakaoPayReady(order);
         return ResponseEntity.ok().body(kakaoReadyResponse);
+
+        //return ResponseEntity.badRequest().body("user not match");
     }
 
     @GetMapping("/success/{oId}")
-    public ResponseEntity<Object> afterPayRequest(@RequestParam("pg_token") String pgToken, @PathVariable("oId") long oId) {
+    public ModelAndView afterPayRequest(@RequestParam("pg_token") String pgToken, @PathVariable("oId") long oId) {
         OrderEntity order = orderService.getOrder(oId);
         ApprovePaymentEntity kakaoApprove = paymentService.approveResponse(order, pgToken);
         // 결제 성공 시 quantity 감소, sales 증가
@@ -51,7 +59,9 @@ public class PaymentController {
             int updateSales = sales + od.getQuantity();
             od.getProduct().setSales(updateSales);
         }
-        return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
+        ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
+        mav.addObject("kakaoApprove", kakaoApprove);
+        return mav;
     }
 
     //TODO: 여기로 잘 오는지

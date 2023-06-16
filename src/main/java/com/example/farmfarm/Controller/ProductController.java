@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
@@ -158,8 +159,8 @@ public class ProductController {
     // 장바구니(세션)에 상품 담기
     @PostMapping("/{p_id}/cart")
     @ResponseBody
-    public Cart addToCart(HttpServletRequest request, @PathVariable("p_id") long p_id, HttpSession session, @RequestBody Map<String, Integer> requestBody) {
-        UserEntity user = userService.getUser(request);
+    public Cart addToCart(@PathVariable("p_id") long p_id, HttpSession session, @RequestBody Map<String, Integer> requestBody) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         System.out.println("유저 확인" + user.getUId());
         ProductEntity product = productService.getProduct(p_id);
         Item item = new Item();
@@ -174,6 +175,7 @@ public class ProductController {
         item.setQuantity(requestBody.get("quantity"));
         item.setProduct(product);
         cart.push(item);
+        session.setAttribute("cart", cart);
         return cart;
     }
 
