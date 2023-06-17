@@ -71,6 +71,24 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            font-size: 18px;
+            width: 400px;
+        }
+
+        table td, table th {
+            height: 40px;
+            border-bottom: 1px solid #F3F3F3;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        th[scope="row"] {
+            color: #94C015;
+        }
+    </style>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
@@ -127,88 +145,44 @@
                 <%--                        </div>--%>
                 <%--                    </div>--%>
                 <%--                </c:forEach>--%>
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic1.jpg" alt="" />
+                    <c:forEach var="product" items="${products}" begin="0" end="3">
+                        <div class="col-50 medium-25">
+                            <div class="item-box">
+                                <div class="item-media">
+                                    <img src="${product.image1}" alt="" />
+                                </div>
+                                <label class="bookmark-btn">
+                                    <input type="checkbox" checked />
+                                </label>
+                                <div class="item-content">
+                                    <h5>${product.farm.name}</h5>
+                                    <h3 class="title">
+                                        <a href="/item-details/">${product.name}</a>
+                                    </h3>
+                                    <h4 class="price">${product.price}</h4>
+                                </div>
+                            </div>
                         </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" checked />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">대저 토마토 (1KG)</a>
-                            </h3>
-                            <h4 class="price">8,980원</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box">
-                        <div class="item-media">
-                            <img src="../images/categories/pic2.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>가지가지 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">브로콜리 (1개)</a>
-                            </h3>
-                            <h4 class="price">8,000원</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box" style="margin-bottom:0;">
-                        <div class="item-media">
-                            <img src="../images/categories/pic3.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">아보카도 (1개)</a>
-                            </h3>
-                            <h4 class="price">7,000원</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-50 medium-25">
-                    <div class="item-box" style="margin-bottom:0;">
-                        <div class="item-media">
-                            <img src="../images/categories/pic4.jpg" alt="" />
-                        </div>
-                        <label class="bookmark-btn">
-                            <input type="checkbox" />
-                        </label>
-                        <div class="item-content">
-                            <h5>팜팜 농장</h5>
-                            <h3 class="title">
-                                <a href="/item-details/">아보카도 (1개)</a>
-                            </h3>
-                            <h4 class="price">7,000원</h4>
-                        </div>
-                    </div>
-                </div>
+                    </c:forEach>
             </div>
             <div class="title-bar mb-15">
                 <h2 class="dz-title my-5">이런 농장 어때요?</h2>
                 <a href="/farm/list"><i class="flaticon-right"></i></a>
             </div>
-                        <c:forEach var="farm" items="${farmList}" varStatus="status">
-                            <div class="col-100">
-                                <a href="/deals/" class="item-category">
-                                    <div class="item-info">
-                                        <h3 class="title">${status.count} ${farm.name}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </c:forEach>
+            <div class="row">
+                <table class="table">
+                    <tbody>
+                    <c:forEach var="farm" items="${farms}" varStatus="status" begin="0" end="4">
+                        <tr>
+                            <th scope="row">${status.count}</th>
+                            <td><a href="/farm/${farm.FId}" style="color: black;">${farm.name}</a></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <p></p>
+            <br>
 <%--            <div class="col-100">--%>
 <%--                <a href="/deals/" class="item-category">--%>
 <%--                    <div class="item-info">--%>
@@ -248,24 +222,23 @@
                 <h2 class="dz-title my-5">진행 중인 경매</h2>
                 <a href="/product/auction/list"><i class="flaticon-right"></i></a>
             </div>
-            <div class="col-50 medium-25">
-                <div class="item-box">
+            <h4>진행 중인 경매 ${auctions.size()}개</h4>
+            <c:forEach var="auction" items="${auctions}">
+                <div class="item-box" onclick="location.href='/product/${auction.PId}'">
                     <div class="item-media">
-                        <img src="../images/categories/pic2.jpg" alt="" />
+                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
                     </div>
-                    <label class="bookmark-btn">
-                        <input type="checkbox" />
-                    </label>
-                    <div class="auction_time"><h3>00 : 27 : 21</h3></div>
+                    <div class="auction_time"><h3 class="ac-time" data-date="${auction.date}"></h3></div>
                     <div class="item-content">
-                        <h5>팜팜 농장</h5>
-                        <h3 class="title">
-                            <a href="/item-details/">싱싱한 찰토마토 / 5박스 한정   </a>
-                        </h3>
-                        <h4 class="price">경매 시작가 2,000원</h4>
+                        <h5>${auction.farm.name}</h5>
+                        <h3 class="title">${auction.name}</h3>
+                        <h4 class="price">경매 시작가 ${auction.price}원</h4>
                     </div>
                 </div>
-            </div>
+            </c:forEach>
+            <c:if test="${auctions.size() == 0}">
+                <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
+            </c:if>
         </div>
 
     </div>
@@ -274,4 +247,27 @@
 </div>
 
 </body>
+<script>
+    window.onload = function() {
+        const remainTimeElements = document.querySelectorAll(".ac-time");
+
+        remainTimeElements.forEach((element) => {
+            function updateCountdown() {
+                const targetDate = moment(element.dataset.date);
+                const currentDate = moment();
+                const diff = targetDate.diff(currentDate);
+
+                const diffDuration = moment.duration(diff);
+                const diffHour = String(diffDuration.hours()).padStart(2, "0");
+                const diffMin = String(diffDuration.minutes()).padStart(2, "0");
+                const diffSec = String(diffDuration.seconds()).padStart(2, "0");
+                element.innerText = diffHour + " : " + diffMin + " : " + diffSec;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    };
+
+</script>
 </html>
