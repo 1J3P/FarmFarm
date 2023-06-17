@@ -9,6 +9,7 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,6 +64,7 @@ public class OrderController {
     public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
         UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderDetailEntity> details = (List<OrderDetailEntity>)session.getAttribute("orderDetail");
+        System.out.println("1111111111!!!!!!!!!!!!!!!" + details.get(0).getQuantity());
         order.setUser(user);
         int totalP = 0;
         int totalQ = 0;
@@ -89,7 +91,7 @@ public class OrderController {
     //gId 있으면 있는거에 참여하는거
     //gId 없으면 내가 새로 만드는거.. 이런식으로 해야할까?
     @GetMapping("/group/{gId}")
-    public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId) {
+    public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId, Model model) {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         List<OrderDetailEntity> details = new ArrayList<>();
         OrderDetailEntity orderDetail = new OrderDetailEntity();
@@ -101,7 +103,9 @@ public class OrderController {
         orderDetail.setQuantity(quantity);
         orderDetail.setPrice((long)((long)group.getProduct().getPrice() * 0.9));
         details.add(orderDetail);
+        System.out.println(details);
         session.setAttribute("orderDetail", details);
+        //model.addAttribute("orderDetail", details);
         return "home/product/productShippingAddress";
     }
 
@@ -111,6 +115,7 @@ public class OrderController {
         List<OrderDetailEntity> details = new ArrayList<>();
         UserEntity user = (UserEntity)session.getAttribute("user");
         ProductEntity product = productService.getProduct(pId);
+        System.out.println("productId:" + product.getPId());
         GroupEntity group = groupService.createGroup(user, product);
         OrderDetailEntity orderDetail = new OrderDetailEntity();
         orderDetail.setGroup(group);
@@ -118,6 +123,7 @@ public class OrderController {
         orderDetail.setType(1);
         orderDetail.setQuantity(quantity);
         orderDetail.setPrice((long)((long)group.getProduct().getPrice() * 0.9));
+        details.add(orderDetail);
         session.setAttribute("orderDetail", details);
         return "home/product/productShippingAddress";
     }

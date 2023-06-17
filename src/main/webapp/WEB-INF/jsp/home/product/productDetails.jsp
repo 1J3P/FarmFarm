@@ -127,17 +127,6 @@
       }
     }
 
-    function groupAttend(gId) {
-      console.log(gId);
-      var link = "http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
-      console.log(link);
-      location.href="http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
-      window.location.href("http://localhost:9000/order/group/" + gId + "?quantity=" + quantity);
-      window.location.href="http://localhost:9000/order/group/" + gId + "?quantity=" + quantity;
-      window.location.assign("http://localhost:9000/order/group/" + gId + "?quantity=" + quantity);
-      window.location.replace(link);
-      location.href="/order/group/" + gId;
-    }
 
     function increaseValue() {
       var input = document.getElementById('quantityInput');
@@ -456,6 +445,7 @@
                             <h5 class="group_2">23:54:36</h5>
                           </div>
                           <div class="group_1"><button class="parti" id="group_attend" onclick="groupAttend(${group.GId})">주문 참여</button></div>
+                          <input type="hidden" id="groupId">
                         </c:if>
                         <c:if test="${group.capacity eq 0}">
                           <p>공동구매완료</p>
@@ -474,6 +464,13 @@
 </div>
 </body>
 <script>
+  var GID;
+  function groupAttend(gId) {
+    var groupInput = document.getElementById("groupId");
+    groupInput.setAttribute("value", gId);
+    GID = gId;
+    console.log("요긴 찍힘?");
+  }
   window.onload = function (){
     function objectifyForm(formArray){
       var returnArray = {};
@@ -560,6 +557,25 @@
       window.location.assign("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
       window.location.replace(link);
     });
+
+    var groupIn = document.getElementById("group_attend");
+    groupIn.addEventListener('click', function (e) {
+      e.preventDefault();
+      setTimeout(function() {
+        var quantity = parseInt(document.getElementById('quantityInput').value);
+
+        var groupIn = document.getElementById("group_attend");
+        var gId = groupIn.value;
+        console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
+        var link = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+        location.href="http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+        window.location.href("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
+        window.location.href="http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+        window.location.assign("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
+        window.location.replace(link);
+      }, 500);
+
+    })
   };
 </script>
 </html>

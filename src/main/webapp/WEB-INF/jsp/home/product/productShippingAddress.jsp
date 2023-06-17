@@ -120,7 +120,7 @@
                             <ul class="row">
                                 <li class="item-content item-input col-100 item-input-with-value">
                                     <div class="item-inner">
-                                        <h4>이름</h4>
+                                        <h4>이름</h4><%=session.getAttribute("orderDetail")%>
                                         <div class="item-input-wrap">
                                             <input type="text" name="delivery_name" placeholder="이름을 입력하세요" id="username" class="form-control"/>
                                         </div>
