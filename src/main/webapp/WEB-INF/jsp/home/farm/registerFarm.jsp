@@ -161,29 +161,29 @@
         <div class="product_trade">
           <h3 style="margin-bottom:-5px">경매를 진행하실건가요?</h3>
           <p style="font-size:12px;color:#999999">
-            경매는 설정한 경매 시작 시간부터 3시간동안 진행되며 <br>
-            가격 높은 순으 자동적으로 경매가 낙찰됩니다.
+            경매는 상품을 등록한 시점부터 상품 등록시 설정한 경매 종료 시각까지 진행되며 <br>
+            가격이 높은 경매건이 낙찰됩니다.
           </p>
           <div class="auction-container">
-            <input type="radio" name="is_auction" value="true"><span>네</span>
-            <div class="auction_time_1" style="display: none">
-              <select name="auction_time">
-                <option value=0>00시</option>
-                <option value=1>01시</option>
-                <option value=2>02시</option>
-                <option value=3>03시</option>
-                <option value=4>04시</option>
-                <option value=5>05시</option>
-                <option value=6>06시</option>
-                <option value=7>07시</option>
-                <option value=8>08시</option>
-                <option value=9>09시</option>
-                <option value=10>10시</option>
-                <option value=11>11시</option>
-                <option value=12>12시</option>
-              </select>
-            </div>
-            <input type="radio" name="is_auction" value="false"><span>아니오</span>
+            <input type="radio" name="auction" value="true"><span>네</span>
+<%--            <div class="auction_time_1" style="display: none">--%>
+<%--              <select name="auction_time">--%>
+<%--                <option value=0>00시</option>--%>
+<%--                <option value=1>01시</option>--%>
+<%--                <option value=2>02시</option>--%>
+<%--                <option value=3>03시</option>--%>
+<%--                <option value=4>04시</option>--%>
+<%--                <option value=5>05시</option>--%>
+<%--                <option value=6>06시</option>--%>
+<%--                <option value=7>07시</option>--%>
+<%--                <option value=8>08시</option>--%>
+<%--                <option value=9>09시</option>--%>
+<%--                <option value=10>10시</option>--%>
+<%--                <option value=11>11시</option>--%>
+<%--                <option value=12>12시</option>--%>
+<%--              </select>--%>
+<%--            </div>--%>
+            <input type="radio" name="auction" value="false"><span>아니오</span>
           </div>
         </div>
         <div class="product_pic">

@@ -52,13 +52,9 @@ public class ProductController {
     @ResponseBody
     @PostMapping("")
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) {
-        System.out.println("111" + product.toString());
-        System.out.println("222" + product.getName());
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
-        System.out.println("333" + myFarm.getFId());
         FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
-        System.out.println("444" + farm.getFId());
         if (farm.getFId() == myFarm.getFId()) {
             ProductEntity newProduct = productService.saveProduct(product, myFarm);
             if (newProduct == null) { // 나중에 적절하게 수정
