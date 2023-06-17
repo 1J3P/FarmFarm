@@ -8,6 +8,7 @@ import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Entity.kakaoPay.KakaoReadyResponse;
 import com.example.farmfarm.Entity.kakaoPay.RefundPaymentEntity;
 import com.example.farmfarm.Repository.ApprovePaymentRepository;
+import com.example.farmfarm.Repository.OrderRepository;
 import com.example.farmfarm.Service.OrderService;
 import com.example.farmfarm.Service.PaymentService;
 import com.example.farmfarm.Service.UserService;
@@ -28,8 +29,6 @@ import java.util.List;
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
-    @Autowired
-    private UserService userService;
     @Autowired
     private OrderService orderService;
 
@@ -64,6 +63,7 @@ public class PaymentController {
             }
         }
         order.setStatus("결제 완료");
+        orderService.createOrder(order);
         ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
         mav.addObject("kakaoApprove", kakaoApprove);
         return mav;

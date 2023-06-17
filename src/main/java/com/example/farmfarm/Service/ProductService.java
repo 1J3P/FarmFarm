@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -42,12 +39,16 @@ public class ProductService {
         if (addProduct.isAuction()) {
             if (farm.isAuction() == true) { // 경매 농장일 경우 auction_quantity 설정
                 addProduct.setAuction_quantity(product.getQuantity());
-                Calendar cal = Calendar.getInstance();
+                TimeZone seoulTimeZone = TimeZone.getTimeZone("Asia/Seoul");
+                Calendar cal = Calendar.getInstance(seoulTimeZone);
+                cal.setTimeZone(seoulTimeZone);
+                System.out.println("seoulTimezone" + cal.getTime());
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                System.out.println("경매 종료 시간 받아왔어 : " + product.getDate().getHours() + " 시 " + product.getDate().getMinutes() + "분");
                 cal.set(Calendar.YEAR, product.getDate().getYear() + 1900);
                 cal.set(Calendar.MONTH, product.getDate().getMonth());
-                cal.set(Calendar.DATE, product.getDate().getDay());
-                cal.set(Calendar.HOUR_OF_DAY, product.getDate().getHours()-9); // 한국시간으로 바꾸기. 추후에 코드 다시 짜야함
+                cal.set(Calendar.DATE, product.getDate().getDate());
+                cal.set(Calendar.HOUR_OF_DAY, product.getDate().getHours()-9);
                 cal.set(Calendar.MINUTE, product.getDate().getMinutes());
                 String closeDate = format.format(cal.getTime());
                 addProduct.setCloseCalendar(closeDate);
