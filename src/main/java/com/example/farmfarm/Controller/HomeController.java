@@ -4,6 +4,7 @@ import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Service.FarmService;
+import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,6 +27,8 @@ public class HomeController {
     UserService userService;
     @Autowired
     FarmService farmService;
+    @Autowired
+    ProductService productService;
     @GetMapping("/index")
     public String control(HttpServletRequest request, HttpSession session) {
         try {
@@ -47,8 +51,14 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(HttpServletRequest request) {
+    public String home(HttpServletRequest request, Model model) {
         System.out.println("home!!! ㅅㅂ");
+        List<ProductEntity> products = productService.getAllProduct();
+        model.addAttribute("products", products);
+        List<ProductEntity> auctions = productService.getAllAuctionProduct();
+        model.addAttribute("auctions", auctions);
+        List<FarmEntity> farms = farmService.getFarmsOrderBy("new");
+        model.addAttribute("farms", farms);
         return "home/home";
     }
     @GetMapping("/kakao")
