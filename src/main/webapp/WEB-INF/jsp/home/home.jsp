@@ -71,11 +71,12 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
         table {
             border-collapse: collapse;
             font-size: 18px;
-            width: 400px;
+            width: 100%;
         }
 
         table td, table th {
@@ -86,6 +87,7 @@
         }
 
         th[scope="row"] {
+            width:7%;
             color: #94C015;
         }
     </style>
@@ -223,7 +225,7 @@
                 <a href="/product/auction/list"><i class="flaticon-right"></i></a>
             </div>
             <h4>진행 중인 경매 ${auctions.size()}개</h4>
-            <c:forEach var="auction" items="${auctions}">
+            <c:forEach var="auction" items="${auctions}" begin="0" end="1">
                 <div class="item-box" onclick="location.href='/product/${auction.PId}'">
                     <div class="item-media">
                         <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
