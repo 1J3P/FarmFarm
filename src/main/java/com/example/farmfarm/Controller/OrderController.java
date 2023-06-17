@@ -32,6 +32,8 @@ public class OrderController {
     private OrderDetailService orderDetailService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private AuctionService auctionService;
 
     //Todo 이하린 여기부터
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
@@ -129,16 +131,20 @@ public class OrderController {
     }
 
     //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용.=
-    @PostMapping("/product/{pId}")
-    public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestBody AuctionEntity auction) {
+    @GetMapping("/product/{pId}")
+    public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestParam("quantity") int quantity, @RequestParam("price") int price) {
         ProductEntity product = productService.getProduct(pId);
         System.out.println("경매 ajax!!!!!" + product.getPId());
         UserEntity user = (UserEntity)session.getAttribute("user");
         if (product.isAuction()) {
+            AuctionEntity auction = new AuctionEntity();
+            auction.setPrice(price);
+            auction.setQuantity(quantity);
             List<OrderDetailEntity> details = new ArrayList<>();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
-            auction.setProduct(product);
-            auction.setUser(user);
+            AuctionEntity newAuction = auctionService.createAuction(user, auction, product);
+            orderDetail.setAuction(newAuction);
+            orderDetail.setProduct(product);
             orderDetail.setType(2);
             orderDetail.setQuantity(auction.getQuantity());
             orderDetail.setPrice((long) auction.getPrice() * auction.getQuantity());

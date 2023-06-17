@@ -179,35 +179,12 @@
             return returnArray;
         }
 
-        var auth = document.getElementById("Auth").value;
+
         $("#joinAuction").on("click", function (){
-            var formsubmitSerialArray = $("#auctionForm").serializeArray();
-            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+            var quantity = document.getElementById("quantity").value;
+            var price = document.getElementById("price").value;
             var pId = ${p_id};
-            console.log(formsubmitSerialArray);
-            console.log(formsubmit);
-            $.ajax({
-                type:"POST",
-                async:false,
-                url:"/order/product/" + pId,
-                data:formsubmit,
-                dataType:"json",
-                contentType:"application/json; charset=utf-8",
-                beforeSend:function (xhr){
-                    xhr.setRequestHeader("Content-type","application/json");
-                    xhr.setRequestHeader("Authorization", auth);
-                },
-                success:function (data){
-                    alert("success");
-                    console.log(data);
-                    location.href="/order/addressForm";
-                },
-                error:function (request, status, error){
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
+            location.href="/order/product/" + pId + "?quantity=" + quantity + "&price=" + price;
         });
     };
 </script>
