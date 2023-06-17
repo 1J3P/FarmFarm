@@ -78,6 +78,14 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <style>
+        .go-btn{
+            position:absolute;
+            bottom:10%;
+            left:50%;
+            transform: translateX(-50%);
+        }
+    </style>
 </head>
 <body>
 
@@ -99,10 +107,13 @@
                 <div>결제를 성공했습니다.</div>
                 <i class="fa-solid fa-circle-check"></i>
             </div>
+            <div class="go-btn">
+                <a href="/order" class="button-large button button-fill" style="margin-top: 10px;padding: 20px 80px;">주문 내역 바로 가기</a>
+                <a href="/order/auction" class="button-large button button-fill" style="margin-top: 10px;padding: 20px 80px;">경매 참여 내역 바로 가기</a>
+                <a href="/" class="button-large button button-fill" style="margin-top: 10px;padding: 20px 80px;">홈 화면으로 가기</a>
+            </div>
         </div>
-        <a href="/order" class="button-large button button-fill" style="margin-top: 10px;">주문 내역 바로 가기</a>
-        <a href="/order/auction" class="button-large button button-fill" style="margin-top: 10px;">경매 참여 내역 바로 가기</a>
-        <a href="/" class="button-large button button-fill" style="margin-top: 10px;">홈 화면으로 가기</a>
+
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
