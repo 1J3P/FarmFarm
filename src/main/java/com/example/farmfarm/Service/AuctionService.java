@@ -20,7 +20,7 @@ public class AuctionService {
             auction.setProduct(product);
             return auctionRepository.save(auction);
         }
-        return null; //TODO:나중에 에러 처리 해야할듯
+        return null;
     }
 
     //내 경매 참여 내역

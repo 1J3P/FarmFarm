@@ -71,7 +71,6 @@ public class ProductController {
         ProductEntity product = productService.getProduct(p_id);
         List<ReviewEntity> reviewList = new ArrayList<>();
         reviewList =  reviewService.getProductReview(p_id);
-        System.out.println("리뷰좀 가져오자");
         System.out.println(reviewList);
         List<EnquiryEntity> enquiryList = new ArrayList<>();
         enquiryList = enquiryService.getProductEnquiry(p_id);
@@ -91,11 +90,6 @@ public class ProductController {
             return mav_general;
         }
     }
-//    @GetMapping("/{p_id}")
-//    public ResponseEntity<Object> getProduct(@PathVariable("p_id") long p_id) {
-//        ProductEntity product = productService.getProduct(p_id);
-//        return ResponseEntity.ok().body(product);
-//    }
 
     // 상품 리스트 조회, 검색, 정렬(신상품순-기본, 인기순, 낮은 가격순, 높은 가격순)
     @GetMapping("/list")
@@ -124,26 +118,6 @@ public class ProductController {
         mav.addObject("productList", resultList);
         return mav;
     }
-//    public ResponseEntity<Object> getAllProduct(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value="sort", required=false) String sort){
-//        List<ProductEntity> productList;
-//        List<ProductEntity> resultList = new ArrayList<>();
-//
-//        if (!StringUtils.isEmpty(keyword)) { // 키워드 검색
-//            productList = productService.getSearchProduct(keyword);
-//        }
-//        else if (!StringUtils.isEmpty(sort)) { // 정렬
-//            productList = productService.getSortedProduct(sort);
-//        }
-//        else {
-//            productList = productService.getAllProduct();
-//        }
-//        for (ProductEntity val : productList) {
-//            if (!val.isAuction()) {
-//                resultList.add(val);
-//            }
-//        }
-//       return ResponseEntity.ok().body(resultList);
-//    }
 
     // 상품 수정
     @PutMapping("/{p_id}")

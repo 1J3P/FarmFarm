@@ -36,11 +36,6 @@ public class HomeController {
             if (session.getAttribute("user") != null) {
                 return "redirect:http://localhost:9000/";
             }
-//            UserEntity user = userService.getUser(request);
-//            System.out.println("/ 요청");
-//            if (user == null) {
-//                return "common/index";
-//            }
             else if (session.getAttribute("user") == null){
                 return "redirect:/kakao";
             }
@@ -52,7 +47,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
-        System.out.println("home!!! ㅅㅂ");
         List<ProductEntity> products = productService.getAllProduct();
         model.addAttribute("products", products);
         List<ProductEntity> auctions = productService.getAllAuctionProduct();
@@ -68,7 +62,6 @@ public class HomeController {
 
     @GetMapping("/home/")
     public String home2(HttpServletRequest request) {
-        System.out.println("home!!! ㅅㅂ");
         return "home/home";
     }
 
@@ -90,26 +83,14 @@ public class HomeController {
     @PostMapping("/myPage")
     @ResponseBody
     public Map<String, Object> myPage(HttpServletRequest request, Model model, HttpSession session) {
-        System.out.println("여기까지는 오는거니..?" + request.getHeader("Authorization"));
         System.out.println(request.getHeaderNames());
         Map<String, Object> mv = new HashMap<>();
-        //UserEntity user = userService.getUser(request);
-
-        //mv.put("user", user);
-
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
         mv.put("user", user);
         model.addAttribute("user", user);
         model.addAttribute("myFarm", myFarm);
         mv.put("myFarm", myFarm);
-        //System.out.println("유저 확인 : " + user.toString());
-//        try {
-//            System.out.println("팜 확인 : " + myFarm.getName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("팜 확인 : " + myFarm.getName());
-//        }
         return mv;
     }
 

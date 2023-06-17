@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +25,9 @@ public class ReviewController {
     ProductService productService;
 
     @GetMapping("/write")
-    public ModelAndView getReviewForm(HttpSession session, @ModelAttribute("orderDetail")OrderDetailEntity orderDetail) {
-        UserEntity user = (UserEntity)session.getAttribute("user");
-        OrderDetailEntity order = (OrderDetailEntity) session.getAttribute("orderDetail");
+    public ModelAndView getReviewForm(@ModelAttribute("orderDetail")OrderDetailEntity orderDetail) {
         ModelAndView mav = new ModelAndView("myPage/writeReview");
+        mav.addObject("orderDetail", orderDetail);
         return mav;
     }
 
