@@ -183,7 +183,7 @@
              class="swiper swiper-slider-wrapper swiper-init demo-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="../images/slider/slide1.jpg" alt="">
+                    <img src="${farm.image}" alt="">
                 </div>
                 <div class="swiper-slide">
                     <img src="../images/slider/slide2.jpg" alt="">
