@@ -41,7 +41,7 @@
     />
     <meta
             property="og:image"
-            content="https://kede.dexignzone.com/xhtml/social-image.png"
+            content="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"
     />
     <meta name="format-detection" content="telephone=no"/>
 
@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="../images/f7-icon.png"/>
+    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
