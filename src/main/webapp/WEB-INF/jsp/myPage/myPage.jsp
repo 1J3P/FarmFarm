@@ -207,7 +207,7 @@
             <td class="row"><a href="/order">주문 내역</a></td>
           </tr>
           <tr>
-            <td class="row"><a href="">경매 참가 내역</a></td>
+            <td class="row"><a href="/order/auction">경매 참가 내역</a></td>
           </tr>
           <tr>
             <td class="row"><a href="/review/my">상품 후기 내역</a></td>
@@ -216,7 +216,7 @@
             <td class="row"><a href="/enquiry/my">문의 내역</a></td>
           </tr>
           <tr>
-            <td class="row"><a href="">로그아웃</a></td>
+            <td class="row"><a href="/user/logout">로그아웃</a></td>
           </tr>
           </tbody>
         </table>

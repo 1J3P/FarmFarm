@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface OrderRepository extends CrudRepository<OrderEntity, Long> {
     public OrderEntity findByoId(Long oId);
-    public List<OrderEntity> findAllByUser(UserEntity user);
+    public List<OrderEntity> findAllByUserAndPaymentIsNull(UserEntity user);
+    public List<OrderEntity> findAllByUserAndPaymentIsNotNull(UserEntity user);
 }
