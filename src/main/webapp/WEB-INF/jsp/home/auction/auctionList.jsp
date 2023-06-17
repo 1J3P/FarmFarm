@@ -77,7 +77,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home/" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -92,13 +92,13 @@
                 <c:forEach var="product" items="${productList}">
                     <div class="item-box" onclick="location.href='/product/${product.PId}'">
                         <div class="item-media">
-                            <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
+                            <img src= ${product.image1} alt="" />
                         </div>
                         <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
                         <div class="item-content">
                             <h5>${product.farm.name}</h5>
                             <h3 class="title">${product.name}</h3>
-                            <h4 class="price">경매 시작가 ${product.price}원</h4>
+                            <h4 class="price">경매 시작가 1,000원</h4>
                         </div>
                     </div>
                 </c:forEach>

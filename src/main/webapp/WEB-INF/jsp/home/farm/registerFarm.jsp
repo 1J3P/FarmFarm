@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>농장 개설</title>
+  <title>FarmFarm</title>
   <meta charset="UTF-8"/>
   <meta
           name="viewport"
@@ -129,7 +129,7 @@
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="#" class="link back">
+        <a href="/myPage" class="link back">
           <i class="flaticon-left"></i>
         </a>
       </div>
@@ -166,23 +166,6 @@
           </p>
           <div class="auction-container">
             <input type="radio" name="auction" value="true"><span>네</span>
-<%--            <div class="auction_time_1" style="display: none">--%>
-<%--              <select name="auction_time">--%>
-<%--                <option value=0>00시</option>--%>
-<%--                <option value=1>01시</option>--%>
-<%--                <option value=2>02시</option>--%>
-<%--                <option value=3>03시</option>--%>
-<%--                <option value=4>04시</option>--%>
-<%--                <option value=5>05시</option>--%>
-<%--                <option value=6>06시</option>--%>
-<%--                <option value=7>07시</option>--%>
-<%--                <option value=8>08시</option>--%>
-<%--                <option value=9>09시</option>--%>
-<%--                <option value=10>10시</option>--%>
-<%--                <option value=11>11시</option>--%>
-<%--                <option value=12>12시</option>--%>
-<%--              </select>--%>
-<%--            </div>--%>
             <input type="radio" name="auction" value="false"><span>아니오</span>
           </div>
         </div>
@@ -275,7 +258,7 @@
         dataType:"json",
         contentType:"application/json; charset=utf-8",
         success:function (data){
-          alert("success");
+          alert("농장을 개설하였습니다.");
           console.log(data);
           location.href="/myPage";
         },

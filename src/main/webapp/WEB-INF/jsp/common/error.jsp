@@ -12,7 +12,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Error</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -70,7 +70,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -79,14 +80,15 @@
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
-        .go-home{
-            border:none;
+        .go-home {
+            border: none;
             background: #94C015;
-            padding:10px 30px;
+            padding: 10px 30px;
             border-radius: 18px;
-            color:#fff;
+            color: #fff;
         }
-        .fa-house{
+
+        .fa-house {
             margin-right: 7px;
         }
     </style>

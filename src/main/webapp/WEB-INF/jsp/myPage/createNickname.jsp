@@ -6,24 +6,24 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
-    <meta charset="UTF-8" />
+    <title>FarmFarm</title>
+    <meta charset="UTF-8"/>
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover"
     />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
     />
-    <meta name="theme-color" content="#2196f3" />
+    <meta name="theme-color" content="#2196f3"/>
     <meta
             http-equiv="Content-Security-Policy"
             content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:"
     />
-    <meta name="author" content="DexignZone" />
-    <meta name="robots" content="index, follow" />
+    <meta name="author" content="DexignZone"/>
+    <meta name="robots" content="index, follow"/>
     <meta
             name="keywords"
             content="delivery, eatables, ecommerce, electronics, food delivery, Food Store, fruits, grocery, Grocery & Staples, market, online grocery shop, online vegetables, organic, supermarket, vegetables, "
@@ -44,12 +44,12 @@
             property="og:image"
             content="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"
     />
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="telephone=no"/>
 
     <title>FarmFarm</title>
 
-    <link rel="stylesheet" href="../style/framework7-bundle.min.css" />
-    <link rel="stylesheet" href="../style/app.css" />
+    <link rel="stylesheet" href="../style/framework7-bundle.min.css"/>
+    <link rel="stylesheet" href="../style/app.css"/>
 
     <link
             rel="stylesheet"
@@ -59,21 +59,22 @@
             rel="stylesheet"
             href="../style/line-awesome/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="../style/flaticons/flaticon.css" />
+    <link rel="stylesheet" href="../style/flaticons/flaticon.css"/>
 
-    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/style.css"/>
 
-    <link rel="apple-touch-icon" href="../images/f7-icon-square.png" />
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png" />
+    <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
-        .layer-page{
+        .layer-page {
             position: fixed;
             left: 0;
             bottom: 0;
@@ -81,14 +82,15 @@
             width: 100%;
             border-radius: 20px;
         }
+
         #mask {
-            width:100%;
-            height:100%;
-            position:fixed;
-            background:rgba(0,0,0,0.7) repeat;
-            top:0;
-            left:0;
-            z-index:999;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.7) repeat;
+            top: 0;
+            left: 0;
+            z-index: 999;
         }
     </style>
 </head>
@@ -156,7 +158,8 @@
                                     <li class="item-content item-input col-100 item-input-with-value">
                                         <div class="item-inner">
                                             <div class="item-input-wrap">
-                                                <input type="email" placeholder="닉네임을 설정해주세요" id="demo-username-22" class="form-control"/>
+                                                <input type="email" placeholder="닉네임을 설정해주세요" id="demo-username-22"
+                                                       class="form-control"/>
                                             </div>
                                         </div>
                                     </li>
@@ -165,20 +168,23 @@
                             <br><br><br>
                             <div class="list">
                                 <ul>
-                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill" id="submit-btn">등록하기</a></li>
+                                    <li class="mb-15"><a href="/home/" class="button-large button button-fill"
+                                                         id="submit-btn">등록하기</a></li>
                                 </ul>
                             </div>
                         </form>
                         <form class="tab" id="tabA2">
                             <div class="title-bar mb-20">
-                                <a href="#tabA1" data-route-tab-id="tabA1" class="tab-link icon-close"><i class="flaticon-cancel"></i></a>
+                                <a href="#tabA1" data-route-tab-id="tabA1" class="tab-link icon-close"><i
+                                        class="flaticon-cancel"></i></a>
                             </div>
                             <div class="list mb-0">
                                 <ul>
                                     <li class="item-content item-input item-input-with-value">
                                         <div class="item-inner">
                                             <div class="item-input-wrap">
-                                                <input type="password" placeholder="New Password" id="demo-username-25" class="form-control"/>
+                                                <input type="password" placeholder="New Password" id="demo-username-25"
+                                                       class="form-control"/>
                                             </div>
                                         </div>
                                     </li>
@@ -186,7 +192,8 @@
                                 </ul>
                             </div>
                             <div class="list text-center">
-                                <p class="fs-14 d-inline-block mt-10">Sign in to your registered account <a href="#tabA1"  data-route-tab-id="tabA1" class="fw6 tab-link">Login here</a></p>
+                                <p class="fs-14 d-inline-block mt-10">Sign in to your registered account <a
+                                        href="#tabA1" data-route-tab-id="tabA1" class="fw6 tab-link">Login here</a></p>
                             </div>
                         </form>
                     </div>
@@ -196,23 +203,23 @@
     </div>
 </div>
 <script>
-    window.onload = function (){
+    window.onload = function () {
         var auth = document.getElementById("Auth").value;
 
         console.log(auth);
 
-        $("#submit-btn").on("click", function (){
+        $("#submit-btn").on("click", function () {
             var nickname = document.getElementById("demo-username-22").value;
             console.log(nickname);
             $.ajax({
-                type:"GET",
-                async:false,
-                url:"/user/nickname/create",
-                data:{"nickname" : nickname},
-                dataType:"json",
-                contentType:"application/json; charset=utf-8",
-                beforeSend:function (xhr){
-                    xhr.setRequestHeader("Content-type","application/json");
+                type: "GET",
+                async: false,
+                url: "/user/nickname/create",
+                data: {"nickname": nickname},
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Content-type", "application/json");
                     xhr.setRequestHeader("Authorization", auth);
                 },
                 success: function (res) {

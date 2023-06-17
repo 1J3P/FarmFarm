@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -63,7 +63,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -98,11 +99,11 @@
                 $.ajax({
                     url: "/review/" + rpId,
                     type: "DELETE",
-                    success: function(response) {
+                    success: function (response) {
                         alert("리뷰가 삭제 되었습니다.");
                         window.location.href = "http://localhost:9000/review/my";
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                         alert("삭제 요청을 처리할 수 없습니다.");
                     }
@@ -182,7 +183,8 @@
                                     </div>
                                     <div class="item-text">${review.comment}</div>
                                     <i class="fa-solid fa-pencil"></i>
-                                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteReview(${review.rpId})"></i>
+                                    <i class="fa-regular fa-trash-can"
+                                       onclick="confirmAndDeleteReview(${review.rpId})"></i>
                                 </div>
                             </div>
                         </li>

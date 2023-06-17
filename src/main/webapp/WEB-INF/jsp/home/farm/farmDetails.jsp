@@ -7,7 +7,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>${farm.name}</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -65,7 +65,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -149,10 +150,10 @@
                 $.ajax({
                     url: "/farm/" + fId,
                     type: "DELETE",
-                    success: function(response) {
+                    success: function (response) {
                         alert("삭제 되었습니다.");
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                         alert("삭제 요청을 처리할 수 없습니다.");
                     }
@@ -222,7 +223,7 @@
                         </div>
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
-                            <div class="item-container" >
+                            <div class="item-container">
                                 <div class="sell-product-options" onclick="location.href='/product'">
                                     판매 상품 등록
                                 </div>
@@ -230,23 +231,24 @@
                             <div class="row">
                                 <c:forEach var="product" items="${productList}">
                                     <c:if test="${!product.auction}">
-                                    <div class="col-50 medium-25" onclick="location.href='/product/${product.PId}'">
-                                        <div class="item-box">
-                                            <div class="item-media">
-                                                <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
-                                            </div>
-                                            <label class="bookmark-btn">
-                                                <input type="checkbox" checked />
-                                            </label>
-                                            <div class="item-content">
-                                                <h5>${product.farm.name}</h5>
-                                                <h3 class="title">
-                                                    ${product.name}
-                                                </h3>
-                                                <h4 class="price">${product.price}원</h4>
+                                        <div class="col-50 medium-25" onclick="location.href='/product/${product.PId}'">
+                                            <div class="item-box">
+                                                <div class="item-media">
+                                                    <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png"
+                                                         alt=""/>
+                                                </div>
+                                                <label class="bookmark-btn">
+                                                    <input type="checkbox" checked/>
+                                                </label>
+                                                <div class="item-content">
+                                                    <h5>${product.farm.name}</h5>
+                                                    <h3 class="title">
+                                                            ${product.name}
+                                                    </h3>
+                                                    <h4 class="price">${product.price}원</h4>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </c:if>
                                 </c:forEach>
                             </div>
@@ -255,22 +257,24 @@
                 </div>
                 <div id="tab-3" class="tab">
                     <div class="col-50 medium-25">
-                        <c:set var="auctionCount" value="0" />
+                        <c:set var="auctionCount" value="0"/>
                         <h4>진행 중인 경매</h4>
                         <c:forEach var="product" items="${productList}">
                             <c:if test="${product.auction}">
-                                <c:set var="auctionCount" value="${auctionCount + 1}" />
+                                <c:set var="auctionCount" value="${auctionCount + 1}"/>
                                 <div class="item-box" onclick="location.href='/product/${product.PId}'">
                                     <div class="item-media">
-                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png" alt="" />
+                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png"
+                                             alt=""/>
                                     </div>
-                                    <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
+                                    <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
+                                    </div>
                                     <div class="item-content">
                                         <h5>${product.farm.name}</h5>
                                         <h3 class="title">
                                             <a href="/home/auction/auctionDetail">${product.name}</a>
                                         </h3>
-                                        <h4 class="price">경매 시작가 ${product.price}원</h4>
+                                        <h4 class="price">경매 시작가 1,000원</h4>
                                     </div>
                                 </div>
                             </c:if>
@@ -283,10 +287,9 @@
             </div>
         </div>
     </div>
-    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         const remainTimeElements = document.querySelectorAll(".ac-time");
 
         remainTimeElements.forEach((element) => {
@@ -306,7 +309,6 @@
             setInterval(updateCountdown, 1000);
         });
     };
-
 </script>
 </body>
 </html>

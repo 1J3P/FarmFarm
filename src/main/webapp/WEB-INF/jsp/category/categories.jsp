@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -112,7 +112,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home/" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -125,7 +125,6 @@
             <div class="dropdown" style="margin-bottom: 30px;">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                    <!-- 추후에 fruits.png 이미지 파일 넣기. 자꾸 실패함 ㅜㅜ -->
                     <h3 class="text">과일</h3>
                 </button>
                 <div class="dropdown-menu">

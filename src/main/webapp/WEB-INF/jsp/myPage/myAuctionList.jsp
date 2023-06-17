@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -63,7 +63,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -88,40 +89,48 @@
                     <c:if test="${empty auctionList}">
                         아직 경매 참여 내역이 없습니다!<br>
                         경매를 참여해보세요!!
-                        <a href="/product/auction/list" class="button-large button button-fill" style="margin-top: 10px;">경매 물품 보러가기</a>
+                        <a href="/product/auction/list" class="button-large button button-fill"
+                           style="margin-top: 10px;">경매 물품 보러가기</a>
                     </c:if>
                     <c:forEach var="auction" items="${auctionList}">
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="${auction.orders.get(0).product.image1}" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <c:if test="${not empty auction.orders}">
-                                    <div class="item-head">
-                                        <h6 class="category">${auction.orders.get(0).product.farm.name}</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px"><fmt:formatDate pattern="yyyy.MM.dd" value="${auction.created_at}"/></h6>
-                                        <h2 class="item-title"><a href="/product/${auction.orders.get(0).product.PId}">${auction.orders.get(0).product.name}</a></h2>
-                                        <h5 class="item-title"><span>${auction.orders.get(0).auction.price}</span>원</h5>
-                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">${auction.orders.get(0).auction.status}</h6>
+                        <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
+                            <div class="item-content swipeout-content">
+                                <div class="item-inner">
+                                    <div class="item-media">
+                                        <img src="${auction.orders.get(0).product.image1}" alt="">
                                     </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>${auction.total_price}</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>${auction.total_quantity}</span>
+                                    <div class="item-info">
+                                        <c:if test="${not empty auction.orders}">
+                                            <div class="item-head">
+                                                <h6 class="category">${auction.orders.get(0).product.farm.name}</h6>
+                                                <h6 class="category" style="float:right; margin-right:45px">
+                                                    <fmt:formatDate pattern="yyyy.MM.dd"
+                                                                    value="${auction.created_at}"/></h6>
+                                                <h2 class="item-title"><a
+                                                        href="/product/${auction.orders.get(0).product.PId}">${auction.orders.get(0).product.name}</a>
+                                                </h2>
+                                                <h5 class="item-title">
+                                                    <span>${auction.orders.get(0).auction.price}</span>원</h5>
+                                                <h6 class="category"
+                                                    style="color: #4D9EE9; float:right; margin-right:45px">${auction.orders.get(0).auction.status}</h6>
                                             </div>
-                                        </div>
+                                            <div class="item-foot">
+                                                <h3 class="text-primary item-total"><span>${auction.total_price}</span>원
+                                                </h3>
+                                                <div class="stepperForOrderList stepper-small stepper-round stepper-init">
+                                                    <div class="stepper-input-wrap stepperFont">
+                                                        X <span>${auction.total_quantity}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:if>
                                     </div>
-                                    </c:if>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
+                            <div class="swipeout-actions-right">
+                                <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
+                            </div>
+                        </li>
                     </c:forEach>
                 </ul>
             </div>
@@ -142,7 +151,7 @@
                 <i class="flaticon-shopping-cart"></i>
             </a>
             <a href="/user/" class="tab-link">
-                <img src="/style/images/avatar/1.jpg" class="user-media" alt="" />
+                <img src="/style/images/avatar/1.jpg" class="user-media" alt=""/>
             </a>
         </div>
     </div>
