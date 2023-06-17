@@ -325,11 +325,43 @@
                           <div class="item-title-row">
                             <div class="item-title">${review.user.nickname}</div>
                             <div class="item-after stars">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-o"></i>
+                              <c:choose>
+                                <c:when test="${review.productStar == 5.0}">
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                </c:when>
+                                <c:when test="${review.productStar == 4.0}">
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star-o"></i>
+                                </c:when>
+                                <c:when test="${review.productStar == 3.0}">
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                </c:when>
+                                <c:when test="${review.productStar == 2.0}">
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                </c:when>
+                                <c:when test="${review.productStar == 1.0}">
+                                  <i class="fa fa-star"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                  <i class="fa fa-star-o"></i>
+                                </c:when>
+                              </c:choose>
                             </div>
                           </div>
                           <!-- <div class="item-subtitle">27 August 2020</div>-->
@@ -372,9 +404,10 @@
                 <div class="page-content content-area pt-30 bottom-sp80">
                   <c:forEach var="enquiry" items="${enquiries}">
                     <div class="enquiry_list">
-                      <p class="li_pro_name">${enquiry.product.name}</p>
+                      <div class="item-title-row">
+                        <div class="item-title">${enquiry.user.nickname}님</div>
+                      </div>
                       <p class="li_en">${enquiry.content}</p>
-                      <h4>02-123-4567로 전화 문의 바랍니다^^</h4>
                       <i class="fa-solid fa-pencil"></i>
                       <i class="fa-regular fa-trash-can"></i>
                     </div>

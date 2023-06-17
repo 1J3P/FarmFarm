@@ -71,6 +71,8 @@ public class ProductController {
         ProductEntity product = productService.getProduct(p_id);
         List<ReviewEntity> reviewList = new ArrayList<>();
         reviewList =  reviewService.getProductReview(p_id);
+        System.out.println("리뷰좀 가져오자");
+        System.out.println(reviewList);
         List<EnquiryEntity> enquiryList = new ArrayList<>();
         enquiryList = enquiryService.getProductEnquiry(p_id);
         ModelAndView mav_general = new ModelAndView("home/product/productDetails");
