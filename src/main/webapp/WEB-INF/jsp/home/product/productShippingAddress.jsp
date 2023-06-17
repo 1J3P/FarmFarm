@@ -120,7 +120,7 @@
                             <ul class="row">
                                 <li class="item-content item-input col-100 item-input-with-value">
                                     <div class="item-inner">
-                                        <h4>이름</h4><%=session.getAttribute("orderDetail")%>
+                                        <h4>이름</h4>
                                         <div class="item-input-wrap">
                                             <input type="text" name="delivery_name" placeholder="이름을 입력하세요" id="username" class="form-control"/>
                                         </div>
@@ -133,19 +133,19 @@
                                         <div class="item-input-wrap">
                                             <label><input type="radio" id="true" name="delivery" value="true" checked/>배송</label>
                                             <label><input type="radio" id="false" name="delivery" value="false"/>직거래</label>
-                                        </div>
-                                        <div class="check-delivery">
-                                            <h4>배송 요청사항</h4>
-                                            <div class="item-input-wrap">
-                                                <input type="email" name="delivery_memo" placeholder="배송 요청 사항을 입력하세요" id="email" class="form-control"/>
-                                            </div>
-                                            <h4>주소</h4>
-                                            <div class="item-input-wrap">
-                                                <input type="text" name="delivery_address" placeholder="주소를 입력하세요" id="address" class="form-control"/>
-                                            </div>
-                                            <h4>상세 주소</h4>
-                                            <div class="item-input-wrap">
-                                                <input type="text" name="delivery_address_detail" placeholder="상세 주소를 입력하세요" id="zip_code" class="form-control"/>
+                                            <div class="check-delivery" style="margin-top:40px;">
+                                                <h4>배송 요청사항</h4>
+                                                <div class="item-input-wrap">
+                                                    <input type="email" name="delivery_memo" placeholder="배송 요청 사항을 입력하세요" id="email" class="form-control"/>
+                                                </div>
+                                                <h4>주소</h4>
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="delivery_address" placeholder="주소를 입력하세요" id="address" class="form-control"/>
+                                                </div>
+                                                <h4>상세 주소</h4>
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="delivery_address_detail" placeholder="상세 주소를 입력하세요" id="zip_code" class="form-control"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -141,12 +141,7 @@
                         <div class="order-date">
                             <p><fmt:formatDate pattern="yyyy.MM.dd" value="${order.created_at}"/></p>
                             <div class="is-payment">
-                                <c:if test="${order.status eq '결제전'}">
-                                    <p>결제 대기</p>
-                                </c:if>
-                                <c:if test="${order.status eq '결제 완료'}">
-                                    <p>결제 완료</p>
-                                </c:if>
+                                <p>${order.status}</p>
                             </div>
                         </div>
 

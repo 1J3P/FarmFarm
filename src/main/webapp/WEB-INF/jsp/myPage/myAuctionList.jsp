@@ -102,7 +102,7 @@
                                     <div class="item-head">
                                         <h6 class="category">${auction.orders.get(0).product.farm.name}</h6>
                                         <h6 class="category" style="float:right; margin-right:45px"><fmt:formatDate pattern="yyyy.MM.dd" value="${auction.created_at}"/></h6>
-                                        <h2 class="item-title"><a href="/item-details/">${auction.orders.get(0).product.name}</a></h2>
+                                        <h2 class="item-title"><a href="/product/${auction.orders.get(0).product.PId}">${auction.orders.get(0).product.name}</a></h2>
                                         <h5 class="item-title"><span>${auction.orders.get(0).auction.price}</span>원</h5>
                                         <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">${auction.orders.get(0).auction.status}</h6>
                                     </div>
