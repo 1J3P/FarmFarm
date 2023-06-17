@@ -101,6 +101,7 @@
             </div>
         </div>
         <a href="/order" class="button-large button button-fill" style="margin-top: 10px;">주문 내역 바로 가기</a>
+        <a href="/order/auction" class="button-large button button-fill" style="margin-top: 10px;">경매 참여 내역 바로 가기</a>
         <a href="/" class="button-large button button-fill" style="margin-top: 10px;">홈 화면으로 가기</a>
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>

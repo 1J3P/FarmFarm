@@ -95,7 +95,7 @@
                         <div class="item-content swipeout-content">
                             <div class="item-inner">
                                 <div class="item-media">
-                                    <img src="img/categories/pic1.jpg" alt="">
+                                    <img src="${auction.orders.get(0).product.image1}" alt="">
                                 </div>
                                 <div class="item-info">
                                     <c:if test="${not empty auction.orders}">
@@ -103,8 +103,8 @@
                                         <h6 class="category">${auction.orders.get(0).product.farm.name}</h6>
                                         <h6 class="category" style="float:right; margin-right:45px"><fmt:formatDate pattern="yyyy.MM.dd" value="${auction.created_at}"/></h6>
                                         <h2 class="item-title"><a href="/item-details/">${auction.orders.get(0).product.name}</a></h2>
-                                        <h5 class="item-title"><span>${auction.orders.get(0).price}</span>원</h5>
-                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">${auction.status}</h6>
+                                        <h5 class="item-title"><span>${auction.orders.get(0).auction.price}</span>원</h5>
+                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">${auction.orders.get(0).auction.status}</h6>
                                     </div>
                                     <div class="item-foot">
                                         <h3 class="text-primary item-total"><span>${auction.total_price}</span>원</h3>

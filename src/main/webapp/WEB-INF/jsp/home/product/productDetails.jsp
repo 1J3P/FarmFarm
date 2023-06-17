@@ -255,7 +255,7 @@
     <div data-pagination='{"el": ".swiper-pagination"}' class="swiper swiper-slider-wrapper swiper-init demo-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="../images/slider/slide1.jpg" alt="">
+          <img src="${product.image1}" alt="">
         </div>
         <div class="swiper-slide">
           <img src="../images/slider/slide1.jpg" alt="">
