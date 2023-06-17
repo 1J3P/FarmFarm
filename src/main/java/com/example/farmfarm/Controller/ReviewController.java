@@ -25,6 +25,13 @@ public class ReviewController {
     @Autowired
     ProductService productService;
 
+    @GetMapping("/write")
+    public ModelAndView getReviewForm(HttpSession session, @ModelAttribute("orderDetail")OrderDetailEntity orderDetail) {
+//        FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
+        ModelAndView mav = new ModelAndView("myPage/writeReview");
+        return mav;
+    }
+
     //리뷰 작성
     @ResponseBody
     @PostMapping("/{od_id}")

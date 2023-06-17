@@ -125,7 +125,7 @@
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="#" class="link back">
+        <a href="/order" class="link back">
           <i class="icon flaticon-left"></i>
         </a>
       </div>
@@ -136,6 +136,7 @@
   </div>
   <div class="page-content pt-80 bottom-sp90">
     <div class="container">
+      <form id="form">
       <div class="write-reviews-box">
         <div class="reviews-head">
           <h3 class="title"><b>농장의 별점을 입력해주세요. </b></h3>
@@ -147,6 +148,7 @@
             <li><i class="fa fa-star"></i></li>
             <li><i class="fa fa-star-o"></i></li>
             <li><i class="fa fa-star-o"></i></li>
+          </ul>
           </ul>
         </div>
         <div class="reviews-head">
@@ -180,10 +182,46 @@
       </div>
     </div>
     <div class="container px-15">
-      <a href="/home/" class="button-large button button-fill">리뷰 등록하기</a>
+      <a href="/home/" class="button-large button button-fill" id="openBtn">리뷰 등록하기</a>
     </div>
   </div>
   <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+  function objectifyForm(formArray){
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++) {
+      returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
+  }
+
+  $("#openBtn").on("click", function (){
+    var formsubmitSerialArray = $("#form").serializeArray();
+    var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+
+    console.log(formsubmitSerialArray);
+    console.log(formsubmit);
+    $.ajax({
+      type:"POST",
+      async:true,
+      url:"http://localhost:9000/review/${orderDetail.odId}",
+      data:formsubmit,
+      dataType:"json",
+      contentType:"application/json; charset=utf-8",
+      success:function (data){
+        alert("success");
+        console.log(data);
+        console.log("2" + data.pid);
+        location.href="/review/my";
+      },
+      error:function (request, status, error){
+        alert("error");
+        console.log(request);
+        console.log(status);
+        console.log(error);
+      }
+    });
+</script>
 </body>
 </html>

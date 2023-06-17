@@ -90,6 +90,26 @@
             right: 0;
         }
     </style>
+    <script>
+        function confirmAndDeleteReview(rpId) {
+            // 알림 창을 표시하여 사용자의 확인을 받습니다.
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 보냅니다.
+                $.ajax({
+                    url: "/review/" + rpId,
+                    type: "DELETE",
+                    success: function(response) {
+                        alert("리뷰가 삭제 되었습니다.");
+                        window.location.href = "http://localhost:9000/review/my";
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("삭제 요청을 처리할 수 없습니다.");
+                    }
+                });
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="page light">
@@ -125,7 +145,7 @@
                                     </div>
                                     <div class="item-text">${review.comment}</div>
                                     <i class="fa-solid fa-pencil"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
+                                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteReview(${review.rpId}"></i>
                                 </div>
                             </div>
                         </li>

@@ -1,3 +1,5 @@
+<%@ page import="com.example.farmfarm.Entity.UserEntity" %>
+<%@ page import="com.example.farmfarm.Entity.FarmEntity" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
