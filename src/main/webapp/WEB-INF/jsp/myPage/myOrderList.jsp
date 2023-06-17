@@ -108,12 +108,6 @@
             flex-direction: column;
         }
 
-        .item-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
     </style>
 </head>
 <body>
@@ -132,6 +126,11 @@
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
             <div class="list cart-list">
+                <c:if test="${empty orderList}">
+                    아직 주문 내역이 없습니다!<br>
+                    상품을 주문해보세요!!
+                    <a href="/product/list" class="button-large button button-fill" style="margin-top: 10px;">상품 보러가기</a>
+                </c:if>
                 <ul>
                     <c:forEach var="order" items="${orderList}">
                         <div class="order-date">
@@ -153,14 +152,9 @@
                                         <div class="item-info">
                                             <div class="item-head">
                                                 <h6 class="category">${orderDetail.product.farm.name}</h6>
-                                                <div class="item-actions">
-                                                    <h2 class="item-title"><a href="/item-details/">${orderDetail.product.name}</a></h2>
-                                                    <div class="sell-product-options" onclick="location.href='/review/write'">
-                                                        리뷰 작성
-                                                    </div>
-                                                </div>
+                                                <h2 class="item-title"><a href="/item-details/">${orderDetail.product.name}</a></h2>
+                                                <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
                                             </div>
-                                            <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
                                             <div class="item-foot">
                                                 <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원</h3>
                                                 <div class="stepperForOrderList stepper-small stepper-round stepper-init">

@@ -3,9 +3,7 @@ package com.example.farmfarm.Controller;
 import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
-import com.example.farmfarm.Repository.OrderDetailRepository;
 import com.example.farmfarm.Service.*;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -145,7 +143,7 @@ public class OrderController {
     //TODO: 이거 동작 확인해보기
     @GetMapping("")
     public ModelAndView myOrderList(HttpSession session) {
-        ModelAndView mav = new ModelAndView("myPage/orderList");
+        ModelAndView mav = new ModelAndView("myPage/myOrderList");
         UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderEntity> orderList = orderService.getMyOrderList(user);
         mav.addObject("orderList", orderList);
