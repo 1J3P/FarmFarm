@@ -72,6 +72,7 @@ public class OrderController {
             totalP += d.getPrice();
             totalQ += d.getQuantity();
         }
+        order.setType(details.get(0).getType());
         order.setTotal_price(totalP);
         order.setTotal_quantity(totalQ);
         order.setStatus("결제전");

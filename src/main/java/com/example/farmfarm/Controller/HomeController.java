@@ -93,7 +93,7 @@ public class HomeController {
         model.addAttribute("user", user);
         model.addAttribute("myFarm", myFarm);
         mv.put("myFarm", myFarm);
-        System.out.println("유저 확인 : " + user.toString());
+        //System.out.println("유저 확인 : " + user.toString());
 //        try {
 //            System.out.println("팜 확인 : " + myFarm.getName());
 //        } catch (Exception e) {

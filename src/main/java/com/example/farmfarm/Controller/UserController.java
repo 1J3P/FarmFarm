@@ -5,9 +5,11 @@ import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.ReviewEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Entity.oauth.OauthToken;
+import com.example.farmfarm.Repository.UserRepository;
 import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.UserService;
 import com.example.farmfarm.Config.jwt.JwtProperties;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -45,6 +47,8 @@ public class UserController {
 
     @Value("${KakaoApiUrl}")
     private String KakaoApiUrl;
+    @Autowired
+    private UserRepository userRepository;
 
     @ResponseBody
     @GetMapping(value = "/login/getKakaoAuthUrl")
@@ -127,8 +131,21 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String updateProfile() {
+    public String updateProfileForm() {
         return "myPage/editMyPage";
+    }
+
+    @PostMapping("/profile")
+    public ResponseEntity<Object> updateProfile(@RequestBody UserEntity updateUser, HttpSession session, Model model) {
+        System.out.println("updateUser1" + updateUser.getImage());
+        System.out.println("updateUser2" + updateUser.getNickname());
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        UserEntity getUser = userService.findById(user.getId());
+        getUser.setNickname(updateUser.getNickname());
+        getUser.setImage(updateUser.getImage());
+        UserEntity saveUser = userRepository.save(getUser);
+        model.addAttribute("user", saveUser);
+        return ResponseEntity.ok().body(saveUser);
     }
 
     @GetMapping("logout")
