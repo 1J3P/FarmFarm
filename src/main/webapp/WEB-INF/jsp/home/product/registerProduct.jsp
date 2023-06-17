@@ -70,7 +70,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function(){
             $("input[name='pro_type']").change(function(){
@@ -104,6 +104,10 @@
         .file {
             display: none;
         }
+        .my-image img{
+            margin-top: 30px;
+            width:300px;
+        }
     </style>
 </head>
 <body>
@@ -122,71 +126,154 @@
     </div>
     <div class="page-content content-area pt-30 bottom-sp80">
         <div class="container allProduct product" style="padding-top:10px">
-            <div class="product_type">
-                <h3 style="margin-bottom:-5px">상품 유형</h3>
-                <p style="font-size:12px;color:#999999">상품 유형을 선택해주세요.</p>
-                <div>
-                    <input type="radio" name="pro_type" value="일반 상품"><span>일반 상품</span>
-                    <input type="radio" name="pro_type" value="공동 구매"><span>공동 구매</span>
-                    <input type="radio" name="pro_type" value="경매 상품"><span>경매 상품</span>
+            <form id="form">
+                <div class="product_type">
+                    <h3 style="margin-bottom:-5px">상품 유형</h3>
+                    <p style="font-size:12px;color:#999999">상품 유형을 선택해주세요.</p>
+                    <div>
+                        <input type="radio" name="pro_type" value="일반 상품"><span>일반 상품</span>
+                        <input type="radio" name="pro_type" value="공동 구매"><span>공동 구매</span>
+                        <input type="radio" name="pro_type" value="경매 상품"><span>경매 상품</span>
+                    </div>
+                    <div style="margin-top:30px" class="auction-date">
+                        <h3>경매 날짜와 시간을 선택해주세요</h3>
+                        <input type="datetime-local" step="3600">
+                    </div>
                 </div>
-                <div style="margin-top:30px" class="auction-date">
-                    <h3>경매 날짜를 선택해주세요</h3>
-                    <input type="date">
+                <div class="product_name">
+                    <h3>상품 이름</h3>
+                    <input type="text" placeholder="상품 이름을 입력해주세요.">
                 </div>
-            </div>
-            <div class="product_name">
-                <h3>상품 이름</h3>
-                <input type="text" placeholder="상품 이름을 입력해주세요.">
-            </div>
-            <div class="product_category">
-                <h3>상품 카테고리</h3>
-                <select>
-                    <option value="" disabled selected style="display:none">카테고리를 선택해주세요.</option>
-                    <option value="fruit">과일</option>
-                    <option value="vegetable">채소</option>
-                </select>
-            </div>
-            <div class="product_quantity">
-                <h3>상품 수량</h3>
-                <input type="text" placeholder="상품 수량을 입력해주세요.">
-            </div>
-            <div class="product_details">
-                <h3 style="margin-bottom:-5px">상품 설명</h3>
-                <p style="font-size:12px;color:#999999">상품과 관련된 내용들을 자유롭게 작성해주세요. </p>
-                <textarea rows="10" cols="100%" placeholder="상품에 대한 자세한 설명을 작성해주세요."></textarea>
-            </div>
-            <div class="product_price">
-                <h3 style="margin-bottom:-5px">상품 가격</h3>
-                <p style="font-size:12px;color:#999999">판매하시는 상품의 가격을 입력해주세요.</p>
-                <input type="text" placeholder="상품 가격을 입력해주세요.">
-            </div>
-            <div class="product_trade">
-                <h3 style="margin-bottom:-5px">거래 방법</h3>
-                <p style="font-size:12px;color:#999999">상품을 거래할 방법을 선택해주세요.</p>
-                <div>
-                    <input type="radio" name="pro_type" value="직거래"><span>직거래</span>
-                    <input type="radio" name="pro_type" value="배송"><span>배송</span>
+                <div class="product_category">
+                    <h3>상품 카테고리</h3>
+                    <select>
+                        <option value="" disabled selected style="display:none">카테고리를 선택해주세요.</option>
+                        <option value="fruit">과일</option>
+                        <option value="vegetable">채소</option>
+                    </select>
                 </div>
-            </div>
-            <div class="product_pic">
-                <h3>사진을 올려주세요 <span>(선택)</span></h3>
-                <div>
-                    <label class="file-label" for="chooseFile">파일 선택</label>
-                    <input class="file" id="chooseFile" type="file">
+                <div class="product_quantity">
+                    <h3>상품 수량</h3>
+                    <input type="text" placeholder="상품 수량을 입력해주세요.">
                 </div>
-                <p style="font-size:12px;color:#999999">상품과 무관한 사진을 첨부하면 노출 제한 처리될 수 있습니다.<br>
-                    사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.</p>
-            </div>
-            <div class="list">
-                <ul>
-                    <li class="mb-15"><a href="/home/" class="button-large button button-fill">상품 등록</a></li>
-                </ul>
-            </div>
+                <div class="product_details">
+                    <h3 style="margin-bottom:-5px">상품 설명</h3>
+                    <p style="font-size:12px;color:#999999">상품과 관련된 내용들을 자유롭게 작성해주세요. </p>
+                    <textarea rows="10" cols="100%" placeholder="상품에 대한 자세한 설명을 작성해주세요."></textarea>
+                </div>
+                <div class="product_price">
+                    <h3 style="margin-bottom:-5px">상품 가격</h3>
+                    <p style="font-size:12px;color:#999999">판매하시는 상품의 가격을 입력해주세요.</p>
+                    <input type="text" placeholder="상품 가격을 입력해주세요.">
+                </div>
+                <div class="product_trade">
+                    <h3 style="margin-bottom:-5px">거래 방법</h3>
+                    <p style="font-size:12px;color:#999999">상품을 거래할 방법을 선택해주세요.</p>
+                    <div>
+                        <input type="radio" name="pro_type" value="직거래"><span>직거래</span>
+                        <input type="radio" name="pro_type" value="배송"><span>배송</span>
+                    </div>
+                </div>
+                <div class="product_pic">
+                    <h3>사진을 올려주세요 <span>(선택)</span></h3>
+                    <div>
+                        <label class="file-label" for="chooseFile">파일 선택</label>
+                        <input class="file" id="chooseFile" type="file">
+                        <div class="my-image"></div>
+                    </div>
+                    <p style="font-size:12px;color:#999999">상품과 무관한 사진을 첨부하면 노출 제한 처리될 수 있습니다.<br>
+                        사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.</p>
+                </div>
+                <div class="list">
+                    <ul>
+                        <li class="mb-15"><button type="button" class="button-large button button-fill" id="openBtn">상품 등록</button></li>
+                    </ul>
+                </div>
+            </form>
         </div>
 
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+    window.onload = function (){
+        const fileInput = document.getElementById("chooseFile");
+        const myImg = document.querySelector(".my-image");
+
+        fileInput.addEventListener("change", (evt)=> {
+            const image = evt.target.files[0];
+            console.log(image);
+
+            var url = "/s3/file";
+            var formData = new FormData();
+            formData.append("multipartFile", image);
+
+            $.ajax({
+                url:url,
+                data:formData,
+                type:"POST",
+                async:false,
+                enctype:"multipart/form-data",
+                processData:false,
+                contentType:false,
+
+                success: function (response){
+                    console.log(JSON.stringify(response));
+                    var json = JSON.stringify(response);
+                    var obj = JSON.parse(json);
+                    var str = '<img src="' + obj.fileurl + '"></img>';
+                    myImg.innerHTML += str;
+                    fileInput.setAttribute("name", obj.fileurl);
+                },
+
+                error: function (request, status, error) {
+                    console.log("request : " + request);
+                    console.log("status : " + status);
+                    console.log("error : " + error);
+                },
+
+                complete:function(data,textStatus) {
+                    console.log("");
+                    console.log("[serverUploadImage] : [complete] : " + textStatus);
+                    console.log("");
+                }
+            })
+        });
+
+        function objectifyForm(formArray){
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+        $("#openBtn").on("click", function (){
+            var formsubmitSerialArray = $("#form").serializeArray();
+            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+
+            console.log(formsubmitSerialArray);
+            console.log(formsubmit);
+            $.ajax({
+                type:"POST",
+                async:true,
+                url:"http://localhost:9000/farm",
+                data:formsubmit,
+                dataType:"json",
+                contentType:"application/json; charset=utf-8",
+                success:function (data){
+                    alert("success");
+                    console.log(data);
+                    location.href="/product/${pid}";
+                },
+                error:function (request, status, error){
+                    alert("error");
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        });
+    };
+</script>
 </body>
 </html>

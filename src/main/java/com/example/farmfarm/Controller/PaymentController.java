@@ -63,7 +63,7 @@ public class PaymentController {
                 od.getAuction().setPaId(kakaoApprove.getPaId());
             }
         }
-        order.setStatus("결제완료");
+        order.setStatus("결제 완료");
         ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
         mav.addObject("kakaoApprove", kakaoApprove);
         return mav;

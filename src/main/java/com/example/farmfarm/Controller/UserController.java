@@ -129,6 +129,7 @@ public class UserController {
     public String updateProfile() {
         return "myPage/editMyPage";
     }
+
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
