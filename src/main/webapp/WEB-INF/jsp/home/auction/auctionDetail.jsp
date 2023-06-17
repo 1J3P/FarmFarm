@@ -120,7 +120,7 @@
                     <h4>${product.detail}</h4>
                 </div>
                 <div class="tab tab-active form-elements tabs">
-                    <form class="tab tab-active" id="tabA1">
+                    <form class="tab tab-active" id="auctionForm">
                         <div class="list mb-0">
                             <ul class="row">
                                 <li class="item-content item-input col-100 item-input-with-value">
@@ -139,7 +139,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill">경매 참여하기</a></li>
+                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill" id="joinAuction">경매 참여하기</a></li>
                             </ul>
                         </div>
                     </form>
@@ -168,6 +168,35 @@
 
             updateCountdown();
             setInterval(updateCountdown, 1000);
+        });
+
+        $("#joinAuction").on("click", function (){
+            var formsubmitSerialArray = $("#auctionForm").serializeArray();
+            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+            var pId = ${p_id};
+            console.log(formsubmitSerialArray);
+            console.log(formsubmit);
+            $.ajax({
+                type:"POST",
+                async:false,
+                url:"/order/product/" + pId,
+                data:formsubmit,
+                dataType:"json",
+                contentType:"application/json; charset=utf-8",
+                beforeSend:function (xhr){
+                    xhr.setRequestHeader("Content-type","application/json");
+                    xhr.setRequestHeader("Authorization", auth);
+                },
+                success:function (data){
+                    alert("success");
+                    console.log(data);
+                },
+                error:function (request, status, error){
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
         });
     };
 </script>
