@@ -47,8 +47,8 @@ public class EnquiryService {
     }
 
     //문의사항 삭제
-    public void deleteEnquiry(HttpServletRequest request, Long eId) throws Exception{
-        UserEntity user = userService.getUser(request);
+    public void deleteEnquiry(HttpSession session, Long eId) throws Exception{
+        UserEntity user = (UserEntity)session.getAttribute("user");
         EnquiryEntity en = enquiryRepository.findByeId(eId);
         if (Objects.equals(user.getUId(), en.getUser().getUId())) {
             enquiryRepository.delete(en);

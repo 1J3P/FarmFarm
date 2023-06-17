@@ -54,9 +54,9 @@ public class EnquiryController {
 
     //문의사항 삭제
     @DeleteMapping("/{e_id}")
-    public ResponseEntity<Object> deleteEnquiry(HttpServletRequest request, @PathVariable("e_id") long eId) {
+    public ResponseEntity<Object> deleteEnquiry(HttpSession session, @PathVariable("e_id") long eId) {
         try {
-            enquiryService.deleteEnquiry(request, eId);
+            enquiryService.deleteEnquiry(session, eId);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("exception");
         }

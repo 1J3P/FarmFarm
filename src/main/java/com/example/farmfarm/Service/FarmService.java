@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -93,8 +94,8 @@ public class FarmService {
     }
 
     // 농장 삭제
-    public void deleteFarm(HttpServletRequest request, Long fId) throws Exception{
-        UserEntity user = userService.getUser(request);
+    public void deleteFarm(HttpSession session, Long fId) throws Exception{
+        UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity farm = farmRepository.findByfId(fId);
         if(Objects.equals(user.getUId(), farm.getUser().getUId())){
             farmRepository.delete(farm);
