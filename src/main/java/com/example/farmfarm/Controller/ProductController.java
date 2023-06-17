@@ -40,26 +40,33 @@ public class ProductController {
 
     //43번째 줄 널포인터 익셉션 떠서 주석처리함
     // 상품 등록 Form
-//    @GetMapping("")
-//    public ModelAndView getProductForm(HttpServletRequest req, @ModelAttribute("product")ProductEntity product) {
-//        HttpSession session = req.getSession(false);
-//        Long f_id = (long)session.getAttribute("f_id");
-//        ModelAndView mav = new ModelAndView("home/product/registerProduct");
-//        mav.addObject("farm_id", f_id);
-//        return mav;
-//    }
+    @GetMapping("")
+    public ModelAndView getProductForm(HttpSession session, @ModelAttribute("product")ProductEntity product) {
+        FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
+        ModelAndView mav = new ModelAndView("home/product/registerProduct");
+//        mav.addObject("farm", farm);
+        return mav;
+    }
 
     // 상품 등록
     @ResponseBody
     @PostMapping("")
     public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) {
+        System.out.println("111" + product.toString());
+        System.out.println("222" + product.getName());
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
-        ProductEntity newProduct = productService.saveProduct(product, myFarm);
-        if (newProduct == null) { // 나중에 적절하게 수정
-            return null;
+        System.out.println("333" + myFarm.getFId());
+        FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
+        System.out.println("444" + farm.getFId());
+        if (farm.getFId() == myFarm.getFId()) {
+            ProductEntity newProduct = productService.saveProduct(product, myFarm);
+            if (newProduct == null) { // 나중에 적절하게 수정
+                return null;
+            }
+            return ResponseEntity.ok().body(newProduct);
         }
-        return ResponseEntity.ok().body(newProduct);
+        return null;
     }
 
     // 상품 조회 (일반 상품일 경우 detail 페이지로, 경매 상품일 경우 경매 참여 form으로

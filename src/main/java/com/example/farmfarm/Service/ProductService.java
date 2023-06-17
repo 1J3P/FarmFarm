@@ -25,6 +25,18 @@ public class ProductService {
     // 상품 등록
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
         ProductEntity addProduct = product;
+        if (product.getType() == 1){
+            product.setGroup(true);
+            product.setAuction(false);
+        }
+        else if (product.getType() == 2) {
+            product.setAuction(true);
+            product.setGroup(false);
+        }
+        else {
+            product.setGroup(false);
+            product.setAuction(false);
+        }
         addProduct.setFarm(farm);
         if (addProduct.isAuction()) {
             if (farm.isAuction() == true) { // 경매 농장일 경우 auction_quantity 설정
@@ -37,9 +49,6 @@ public class ProductService {
                 cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time());
                 cal.set(Calendar.MINUTE, 0);
                 cal.set(Calendar.SECOND, 0);
-                String openDate = format.format(cal.getTime());
-                addProduct.setOpenCalendar(openDate);
-                cal.set(Calendar.HOUR_OF_DAY, farm.getAuction_time() + 3);
                 String closeDate = format.format(cal.getTime());
                 addProduct.setCloseCalendar(closeDate);
             } else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)
