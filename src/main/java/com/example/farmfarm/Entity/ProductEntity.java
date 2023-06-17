@@ -46,8 +46,6 @@ public class ProductEntity {
 
     private Date date;
 
-    private String openCalendar;
-
     private String closeCalendar;
 
     private int quantity;
@@ -67,6 +65,8 @@ public class ProductEntity {
     private boolean auction;  // 변경 불가 - 경매 여부
 
     private int open_status; //0이면 아직 안열림, 1이면 열려있음, 2이면 열렸다가 닫힘 -> 처음값은 무조건 0
+
+    private int type;
 
     @ManyToOne
     @JoinColumn(name="farm")

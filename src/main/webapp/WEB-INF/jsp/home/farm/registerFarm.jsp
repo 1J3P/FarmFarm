@@ -192,6 +192,7 @@
             <label class="file-label" for="chooseFile">파일 선택</label>
             <input class="file" id="chooseFile" type="file">
             <div class="my-image"></div>
+            <input type="hidden" name="image" class="input-img">
           </div>
           <p style="font-size:12px;color:#999999">상품과 무관한 사진을 첨부하면 노출 제한 처리될 수 있습니다.<br>
             사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.</p>
@@ -210,6 +211,7 @@
   window.onload = function (){
     const fileInput = document.getElementById("chooseFile");
     const myImg = document.querySelector(".my-image");
+    const inputImg = document.querySelector(".input-img");
 
     fileInput.addEventListener("change", (evt)=> {
       const image = evt.target.files[0];
@@ -234,6 +236,7 @@
           var obj = JSON.parse(json);
           var str = '<img src="' + obj.fileurl + '"></img>';
           myImg.innerHTML += str;
+          inputImg.setAttribute("value", obj.fileurl);
           fileInput.setAttribute("name", obj.fileurl);
         },
 

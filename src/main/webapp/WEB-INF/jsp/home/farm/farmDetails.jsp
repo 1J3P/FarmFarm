@@ -221,7 +221,7 @@
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                             <div class="item-container" >
-                                <div class="sell-product-options" onclick="location.href='여기에 추가하세요'">
+                                <div class="sell-product-options" onclick="location.href='/product'">
                                     판매 상품 등록
                                 </div>
                             </div>
