@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -116,7 +116,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/farm/list" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -136,8 +136,16 @@
                         <input type="radio" name="type" value="2"><span>경매 상품</span>
                     </div>
                     <div style="margin-top:30px" class="auction-date">
-                        <h3>경매 종료 날짜와 시간을 선택해주세요</h3>
-                        <input type="datetime-local" step="3600" name="date">
+                        <h3>경매 종료 날짜를 선택해주세요.</h3>
+                        <input type="date" step="3600" name="date">
+                    </div>
+                    <div style="margin-top:30px" class="auction-date">
+                        <h3>경매 종료 시각을 입력해주세요.</h3>
+                        <input type="text" placeholder="0부터 23까지 선택" name="hour">
+                    </div>
+                    <div style="margin-top:30px" class="auction-date">
+                        <h3>경매 종료 분을 입력해주세요.</h3>
+                        <input type="text" placeholder="0부터 23까지 선택" name="minute">
                     </div>
                 </div>
                 <div class="product_name">
@@ -270,7 +278,7 @@
                 dataType:"json",
                 contentType:"application/json; charset=utf-8",
                 success:function (data){
-                    alert("success");
+                    alert("상품을 등록하였습니다.");
                     console.log(data);
                     console.log("2" + data.pid);
                     location.href="/product/" + data.pid;

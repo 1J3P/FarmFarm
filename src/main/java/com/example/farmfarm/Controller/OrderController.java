@@ -33,7 +33,6 @@ public class OrderController {
     @Autowired
     private AuctionService auctionService;
 
-    //Todo 이하린 여기부터
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
     public String saveOrderDetailCart(HttpSession session) {
@@ -64,7 +63,6 @@ public class OrderController {
     public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
         UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderDetailEntity> details = (List<OrderDetailEntity>)session.getAttribute("orderDetail");
-        System.out.println("1111111111!!!!!!!!!!!!!!!" + details.get(0).getQuantity());
         order.setUser(user);
         int totalP = 0;
         int totalQ = 0;
@@ -89,8 +87,6 @@ public class OrderController {
     }
 
     //TODO:공동 구매<단일>
-    //gId 있으면 있는거에 참여하는거
-    //gId 없으면 내가 새로 만드는거.. 이런식으로 해야할까?
     @GetMapping("/group/{gId}")
     public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId, Model model) {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -112,7 +108,6 @@ public class OrderController {
 
     @GetMapping("/product/{pId}/group")
     public String createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session, @RequestParam int quantity) {
-        System.out.println("그룹 생성 동작");
         List<OrderDetailEntity> details = new ArrayList<>();
         UserEntity user = (UserEntity)session.getAttribute("user");
         ProductEntity product = productService.getProduct(pId);
@@ -129,11 +124,10 @@ public class OrderController {
         return "home/product/productShippingAddress";
     }
 
-    //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용.=
+    //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용
     @GetMapping("/product/{pId}")
     public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestParam("quantity") int quantity, @RequestParam("price") int price) {
         ProductEntity product = productService.getProduct(pId);
-        System.out.println("경매 ajax!!!!!" + product.getPId());
         UserEntity user = (UserEntity)session.getAttribute("user");
         if (product.isAuction()) {
             AuctionEntity auction = new AuctionEntity();
@@ -155,12 +149,6 @@ public class OrderController {
         return null; //TODO: 에러페이지로 반드시 바꿀것
     }
 
-    @GetMapping("/addressForm")
-    public String AddressForm() {
-        return "home/product/productShippingAddress";
-    }
-
-    //TODO: 이거 동작 확인해보기
     @GetMapping("")
     public ModelAndView myOrderList(HttpSession session) {
         ModelAndView mav = new ModelAndView("myPage/myOrderList");
@@ -177,29 +165,6 @@ public class OrderController {
         List<OrderEntity> auctionList = orderService.getMyAuctionList(user);
         mav.addObject("auctionList", auctionList);
         return mav;
-    }
-
-    // read - 담은 상품을 조회할 때 동작
-    @GetMapping("/order/{od_id}")
-    public ResponseEntity<Object> getOrderDetail(@PathVariable("od_id") long od_id) {
-        OrderDetailEntity detail = orderDetailService.getOrderDetail(od_id);
-        return ResponseEntity.ok().body(detail);
-    }
-
-    // update - 담은 상품의 수량을 조정할 때 동작
-    @PutMapping("/order/{od_id}")
-    public ResponseEntity<Object> modifyProduct(@PathVariable("od_id") long od_id, @RequestBody OrderDetailEntity order) {
-        OrderDetailEntity modifyOrder = orderDetailService.modifyProduct(od_id, order);
-//        return "redirect:/order/list";
-        return ResponseEntity.ok().body(modifyOrder);
-    }
-
-    // delete - 담은 상품을 삭제할 때 동작
-    @DeleteMapping("/order/{od_id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable("od_id") long od_id) {
-        orderDetailService.deleteProduct(od_id);
-//        return "redirect:/order/list";
-        return ResponseEntity.ok().body("delete OK");
     }
 
 }

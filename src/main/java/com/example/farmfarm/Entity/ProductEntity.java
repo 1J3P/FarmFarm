@@ -46,6 +46,10 @@ public class ProductEntity {
 
     private Date date;
 
+    private int hour;
+
+    private int minute;
+
     private String closeCalendar;
 
     private int quantity;

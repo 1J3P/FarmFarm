@@ -66,7 +66,6 @@ public class FarmController {
         FarmEntity farm = farmService.getFarm(fId);
         List<ProductEntity> productList = productService.getFarmProduct(farm);
         ModelAndView mav = new ModelAndView("home/farm/farmDetails");
-        System.out.println("특정 farm 조회");
         mav.addObject("farm", farm);
         mav.addObject("productList", productList);
         return mav;

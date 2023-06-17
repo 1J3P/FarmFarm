@@ -35,21 +35,16 @@ public class ProductService {
             product.setAuction(false);
         }
         addProduct.setFarm(farm);
-        System.out.println("경매농장이니?" + addProduct.getFarm().isAuction());
         if (addProduct.isAuction()) {
             if (farm.isAuction() == true) { // 경매 농장일 경우 auction_quantity 설정
                 addProduct.setAuction_quantity(product.getQuantity());
-                TimeZone seoulTimeZone = TimeZone.getTimeZone("Asia/Seoul");
-                Calendar cal = Calendar.getInstance(seoulTimeZone);
-                cal.setTimeZone(seoulTimeZone);
-                System.out.println("seoulTimezone" + cal.getTime());
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("경매 종료 시간 받아왔어 : " + product.getDate().getHours() + " 시 " + product.getDate().getMinutes() + "분");
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 cal.set(Calendar.YEAR, product.getDate().getYear() + 1900);
                 cal.set(Calendar.MONTH, product.getDate().getMonth());
                 cal.set(Calendar.DATE, product.getDate().getDate());
-                cal.set(Calendar.HOUR_OF_DAY, product.getDate().getHours()-9);
-                cal.set(Calendar.MINUTE, product.getDate().getMinutes());
+                cal.set(Calendar.HOUR_OF_DAY, product.getHour());
+                cal.set(Calendar.MINUTE, product.getMinute());
                 String closeDate = format.format(cal.getTime());
                 addProduct.setCloseCalendar(closeDate);
             } else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)

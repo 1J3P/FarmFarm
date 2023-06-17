@@ -113,9 +113,6 @@ public class UserController {
 
     @GetMapping("/nickname")
     public String getNicknameForm(Model model, @ModelAttribute("Authorization") String Auth) {
-        System.out.println("ATTRIBUTE!!!!!!!" + Auth);
-        //System.out.println("ATTR : " + request.getAttributeNames());
-        //System.out.println("**********request.getheader" + request.getHeader("Authorization"));
         model.addAttribute("Authorization", Auth);
 
         return "myPage/createNickname";
