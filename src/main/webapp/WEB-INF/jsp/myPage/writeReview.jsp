@@ -72,60 +72,13 @@
   />
   <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      var farmRating = 0; // 농장 별점을 저장할 변수
-      var productRating = 0; // 상품 별점을 저장할 변수
-
-      // 농장 별점 클릭 이벤트 처리
-      $('.rating-box:first .rating-list li').click(function() {
-        var index = $(this).index() + 1;
-
-        // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
-        $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
-
-        // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
-        $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
-
-        // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
-        $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
-
-        // 선택한 별의 숫자를 농장 별점 변수에 저장합니다
-        farmRating = index;
-
-        // 농장 별점 값을 출력합니다
-        console.log('농장 별점:', farmRating);
-      });
-
-      // 상품 별점 클릭 이벤트 처리
-      $('.rating-box:last .rating-list li').click(function() {
-        var index = $(this).index() + 1;
-
-        // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
-        $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
-
-        // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
-        $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
-
-        // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
-        $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
-
-        // 선택한 별의 숫자를 상품 별점 변수에 저장합니다
-        productRating = index;
-
-        // 상품 별점 값을 출력합니다
-        console.log('상품 별점:', productRating);
-      });
-    });
-  </script>
-  </script>
 </head>
 <body>
 <div class="page light">
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="/order" class="link back">
+        <a href="/order/" class="link back">
           <i class="icon flaticon-left"></i>
         </a>
       </div>
@@ -136,43 +89,43 @@
   </div>
   <div class="page-content pt-80 bottom-sp90">
     <div class="container">
-      <form id="form">
       <div class="write-reviews-box">
-        <div class="reviews-head">
-          <h3 class="title"><b>농장의 별점을 입력해주세요. </b></h3>
-        </div>
-        <div class="rating-box">
-          <ul class="rating-list">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-          </ul>
-          </ul>
-        </div>
-        <div class="reviews-head">
-          <h3 class="title"><b>상품의 리뷰를 작성해주세요</b></h3>
-          <p>받아보신 상품은 어떠셨나요?<br>
-            다른 고객님들을 위해 솔직한 의견 남겨주세요:)</p>
-        </div>
-        <div class="rating-box">
-          <ul class="rating-list">
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-            <li><i class="fa fa-star-o"></i></li>
-          </ul>
-        </div>
-        <form class="form-elements">
+        <form id ="form" class="form-elements">
+          <div class="reviews-head">
+            <h3 class="title"><b>농장의 별점을 입력해주세요. </b></h3>
+          </div>
+          <div class="rating-box">
+            <input type="hidden" name="farmStar" id="farmStar">
+            <ul class="rating-list">
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star-o"></i></li>
+              <li><i class="fa fa-star-o"></i></li>
+            </ul>
+          </div>
+          <div class="reviews-head">
+            <h3 class="title"><b>상품의 리뷰를 작성해주세요</b></h3>
+            <p>받아보신 상품은 어떠셨나요?<br>
+              다른 고객님들을 위해 솔직한 의견 남겨주세요:)</p>
+          </div>
+          <div class="rating-box">
+            <input type="hidden" name="productStar" id="productStar">
+            <ul class="rating-list">
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star-o"></i></li>
+              <li><i class="fa fa-star-o"></i></li>
+            </ul>
+          </div>
           <div class="list">
             <ul class="row">
               <li class="item-content item-input col-100 item-input-with-value">
                 <div class="item-inner">
                   <label class="form-label"><b>상품에 대한 의견을 남겨주세요</b></label>
                   <div class="item-input-wrap">
-                    <textarea placeholder="이곳에 의견을 남겨주세요" class="form-control"/></textarea>
+                    <textarea placeholder="이곳에 의견을 남겨주세요" class="form-control" name="comment"/></textarea>
                   </div>
                 </div>
               </li>
@@ -182,12 +135,65 @@
       </div>
     </div>
     <div class="container px-15">
-      <a href="/home/" class="button-large button button-fill" id="openBtn">리뷰 등록하기</a>
+      <button type="button" class="button-large button button-fill" id="openBtn">리뷰 등록</button>
     </div>
   </div>
   <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 <script>
+  var farmRating = 0.0; // 농장 별점을 저장할 변수
+  var productRating = 0.0; // 상품 별점을 저장할 변수
+
+  $(document).ready(function() {
+    // 농장 별점 클릭 이벤트 처리
+    $('.rating-box:first .rating-list li').click(function() {
+      var index = $(this).index() + 1.0;
+
+      // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
+      $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
+
+      // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
+      $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
+
+      // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
+      $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
+
+      // 선택한 별의 숫자를 농장 별점 변수에 저장합니다
+      farmRating = index;
+
+      // 농장 별점 값을 출력합니다
+      console.log('농장 별점:', farmRating);
+    });
+
+    // 상품 별점 클릭 이벤트 처리
+    $('.rating-box:last .rating-list li').click(function() {
+      var index = $(this).index() + 1.0;
+
+      // 클릭한 li 요소를 기준으로 이전 요소들의 클래스를 "fa-star"로 변경합니다
+      $(this).prevAll().find('i').removeClass('fa-star-o').addClass('fa-star');
+
+      // 클릭한 li 요소의 클래스를 "fa-star"로 변경합니다
+      $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
+
+      // 클릭한 li 요소를 기준으로 다음 요소들의 클래스를 "fa-star-o"로 변경합니다
+      $(this).nextAll().find('i').removeClass('fa-star').addClass('fa-star-o');
+
+      // 선택한 별의 숫자를 상품 별점 변수에 저장합니다
+      productRating = index;
+
+      // 상품 별점 값을 출력합니다
+      console.log('상품 별점:', productRating);
+    });
+  });
+
+  window.onload = function () {
+    const farmStar = document.getElementById("farmStar");
+    const productStar = document.getElementById("productStar");
+
+    farmStar.setAttribute("value", ${farmRating})
+    productStar.setAttribute("value", ${productRating})
+  };
+
   function objectifyForm(formArray){
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
@@ -197,9 +203,15 @@
   }
 
   $("#openBtn").on("click", function (){
+    const farmStar = document.getElementById("farmStar");
+    const productStar = document.getElementById("productStar");
+
+    farmStar.setAttribute('value', farmRating)
+    productStar.setAttribute('value', productRating)
+    console.log("!!!!" + farmStar.value)
+
     var formsubmitSerialArray = $("#form").serializeArray();
     var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-
     console.log(formsubmitSerialArray);
     console.log(formsubmit);
     $.ajax({
@@ -210,9 +222,9 @@
       dataType:"json",
       contentType:"application/json; charset=utf-8",
       success:function (data){
-        alert("success");
+        alert("success" + data.comment + farmRating);
         console.log(data);
-        console.log("2" + data.pid);
+        console.log(farmStar.value)
         location.href="/review/my";
       },
       error:function (request, status, error){
@@ -222,6 +234,7 @@
         console.log(error);
       }
     });
+  });
 </script>
 </body>
 </html>

@@ -29,10 +29,10 @@ public class EnquiryController {
     //문의사항 작성
     @PostMapping("/{p_id}")
     @ResponseBody
-    public List<EnquiryEntity> createEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
+    public List<EnquiryEntity> createEnquiry(HttpSession session, @PathVariable("p_id") long pId, @RequestBody EnquiryEntity enquiry) {
         System.out.println("문의사항 확인" + enquiry.getContent());
 //        ModelAndView mav = new ModelAndView("home/home");
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         System.out.println("유저 확인" + user.getNickname());
         ProductEntity product = productService.getProduct(pId);
         System.out.println("상품 확인" + product.getName());
@@ -44,8 +44,9 @@ public class EnquiryController {
 
     //문의사항 수정
     @PutMapping("/{e_id}")
-    public ResponseEntity<Object> putEnquiry(HttpServletRequest request, @PathVariable("e_id") long eId, @RequestBody EnquiryEntity enquiry) {
-        EnquiryEntity updateEnquiry = enquiryService.updateEnquiry(request, eId, enquiry);
+    public ResponseEntity<Object> putEnquiry(HttpSession session, @PathVariable("e_id") long eId, @RequestBody EnquiryEntity enquiry) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        EnquiryEntity updateEnquiry = enquiryService.updateEnquiry(user, eId, enquiry);
         if (updateEnquiry == null) {
             return ResponseEntity.badRequest().body("user not match");
         }
@@ -55,8 +56,9 @@ public class EnquiryController {
     //문의사항 삭제
     @DeleteMapping("/{e_id}")
     public ResponseEntity<Object> deleteEnquiry(HttpSession session, @PathVariable("e_id") long eId) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         try {
-            enquiryService.deleteEnquiry(session, eId);
+            enquiryService.deleteEnquiry(user, eId);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("exception");
         }
@@ -65,13 +67,13 @@ public class EnquiryController {
 
     //상품별 문의사항 조회
     @GetMapping("/{p_id}")
-    public ModelAndView getProductEnquiry(HttpServletRequest request, @PathVariable("p_id") long pId) {
+    public ModelAndView getProductEnquiry(HttpSession session, @PathVariable("p_id") long pId) {
         System.out.println(pId + "성공!!");
         ModelAndView mav = new ModelAndView("home/product/productDetails");
         List<EnquiryEntity> productEnquiry = enquiryService.getProductEnquiry(pId);
         ProductEntity product = productService.getProduct(pId);
         List<EnquiryEntity> publicEnquiry = new ArrayList<>();
-        UserEntity user = userService.getUser(request);
+        UserEntity user = (UserEntity)session.getAttribute("user");
         if (user != product.getFarm().getUser()) { // 농장 주인이 아닐 때
             for (EnquiryEntity enquiry : productEnquiry) {
                 if(!enquiry.isSecret()) {

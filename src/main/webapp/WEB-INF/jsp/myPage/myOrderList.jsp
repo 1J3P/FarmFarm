@@ -158,8 +158,8 @@
                                             <div class="item-head">
                                                 <h6 class="category">${orderDetail.product.farm.name}</h6>
                                                 <div class="item-actions">
-                                                    <h2 class="item-title"><a href="/item-details/">${orderDetail.product.name}</a></h2>
-                                                    <div class="sell-product-options" onclick="location.href='/review/write'" style="cursor:pointer; color: #94C015">
+                                                    <h2 class="item-title"><a href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a></h2>
+                                                    <div class="sell-product-options" onclick="location.href='/review/write?odId=${orderDetail.odId}'" style="cursor:pointer; color: #94C015">
                                                         리뷰 작성
                                                     </div>
                                                 </div>

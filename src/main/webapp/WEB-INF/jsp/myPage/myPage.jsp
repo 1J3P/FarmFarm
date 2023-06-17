@@ -168,7 +168,7 @@
               <c:if test="${myFarm eq null}">
                 <div class="myPage_container">
                   <div class="item-media">
-                    <img src="../images/avatar/2.jpg" width="50">
+                    <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png" width="50">
                   </div>
                   <div class="farmName">농장이 아직 없어요</div>
                 </div>
@@ -179,7 +179,7 @@
               <c:if test="${myFarm ne null}">
                 <div class="myPage_container">
                 <div class="item-media">
-                  <img src="../images/avatar/2.jpg" width="50">
+                  <img src="${myFarm.image}" width="50">
                 </div>
                 <div class="farmName">${myFarm.name}</div>
                 </div>

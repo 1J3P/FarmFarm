@@ -27,7 +27,8 @@ public class ReviewController {
 
     @GetMapping("/write")
     public ModelAndView getReviewForm(HttpSession session, @ModelAttribute("orderDetail")OrderDetailEntity orderDetail) {
-//        FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        OrderDetailEntity order = (OrderDetailEntity) session.getAttribute("orderDetail");
         ModelAndView mav = new ModelAndView("myPage/writeReview");
         return mav;
     }
@@ -35,8 +36,11 @@ public class ReviewController {
     //리뷰 작성
     @ResponseBody
     @PostMapping("/{od_id}")
-    public ResponseEntity<Object> createReview(HttpServletRequest request, @PathVariable("od_id") long odId, @RequestBody ReviewEntity review) {
-        UserEntity user = userService.getUser(request);
+    public ResponseEntity<Object> createReview(HttpSession session, @PathVariable("od_id") long odId, @RequestBody ReviewEntity review) {
+        System.out.println(review.getProductStar());
+        System.out.println(review.getFarmStar());
+        System.out.println(review.getUser());
+        UserEntity user = (UserEntity)session.getAttribute("user");
         OrderDetailEntity orderDetail = orderDetailService.getOrderDetail(odId);
         System.out.println("pId" + orderDetail.getProduct().getPId());
         ReviewEntity newReview = reviewService.saveReview(user, orderDetail, review);
@@ -45,8 +49,9 @@ public class ReviewController {
 
     //리뷰 수정
     @PutMapping("/{rp_id}")
-    public ResponseEntity<Object> putEnquiry(HttpServletRequest request, @PathVariable("rp_id") long rpId, @RequestBody ReviewEntity review) {
-        ReviewEntity updateReview = reviewService.updateReview(request, rpId, review);
+    public ResponseEntity<Object> putEnquiry(HttpSession session, @PathVariable("rp_id") long rpId, @RequestBody ReviewEntity review) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        ReviewEntity updateReview = reviewService.updateReview(user, rpId, review);
         if (updateReview == null) {
             return ResponseEntity.badRequest().body("user not match");
         }
@@ -55,9 +60,10 @@ public class ReviewController {
 
     //리뷰 삭제
     @DeleteMapping("/{rp_id}")
-    public ResponseEntity<Object> deleteReview(HttpServletRequest request, @PathVariable("rp_id") long rpId) {
+    public ResponseEntity<Object> deleteReview(HttpSession session, @PathVariable("rp_id") long rpId) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
         try {
-            reviewService.deleteReview(request, rpId);
+            reviewService.deleteReview(user, rpId);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("exception");
         }
@@ -65,12 +71,13 @@ public class ReviewController {
     }
 
     //상품별 리뷰 조회
-    @GetMapping("")
-    public ModelAndView getProductReview(@RequestParam("p_id") long pId) {
+    @GetMapping("/{p_id}")
+    public ModelAndView getProductReview( @PathVariable("p_id") long pId) {
         List<ReviewEntity> productReview = new ArrayList<>();
         ModelAndView mav = new ModelAndView("home/product/productDetails");
         productReview = reviewService.getProductReview(pId);
         System.out.println("상품별 리뷰 조회");
+        System.out.println(productReview);
         mav.addObject("reviews", productReview);
         return mav;
     }
@@ -83,6 +90,7 @@ public class ReviewController {
         ModelAndView mav = new ModelAndView("myPage/myReviewList");
         myReview = reviewService.getMyEnquiry(session);
         System.out.println("내가 쓴 리뷰 조회");
+        System.out.println(myReview);
         mav.addObject("reviews", myReview);
         return mav;
     }

@@ -39,8 +39,7 @@ public class ReviewService {
     }
 
     //리뷰 수정
-    public ReviewEntity updateReview(HttpServletRequest request, Long rpId, ReviewEntity review) {
-        UserEntity user = userService.getUser(request);
+    public ReviewEntity updateReview(UserEntity user, Long rpId, ReviewEntity review) {
         ReviewEntity newReview = reviewRepository.findByRpId(rpId);
         System.out.print(newReview);
         if (Objects.equals(user.getUId(), newReview.getUser().getUId())) {
@@ -55,8 +54,7 @@ public class ReviewService {
     }
 
     //리뷰 삭제
-    public void deleteReview(HttpServletRequest request, Long rpId) throws Exception{
-        UserEntity user = userService.getUser(request);
+    public void deleteReview(UserEntity user, Long rpId) throws Exception{
         ReviewEntity review = reviewRepository.findByRpId(rpId);
         if (Objects.equals(user.getUId(), review.getUser().getUId())) {
             reviewRepository.delete(review);

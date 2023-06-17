@@ -126,6 +126,11 @@
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container">
+            <c:if test="${reviews.size() == 0}">
+                <div class="list simple-list" style="height: 400px">
+                    <p>작성된 후기가 없습니다.</p>
+                </div>
+            </c:if>
             <div class="list media-list review-list">
                 <ul>
                     <c:forEach var="review" items="${reviews}">
@@ -136,16 +141,48 @@
                                     <div class="item-title-row">
                                         <div class="item-title">${review.orderDetail.product.name}</div>
                                         <div class="item-after stars">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <c:choose>
+                                                <c:when test="${review.productStar == 5.0}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test="${review.productStar == 4.0}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </c:when>
+                                                <c:when test="${review.productStar == 3.0}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </c:when>
+                                                <c:when test="${review.productStar == 2.0}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </c:when>
+                                                <c:when test="${review.productStar == 1.0}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                     </div>
                                     <div class="item-text">${review.comment}</div>
                                     <i class="fa-solid fa-pencil"></i>
-                                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteReview(${review.rpId}"></i>
+                                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteReview(${review.rpId})"></i>
                                 </div>
                             </div>
                         </li>

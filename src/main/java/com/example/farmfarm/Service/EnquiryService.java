@@ -31,8 +31,7 @@ public class EnquiryService {
     }
 
     //문의사항 수정
-    public EnquiryEntity updateEnquiry(HttpServletRequest request, Long eId, EnquiryEntity enquiry) {
-        UserEntity user = userService.getUser(request);
+    public EnquiryEntity updateEnquiry(UserEntity user, Long eId, EnquiryEntity enquiry) {
         EnquiryEntity newEnquiry = enquiryRepository.findByeId(eId);
         System.out.print(newEnquiry);
         if (Objects.equals(user.getUId(), newEnquiry.getUser().getUId())) {
@@ -47,8 +46,7 @@ public class EnquiryService {
     }
 
     //문의사항 삭제
-    public void deleteEnquiry(HttpSession session, Long eId) throws Exception{
-        UserEntity user = (UserEntity)session.getAttribute("user");
+    public void deleteEnquiry(UserEntity user, Long eId) throws Exception{
         EnquiryEntity en = enquiryRepository.findByeId(eId);
         if (Objects.equals(user.getUId(), en.getUser().getUId())) {
             enquiryRepository.delete(en);

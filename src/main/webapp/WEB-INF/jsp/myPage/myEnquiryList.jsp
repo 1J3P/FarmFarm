@@ -126,6 +126,11 @@
   </div>
   <div class="page-content pt-60 bottom-sp60">
     <div class="container">
+      <c:if test="${enquiries.size() == 0}">
+        <div class="list simple-list" style="height: 400px">
+          <p>작성된 문의가 없습니다.</p>
+        </div>
+      </c:if>
       <div class="list media-list review-list">
         <ul>
           <c:forEach var="enquiry" items="${enquiries}">
