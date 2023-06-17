@@ -136,12 +136,7 @@
                         <div class="order-date">
                             <p><fmt:formatDate pattern="yyyy.MM.dd" value="${order.created_at}"/></p>
                             <div class="is-payment">
-                                <c:if test="${order.status eq '결제전'}">
-                                    <p>결제 대기</p>
-                                </c:if>
-                                <c:if test="${order.status eq '결제 완료'}">
-                                    <p>결제 완료</p>
-                                </c:if>
+                                <p>${order.status}</p>
                             </div>
                         </div>
 
@@ -152,7 +147,7 @@
                                         <div class="item-info">
                                             <div class="item-head">
                                                 <h6 class="category">${orderDetail.product.farm.name}</h6>
-                                                <h2 class="item-title"><a href="/item-details/">${orderDetail.product.name}</a></h2>
+                                                <h2 class="item-title"><a href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a></h2>
                                                 <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
                                             </div>
                                             <div class="item-foot">
