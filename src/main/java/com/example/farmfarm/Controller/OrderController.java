@@ -3,9 +3,7 @@ package com.example.farmfarm.Controller;
 import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
-import com.example.farmfarm.Repository.OrderDetailRepository;
 import com.example.farmfarm.Service.*;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -74,6 +72,7 @@ public class OrderController {
             totalP += d.getPrice();
             totalQ += d.getQuantity();
         }
+        order.setType(details.get(0).getType());
         order.setTotal_price(totalP);
         order.setTotal_quantity(totalQ);
         order.setStatus("결제전");
@@ -140,6 +139,7 @@ public class OrderController {
             AuctionEntity auction = new AuctionEntity();
             auction.setPrice(price);
             auction.setQuantity(quantity);
+            auction.setStatus("경매 진행중");
             List<OrderDetailEntity> details = new ArrayList<>();
             OrderDetailEntity orderDetail = new OrderDetailEntity();
             AuctionEntity newAuction = auctionService.createAuction(user, auction, product);
@@ -163,10 +163,19 @@ public class OrderController {
     //TODO: 이거 동작 확인해보기
     @GetMapping("")
     public ModelAndView myOrderList(HttpSession session) {
-        ModelAndView mav = new ModelAndView("myPage/orderList");
+        ModelAndView mav = new ModelAndView("myPage/myOrderList");
         UserEntity user = (UserEntity)session.getAttribute("user");
         List<OrderEntity> orderList = orderService.getMyOrderList(user);
         mav.addObject("orderList", orderList);
+        return mav;
+    }
+
+    @GetMapping("/auction")
+    public ModelAndView myAuctionList(HttpSession session) {
+        ModelAndView mav = new ModelAndView("myPage/myAuctionList");
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        List<OrderEntity> auctionList = orderService.getMyAuctionList(user);
+        mav.addObject("auctionList", auctionList);
         return mav;
     }
 

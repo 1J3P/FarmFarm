@@ -23,7 +23,9 @@ public class OrderService {
     }
 
     public List<OrderEntity> getMyOrderList(UserEntity user) {
-        return orderRepository.findAllByUser(user);
+        return orderRepository.findAllByUserAndTypeLessThan(user, 2);
     }
-
+    public List<OrderEntity> getMyAuctionList(UserEntity user) {
+        return orderRepository.findAllByUserAndTypeGreaterThan(user, 1);
+    }
 }

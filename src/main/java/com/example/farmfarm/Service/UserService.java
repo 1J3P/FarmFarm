@@ -9,6 +9,7 @@ import com.example.farmfarm.Repository.UserRepository;
 import com.example.farmfarm.Config.jwt.JwtProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -174,5 +175,9 @@ public class UserService {
             user.setNickname(nickname);
         }
         return userRepository.save(user);
+    }
+
+    public UserEntity findById(long id) {
+        return userRepository.findById(id);
     }
 }

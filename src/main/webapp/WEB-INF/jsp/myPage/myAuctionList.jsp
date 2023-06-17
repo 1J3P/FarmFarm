@@ -85,29 +85,36 @@
         <div class="container cart-list-area">
             <div class="list cart-list">
                 <ul>
+                    <c:if test="${empty auctionList}">
+                        아직 경매 참여 내역이 없습니다!<br>
+                        경매를 참여해보세요!!
+                        <a href="/product/auction/list" class="button-large button button-fill" style="margin-top: 10px;">경매 물품 보러가기</a>
+                    </c:if>
+                    <c:forEach var="auction" items="${auctionList}">
                     <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
                         <div class="item-content swipeout-content">
                             <div class="item-inner">
                                 <div class="item-media">
                                     <img src="img/categories/pic1.jpg" alt="">
-
                                 </div>
                                 <div class="item-info">
+                                    <c:if test="${not empty auction.orders}">
                                     <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">낙찰 성공</h6>
+                                        <h6 class="category">${auction.orders.get(0).product.farm.name}</h6>
+                                        <h6 class="category" style="float:right; margin-right:45px"><fmt:formatDate pattern="yyyy.MM.dd" value="${auction.created_at}"/></h6>
+                                        <h2 class="item-title"><a href="/item-details/">${auction.orders.get(0).product.name}</a></h2>
+                                        <h5 class="item-title"><span>${auction.orders.get(0).price}</span>원</h5>
+                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-right:45px">${auction.status}</h6>
                                     </div>
                                     <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
+                                        <h3 class="text-primary item-total"><span>${auction.total_price}</span>원</h3>
                                         <div class="stepperForOrderList stepper-small stepper-round stepper-init">
                                             <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
+                                                X <span>${auction.total_quantity}</span>
                                             </div>
                                         </div>
                                     </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -115,95 +122,7 @@
                             <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
                         </div>
                     </li>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="img/categories/pic2.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h6 class="category" style="color: #E94D8E; float:right; margin-top:18px; margin-right:45px">낙찰 성공</h6>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="img/categories/pic3.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h6 class="category" style="color: #E94D8E; float:right; margin-top:18px; margin-right:45px">낙찰 성공</h6>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
-                    <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
-                        <div class="item-content swipeout-content">
-                            <div class="item-inner">
-                                <div class="item-media">
-                                    <img src="/style/images/categories/pic4.jpg" alt="">
-                                </div>
-                                <div class="item-info">
-                                    <div class="item-head">
-                                        <h6 class="category">팜팜농장</h6>
-                                        <h6 class="category" style="float:right; margin-right:45px">2023.05.23</h6>
-                                        <h2 class="item-title"><a href="/item-details/">바나나</a></h2>
-                                        <h6 class="category" style="color: #4D9EE9; float:right; margin-top:18px; margin-right:45px">낙찰 성공</h6>
-                                        <h5 class="item-title"><span>7,500</span>원</h5>
-
-                                    </div>
-                                    <div class="item-foot">
-                                        <h3 class="text-primary item-total"><span>22,500</span>원</h3>
-                                        <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                            <div class="stepper-input-wrap stepperFont">
-                                                X <span>3</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swipeout-actions-right">
-                            <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                        </div>
-                    </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>

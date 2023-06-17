@@ -1,9 +1,11 @@
 package com.example.farmfarm.Entity;
 
 import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -54,4 +56,6 @@ public class OrderEntity {
     @OneToOne
     @JoinColumn(name="pa_id")
     private ApprovePaymentEntity payment;
+
+    private int type; //0 일반, 1 공동, 2 경매
 }
