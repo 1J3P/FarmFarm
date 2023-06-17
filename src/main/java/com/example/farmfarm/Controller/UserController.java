@@ -128,7 +128,7 @@ public class UserController {
     @GetMapping("/profile")
     public String updateProfile() {
         return "myPage/editMyPage";
-
+    }
     @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
