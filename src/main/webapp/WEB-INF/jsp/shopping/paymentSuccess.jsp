@@ -99,9 +99,9 @@
                 <div>결제를 성공했습니다.</div>
                 <i class="fa-solid fa-circle-check"></i>
             </div>
-            <a href="/order" class="button-large button button-fill" style="margin-top: 10px;">주문 내역 바로 가기</a>
-            <a href="/" class="button-large button button-fill" style="margin-top: 10px;">홈 화면으로 가기</a>
         </div>
+        <a href="/order" class="button-large button button-fill" style="margin-top: 10px;">주문 내역 바로 가기</a>
+        <a href="/" class="button-large button button-fill" style="margin-top: 10px;">홈 화면으로 가기</a>
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
