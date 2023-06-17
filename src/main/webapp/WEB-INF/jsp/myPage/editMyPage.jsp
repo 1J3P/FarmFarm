@@ -107,9 +107,9 @@
           </div>
         </form>
         <!-- url 변경 필요 -->
-        <a href="/home/" class="button-large button button-fill" style="margin-top: 10px;">프로필 수정하기</a>
+        <a href="/" class="button-large button button-fill" style="margin-top: 10px;">프로필 수정하기</a>
         <br>
-        <a href="/home/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
+        <a href="/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
       </div>
     </div>
   </div>
