@@ -246,7 +246,7 @@
 <%--            </div>--%>
             <div class="title-bar mb-15">
                 <h2 class="dz-title my-5">진행 중인 경매</h2>
-                <a href="/deals/"><i class="flaticon-right"></i></a>
+                <a href="/product/auction/list"><i class="flaticon-right"></i></a>
             </div>
             <div class="col-50 medium-25">
                 <div class="item-box">

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class ReviewController {
 
     //상품별 리뷰 조회
     @GetMapping("")
-    public ModelAndView getProductReview(HttpServletRequest request, @RequestParam("p_id") long pId) {
+    public ModelAndView getProductReview(@RequestParam("p_id") long pId) {
         List<ReviewEntity> productReview = new ArrayList<>();
         ModelAndView mav = new ModelAndView("home/product/productDetails");
         productReview = reviewService.getProductReview(pId);
@@ -67,12 +68,15 @@ public class ReviewController {
         return mav;
     }
 
-    //내가 쓴 리뷰 보기 - 리스트일듯
+    //내가 쓴 리뷰 보기
     @GetMapping("/my")
-    public ResponseEntity<Object> getMyReview(HttpServletRequest request) {
-        List myReview = new ArrayList<>();
-        myReview = reviewService.getMyEnquiry(request);
+    public ModelAndView getMyReview(HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        List<ReviewEntity> myReview = new ArrayList<>();
+        ModelAndView mav = new ModelAndView("myPage/myReviewList");
+        myReview = reviewService.getMyEnquiry(session);
         System.out.println("내가 쓴 리뷰 조회");
-        return ResponseEntity.ok().body(myReview);
+        mav.addObject("reviews", myReview);
+        return mav;
     }
 }

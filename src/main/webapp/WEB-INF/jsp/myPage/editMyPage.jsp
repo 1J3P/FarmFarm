@@ -77,19 +77,18 @@
   <div class="navbar navbar-style-1">
     <div class="navbar-inner">
       <div class="left">
-        <a href="#" class="link back">
+        <a href="/myPage" class="link back">
           <i class="icon flaticon-left"></i>
         </a>
       </div>
       <div class="title"><b>마이페이지</b></div>
-      <div class="right">
-      </div>
+      <div class="right"></div>
     </div>
   </div>
   <div class="page-content pt-80 bottom-sp90" style="text-align: center;">
     <div class="container" style="text-align: center;">
       <div class="write-reviews-box" style="text-align: center;">
-        <img src="../images/avatar/1.jpg" class="user-media" alt="" style="border-radius: 50%;"/>
+        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png" class="user-media" alt="" style="border-radius: 50%; width: 150px; height:150px;"/>
         <div class="reviews-head">
           <p></p>
           <h3><span class="title"><b>김팜팜</b></span><b>님</b></h3>
@@ -107,10 +106,10 @@
             </ul>
           </div>
         </form>
-      </div>
-      <div class="container px-15">
-        <a href="/home/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
+        <!-- url 변경 필요 -->
         <a href="/home/" class="button-large button button-fill" style="margin-top: 10px;">프로필 수정하기</a>
+        <br>
+        <a href="/home/" class="button-large button" style="height: 59px; border: 1px solid #94C015;">회원 탈퇴하기</a>
       </div>
     </div>
   </div>

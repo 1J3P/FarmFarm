@@ -1,9 +1,6 @@
 package com.example.farmfarm.Controller;
 
-import com.example.farmfarm.Entity.EnquiryEntity;
-import com.example.farmfarm.Entity.FarmEntity;
-import com.example.farmfarm.Entity.ProductEntity;
-import com.example.farmfarm.Entity.UserEntity;
+import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Service.EnquiryService;
 import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
@@ -15,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,9 +90,13 @@ public class EnquiryController {
 
     //내가 쓴 문의사항 보기 - 리스트일듯
     @GetMapping("/my")
-    public ResponseEntity<Object> getMyEnquiry(HttpServletRequest request) {
-        List<EnquiryEntity> myEnquiry = enquiryService.getMyEnquiry(request);
+    public ModelAndView getMyReview(HttpSession session) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        List<EnquiryEntity> myEnquiry = new ArrayList<>();
+        ModelAndView mav = new ModelAndView("myPage/myEnquiryList");
+        myEnquiry = enquiryService.getMyEnquiry(session);
         System.out.println("내가 쓴 문의사항 조회");
-        return ResponseEntity.ok().body(myEnquiry);
+        mav.addObject("enquiries", myEnquiry);
+        return mav;
     }
 }

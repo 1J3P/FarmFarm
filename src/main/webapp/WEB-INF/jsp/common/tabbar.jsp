@@ -111,14 +111,14 @@
       <i class="flaticon-shopping-cart"></i>
     </a>
     <a class="tab-link" id="myPage">
-      <img src="images/avatar/1.jpg" class="user-media" alt="" />
+      <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png" class="user-media" alt="" style="border-radius: 50%; width: 25px; height:25px;"/>
     </a>
 
     <script>
         window.onload = function (){
           const myPage = document.getElementById("myPage");
           var auth = document.getElementById("Auth").value;
-          console.log("시발" + auth);
+          console.log(auth);
           myPage.addEventListener("click", (evt) => {
             jQuery.ajax({
               type:"POST",
@@ -131,7 +131,6 @@
                 xhr.setRequestHeader("Authorization", auth);
               },
               success:function (data){
-                alert("success");
                 console.log(data);
                 location.href="/myPage"
               },

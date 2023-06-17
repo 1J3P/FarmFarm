@@ -7,6 +7,8 @@ import com.example.farmfarm.Repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GroupService {
     @Autowired
@@ -32,6 +34,10 @@ public class GroupService {
         group.setUser2(user);
         group.setCapacity(0);
         return groupRepository.save(group);
+    }
+
+    public List<GroupEntity> findByProduct(ProductEntity product) {
+        return groupRepository.findAllByProduct(product);
     }
 
 

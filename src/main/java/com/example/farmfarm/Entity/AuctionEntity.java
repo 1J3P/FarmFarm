@@ -27,6 +27,8 @@ public class AuctionEntity {
 
     private String status;
 
+    private Long paId;
+
     @ManyToOne
     @JoinColumn(name="product")
     private ProductEntity product;

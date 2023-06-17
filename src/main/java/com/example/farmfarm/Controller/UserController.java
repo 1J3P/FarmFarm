@@ -1,7 +1,11 @@
 package com.example.farmfarm.Controller;
 
+import com.example.farmfarm.Entity.EnquiryEntity;
+import com.example.farmfarm.Entity.ProductEntity;
+import com.example.farmfarm.Entity.ReviewEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Entity.oauth.OauthToken;
+import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.UserService;
 import com.example.farmfarm.Config.jwt.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@SessionAttributes({"Authorization", "user"})
+@SessionAttributes({"Authorization", "user", "myFarm"})
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService; //(1)만들어둔 UserRepository 를 @Autowired 해준다.
+    @Autowired
+    private FarmService farmService;
 
     @Value("${KakaoAuthUrl}")
     private String KakaoAuthUrl;
@@ -76,6 +85,7 @@ public class UserController {
         System.out.println("kakaoLoginNickname2 : " + response.getBody().getNickname());
         model.addAttribute("Authorization", Auth);
         model.addAttribute("user", response.getBody());
+        model.addAttribute("myFarm", farmService.getMyFarm(response.getBody()));
         if (response.getBody().getNickname() == null) {
             return "redirect:/user/nickname";
         } else {
@@ -98,18 +108,31 @@ public class UserController {
 
     @GetMapping("/nickname")
     public String getNicknameForm(Model model, @ModelAttribute("Authorization") String Auth) {
-
         System.out.println("ATTRIBUTE!!!!!!!" + Auth);
         //System.out.println("ATTR : " + request.getAttributeNames());
         //System.out.println("**********request.getheader" + request.getHeader("Authorization"));
         model.addAttribute("Authorization", Auth);
+
         return "myPage/createNickname";
     }
 
     @GetMapping("/nickname/create")
-    public String setNickname(HttpServletRequest request, @RequestParam String nickname) {
+    public String setNickname(HttpServletRequest request, @RequestParam String nickname, Model model) {
+        //UserEntity user = (UserEntity)session.getAttribute("user");
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + nickname);
         UserEntity newUser = userService.setNickname(userService.getUser(request), request.getParameter("nickname"));
+        model.addAttribute("user", newUser);
         return "redirect:localhost:9000/";
+    }
+
+    @GetMapping("/profile")
+    public String updateProfile() {
+        return "myPage/editMyPage";
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/index";
     }
 }

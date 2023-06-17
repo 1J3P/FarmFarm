@@ -70,6 +70,7 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -77,7 +78,7 @@
     <div class="navbar navbar-style-1 navbar-transparent">
         <div class="navbar-inner">
             <div class="left">
-                <a href="#" class="link back">
+                <a href="/product/auction/list" class="link back">
                     <i class="icon flaticon-left"></i>
                 </a>
             </div>
@@ -107,19 +108,19 @@
             <div class="container">
                 <div class="item-info">
                     <div class="clearfix">
-                        <h3 class="category">팜팜농장</h3>
-                        <h2 class="item-title">싱싱한 찰토마토 / 5박스 한정</h2>
+                        <h3 class="category">${product.farm.name}</h3>
+                        <h2 class="item-title">${product.name}</h2>
                     </div>
                 </div>
                 <div class="item-info" style="margin-top: -30px">
-                    <h4>경매 시작가 2,000원</h4>
-                    <h3 style="color: #9DBF3F">00 : 27 : 21</h3>
+                    <h4>경매 시작가 ${product.low_price}원</h4>
                 </div>
+                <div class="auction_time"><h3 class="ac-time" data-date="${product.date}" style="color: #9DBF3F"></h3></div>
                 <div style="text-align: center">
-                    <h4>현재 최고가 : 3박스 - 2000원(1박스당)</h4>
+                    <h4>${product.detail}</h4>
                 </div>
                 <div class="tab tab-active form-elements tabs">
-                    <form class="tab tab-active" id="tabA1">
+                    <form class="tab tab-active" id="auctionForm">
                         <div class="list mb-0">
                             <ul class="row">
                                 <li class="item-content item-input col-100 item-input-with-value">
@@ -138,7 +139,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/home/" class="button-large button button-fill">경매 참여하기</a></li>
+                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill" id="joinAuction">경매 참여하기</a></li>
                             </ul>
                         </div>
                     </form>
@@ -148,5 +149,56 @@
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+    window.onload = function() {
+        const remainTimeElements = document.querySelectorAll(".ac-time");
+
+        remainTimeElements.forEach((element) => {
+            function updateCountdown() {
+                const targetDate = moment(element.dataset.date);
+                const currentDate = moment();
+                const diff = targetDate.diff(currentDate);
+
+                const diffDuration = moment.duration(diff);
+                const diffHour = String(diffDuration.hours()).padStart(2, "0");
+                const diffMin = String(diffDuration.minutes()).padStart(2, "0");
+                const diffSec = String(diffDuration.seconds()).padStart(2, "0");
+                element.innerText = diffHour + " : " + diffMin + " : " + diffSec;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+
+        $("#joinAuction").on("click", function (){
+            var formsubmitSerialArray = $("#auctionForm").serializeArray();
+            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+            var pId = ${p_id};
+            console.log(formsubmitSerialArray);
+            console.log(formsubmit);
+            $.ajax({
+                type:"POST",
+                async:false,
+                url:"/order/product/" + pId,
+                data:formsubmit,
+                dataType:"json",
+                contentType:"application/json; charset=utf-8",
+                beforeSend:function (xhr){
+                    xhr.setRequestHeader("Content-type","application/json");
+                    xhr.setRequestHeader("Authorization", auth);
+                },
+                success:function (data){
+                    alert("success");
+                    console.log(data);
+                },
+                error:function (request, status, error){
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        });
+    };
+</script>
 </body>
 </html>
