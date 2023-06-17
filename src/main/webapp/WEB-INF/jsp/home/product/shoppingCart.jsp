@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>ShoppingCart</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -63,7 +63,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -116,50 +117,54 @@
         <div class="container cart-list-area">
             <!-- 장바구니 비었을때 -->
             <c:if test="${empty itemList}">
-            <div class="list simple-list search-not-found" style="height: 300px">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p>장바구니가 비었습니다.
-            </div>
+                <div class="list simple-list search-not-found" style="height: 300px">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <p>장바구니가 비었습니다.
+                </div>
             </c:if>
             <!-- 장바구니에 물건 있을때 -->
             <c:if test="${not empty itemList}">
-            <div class="list cart-list">
-                <ul>
-                    <c:forEach var="item" items="${itemList}">
-                        <li class="swipeout cart-item">
-                            <div class="item-content swipeout-content">
-                                <div class="item-inner">
-                                    <div class="item-media">
-                                        <img src="../images/categories/pic1.jpg" alt="">
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="item-head">
-                                            <h6 class="category" style="float: left;">${item.product.farm.name}</h6>
-                                            <i class="fa-regular fa-trash-can" style="float: right;"></i>
-                                            <div style="clear:both; font-weight: bold"></div>
-                                            <h2 class="item-title"><a href="/product/${item.p_id}">${item.product.name}</a></h2>
-                                            <h5 class="item-title"><span>${item.product.price}</span>원</h5>
+                <div class="list cart-list">
+                    <ul>
+                        <c:forEach var="item" items="${itemList}">
+                            <li class="swipeout cart-item">
+                                <div class="item-content swipeout-content">
+                                    <div class="item-inner">
+                                        <div class="item-media">
+                                            <img src="../images/categories/pic1.jpg" alt="">
                                         </div>
-                                        <div class="item-foot">
-                                            <h3 class="text-primary item-total"><span>${item.product.price * item.quantity}</span>원</h3>
-                                            <div class="stepper stepper-small stepper-round stepper-init" style="border-radius: 20px">
-                                                <div class="stepper-button-minus" onclick="decreaseValue()"></div>
-                                                <div class="stepper-input-wrap">
-                                                    <input type="text" value="${item.quantity}" min="0" max="100" step="1" id="quantityInput" readonly/>
+                                        <div class="item-info">
+                                            <div class="item-head">
+                                                <h6 class="category" style="float: left;">${item.product.farm.name}</h6>
+                                                <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                                <div style="clear:both; font-weight: bold"></div>
+                                                <h2 class="item-title"><a
+                                                        href="/product/${item.p_id}">${item.product.name}</a></h2>
+                                                <h5 class="item-title"><span>${item.product.price}</span>원</h5>
+                                            </div>
+                                            <div class="item-foot">
+                                                <h3 class="text-primary item-total">
+                                                    <span>${item.product.price * item.quantity}</span>원</h3>
+                                                <div class="stepper stepper-small stepper-round stepper-init"
+                                                     style="border-radius: 20px">
+                                                    <div class="stepper-button-minus" onclick="decreaseValue()"></div>
+                                                    <div class="stepper-input-wrap">
+                                                        <input type="text" value="${item.quantity}" min="0" max="100"
+                                                               step="1" id="quantityInput" readonly/>
+                                                    </div>
+                                                    <div class="stepper-button-plus" onclick="increaseValue()"></div>
                                                 </div>
-                                                <div class="stepper-button-plus" onclick="increaseValue()"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swipeout-actions-right">
-                                <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
-                            </div>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
+                                <div class="swipeout-actions-right">
+                                    <a href="#" class="swipeout-delete"><i class="las la-trash-alt"></i></a>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </c:if>
         </div>
     </div>

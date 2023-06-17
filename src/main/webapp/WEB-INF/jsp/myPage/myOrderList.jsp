@@ -12,7 +12,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -70,7 +70,8 @@
     <link rel="stylesheet" href="../style/style.css"/>
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
-    <link rel="icon" href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+    <link rel="icon"
+          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -79,34 +80,41 @@
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
-        .stepper-input-wrap{
-            border:none;
+        .stepper-input-wrap {
+            border: none;
         }
-        .cart-item{
+
+        .cart-item {
             background: none;
         }
-        .order-date{
-            width:100%;
-            text-align:center;
+
+        .order-date {
+            width: 100%;
+            text-align: center;
             border-bottom: 1px solid #F4F4F4;
             position: relative;
         }
-        .order-date p{
+
+        .order-date p {
             font-weight: bold;
-            margin:5px;
+            margin: 5px;
         }
-        .order-date .is-payment{
+
+        .order-date .is-payment {
             position: absolute;
-            right:30px;
-            top:0;
+            right: 30px;
+            top: 0;
         }
-        .order-date .is-payment p{
-            font-size:13px;
+
+        .order-date .is-payment p {
+            font-size: 13px;
         }
-        .list .item-content{
+
+        .list .item-content {
             display: flex;
             flex-direction: column;
         }
+
         .item-actions {
             display: flex;
             justify-content: space-between;
@@ -134,7 +142,8 @@
                 <c:if test="${empty orderList}">
                     아직 주문 내역이 없습니다!<br>
                     상품을 주문해보세요!!
-                    <a href="/product/list" class="button-large button button-fill" style="margin-top: 10px;">상품 보러가기</a>
+                    <a href="/product/list" class="button-large button button-fill" style="margin-top: 10px;">상품
+                        보러가기</a>
                 </c:if>
                 <ul>
                     <c:forEach var="order" items="${orderList}">
@@ -149,19 +158,27 @@
                             <c:forEach var="orderDetail" items="${order.orders}">
                                 <div class="item-content swipeout-content">
                                     <div class="item-inner">
+                                        <div class="item-media">
+                                            <img src="${orderDetail.product.image1}" alt="">
+                                        </div>
                                         <div class="item-info">
                                             <div class="item-head">
                                                 <h6 class="category">${orderDetail.product.farm.name}</h6>
                                                 <div class="item-actions">
-                                                    <h2 class="item-title"><a href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a></h2>
-                                                    <div class="sell-product-options" onclick="location.href='/review/write?odId=${orderDetail.odId}'" style="cursor:pointer; color: #94C015">
+                                                    <h2 class="item-title"><a
+                                                            href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a>
+                                                    </h2>
+                                                    <div class="sell-product-options"
+                                                         onclick="location.href='/review/write?odId=${orderDetail.odId}'"
+                                                         style="cursor:pointer; color: #94C015">
                                                         리뷰 작성
                                                     </div>
                                                 </div>
                                             </div>
                                             <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
                                             <div class="item-foot">
-                                                <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원</h3>
+                                                <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원
+                                                </h3>
                                                 <div class="stepperForOrderList stepper-small stepper-round stepper-init">
                                                     <div class="stepper-input-wrap stepperFont">
                                                         X <span>${orderDetail.quantity}</span>

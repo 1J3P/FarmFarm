@@ -5,7 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>농장 전체보기 </title>
+    <title>FarmFarm</title>
     <meta charset="UTF-8"/>
     <meta
             name="viewport"
@@ -130,7 +130,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home/" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
