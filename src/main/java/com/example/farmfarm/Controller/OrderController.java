@@ -122,10 +122,11 @@ public class OrderController {
         return "home/product/productShippingAddress";
     }
 
-    //TODO:경매 구매<단일>
+    //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용.=
     @PostMapping("/product/{pId}")
     public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestBody AuctionEntity auction) {
         ProductEntity product = productService.getProduct(pId);
+        System.out.println("경매 ajax!!!!!" + product.getPId());
         UserEntity user = (UserEntity)session.getAttribute("user");
         if (product.isAuction()) {
             List<OrderDetailEntity> details = new ArrayList<>();
@@ -140,6 +141,11 @@ public class OrderController {
             return "home/product/productShippingAddress";
         }
         return null; //TODO: 에러페이지로 반드시 바꿀것
+    }
+
+    @GetMapping("/addressForm")
+    public String AddressForm() {
+        return "home/product/productShippingAddress";
     }
 
     //TODO: 이거 동작 확인해보기

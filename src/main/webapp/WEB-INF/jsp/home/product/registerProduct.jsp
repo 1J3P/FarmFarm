@@ -136,7 +136,7 @@
                         <input type="radio" name="type" value="2"><span>경매 상품</span>
                     </div>
                     <div style="margin-top:30px" class="auction-date">
-                        <h3>경매 날짜와 시간을 선택해주세요</h3>
+                        <h3>경매 종료 날짜와 시간을 선택해주세요</h3>
                         <input type="datetime-local" step="3600" name="date">
                     </div>
                 </div>

@@ -74,6 +74,7 @@
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<input type="hidden" value="${Authorization}" id="Auth">
 <div class="page light">
     <div class="navbar navbar-style-1 navbar-transparent">
         <div class="navbar-inner">
@@ -139,7 +140,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a href="/order/product/${p_id}" class="button-large button button-fill" id="joinAuction">경매 참여하기</a></li>
+                                <li class="mb-15"><button type="button" class="button-large button button-fill" id="joinAuction">경매 참여하기</button></li>
                             </ul>
                         </div>
                     </form>
@@ -170,6 +171,15 @@
             setInterval(updateCountdown, 1000);
         });
 
+        function objectifyForm(formArray){
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+
+        var auth = document.getElementById("Auth").value;
         $("#joinAuction").on("click", function (){
             var formsubmitSerialArray = $("#auctionForm").serializeArray();
             var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
@@ -190,6 +200,7 @@
                 success:function (data){
                     alert("success");
                     console.log(data);
+                    location.href="/order/addressForm";
                 },
                 error:function (request, status, error){
                     console.log(request);
