@@ -69,6 +69,9 @@ public class FarmService {
     //나의 농장 조회
     public  FarmEntity  getMyFarm(UserEntity user) {
         FarmEntity myFarm = farmRepository.findByUserAndStatusLike(user, "yes");
+        if (myFarm != null) {
+            System.out.println(myFarm.getStatus());
+        }
         return myFarm;
     }
 

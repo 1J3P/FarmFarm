@@ -111,7 +111,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home/" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -154,7 +154,7 @@
                             <div class="col-50 medium-25" onclick="location.href='/product/${product.PId}'">
                                 <div class="item-box">
                                     <div class="item-media">
-                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png"
+                                        <img src="${product.image1}"
                                              alt=""/>
                                     </div>
                                     <label class="bookmark-btn">

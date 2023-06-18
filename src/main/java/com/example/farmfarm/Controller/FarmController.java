@@ -101,12 +101,14 @@ public class FarmController {
 
     // 농장 삭제
     @DeleteMapping("/{f_id}")
-    public ResponseEntity<Object> deleteFarm(HttpSession session, @PathVariable("f_id") long fId)  {
+    public ResponseEntity<Object> deleteFarm(HttpSession session, @PathVariable("f_id") long fId, Model model)  {
         try {
             farmService.deleteFarm(session, fId);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("");
         }
+        System.out.println("!!!!!!!!!!!!!!! delete !!!!!!!!!!!!!!!");
+        model.addAttribute("myFarm", null);
         return ResponseEntity.ok().body("delete OK");
     }
 }

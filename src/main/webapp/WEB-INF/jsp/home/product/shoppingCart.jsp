@@ -101,7 +101,7 @@
     <div class="navbar navbar-style-1">
         <div class="navbar-inner">
             <div class="left">
-                <a href="/home/" class="link back">
+                <a href="/" class="link back">
                     <i class="flaticon-left"></i>
                 </a>
             </div>
@@ -130,9 +130,9 @@
                             <li class="swipeout cart-item">
                                 <div class="item-content swipeout-content">
                                     <div class="item-inner">
-                                        <div class="item-media">
-                                            <img src="../images/categories/pic1.jpg" alt="">
-                                        </div>
+                                            <%--                                        <div class="item-media">--%>
+                                            <%--                                            <img src="../images/categories/pic1.jpg" alt="">--%>
+                                            <%--                                        </div>--%>
                                         <div class="item-info">
                                             <div class="item-head">
                                                 <h6 class="category" style="float: left;">${item.product.farm.name}</h6>

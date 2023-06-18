@@ -87,19 +87,39 @@ public class HomeController {
         Map<String, Object> mv = new HashMap<>();
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
-        if (!myFarm.getStatus().equals("yes")) {
-            myFarm = null;
-            System.out.println("여기 안찍히냐?");
-        }
+//        if (!myFarm.getStatus().equals("yes")) {
+//            myFarm = null;
+//            System.out.println("여기 안찍히냐?");
+//        }
+//        System.out.println("111111111" + myFarm.getStatus());
         mv.put("user", user);
         model.addAttribute("user", user);
-        model.addAttribute("myFarm", myFarm);
-        mv.put("myFarm", myFarm);
+        if (myFarm == null) {
+            System.out.println("bbbbnull!!!!!!!!!");
+            model.addAttribute("myFarm", null);
+            mv.put("myFarm", null);
+        }
+        else {
+            model.addAttribute("myFarm", myFarm);
+            mv.put("myFarm", myFarm);
+        }
         return mv;
     }
 
     @GetMapping("/myPage")
-    public String myPage() {
-        return "myPage/myPage";
+    public ModelAndView myPage(HttpSession session, Model model) {
+        ModelAndView mav = new ModelAndView("myPage/myPage");
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        FarmEntity myFarm = farmService.getMyFarm(user);
+        mav.addObject("user", user);
+        if (myFarm == null) {
+            System.out.println("aaaanull!!!!!!!!!");
+            mav.addObject("myFarm", null);
+            model.addAttribute("myFarm", null);
+        }
+        else {
+            mav.addObject("myFarm", myFarm);
+        }
+        return mav;
     }
 }
