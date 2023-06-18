@@ -87,6 +87,10 @@ public class HomeController {
         Map<String, Object> mv = new HashMap<>();
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
+        if (!myFarm.getStatus().equals("yes")) {
+            myFarm = null;
+            System.out.println("여기 안찍히냐?");
+        }
         mv.put("user", user);
         model.addAttribute("user", user);
         model.addAttribute("myFarm", myFarm);
