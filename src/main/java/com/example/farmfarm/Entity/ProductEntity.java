@@ -80,4 +80,6 @@ public class ProductEntity {
     @JoinColumn(name="product_category_c_id")
     private ProductCategoryEntity productCategory;
 
+    private String status;
+
 }
