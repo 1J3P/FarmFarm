@@ -446,18 +446,34 @@
     <div class="toolbar toolbar-bottom footer-button padding border-top item-details-btn">
         <div class="container px-15">
             <div class="row">
-                <div class="col-30">
-                    <button type="button" onclick="ViewLayer()"
-                            class="button-large button btn-block button-fill add-cart-btn active together-order"
-                            style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number"
-                                                                                          value="${product.price * 0.9}"/>원</span>
-                    </button>
-                </div>
-                <div class="col-70">
-                    <button type="button" class="button-large button add-cart-btn btn-block button-fill"
-                            id="onePurchaseBtn" style="width:100%">혼자 주문<span class="price"><fmt:formatNumber
-                            type="number" value="${product.price}"/>원</span></button>
-                </div>
+                <c:if test="${product.group == true}">
+                    <div class="col-30">
+                        <button type="button" onclick="ViewLayer()"
+                                class="button-large button btn-block button-fill add-cart-btn active together-order"
+                                style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number"
+                                                                                              value="${product.price * 0.9}"/>원</span>
+                        </button>
+                    </div>
+                    <div class="col-70">
+                        <button type="button" class="button-large button add-cart-btn btn-block button-fill onePurchaseBtn"
+                                style="width:100%">혼자 주문<span class="price"><fmt:formatNumber
+                                type="number" value="${product.price}"/>원</span></button>
+                    </div>
+                </c:if>
+                <c:if test="${product.group == false}">
+                    <div class="col-30" style="display: none">
+                        <button type="button" onclick="ViewLayer()"
+                                class="button-large button btn-block button-fill add-cart-btn active together-order"
+                                style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number"
+                                                                                              value="${product.price * 0.9}"/>원</span>
+                        </button>
+                    </div>
+                    <div class="col-70" style="width:100%">
+                        <button type="button" class="button-large button add-cart-btn btn-block button-fill onePurchaseBtn"
+                                style="width:100%">혼자 주문<span class="price"><fmt:formatNumber
+                                type="number" value="${product.price}"/>원</span></button>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
@@ -580,7 +596,7 @@
             });
         });
 
-        $("#onePurchaseBtn").on("click", function () {
+        $(".onePurchaseBtn").on("click", function () {
             // var formsubmitSerialArray = $("#form").serializeArray();
             // var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
             var pId = ${p_id};

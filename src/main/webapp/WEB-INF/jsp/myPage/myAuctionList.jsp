@@ -72,11 +72,22 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            height:100%;
+        }
+
+    </style>
 </head>
 <body>
-<div class="page light">
-    <div class="navbar navbar-style-2">
+<div class="page page-homepage light" data-name="homepage">
+    <div class="navbar navbar-style-1">
         <div class="navbar-inner">
+            <div class="left">
+                <a href="/myPage" class="link back">
+                    <i class="icon flaticon-left"></i>
+                </a>
+            </div>
             <div class="title">경매 참가 내역</div>
             <div class="right">
             </div>
@@ -87,10 +98,12 @@
             <div class="list cart-list">
                 <ul>
                     <c:if test="${empty auctionList}">
-                        아직 경매 참여 내역이 없습니다!<br>
-                        경매를 참여해보세요!!
-                        <a href="/product/auction/list" class="button-large button button-fill"
-                           style="margin-top: 10px;">경매 물품 보러가기</a>
+                        <div class="no-auction">
+                            <p style="text-align: center; margin-top:48%">아직 경매 참여 내역이 없습니다!<br>
+                                경매를 참여해보세요!!</p>
+                            <a href="/product/auction/list" class="button-large button button-fill"
+                               style="margin-top: 48%;">경매 물품 보러가기</a>
+                        </div>
                     </c:if>
                     <c:forEach var="auction" items="${auctionList}">
                         <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
@@ -136,25 +149,7 @@
             </div>
         </div>
     </div>
-    <div class="toolbar tabbar tabbar-labels toolbar-bottom menubar-area">
-        <div class="toolbar-inner">
-            <a href="/home/" class="tab-link active">
-                <i class="flaticon-home"></i>
-            </a>
-            <a href="/categories/" class="tab-link">
-                <i class="fa-solid fa-bars"></i>
-            </a>
-            <a href="/search/" class="tab-link">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-            <a href="/shopping-cart/" class="tab-link cart-in">
-                <i class="flaticon-shopping-cart"></i>
-            </a>
-            <a href="/user/" class="tab-link">
-                <img src="/style/images/avatar/1.jpg" class="user-media" alt=""/>
-            </a>
-        </div>
-    </div>
+    <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 </body>
 </html>
