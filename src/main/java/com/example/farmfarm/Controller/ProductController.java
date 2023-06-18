@@ -131,9 +131,9 @@ public class ProductController {
 
     // 상품 삭제
     @DeleteMapping("/{p_id}")
-    public ResponseEntity<Object> deleteProduct(HttpServletRequest request, @PathVariable("p_id") long p_id) {
+    public ResponseEntity<Object> deleteProduct(HttpSession session, @PathVariable("p_id") long p_id) {
         try {
-            productService.deleteProduct(request, p_id);
+            productService.deleteProduct(session, p_id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("user not match");
         }
