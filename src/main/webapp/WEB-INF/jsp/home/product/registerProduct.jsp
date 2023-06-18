@@ -145,7 +145,7 @@
                     </div>
                     <div style="margin-top:30px" class="auction-date">
                         <h3>경매 종료 분을 입력해주세요.</h3>
-                        <input type="text" placeholder="0부터 23까지 선택" name="minute">
+                        <input type="text" placeholder="0부터 59까지 선택" name="minute">
                     </div>
                 </div>
                 <div class="product_name">
