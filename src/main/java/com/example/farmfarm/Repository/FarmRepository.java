@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface FarmRepository extends CrudRepository<FarmEntity, Integer> {
-    public FarmEntity findByfId(Long fId);
-    public FarmEntity findByUser(UserEntity user);
-    public List<FarmEntity> findAll(Sort sort);
-    public List<FarmEntity> findAllByNameContaining(@RequestParam("name") String keyword);
-    public List<FarmEntity> findAllByNameContaining(@RequestParam("name") String keyword, Sort sort);
+    public FarmEntity findByfIdAndStatusLike(Long fId, String status);
+    public FarmEntity findByUserAndStatusLike(UserEntity user, String status);
+    public List<FarmEntity> findAllByStatusLike(Sort sort, String status);
+    public List<FarmEntity> findAllByNameContainingAndStatusLike(@RequestParam("name") String keyword, String status);
+    public List<FarmEntity> findAllByNameContainingAndStatusLike(@RequestParam("name") String keyword, Sort sort, String status);
 }

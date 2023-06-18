@@ -25,6 +25,7 @@ public class FarmService {
     // 농장 등록
     public FarmEntity saveFarm(UserEntity user, FarmEntity farm){
         farm.setUser(user);
+        farm.setStatus("yes");
         return farmRepository.save(farm);
     }
 
@@ -32,47 +33,49 @@ public class FarmService {
     public List<FarmEntity> getFarmsOrderBy(String criteria) {
         switch (criteria) {
             case "old":
-                return farmRepository.findAll(Sort.by(Sort.Direction.ASC, "fId"));
+                return farmRepository.findAllByStatusLike(Sort.by(Sort.Direction.ASC, "fId"), "yes");
             case "new":
-                return farmRepository.findAll(Sort.by(Sort.Direction.DESC, "fId"));
+                return farmRepository.findAllByStatusLike(Sort.by(Sort.Direction.DESC, "fId"), "yes");
             default:
-                return farmRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+                return farmRepository.findAllByStatusLike(Sort.by(Sort.Direction.DESC, "rating"), "yes");
         }
     }
 
     //농장 검색
     public List<FarmEntity> searchFarms(String keyword) {
-        return farmRepository.findAllByNameContaining(keyword);
+        return farmRepository.findAllByNameContainingAndStatusLike(keyword, "yes");
     }
 
     //농장 검색, 농장 정렬 같이
     public List<FarmEntity> searchSortFarms(String keyword, String criteria) {
         switch (criteria) {
             case "old":
-                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.ASC, "fId"));
+                return farmRepository.findAllByNameContainingAndStatusLike(keyword, Sort.by(Sort.Direction.ASC, "fId"), "yes");
             case "new":
-                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.DESC, "fId"));
+                return farmRepository.findAllByNameContainingAndStatusLike(keyword, Sort.by(Sort.Direction.DESC, "fId"), "yes");
             default:
-                return farmRepository.findAllByNameContaining(keyword, Sort.by(Sort.Direction.DESC, "rating"));
+                return farmRepository.findAllByNameContainingAndStatusLike(keyword, Sort.by(Sort.Direction.DESC, "rating"), "yes");
         }
     }
 
     // 농장 상세 조회
     public FarmEntity getFarm(Long fId) {
-        FarmEntity fa = farmRepository.findByfId(fId);
+        FarmEntity fa = farmRepository.findByfIdAndStatusLike(fId, "yes");
+        if (fa.getStatus().equals("no"))
+            return null;
         return fa;
     }
 
     //나의 농장 조회
     public  FarmEntity  getMyFarm(UserEntity user) {
-        FarmEntity myFarm = farmRepository.findByUser(user);
+        FarmEntity myFarm = farmRepository.findByUserAndStatusLike(user, "yes");
         return myFarm;
     }
 
     // 농장 수정
     public FarmEntity updateFarm(HttpServletRequest request, Long fId, FarmEntity farm){
         UserEntity user = userService.getUser(request);
-        FarmEntity newFarm = farmRepository.findByfId(fId);
+        FarmEntity newFarm = farmRepository.findByfIdAndStatusLike(fId, "yes");
 
         if (Objects.equals(user.getUId(), newFarm.getUser().getUId())){
             // 수정되는 것들  (농장 이름, 위치-시, 위치-구, 상세, 이미지, 경매시간, 경매 참여 여부, 생성 시간?)
@@ -96,9 +99,10 @@ public class FarmService {
     // 농장 삭제
     public void deleteFarm(HttpSession session, Long fId) throws Exception{
         UserEntity user = (UserEntity)session.getAttribute("user");
-        FarmEntity farm = farmRepository.findByfId(fId);
+        FarmEntity farm = farmRepository.findByfIdAndStatusLike(fId, "yes");
         if(Objects.equals(user.getUId(), farm.getUser().getUId())){
-            farmRepository.delete(farm);
+            farm.setStatus("no");
+            farmRepository.save(farm);
         } else {
             System.out.println("유저가 다름!!!!");
             throw new Exception();
