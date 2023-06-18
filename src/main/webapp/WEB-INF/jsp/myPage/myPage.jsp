@@ -169,6 +169,7 @@
                     </tr>
                     <tr>
                         <td class="myFarm" style="vertical-align: middle;">
+
                             <c:if test="${myFarm eq null}">
                                 <div class="myPage_container">
                                     <div class="item-media">

@@ -270,8 +270,8 @@
                                 <c:set var="auctionCount" value="${auctionCount + 1}"/>
                                 <div class="item-box" onclick="location.href='/product/${product.PId}'">
                                     <div class="item-media">
-                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/920d0c68-c41a-45ec-82a1-a13160b140c7.png"
-                                             alt=""/>
+                                        <img src=${product.image1}
+                                                     alt=""/>
                                     </div>
                                     <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
                                     </div>
