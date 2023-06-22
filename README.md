@@ -1,5 +1,6 @@
 # FarmFarm
 ![image](https://github.com/1J3P/FarmFarm/assets/52688527/a8d63152-6420-428b-8ec1-a817657dbc45)
+<img src = "https://github.com/1J3P/FarmFarm/assets/75068759/8df90eca-3799-4d87-aa53-bd75ecead973"/>
 
 ## 주의 사항
 1. htp://localhost:9000/index로 초기 접속해야합니다.
