@@ -182,8 +182,10 @@
             <div class="right">
                 <!-- 수정 필요 -->
                 <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
-                <i class="fa-solid fa-pencil"></i>
-                <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${farm.FId})"></i>
+                <c:if test="${farm.user.UId == user.UId}">
+                    <i class="fa-solid fa-pencil"></i>
+                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${farm.FId})"></i>
+                </c:if>
             </div>
         </div>
     </div>
