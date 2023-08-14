@@ -90,17 +90,19 @@
             <div class="col-50 medium-25" style="margin-top: 50px">
                 <h4>진행 중인 경매 ${productList.size()}개</h4>
                 <c:forEach var="product" items="${productList}">
-                    <div class="item-box" onclick="location.href='/product/${product.PId}'">
-                        <div class="item-media">
-                            <img src= ${product.image1} alt="" />
+                    <c:if test="${product.open_status != 2}">
+                        <div class="item-box" onclick="location.href='/product/${product.PId}'">
+                            <div class="item-media">
+                                <img src= ${product.image1} alt="" />
+                            </div>
+                            <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
+                            <div class="item-content">
+                                <h5>${product.farm.name}</h5>
+                                <h3 class="title">${product.name}</h3>
+                                <h4 class="price">경매 시작가 1,000원</h4>
+                            </div>
                         </div>
-                        <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
-                        <div class="item-content">
-                            <h5>${product.farm.name}</h5>
-                            <h3 class="title">${product.name}</h3>
-                            <h4 class="price">경매 시작가 1,000원</h4>
-                        </div>
-                    </div>
+                    </c:if>
                 </c:forEach>
                 <c:if test="${productList.size() == 0}">
                     <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>

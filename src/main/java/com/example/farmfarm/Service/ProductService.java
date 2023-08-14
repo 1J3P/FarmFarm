@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -21,7 +22,7 @@ public class ProductService {
     private UserService userService;
 
     // 상품 등록
-    public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) {
+    public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) throws ParseException {
         ProductEntity addProduct = product;
         if (product.getType() == 1){
             product.setGroup(true);
@@ -48,6 +49,8 @@ public class ProductService {
                 cal.set(Calendar.MINUTE, product.getMinute());
                 String closeDate = format.format(cal.getTime());
                 addProduct.setCloseCalendar(closeDate);
+
+                addProduct.setDate(format.parse(closeDate));
             } else { // 경매 농장이 아닐 경우 예외처리(추후에 설정)
                 return null;
             }
@@ -78,7 +81,7 @@ public class ProductService {
         List<ProductEntity> productList =  (List<ProductEntity>) productRepository.findAllByStatusLike(Sort.by(Sort.Direction.DESC, "pId"), "yes");
         List<ProductEntity> resultList = new ArrayList<>();
         for (ProductEntity val : productList) {
-            if (val.isAuction() && val.getOpen_status() < 2) {
+            if (val.isAuction()) {
                 resultList.add(val);
             }
         }
