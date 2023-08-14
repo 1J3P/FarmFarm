@@ -268,6 +268,19 @@
             var formsubmitSerialArray = $("#form").serializeArray();
             var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
 
+            var hasEmptyFields = false;
+            for (var i = 0; i < formsubmitSerialArray.length; i++) {
+                if (formsubmitSerialArray[i].value.trim() === "") {
+                    hasEmptyFields = true;
+                    break;
+                }
+            }
+
+            if (hasEmptyFields) {
+                alert("내용을 모두 입력해주세요.");
+                return;
+            }
+
             console.log(formsubmitSerialArray);
             console.log(formsubmit);
             $.ajax({
