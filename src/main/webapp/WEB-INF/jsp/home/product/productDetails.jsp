@@ -510,7 +510,7 @@
                     <div class="layer-tab tab-active form-elements tabs">
                         <form class="layer-tab tab-active" id="tabA1">
                             <div class="title-bar mb-20">
-                                <h3 class="dz-title ma-0">공동구매 참여하기</h3>ck
+                                <h3 class="dz-title ma-0">공동구매 참여하기</h3>
                                 <a href="javascript:CloseLayer();" style="color:#0A3C48"><i
                                         class="icon flaticon-cancel"></i></a>
                             </div>
