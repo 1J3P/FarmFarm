@@ -41,7 +41,7 @@
     />
     <meta
             property="og:image"
-            content="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"
+            content="https://farmfarm-bucket.s3.ap-northeast-2.amazonaws.com/7cc20134-7565-44e3-ba1d-ae6edbc213e5.png"
     />
     <meta name="format-detection" content="telephone=no"/>
 
@@ -108,6 +108,7 @@
         <div class="container" style="text-align: center;">
             <div class="write-reviews-box" style="text-align: center;">
                 <form id="formUser">
+                    ${user.image}
                     <img src="${user.image}" class="user-media" id="userImage" alt=""
                          style="border-radius: 50%; width: 150px; height:150px;"/>
                     <div style="margin-top: 30px;">
@@ -126,7 +127,7 @@
                                     style="padding-left:0">
                                     <div class="item-inner" style="padding-right:0">
                                         <div class="item-input-wrap" style="margin-bottom: 50px;">
-                                            <input type="text" name="nickname" placeholder="변경할 닉네임을 입력해주세요" value=""
+                                            <input type="text" name="nickname" placeholder="변경할 닉네임을 입력해주세요" value="${user.nickname}"
                                                    class="form-control"
                                                    style="background: #fff;
     height: 54px;
@@ -225,8 +226,72 @@
             var formsubmitSerialArray = $("#formUser").serializeArray();
             var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
 
-            console.log(formsubmitSerialArray);
-            console.log(formsubmit);
+            var hasEmptyFields = false;
+            for (var i = 0; i < formsubmitSerialArray.length; i++) {
+                if (formsubmitSerialArray[i].name !== "image" && formsubmitSerialArray[i].value.trim() === "") {
+                    hasEmptyFields = true;
+                    break;
+                }
+            }
+
+            if (hasEmptyFields) {
+                alert("내용을 모두 입력해주세요.");
+                return;
+            }
+
+            var fileInput = document.getElementById("chooseFile");
+            if (fileInput.files.length > 0) {
+                // New image is selected, proceed with upload
+                const image = fileInput.files[0];
+                var url = "/s3/file";
+                var formData = new FormData();
+                formData.append("multipartFile", image);
+
+                $.ajax({
+                    url: url,
+                    data: formData,
+                    type: "POST",
+                    async: false,
+                    enctype: "multipart/form-data",
+                    processData: false,
+                    contentType: false,
+
+                    success: function (response) {
+                        console.log(JSON.stringify(response));
+                        var json = JSON.stringify(response);
+                        var obj = JSON.parse(json);
+                        inputImg.setAttribute("value", obj.fileurl);
+                        fileInput.setAttribute("name", obj.fileurl);
+                        imageView.setAttribute("src", obj.fileurl);
+                        // Proceed with updating user profile using formsubmit data
+                        updateUserProfile(formsubmit);
+                    },
+
+                    error: function (request, status, error) {
+                        console.log("request : " + request);
+                        console.log("status : " + status);
+                        console.log("error : " + error);
+                    },
+
+                    complete: function (data, textStatus) {
+                        console.log("");
+                        console.log("[serverUploadImage] : [complete] : " + textStatus);
+                        console.log("");
+                    }
+                });
+            } else {
+                var userImage = "${user.image}";
+                inputImg.setAttribute("value", userImage);
+                formsubmitSerialArray = $("#formUser").serializeArray();
+                formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+                console.log("있어??" + userImage)
+                console.log("여기임")
+                updateUserProfile(formsubmit);
+                console.log(formsubmit)
+            }
+        });
+
+        function updateUserProfile(formsubmit) {
             $.ajax({
                 type: "POST",
                 async: true,
@@ -245,7 +310,7 @@
                     console.log(error);
                 }
             });
-        });
+        }
     };
 
 </script>
