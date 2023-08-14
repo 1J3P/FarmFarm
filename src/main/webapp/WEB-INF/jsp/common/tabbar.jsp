@@ -112,7 +112,7 @@
             <i class="flaticon-shopping-cart"></i>
         </a>
         <a href="/myPage" class="tab-link" id="myPage">
-            <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png"
+            <img src="https://farmfarm-bucket.s3.ap-northeast-2.amazonaws.com/7cc20134-7565-44e3-ba1d-ae6edbc213e5.png"
                  class="user-media" alt="" style="border-radius: 50%; width: 25px; height:25px;"/>
         </a>
     </div>
