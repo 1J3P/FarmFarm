@@ -3284,7 +3284,7 @@ html.device-full-viewport, html.device-full-viewport body {
 
 .tabbar-scrollable .toolbar-inner {
 	justify-content: flex-start;
-	overflow: auto;
+	/*overflow: auto;*/
 	-webkit-overflow-scrolling: touch
 }
 

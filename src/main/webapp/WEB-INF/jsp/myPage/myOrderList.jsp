@@ -120,6 +120,25 @@
             justify-content: space-between;
             align-items: center;
         }
+        .cart-list{
+            position: relative;
+            height:580px;
+        }
+        .cart-list div{
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .cart-list a{
+            width:90%;
+            position: absolute;
+            left:50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            margin-top: 10px;
+        }
 
     </style>
 </head>
@@ -140,10 +159,12 @@
         <div class="container cart-list-area">
             <div class="list cart-list">
                 <c:if test="${empty orderList}">
+                    <div>
                     아직 주문 내역이 없습니다!<br>
-                    상품을 주문해보세요!!
-                    <a href="/product/list" class="button-large button button-fill" style="margin-top: 10px;">상품
+                    상품을 주문해보세요!!</div>
+                    <a href="/product/list" class="button-large button button-fill">상품
                         보러가기</a>
+
                 </c:if>
                 <ul>
                     <c:forEach var="order" items="${orderList}">

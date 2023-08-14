@@ -127,6 +127,9 @@
                         </div>
                     </div>
                 </c:forEach>
+                <c:if test="${productList.size() == 0}">
+                    <h4 class="price" style="margin: 30px auto;">판매 중인 상품이 없어요.</h4>
+                </c:if>
             </div>
         </div>
     </div>
