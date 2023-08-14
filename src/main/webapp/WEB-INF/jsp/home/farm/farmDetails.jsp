@@ -90,6 +90,7 @@
             font-weight: bold;
             font-size: 16px;
             color: #94C015;
+            cursor: pointer;
         }
 
         .item-container {
@@ -231,11 +232,13 @@
                         </div>
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
+                            <c:if test="${farm.user.UId == user.UId}">
                             <div class="item-container">
                                 <div class="sell-product-options" onclick="location.href='/product'">
                                     판매 상품 등록
                                 </div>
                             </div>
+                            </c:if>
                             <div class="row">
                                 <c:forEach var="product" items="${productList}">
                                     <c:if test="${!product.auction}">
@@ -259,6 +262,9 @@
                                         </div>
                                     </c:if>
                                 </c:forEach>
+                                <c:if test="${productList.size() == 0}">
+                                    <h4 class="price" style="margin: 30px auto;">판매 중인 상품이 없어요.</h4>
+                                </c:if>
                             </div>
                         </div>
                     </div>

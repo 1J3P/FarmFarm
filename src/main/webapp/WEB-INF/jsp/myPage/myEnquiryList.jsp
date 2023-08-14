@@ -90,6 +90,16 @@
         .fa-regular.fa-trash-can {
             right: 0;
         }
+        .simple-list{
+            position: relative;
+            height:550px;
+        }
+        .simple-list p{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
     <script>
         function confirmAndDeleteEnquiry(eId) {
@@ -121,14 +131,14 @@
                     <i class="icon flaticon-left"></i>
                 </a>
             </div>
-            <div class="title"><b>상품 문의 내역</b></div>
+            <div class="title">상품 문의 내역</div>
             <div class="right"></div>
         </div>
     </div>
     <div class="page-content pt-60 bottom-sp60">
         <div class="container">
             <c:if test="${enquiries.size() == 0}">
-                <div class="list simple-list" style="height: 400px">
+                <div class="list simple-list">
                     <p>작성된 문의가 없습니다.</p>
                 </div>
             </c:if>

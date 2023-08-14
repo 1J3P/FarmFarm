@@ -73,8 +73,24 @@
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
-        .container{
-            height:100%;
+        .no-auction{
+            position: relative;
+            height:580px;
+        }
+        .no-auction p{
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .no-auction a{
+            width:90%;
+            position: absolute;
+            left:50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            margin-top: 10px;
         }
 
     </style>
@@ -99,7 +115,7 @@
                 <ul>
                     <c:if test="${empty auctionList}">
                         <div class="no-auction">
-                            <p style="text-align: center; margin-top:48%">아직 경매 참여 내역이 없습니다!<br>
+                            <p style="text-align: center;">아직 경매 참여 내역이 없습니다!<br>
                                 경매를 참여해보세요!!</p>
                             <a href="/product/auction/list" class="button-large button button-fill"
                                style="margin-top: 48%;">경매 물품 보러가기</a>
