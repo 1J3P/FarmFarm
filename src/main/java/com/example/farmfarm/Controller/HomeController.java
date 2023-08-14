@@ -113,7 +113,7 @@ public class HomeController {
         FarmEntity myFarm = farmService.getMyFarm(user);
         mav.addObject("user", user);
         if (myFarm == null) {
-            System.out.println("aaaanull!!!!!!!!!");
+            session.removeAttribute("myFarm");
             mav.addObject("myFarm", null);
             model.addAttribute("myFarm", null);
         }

@@ -198,18 +198,6 @@
                                     </a>
                                 </div>
                             </c:if>
-                            <!-- 농장 개설이 안되어있을 경우, 분기 처리해서 사용할 부분!!-->
-                            <%--              <div class="myPage_container">--%>
-                            <%--                <div class="item-media">--%>
-                            <%--                  <img src="../style/images/avatar/2.jpg" width="50">--%>
-                            <%--                </div>--%>
-                            <%--                <div class="farmName">농장이 아직 없어요</div>--%>
-                            <%--              </div>--%>
-                            <%--              <div>--%>
-                            <%--                <a href="javascript:void(0);" class="button btn-block button-fill add-cart-btn active together-order myPage-btn">--%>
-                            <%--                  농장 개설--%>
-                            <%--                </a>--%>
-                            <%--              </div>--%>
                         </td>
                     </tr>
                     <tr>
