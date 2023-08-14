@@ -108,7 +108,6 @@
         <div class="container" style="text-align: center;">
             <div class="write-reviews-box" style="text-align: center;">
                 <form id="formUser">
-                    ${user.image}
                     <img src="${user.image}" class="user-media" id="userImage" alt=""
                          style="border-radius: 50%; width: 150px; height:150px;"/>
                     <div style="margin-top: 30px;">
