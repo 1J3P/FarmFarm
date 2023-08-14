@@ -510,7 +510,7 @@
                     <div class="layer-tab tab-active form-elements tabs">
                         <form class="layer-tab tab-active" id="tabA1">
                             <div class="title-bar mb-20">
-                                <h3 class="dz-title ma-0">공동구매 참여하기</h3>
+                                <h3 class="dz-title ma-0">공동구매 참여하기</h3>ck
                                 <a href="javascript:CloseLayer();" style="color:#0A3C48"><i
                                         class="icon flaticon-cancel"></i></a>
                             </div>
@@ -546,7 +546,7 @@
                                                         <h5 class="group_2">23:54:36</h5>
                                                     </div>
                                                     <div class="group_1">
-                                                        <button class="parti" id="group_attend"
+                                                        <button class="parti" name="group_attend"
                                                                 onclick="groupAttend(${group.GId})">주문 참여
                                                         </button>
                                                     </div>
@@ -575,6 +575,7 @@
         var groupInput = document.getElementById("groupId");
         groupInput.setAttribute("value", gId);
         GID = gId;
+        console.log(gId);
     }
 
     window.onload = function () {
@@ -664,25 +665,25 @@
             window.location.assign("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
             window.location.replace(link);
         });
+        var groupIn = document.getElementsByName("group_attend");
+        for (let i = 0; i < groupIn.length; i++) {
+            groupIn[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                setTimeout(function () {
+                    var quantity = parseInt(document.getElementById('quantityInput').value);
+                    console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
+                    var link = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+                    location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.href("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
+                    window.location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.assign("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
+                    window.location.replace(link);
+                }, 500);
 
-        var groupIn = document.getElementById("group_attend");
-        groupIn.addEventListener('click', function (e) {
-            e.preventDefault();
-            setTimeout(function () {
-                var quantity = parseInt(document.getElementById('quantityInput').value);
+            })
+        }
 
-                var groupIn = document.getElementById("group_attend");
-                var gId = groupIn.value;
-                console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
-                var link = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                window.location.href("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
-                window.location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                window.location.assign("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
-                window.location.replace(link);
-            }, 500);
 
-        })
     };
 </script>
 </html>
