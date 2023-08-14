@@ -64,7 +64,7 @@
 
     <link rel="apple-touch-icon" href="../images/f7-icon-square.png"/>
     <link rel="icon"
-          href="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/10591631-d5da-4804-b013-ff6eccbed6f7.png"/>
+          href="https://farmfarm-bucket.s3.ap-northeast-2.amazonaws.com/7cc20134-7565-44e3-ba1d-ae6edbc213e5.png"/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -173,7 +173,7 @@
                             <c:if test="${myFarm eq null}">
                                 <div class="myPage_container">
                                     <div class="item-media">
-                                        <img src="https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png"
+                                        <img src="https://farmfarm-bucket.s3.ap-northeast-2.amazonaws.com/3933af0a-0e39-4e91-9896-021caf62a782.png"
                                              width="50">
                                     </div>
                                     <div class="farmName">농장이 아직 없어요</div>

@@ -93,7 +93,7 @@ public class UserService {
         //(3)DB에 사용자를 저장하기 전, 이미 존재하는 사용자인지 체크할 필요가 있다.
         //이를 user 변수의 값이 null인지 아닌지로 판단한다. 만약 null 이라면 DB에 저장되지 않은 사용자이므로 사용자 저장 로직을 실행한다
         if(user == null) {
-            user = new UserEntity(profile.getId(), null, profile.getKakao_account().getEmail(), "ROLE_USER", "KAKAO", "활동중", "https://farmfarmbucket.s3.ap-northeast-2.amazonaws.com/ea8cf098-de6f-47bb-a137-d63c32480521.png");
+            user = new UserEntity(profile.getId(), null, profile.getKakao_account().getEmail(), "ROLE_USER", "KAKAO", "활동중", "https://farmfarm-bucket.s3.ap-northeast-2.amazonaws.com/7cc20134-7565-44e3-ba1d-ae6edbc213e5.png");
             userRepository.save(user);
         }
         //createToken() 메소드를 이용해 String 형의 JWT 를 반환한다.
