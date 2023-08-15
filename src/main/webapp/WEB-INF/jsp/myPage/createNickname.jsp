@@ -208,24 +208,31 @@
 
         console.log(auth);
 
-        $("#submit-btn").on("click", function () {
+        $("#submit-btn").on("click", function (event) {
             var nickname = document.getElementById("demo-username-22").value;
-            console.log(nickname);
-            $.ajax({
-                type: "GET",
-                async: false,
-                url: "/user/nickname/create",
-                data: {"nickname": nickname},
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Content-type", "application/json");
-                    xhr.setRequestHeader("Authorization", auth);
-                },
-                success: function (res) {
-                    console.log(res);
-                }
-            });
+
+            if (nickname.trim() === "") {
+                alert("닉네임을 입력해주세요.");
+                event.preventDefault();
+                return;
+            } else {
+                console.log(nickname);
+                $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: "/user/nickname/create",
+                    data: {"nickname": nickname},
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Content-type", "application/json");
+                        xhr.setRequestHeader("Authorization", auth);
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    }
+                });
+            }
         });
     }
 </script>

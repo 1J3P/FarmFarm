@@ -107,7 +107,6 @@ public class FarmController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("");
         }
-        System.out.println("!!!!!!!!!!!!!!! delete !!!!!!!!!!!!!!!");
         model.addAttribute("myFarm", null);
         return ResponseEntity.ok().body("delete OK");
     }

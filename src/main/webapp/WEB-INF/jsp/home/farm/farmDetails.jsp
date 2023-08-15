@@ -153,12 +153,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("삭제 되었습니다.");
-                        location.href="localhost:9000/";
-                        location.href = "http://localhost:9000/";
-                        window.location.href("http://localhost:9000/");
-                        window.location.href = "http://localhost:9000/";
-                        window.location.assign("http://localhost:9000/");
-                        window.location.replace("http://localhost:9000/");
+                        location.href = "http://localhost:9000/myPage";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
