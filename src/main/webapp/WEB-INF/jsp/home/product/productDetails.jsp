@@ -71,8 +71,31 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
+
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        $(function(){
+            var swiper = new Swiper(".swiper", {
+                spaceBetween: 30,
+                centeredSlides: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {     //자동슬라이드 (false-비활성화)
+                    delay: 3500, // 시간 설정
+                    disableOnInteraction: false, // false-스와이프 후 자동 재생
+                },
+            });
+        })
+    </script>
     <script>
         //탭 로직
         document.addEventListener('DOMContentLoaded', function () {
@@ -270,6 +293,10 @@
         #enquiryBtn {
             width: 100%;
         }
+
+        /*.swiper{*/
+        /*    position: inherit;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -293,19 +320,25 @@
         <div data-pagination='{"el": ".swiper-pagination"}'
              class="swiper swiper-slider-wrapper swiper-init demo-swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="${product.image1}" alt="">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../images/slider/slide1.jpg" alt="">
-                </div>
-                <div class="swiper-slide">
-                    <img src="../images/slider/slide1.jpg" alt="">
-                </div>
+                <c:if test="${product.image1 != ''}">
+                    <div class="swiper-slide">
+                        <img src="${product.image1}" alt="">
+                    </div>
+                </c:if>
+                <c:if test="${product.image2 != ''}">
+                    <div class="swiper-slide">
+                        <img src="${product.image2}" alt="">
+                    </div>
+                </c:if>
+                <c:if test="${product.image3 != ''}">
+                    <div class="swiper-slide">
+                        <img src="${product.image3}" alt="">
+                    </div>
+                </c:if>
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        <div class="dz-banner-height"></div>
+<%--        <div class="dz-banner-height"></div>--%>
         <div class="fixed-content py-30">
             <div class="container">
                 <div class="item-info">
