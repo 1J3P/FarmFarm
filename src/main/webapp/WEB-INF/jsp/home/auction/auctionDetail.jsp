@@ -118,7 +118,15 @@
                 <div class="item-info" style="margin-top: -30px">
                     <h4>경매 시작가 1,000원</h4>
                 </div>
-                <div class="auction_time"><h3 class="ac-time" data-date="${product.date}" style="color: #9DBF3F"></h3>
+                <div class="auction_time">
+                    <c:choose>
+                        <c:when test="${product.open_status == 2}">
+                            <h3 class="ac-time" style="color: #9DBF3F"></h3>
+                        </c:when>
+                        <c:otherwise>
+                            <h3 class="ac-time" data-date="${product.date}" style="color: #9DBF3F"></h3>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div style="text-align: center">
                     <h4>${product.detail}</h4>

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class ProductController {
     // 상품 등록
     @ResponseBody
     @PostMapping("")
-    public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) {
+    public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) throws ParseException {
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
         FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");

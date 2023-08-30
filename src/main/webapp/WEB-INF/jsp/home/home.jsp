@@ -171,18 +171,20 @@
                 <h2 class="dz-title my-5">진행 중인 경매</h2>
                 <a href="/product/auction/list"><i class="flaticon-right"></i></a>
             </div>
-            <c:forEach var="auction" items="${auctions}" begin="0" end="1">
-                <div class="item-box" onclick="location.href='/product/${auction.PId}'">
-                    <div class="item-media">
-                        <img src= ${auction.image1} alt=""/>
+            <c:forEach var="product" items="${auctions}" begin="0" end="1">
+                <c:if test="${product.open_status != 2}">
+                    <div class="item-box" onclick="location.href='/product/${product.PId}'">
+                        <div class="item-media">
+                            <img src= ${product.image1} alt=""/>
+                        </div>
+                        <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3></div>
+                        <div class="item-content">
+                            <h5>${product.farm.name}</h5>
+                            <h3 class="title">${product.name}</h3>
+                            <h4 class="price">경매 시작가 ${product.price}원</h4>
+                        </div>
                     </div>
-                    <div class="auction_time"><h3 class="ac-time" data-date="${auction.date}"></h3></div>
-                    <div class="item-content">
-                        <h5>${auction.farm.name}</h5>
-                        <h3 class="title">${auction.name}</h3>
-                        <h4 class="price">경매 시작가 ${auction.price}원</h4>
-                    </div>
-                </div>
+                </c:if>
             </c:forEach>
             <c:if test="${auctions.size() == 0}">
                 <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>

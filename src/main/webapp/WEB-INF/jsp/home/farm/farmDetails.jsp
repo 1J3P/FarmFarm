@@ -269,23 +269,25 @@
                         <c:set var="auctionCount" value="0"/>
                         <h4>진행 중인 경매</h4>
                         <c:forEach var="product" items="${productList}">
-                            <c:if test="${product.auction}">
-                                <c:set var="auctionCount" value="${auctionCount + 1}"/>
-                                <div class="item-box" onclick="location.href='/product/${product.PId}'">
-                                    <div class="item-media">
-                                        <img src=${product.image1}
-                                                     alt=""/>
+                            <c:if test="${product.open_status != 2}">
+                                <c:if test="${product.auction}">
+                                    <c:set var="auctionCount" value="${auctionCount + 1}"/>
+                                    <div class="item-box" onclick="location.href='/product/${product.PId}'">
+                                        <div class="item-media">
+                                            <img src=${product.image1}
+                                                         alt=""/>
+                                        </div>
+                                        <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
+                                        </div>
+                                        <div class="item-content">
+                                            <h5>${product.farm.name}</h5>
+                                            <h3 class="title">
+                                                <a href="/home/auction/auctionDetail">${product.name}</a>
+                                            </h3>
+                                            <h4 class="price">경매 시작가 1,000원</h4>
+                                        </div>
                                     </div>
-                                    <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
-                                    </div>
-                                    <div class="item-content">
-                                        <h5>${product.farm.name}</h5>
-                                        <h3 class="title">
-                                            <a href="/home/auction/auctionDetail">${product.name}</a>
-                                        </h3>
-                                        <h4 class="price">경매 시작가 1,000원</h4>
-                                    </div>
-                                </div>
+                                </c:if>
                             </c:if>
                         </c:forEach>
                         <c:if test="${auctionCount == 0}">
