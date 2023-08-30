@@ -543,7 +543,8 @@
                                                 <c:if test="${group.capacity eq 1}">
                                                     <div class="group_1">
                                                         <h5 class="group_2">1명 남음</h5>
-                                                        <h5 class="group_2">23:54:36</h5>
+                                                        <h5 class="group_2" name = "remain_time"></h5>
+                                                        <input type="hidden" name="back_time" value="${group.created_at}">
                                                     </div>
                                                     <div class="group_1">
                                                         <button class="parti" name="group_attend"
@@ -682,8 +683,36 @@
 
             })
         }
-
-
+        function updateCountdown() {
+            let backTimestamp;
+            let timeRemaining;
+            let seconds;
+            let minutes;
+            let hours;
+            var remains = document.getElementsByName("remain_time");
+            for (let i = 0; i < remains.length; i++) {
+                let now = new Date();
+                var timestampString = document.getElementsByName("back_time")[i].value;
+                const parts = timestampString.split(/[- :.]/);
+                backTimestamp = new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+                console.log("백엔드 시간 : " + backTimestamp);
+                console.log("지금 시간 : " + now);
+                timeRemaining = backTimestamp - now + (24 * 60 * 60 * 1000);
+                console.log("남은 시간 : " + timeRemaining);
+                if (timeRemaining <= 0) {
+                    //공구 종료되었다는식으로 떠야함
+                } else {
+                    seconds = Math.floor(timeRemaining / 1000) % 60;
+                    minutes = Math.floor(timeRemaining / (1000 * 60)) % 60;
+                    hours = Math.floor(timeRemaining / (1000 * 60 * 60)) % 24;
+                }
+                let countdownString = hours + ':' + minutes + ':' + seconds;
+                remains[i].innerText = countdownString;
+            }
+        }
+        updateCountdown();
+        // 1초마다 업데이트
+        setInterval(updateCountdown, 1000);
     };
 </script>
 </html>
