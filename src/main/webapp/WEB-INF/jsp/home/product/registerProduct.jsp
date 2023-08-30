@@ -237,9 +237,18 @@
                     var obj = JSON.parse(json);
                     var str = '<img src="' + obj.fileurl + '"></img>';
                     myImg.innerHTML += str;
-                    img1.setAttribute("value", obj.fileurl);
-                    img2.setAttribute("value", obj.fileurl);
-                    img3.setAttribute("value", obj.fileurl);
+                    console.log(img1.getAttribute("value"))
+                    if (!img1.getAttribute("value")) {
+                        console.log("aaaaaaaaaaa");
+                        img1.setAttribute("value", obj.fileurl);
+                    } else if (!img2.getAttribute("value")) {
+                        console.log("bbbbbbbbbbbb");
+                        img2.setAttribute("value", obj.fileurl);
+                    } else if (!img3.getAttribute("value")) {
+                        console.log("cccccccccccc");
+                        img3.setAttribute("value", obj.fileurl);
+                    }
+
                     fileInput.setAttribute("name", obj.fileurl);
                 },
 
@@ -267,14 +276,39 @@
         $("#openBtn").on("click", function (){
             var formsubmitSerialArray = $("#form").serializeArray();
             var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+            console.log(formsubmitSerialArray);
+            console.log(formsubmitSerialArray[0]);
+            console.log(formsubmitSerialArray[1]);
+            console.log(formsubmitSerialArray[2]);
+            console.log(formsubmitSerialArray[3]);
+            console.log(formsubmitSerialArray[4]);
+            console.log(formsubmitSerialArray[formsubmitSerialArray.length - 1]);
+
+            if (formsubmitSerialArray[0].value.trim() === "") {
+                alert("내용을 모두 입력해주세요.");
+                return;
+            }
 
             var hasEmptyFields = false;
-            for (var i = 0; i < formsubmitSerialArray.length; i++) {
-                if (formsubmitSerialArray[i].value.trim() === "") {
-                    hasEmptyFields = true;
-                    break;
+            if (formsubmitSerialArray[0].value.trim() == '0' || formsubmitSerialArray[0].value.trim() == '1') {
+                for (var i = 4; i < formsubmitSerialArray.length - 3; i++) {
+                    if (formsubmitSerialArray[i].value.trim() === "") {
+                        console.log("입력 안한곳 : " + i)
+                        hasEmptyFields = true;
+                        break;
+                    }
                 }
             }
+            else {
+                for (var i = 0; i < formsubmitSerialArray.length - 3; i++) {
+                    if (formsubmitSerialArray[i].value.trim() === "") {
+                        hasEmptyFields = true;
+                        break;
+                    }
+                }
+            }
+
+
 
             if (hasEmptyFields) {
                 alert("내용을 모두 입력해주세요.");
