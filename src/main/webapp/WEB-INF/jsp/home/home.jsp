@@ -72,7 +72,29 @@
             rel="stylesheet"
     />
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        $(function(){
+            var swiper = new Swiper(".swiper-container", {
+                spaceBetween: 30,
+                centeredSlides: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {     //자동슬라이드 (false-비활성화)
+                    delay: 3500, // 시간 설정
+                    disableOnInteraction: false, // false-스와이프 후 자동 재생
+                },
+            });
+        })
+    </script>
     <style>
         table {
             border-collapse: collapse;
@@ -90,6 +112,11 @@
         th[scope="row"] {
             width: 7%;
             color: #94C015;
+        }
+
+        .swiper-container {
+            overflow: hidden; /* 슬라이드 영역을 가려진 상태로 유지 */
+            position: relative;
         }
     </style>
 </head>
@@ -109,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="banner">
+            <div class="banner swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="post-card">
@@ -121,7 +148,28 @@
                             </div>
                         </div>
                     </div>
+                    <div class="swiper-slide">
+                        <div class="post-card">
+                            <div class="post-media">
+                                <img src="../images/banner_image.png" alt=""/>
+                                <div class="banner-text">
+                                    <h2>신선하게 공수한<br>방울 토마토 400g</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="post-card">
+                            <div class="post-media">
+                                <img src="../images/banner_image.png" alt=""/>
+                                <div class="banner-text">
+                                    <h2>신선하게 공수한<br>방울 토마토 300g</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="swiper-pagination" style="bottom: 30px"></div>
             </div>
 
             <div class="title-bar mb-15">
