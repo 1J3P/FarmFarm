@@ -32,6 +32,8 @@ public class OrderController {
     private GroupService groupService;
     @Autowired
     private AuctionService auctionService;
+    @Autowired
+    private PaymentController paymentController;
 
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
@@ -165,6 +167,18 @@ public class OrderController {
         List<OrderEntity> auctionList = orderService.getMyAuctionList(user);
         mav.addObject("auctionList", auctionList);
         return mav;
+    }
+
+    @ResponseBody
+    @GetMapping("/auction/cancel/{oId}")
+    public void cancelJoinedAuction(@PathVariable("oId") long oId) {
+        System.out.println("ORDER ID : " + oId);
+        Long paId = orderService.getOrder(oId).getOrders().get(0).getAuction().getPaId();
+        paymentController.refund(paId);
+        System.out.println("취소 성공");
+        orderService.getOrder(oId).setStatus("결제 취소");
+        orderService.getOrder(oId).getOrders().get(0).getAuction().setStatus("경매 취소");
+        orderService.createOrder(orderService.getOrder(oId));
     }
 
 }
