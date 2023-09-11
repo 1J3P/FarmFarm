@@ -120,17 +120,13 @@
                 url += (selectedValue ? '&' : '?') + 'keyword=' + encodeURIComponent(inputValue);
             }
 
-            // Store the selected option in localStorage
             localStorage.setItem("selectedOption", selectedValue);
-
-            // Redirect to the constructed URL
             window.location.href = url;
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             const sortSelect = document.querySelector('.sort_type select');
 
-            // Retrieve and set the selected option from localStorage
             const selectedOption = localStorage.getItem("selectedOption");
             if (selectedOption) {
                 sortSelect.value = selectedOption;
