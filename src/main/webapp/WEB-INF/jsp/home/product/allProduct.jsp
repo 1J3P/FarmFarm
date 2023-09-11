@@ -75,6 +75,30 @@
             text-align: center;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var sortSelect = document.getElementById("sortSelect");
+            var selectedOption = localStorage.getItem("selectedOption");
+            if (selectedOption) {
+                sortSelect.value = selectedOption;
+            }
+
+            sortSelect.addEventListener("change", function() {
+                var selectedValue = sortSelect.value;
+
+                if (selectedValue) {
+                    localStorage.setItem("selectedOption", selectedValue);
+                    var url;
+                    if (selectedValue === "new") {
+                        url = "http://localhost:9000/product/list";
+                    } else {
+                        url = "http://localhost:9000/product/list?sort=" + selectedValue;
+                    }
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -98,11 +122,11 @@
                 </div>
                 <div class="sort">
                     <div class="sort_type">
-                        <select>
-                            <option>인기순</option>
-                            <option>신상품순</option>
-                            <option>낮은 가격순</option>
-                            <option>높은 가격순</option>
+                        <select id="sortSelect">
+                            <option value="new">신상품순</option>
+                            <option value="rating">인기순</option>
+                            <option value="lowPrice">낮은 가격순</option>
+                            <option value="highPrice">높은 가격순</option>
                         </select>
                     </div>
                 </div>
