@@ -121,37 +121,42 @@
                                style="margin-top: 48%;">경매 물품 보러가기</a>
                         </div>
                     </c:if>
-                    <c:forEach var="product" items="${auctionList}">
+                    <c:forEach var="order" items="${auctionList}">
                         <li class="swipeout cart-item" style="border-bottom: 1px solid; border-bottom-style: inset;">
                             <div class="item-content swipeout-content">
                                 <div class="item-inner">
                                     <div class="item-media">
-                                        <img src="${product.orders.get(0).product.image1}" alt="">
+                                        <img src="${order.orders.get(0).product.image1}" alt="">
                                     </div>
                                     <div class="item-info">
-                                        <c:if test="${not empty product.orders}">
+                                        <c:if test="${not empty order.orders}">
                                             <div class="item-head">
-                                                <h6 class="category">${product.orders.get(0).product.farm.name}</h6>
+                                                <h6 class="category">${order.orders.get(0).product.farm.name}</h6>
                                                 <h6 class="category" style="float:right; margin-right:45px">
                                                     <fmt:formatDate pattern="yyyy.MM.dd"
-                                                                    value="${product.created_at}"/></h6>
+                                                                    value="${order.created_at}"/></h6>
                                                 <h2 class="item-title"><a
-                                                        href="/product/${product.orders.get(0).product.PId}">${product.orders.get(0).product.name}</a>
+                                                        href="/product/${order.orders.get(0).product.PId}">${order.orders.get(0).product.name}</a>
                                                 </h2>
                                                 <h5 class="item-title">
-                                                    <span>${product.orders.get(0).auction.price}</span>원</h5>
+                                                    <span>${order.orders.get(0).auction.price}</span>원</h5>
                                                 <h6 class="category"
-                                                    style="color: #4D9EE9; float:right; margin-right:45px">${product.orders.get(0).auction.status}</h6>
+                                                    style="color: #4D9EE9; float:right; margin-right:45px">${order.orders.get(0).auction.status}</h6>
                                             </div>
                                             <div class="item-foot">
-                                                <h3 class="text-primary item-total"><span>${product.total_price}</span>원
+                                                <h3 class="text-primary item-total"><span>${order.total_price}</span>원
                                                 </h3>
                                                 <div class="stepperForOrderList stepper-small stepper-round stepper-init">
                                                     <div class="stepper-input-wrap stepperFont">
-                                                        X <span>${product.total_quantity}</span>
+                                                        X <span>${order.total_quantity}</span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <c:if test="${order.orders.get(0).auction.status == '경매 진행중'}">
+                                                <button type="button" class="button-large button button-fill" onclick="cancelAuction(${order.OId})">
+                                                    경매 취소하기
+                                                </button>
+                                            </c:if>
                                         </c:if>
                                     </div>
                                 </div>
@@ -167,5 +172,27 @@
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
+<script>
+    function cancelAuction(oId) {
+        // 알림 창을 표시하여 사용자의 확인을 받습니다.
+        if (confirm("경매를 취소하시겠습니까?")) {
+            $.ajax({
+                url: "/order/auction/cancel/" + oId,
+                type: "GET",
+                data: oId,
+                dataType: "text",
+                async: true,
+                success: function() {
+                    alert("경매가 취소되었습니다.");
+                    location.href="/order/auction";
+                },
+                error: function(error) {
+                    console.error(error);
+                    alert("경매 취소 요청을 처리할 수 없습니다.");
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="item-info" style="margin-top: -30px">
-                    <h4>경매 시작가 1,000원</h4>
+                    <h4>경매 시작가 ${product.price}원</h4>
                 </div>
                 <div class="auction_time">
                     <c:choose>
