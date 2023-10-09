@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="item-info" style="margin-top: -30px">
-                    <h4>경매 시작가 ${product.price}원</h4>
+                    <h4>경매 시작가 ${product.price}원  /  최대 수량 ${product.quantity}개</h4>
                 </div>
                 <div class="auction_time">
                     <c:choose>
@@ -200,7 +200,19 @@
         $("#joinAuction").on("click", function () {
             var quantity = document.getElementById("quantity").value;
             var price = document.getElementById("price").value;
+            var registered_quantity = ${product.quantity};
+            var min_price = ${product.price};
             var pId = ${p_id};
+
+            if (quantity > registered_quantity) {
+                alert("구매 가능 수량을 초과하셨습니다.");
+                return;
+            }
+            if (price < min_price) {
+                alert("최소 금액보다 높은 금액을 입력해주세요.");
+                return;
+            }
+
             location.href = "/order/product/" + pId + "?quantity=" + quantity + "&price=" + price;
         });
     };
