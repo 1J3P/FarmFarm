@@ -124,13 +124,13 @@
             position: relative;
             height:580px;
         }
-        .cart-list div{
-            position: absolute;
-            left: 50%;
-            top: 40%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
+        /*.cart-list div{*/
+        /*    position: absolute;*/
+        /*    left: 50%;*/
+        /*    top: 40%;*/
+        /*    transform: translate(-50%, -50%);*/
+        /*    text-align: center;*/
+        /*}*/
         .cart-list a{
             width:90%;
             position: absolute;
