@@ -128,12 +128,6 @@
                 <div class="info">
                     <h1 class="title"><img src="../images/farmfarm_logo2.png"></h1>
                 </div>
-                <div class="media">
-                    <a href="/" class="notibell">
-                        <i class="fa fa-bell"></i>
-                        <div class="badge"></div>
-                    </a>
-                </div>
             </div>
 
             <div class="banner swiper-container">

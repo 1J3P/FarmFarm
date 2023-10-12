@@ -1,11 +1,7 @@
 package com.example.farmfarm.Controller;
 
-import com.example.farmfarm.Entity.FarmEntity;
-import com.example.farmfarm.Entity.ProductEntity;
-import com.example.farmfarm.Entity.UserEntity;
-import com.example.farmfarm.Service.FarmService;
-import com.example.farmfarm.Service.ProductService;
-import com.example.farmfarm.Service.UserService;
+import com.example.farmfarm.Entity.*;
+import com.example.farmfarm.Service.*;
 import org.apache.http.protocol.ResponseServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

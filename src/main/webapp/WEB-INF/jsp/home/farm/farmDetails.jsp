@@ -86,6 +86,37 @@
             display: none;
         }
 
+        #tab-4 > div{
+            margin:1em 0;
+        }
+        #tab-4 table{
+            border-top:1px solid #d9d9d9;
+            border-bottom:1px solid #d9d9d9;
+            border-collapse: collapse;
+            width:100%;
+        }
+        #tab-4 th,
+        #tab-4 td{
+            padding-right:50px;
+        }
+        #tab-4 th:last-of-type,
+        #tab-4 td:last-of-type{
+            padding-right:0;
+        }
+        #tab-4 tr{
+            text-align: center;
+            border-top:1px solid #d9d9d9;
+            height:50px;
+        }
+        #tab-4 button{
+            width:50px;
+            border:none;
+            background: #94C015;
+            color:#fff;
+            padding:6px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         .sell-product-options {
             font-weight: bold;
             font-size: 16px;
@@ -110,7 +141,13 @@
             font-weight: bold;
         }
 
-    </style>
+        .transaction_status_select{
+            -webkit-appearance: inherit;
+            appearance: inherit;
+            border: inherit;
+        }
+
+</style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
@@ -160,6 +197,66 @@
                         alert("삭제 요청을 처리할 수 없습니다.");
                     }
                 });
+            }
+        }
+
+        function toggleEditMode(button) {
+            var row = button.closest('tr');
+            var editButton = row.querySelector('.edit_btn');
+            var statusCell = row.querySelector('.transaction_status');
+            var invoiceCell = row.querySelector('.tracking_number');
+
+            if (editButton.textContent === '수정') {
+                // Change the button text to "저장"
+                editButton.textContent = '저장';
+
+                // Create a dropdown select element
+                var select = document.createElement('select');
+                var options = ['상품준비', '배송중', '배송완료'];
+                options.forEach(function(option) {
+                    var optionElement = document.createElement('option');
+                    optionElement.text = option;
+                    select.add(optionElement);
+                });
+
+                // Set the current status as the selected value
+                select.value = statusCell.textContent;
+                select.style.appearance = "button";
+
+                // Replace the text with the select element
+                statusCell.textContent = '';
+                statusCell.appendChild(select);
+
+                // Show or hide the invoice input based on the selected status
+                select.addEventListener('change', function() {
+                    var selectedStatus = select.value;
+                    if (selectedStatus === '배송중' || selectedStatus === '배송완료') {
+                        invoiceCell.querySelector('input').style.display = 'block';
+                    }
+                    else {
+                        invoiceCell.querySelector('input').style.display = 'none';
+                        invoiceCell.querySelector('p').style.display = 'none';
+                    }
+
+                    if (editButton.textContent === '수정'){
+                        invoiceCell.querySelector('input').style.display = 'none';
+                        invoiceCell.querySelector('p').style.display = 'block';
+                    }
+                });
+            } else {
+                // Change the button text back to "수정"
+                editButton.textContent = '수정';
+
+                // Update the status with the selected value from the dropdown
+                statusCell.textContent = statusCell.querySelector('select').value;
+
+                // Update the invoice value
+                var invoiceInput = invoiceCell.querySelector('input');
+                var invoiceText = invoiceCell.querySelector('p');
+
+                invoiceInput.style.display = 'none';
+                invoiceText.style.display = 'block';
+                invoiceText.textContent = invoiceInput.value;
             }
         }
 
@@ -218,6 +315,7 @@
                         <a href="#tab-1" class="tab-link tab-link-active">농장 설명</a>
                         <a href="#tab-2" class="tab-link">판매 상품</a>
                         <a href="#tab-3" class="tab-link">경매</a>
+                        <a href="#tab-4" class="tab-link">내 상품 구매자 조회</a>
                     </div>
                 </div>
                 <div class="tabs-swipeable-wrap tabs-height-auto">
@@ -293,6 +391,38 @@
                         <c:if test="${auctionCount == 0}">
                             <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
                         </c:if>
+                    </div>
+                </div>
+                <div id="tab-4" class="tab">
+                    <div class="col-50 medium-25">
+                        <table>
+                            <th>상품명</th>
+                            <th>구매자 이름</th>
+                            <th>상품 수량</th>
+                            <th>거래 방법</th>
+                            <th>거래 상태</th>
+                            <th>송장번호</th>
+                            <th style="padding-right: 20px">거주지</th>
+                            <th>상태</th>
+                            <tr>
+                                <td>맛있는 사과</td>
+                                <td>김솜솜</td>
+                                <td>5</td>
+                                <td>배송</td>
+                                <td class="transaction_status">상품준비</td>
+                                <td class="tracking_number">
+                                    <p style="display: none;"></p>
+                                    <input type="text" style="display: none; width:150px">
+                                </td>
+                                <td style="padding-right: 20px"><button>보기</button></td>
+                                <td><button onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
+                            </tr>
+<%--                            <c:forEach var="order" items="${}">--%>
+<%--                                <tr>--%>
+<%--                                    <td>{order.}</td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+                        </table>
                     </div>
                 </div>
             </div>
