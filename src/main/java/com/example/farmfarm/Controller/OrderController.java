@@ -3,8 +3,12 @@ package com.example.farmfarm.Controller;
 import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
+import com.example.farmfarm.Entity.kakaoPay.ApprovePaymentEntity;
+import com.example.farmfarm.Repository.GroupRepository;
+import com.example.farmfarm.Repository.OrderDetailRepository;
 import com.example.farmfarm.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,10 @@ public class OrderController {
     private GroupService groupService;
     @Autowired
     private AuctionService auctionService;
+    @Autowired
+    private PaymentController paymentController;
+    @Autowired
+    private GroupRepository groupRepository;
 
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
@@ -113,6 +122,13 @@ public class OrderController {
         ProductEntity product = productService.getProduct(pId);
         System.out.println("productId:" + product.getPId());
         GroupEntity group = groupService.createGroup(user, product);
+        // created_at 컬럼에 저장된 시간을 가져옵니다.
+        Timestamp createdAt = group.getCreated_at();
+        // 24시간을 추가하여 closed_at 컬럼에 설정합니다.
+        long twentyFourHoursInMillis = 24 * 60 * 60 * 1000; // 24시간을 밀리초로 표현
+        Timestamp closedAt = new Timestamp(createdAt.getTime() + twentyFourHoursInMillis);
+        group.setClosed_at(closedAt);
+        groupRepository.save(group);
         OrderDetailEntity orderDetail = new OrderDetailEntity();
         orderDetail.setGroup(group);
         orderDetail.setProduct(group.getProduct());
@@ -167,4 +183,27 @@ public class OrderController {
         return mav;
     }
 
+    //24시간 후 닫히는 메소드
+    @ResponseBody
+    @DeleteMapping("/group/{gId}")
+    public String closeGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId, Model model) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        GroupEntity group = groupService.getGroup(gId);
+        System.out.println("GID : " + group.getGId());
+        List<OrderDetailEntity> orderdetails = group.getOrderDetails();
+        ProductEntity product = group.getProduct();
+        System.out.println(orderdetails);
+        OrderEntity order = orderdetails.get(0).getOrder();
+        System.out.println("OID : " + order.getOId());
+        ApprovePaymentEntity approvePayment = order.getPayment();
+        System.out.println("APID : " + approvePayment.getPaId());
+        ResponseEntity response = paymentController.refund(approvePayment.getPaId());
+        for (OrderDetailEntity od : orderdetails) {
+            //OrderDetailRepository.delete(od);
+        }
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return "redirect:localhost:9000/product/"+product.getPId();
+        }
+        return "redirect:localhost:9000/index";
+    }
 }

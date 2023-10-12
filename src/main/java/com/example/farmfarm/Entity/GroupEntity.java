@@ -1,5 +1,6 @@
 package com.example.farmfarm.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +31,8 @@ public class GroupEntity {
     @CreationTimestamp
     private Timestamp created_at;
 
+    private Timestamp closed_at;
+
     @ManyToOne
     @JoinColumn(name="product")
     private ProductEntity product;
@@ -35,7 +40,15 @@ public class GroupEntity {
     @ManyToOne
     @JoinColumn(name="user_1")
     private UserEntity user1;
+
     @ManyToOne
     @JoinColumn(name="user_2")
     private UserEntity user2;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "group")
+    private List<OrderDetailEntity> orderDetails = new ArrayList<>();
+
+    private int isClose;
+
 }
