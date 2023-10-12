@@ -206,4 +206,17 @@ public class OrderController {
         }
         return "redirect:localhost:9000/index";
     }
+
+    @ResponseBody
+    @GetMapping("/auction/cancel/{oId}")
+    public void cancelJoinedAuction(@PathVariable("oId") long oId) {
+        System.out.println("ORDER ID : " + oId);
+        Long paId = orderService.getOrder(oId).getOrders().get(0).getAuction().getPaId();
+        paymentController.refund(paId);
+        System.out.println("취소 성공");
+        orderService.getOrder(oId).setStatus("결제 취소");
+        orderService.getOrder(oId).getOrders().get(0).getAuction().setStatus("경매 취소");
+        orderService.createOrder(orderService.getOrder(oId));
+    }
+
 }
