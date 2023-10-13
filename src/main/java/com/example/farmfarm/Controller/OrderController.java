@@ -4,6 +4,7 @@ import com.example.farmfarm.Entity.*;
 import com.example.farmfarm.Entity.Cart.Cart;
 import com.example.farmfarm.Entity.Cart.Item;
 import com.example.farmfarm.Service.*;
+import org.h2.engine.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,8 @@ public class OrderController {
 
     //장바구니에서 주문하기 누르면 오더디테일 객체 세션 저장
     @GetMapping("/cart")
-    public String saveOrderDetailCart(HttpSession session) {
+    public ModelAndView saveOrderDetailCart(HttpSession session) {
+        ModelAndView mav = new ModelAndView("home/product/productShippingAddress");
         List<OrderDetailEntity> details = new ArrayList<>();
         Cart cart = (Cart)session.getAttribute("cart");
         System.out.println(cart.getItemList().get(0));
@@ -55,9 +57,10 @@ public class OrderController {
             }
             orderDetail.setProduct(product);
             details.add(orderDetail);
+            mav.addObject("product", product);
         }
         session.setAttribute("orderDetail", details);
-        return "home/product/productShippingAddress";
+        return mav;
     }
 
     //order 생성! - 이후 결제 진행

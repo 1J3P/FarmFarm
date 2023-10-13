@@ -1,5 +1,6 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.Cart.Item;
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;

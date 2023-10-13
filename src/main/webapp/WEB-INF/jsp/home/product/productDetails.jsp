@@ -394,6 +394,11 @@
                     <div class="tabs">
                         <div id="tab-1" class="tab tab-active">
                             <p>${product.detail}</p>
+                            <p>제품 수령 방식 :
+                                <c:choose>
+                                    <c:when test="${product.direct == false}">배송</c:when>
+                                    <c:when test="${product.direct == true}">직거래</c:when>
+                                </c:choose></p>
                         </div>
                         <div id="tab-2" class="tab">
                             <div class="list media-list review-list">
