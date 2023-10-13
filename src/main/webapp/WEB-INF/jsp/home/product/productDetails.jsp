@@ -184,6 +184,18 @@
                 });
             }
         }
+
+        function clip(){
+            var url = '';
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("URL이 복사되었습니다.")
+        }
     </script>
     <style>
         #tab-2, #tab-3 {
@@ -347,7 +359,7 @@
                         <h2 class="item-title">${product.name}</h2>
                     </div>
                     <div>
-                        <i class="icon flaticon-share"></i>
+                        <i class="icon flaticon-share" onclick="clip(); return false;"></i>
                     </div>
                 </div>
                 <div class="item-info">
