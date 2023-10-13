@@ -211,4 +211,17 @@ public class ProductController {
         model.addAttribute("groups", groups);
     }
 
+    @DeleteMapping("/cart/delete/{p_id}")
+    public ResponseEntity<Object> deleteFromCart(HttpSession session, @PathVariable("p_id") long p_id) {
+        UserEntity user = (UserEntity)session.getAttribute("user");
+        try {
+            Cart cart = (Cart)session.getAttribute("cart");
+            cart.delete(p_id);
+            session.setAttribute("cart", cart);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("exception");
+        }
+        return ResponseEntity.ok().body("장바구니 삭제 완료");
+    }
+
 }

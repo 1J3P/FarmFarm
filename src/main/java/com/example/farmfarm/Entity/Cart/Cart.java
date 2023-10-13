@@ -20,4 +20,13 @@ public class Cart {
         }
         itemList.add(item);
     }
+
+    public void delete(Long p_id) {
+        for (Item i : itemList) {
+            if (i.getP_id() == p_id) {
+                itemList.remove(i);
+                return;
+            }
+        }
+    }
 }

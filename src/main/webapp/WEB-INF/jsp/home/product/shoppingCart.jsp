@@ -94,6 +94,24 @@
                 input.value = currentValue + 1;
             }
         }
+
+        function confirmAndDeleteCart(pid) {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 보냅니다.
+                $.ajax({
+                    url: "/product/cart/delete/" + pid,
+                    type: "DELETE",
+                    success: function (response) {
+                        alert("상품이 장바구니에서 삭제되었습니다.");
+                        window.location.href = "http://localhost:9000/product/cart";
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("삭제 요청을 처리할 수 없습니다.");
+                    }
+                });
+            }
+        }
     </script>
 </head>
 <body>
@@ -136,7 +154,7 @@
                                         <div class="item-info">
                                             <div class="item-head">
                                                 <h6 class="category" style="float: left;">${item.product.farm.name}</h6>
-                                                <i class="fa-regular fa-trash-can" style="float: right;"></i>
+                                                <i class="fa-regular fa-trash-can" style="float: right;" onclick="confirmAndDeleteCart(${item.product.PId})"></i>
                                                 <div style="clear:both; font-weight: bold"></div>
                                                 <h2 class="item-title"><a
                                                         href="/product/${item.p_id}">${item.product.name}</a></h2>
