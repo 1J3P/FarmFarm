@@ -118,6 +118,10 @@
             overflow: hidden; /* 슬라이드 영역을 가려진 상태로 유지 */
             position: relative;
         }
+
+        .col-50{
+            margin-right:12px;
+        }
     </style>
 </head>
 <body>
