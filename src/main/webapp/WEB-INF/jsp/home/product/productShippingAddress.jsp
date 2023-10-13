@@ -134,28 +134,37 @@
                                         </div>
                                         <h4>거래 방식</h4>
                                         <div class="item-input-wrap">
-                                            <label><input type="radio" id="true" name="delivery" value="true" checked/>배송</label>
-                                            <label><input type="radio" id="false" name="delivery"
-                                                          value="false"/>직거래</label>
-                                            <div class="check-delivery" style="margin-top:40px;">
-                                                <h4>배송 요청사항</h4>
-                                                <div class="item-input-wrap">
-                                                    <input type="email" name="delivery_memo"
-                                                           placeholder="배송 요청 사항을 입력하세요" id="email"
-                                                           class="form-control"/>
-                                                </div>
-                                                <h4>주소</h4>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="delivery_address" placeholder="주소를 입력하세요"
-                                                           id="address" class="form-control"/>
-                                                </div>
-                                                <h4>상세 주소</h4>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="delivery_address_detail"
-                                                           placeholder="상세 주소를 입력하세요" id="zip_code"
-                                                           class="form-control"/>
-                                                </div>
-                                            </div>
+                                            <c:choose>
+                                                <c:when test="${product.direct == false}">
+                                                    <label><input type="radio" id="true" name="delivery" value="true" checked/>배송</label>
+                                                    <label><input type="radio" id="false" name="delivery"
+                                                                  value="false" disabled/>직거래</label>
+                                                    <div class="check-delivery" style="margin-top:40px;">
+                                                        <h4>배송 요청사항</h4>
+                                                        <div class="item-input-wrap">
+                                                            <input type="email" name="delivery_memo"
+                                                                   placeholder="배송 요청 사항을 입력하세요" id="email"
+                                                                   class="form-control"/>
+                                                        </div>
+                                                        <h4>주소</h4>
+                                                        <div class="item-input-wrap">
+                                                            <input type="text" name="delivery_address" placeholder="주소를 입력하세요"
+                                                                   id="address" class="form-control"/>
+                                                        </div>
+                                                        <h4>상세 주소</h4>
+                                                        <div class="item-input-wrap">
+                                                            <input type="text" name="delivery_address_detail"
+                                                                   placeholder="상세 주소를 입력하세요" id="zip_code"
+                                                                   class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <label><input type="radio" id="true_" name="delivery" value="true" disabled/>배송</label>
+                                                    <label><input type="radio" id="false_" name="delivery"
+                                                                  value="false" checked/>직거래</label>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                     </div>
                                 </li>
