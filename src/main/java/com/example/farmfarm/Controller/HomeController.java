@@ -37,6 +37,7 @@ public class HomeController {
                 return "redirect:http://localhost:9000/";
             }
             else if (session.getAttribute("user") == null){
+                System.out.println("/kakao로 redirect!!!");
                 return "redirect:/kakao";
             }
             return "redirect:/kakao";
@@ -44,6 +45,27 @@ public class HomeController {
             return "redirect:/kakao";
         }
     }
+
+    @GetMapping("/popup")
+    public String popup(HttpServletRequest request, HttpSession session) {
+        return "jusoPopup";
+    }
+    @PostMapping("/popup")
+    public String popupPost(HttpServletRequest request, String inputYn, HttpSession session, Model model) {
+        System.out.println("popupPost 요청");
+        String siNm = request.getParameter("siNm");
+        String sggNm = request.getParameter("sggNm");
+        String roadAddrPart1 = request.getParameter("roadAddrPart1");
+        String addrDetail = request.getParameter("addrDetail");
+        model.addAttribute("siNm", siNm);
+        model.addAttribute("sggNm", sggNm);
+        model.addAttribute("roadAddrPart1", roadAddrPart1);
+        model.addAttribute("addrDetail", addrDetail);
+        model.addAttribute("inputYn", inputYn);
+        System.out.println(siNm + " " + sggNm + " " + roadAddrPart1 + " " + addrDetail);
+        return "jusoPopup";
+    }
+
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
@@ -108,6 +130,11 @@ public class HomeController {
 
     @GetMapping("/myPage")
     public ModelAndView myPage(HttpSession session, Model model) {
+        if (session.getAttribute("user") == null){
+            System.out.println("/kakao로 redirect!!!");
+            ModelAndView mav = new ModelAndView("common/index");
+            return mav;
+        }
         ModelAndView mav = new ModelAndView("myPage/myPage");
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);

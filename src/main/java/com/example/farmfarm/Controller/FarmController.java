@@ -67,6 +67,7 @@ public class FarmController {
         List<ProductEntity> productList = productService.getFarmProduct(farm);
         ModelAndView mav = new ModelAndView("home/farm/farmDetails");
         mav.addObject("farm", farm);
+        System.out.println(farm.getLocationFull());
         mav.addObject("productList", productList);
         return mav;
     }
