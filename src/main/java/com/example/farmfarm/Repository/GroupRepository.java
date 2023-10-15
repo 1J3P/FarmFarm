@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GroupRepository extends CrudRepository<GroupEntity, Integer> {
     public GroupEntity findBygId(Long gId);
-    public List<GroupEntity> findAll();
+    public List<GroupEntity> findAllByIsClose(int close);
 
     public List<GroupEntity> findAllByUser1(UserEntity user);
 

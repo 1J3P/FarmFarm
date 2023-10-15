@@ -31,6 +31,8 @@ public class PaymentController {
     private PaymentService paymentService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @PostMapping("/order/{oId}")
@@ -62,6 +64,8 @@ public class PaymentController {
                 od.getAuction().setPaId(kakaoApprove.getPaId());
             }
         }
+        order.setPayment(kakaoApprove);
+        orderRepository.save(order);
         order.setStatus("결제 완료");
         orderService.createOrder(order);
         ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
@@ -86,6 +90,7 @@ public class PaymentController {
     @PostMapping("/refund/{paId}")
     public ResponseEntity<Object> refund(@PathVariable("paId") long paId) {
         ApprovePaymentEntity approve = paymentService.getApprovePayment(paId);
+        System.out.println("PAID : " + paId);
         RefundPaymentEntity kakaoCancelResponse = paymentService.kakaoRefund(approve);
         // 결제 취소 시 quantity  증가, sales 감소
         OrderEntity order = orderService.getOrder(Long.parseLong(approve.getPartner_order_id()));

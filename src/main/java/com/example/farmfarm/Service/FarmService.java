@@ -3,17 +3,13 @@ package com.example.farmfarm.Service;
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Repository.FarmRepository;
-import com.example.farmfarm.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class FarmService {
@@ -58,6 +54,10 @@ public class FarmService {
         }
     }
 
+    public List<FarmEntity> searchByLocation(String locationCity, String locationGu) {
+        return farmRepository.findAllByLocationCityAndLocationGu(locationCity, locationGu);
+    }
+
     // 농장 상세 조회
     public FarmEntity getFarm(Long fId) {
         FarmEntity fa = farmRepository.findByfIdAndStatusLike(fId, "yes");
@@ -83,8 +83,10 @@ public class FarmService {
         if (Objects.equals(user.getUId(), newFarm.getUser().getUId())){
             // 수정되는 것들  (농장 이름, 위치-시, 위치-구, 상세, 이미지, 경매시간, 경매 참여 여부, 생성 시간?)
             newFarm.setName(farm.getName());
-            newFarm.setLocation_city(farm.getLocation_city());
-            newFarm.setLocation_gu(farm.getLocation_gu());
+            newFarm.setLocationCity(farm.getLocationCity());
+            newFarm.setLocationGu(farm.getLocationGu());
+            newFarm.setLocationFull(farm.getLocationFull());
+            newFarm.setLocationDetail(farm.getLocationDetail());
             newFarm.setDetail(farm.getDetail());
             newFarm.setImage(farm.getImage());
             newFarm.setAuction_time(farm.getAuction_time());

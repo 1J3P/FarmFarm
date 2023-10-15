@@ -589,22 +589,25 @@
                                                 </c:if>
                                             </div> &nbsp;&nbsp;&nbsp;&nbsp;
                                             <p>${group.user1.nickname} (${2 - group.capacity}/2)</p>
-                                            <div class="right">
+                                            <div class="right" name="ChangeByGroupStatus" data-group-id="${group.GId}">
                                                 <c:if test="${group.capacity eq 1}">
                                                     <div class="group_1">
                                                         <h5 class="group_2">1명 남음</h5>
                                                         <h5 class="group_2" name = "remain_time"></h5>
-                                                        <input type="hidden" name="back_time" value="${group.created_at}">
+                                                        <input type="hidden" name="back_time" value="${group.closed_at}">
                                                     </div>
                                                     <div class="group_1">
                                                         <button class="parti" name="group_attend"
                                                                 onclick="groupAttend(${group.GId})">주문 참여
                                                         </button>
                                                     </div>
-                                                    <input type="hidden" id="groupId">
+                                                    <input type="hidden" id="groupId" class="groupId">
                                                 </c:if>
                                                 <c:if test="${group.capacity eq 0}">
                                                     <p>공동구매완료</p>
+                                                </c:if>`
+                                                <c:if test="${group.isClose eq 1}">
+                                                    <p>공동구매종료</p>
                                                 </c:if>
                                             </div>
                                         </div>
@@ -740,6 +743,8 @@
             let minutes;
             let hours;
             var remains = document.getElementsByName("remain_time");
+            var pId = ${p_id};
+            console.log("remain length : " + remains.length);
             for (let i = 0; i < remains.length; i++) {
                 let now = new Date();
                 var timestampString = document.getElementsByName("back_time")[i].value;
@@ -747,10 +752,15 @@
                 backTimestamp = new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
                 console.log("백엔드 시간 : " + backTimestamp);
                 console.log("지금 시간 : " + now);
-                timeRemaining = backTimestamp - now + (24 * 60 * 60 * 1000);
+                timeRemaining = backTimestamp - now;
                 console.log("남은 시간 : " + timeRemaining);
-                if (timeRemaining <= 0) {
-                    //공구 종료되었다는식으로 떠야함
+                let remain = remains[i];
+                let parentDiv = remain.closest(".right");
+
+                if (timeRemaining <= 0) { //원래는 0
+                    parentDiv.innerHTML = "공동구매종료";
+                    let groupId = parentDiv.getAttribute("data-group-id");
+                    console.log("gid : " + groupId);
                 } else {
                     seconds = Math.floor(timeRemaining / 1000) % 60;
                     minutes = Math.floor(timeRemaining / (1000 * 60)) % 60;

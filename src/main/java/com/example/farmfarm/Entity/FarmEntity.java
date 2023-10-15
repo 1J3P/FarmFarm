@@ -21,8 +21,10 @@ public class FarmEntity {
     @Column(name="f_id")
     private Long fId;
     private String name;
-    private String location_city;
-    private String location_gu;
+    private String locationCity;
+    private String locationGu;
+    private String locationFull;
+    private String locationDetail;
     private String detail;
     private Double rating;
     private String image;
@@ -40,11 +42,13 @@ public class FarmEntity {
     private String status;
 
     @Builder
-    public FarmEntity(Long fId, String name, String location_city, String location_gu, String detail, Double rating, String image, int auction_time, boolean auction, Timestamp created_at) {
+    public FarmEntity(Long fId, String name, String locationCity, String locationGu, String locationFull, String location_detail, String detail, Double rating, String image, int auction_time, boolean auction, Timestamp created_at) {
         this.fId = fId;
         this.name = name;
-        this.location_city = location_city;
-        this.location_gu = location_gu;
+        this.locationCity = locationCity;
+        this.locationGu = locationGu;
+        this.locationFull = locationFull;
+        this.locationDetail = location_detail;
         this.detail = detail;
         this.rating = rating;
         this.image = image;

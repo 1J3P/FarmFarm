@@ -3,8 +3,10 @@ package com.example.farmfarm.Service;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.farmfarm.Controller.PaymentController;
 import com.example.farmfarm.Entity.AuctionEntity;
+import com.example.farmfarm.Entity.GroupEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Repository.AuctionRepository;
+import com.example.farmfarm.Repository.GroupRepository;
 import com.example.farmfarm.Repository.ProductRepository;
 import org.apache.jasper.compiler.JspUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +32,8 @@ public class SchedulerService {
     private ProductRepository productRepository;
     @Autowired
     private AuctionRepository auctionRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     //@Scheduled(cron = "0 0 * * * *")
 //    public void openAuction() throws ParseException {
@@ -93,6 +98,17 @@ public class SchedulerService {
                         }
                     }
                 }
+            }
+        }
+    }
+    @Scheduled(cron = "0 * * * * *")
+    public void closeGroup(){
+        List<GroupEntity> groups = groupRepository.findAllByIsClose(0);
+        Date currentTime = new Date();
+        for (GroupEntity group : groups) {
+            if (group.getClosed_at() != null && group.getClosed_at().before(currentTime)) {
+                group.setIsClose(1);
+                groupRepository.save(group);
             }
         }
     }

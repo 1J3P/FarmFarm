@@ -20,6 +20,7 @@ public class GroupService {
             group.setProduct(product);
             group.setUser1(user);
             group.setCapacity(1);
+            group.setIsClose(0);
             return groupRepository.save(group);
         }
         return null; //TODO:나중에 에러 처리 해야할듯

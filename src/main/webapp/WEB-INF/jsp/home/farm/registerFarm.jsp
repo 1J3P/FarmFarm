@@ -121,6 +121,29 @@
         }
       });
     });
+    function goPopup(){
+      // 주소검색을 수행할 팝업 페이지를 호출합니다.
+      // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+      var pop = window.open("/popup","pop","scrollbars=yes, resizable=yes");
+
+      // 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+      //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes");
+    }
+    function jusoCallBack(roadAddrPart1, addrDetail, siNm, sggNm){
+      // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+      console.log(roadAddrPart1);
+      document.querySelector("#location_full").value = roadAddrPart1;
+      document.querySelector("#location_detail").value = addrDetail;
+      document.querySelector("#location_city").value = siNm;
+      document.querySelector("#location_gu").value = sggNm;
+      console.log("전체 주소 ! " + roadAddrPart1);
+      console.log("상세 주소 ! " + addrDetail);
+      console.log("시/도 ! " + siNm);
+      console.log("시/군/구 ! " + sggNm);
+    }
+
+  </script>
+
   </script>
 </head>
 <body>
@@ -146,13 +169,27 @@
         </div>
         <div class="farm_location">
           <h3 style="margin-bottom: 5px;">농장 위치</h3>
-          <div class="input-wrapper">
-            <input type="text" name="location_city" placeholder="OO시">
-          </div>
-          <div class="input-wrapper">
-            <input type="text" name="location_gu" placeholder="OO구">
+          <p></p>
+          <div>
+            <p></p>
+            <div class="input-wrapper" >
+              <input type="text" name="locationCity" id="location_city" placeholder="OO시/도" value="${siNm}" readonly>
+            </div>
+            <div class="input-wrapper">
+              <input type="text" name="locationGu" id="location_gu" placeholder="OO시/군/구" value="${sggNm}" readonly>
+            </div>
+            <p></p>
+            <div class="input-wrapper">
+              <input type="text" name="locationFull" id="location_full" placeholder="전체 주소" value="${roadAddrPart1}" readonly>
+            </div>
+            <div class="input-wrapper">
+              <input type="text" name="locationDetail" id="location_detail" placeholder="상세 주소" value="${addrDetail}" readonly>
+            </div>
+            <label class="file-label" for="chooseFile" onclick="goPopup();" style="padding: 15px 36px;">주소 찾기</label>
           </div>
         </div>
+
+
         <div class="product_details">
           <h3 style="margin-bottom:-5px"> 농장 설명</h3>
           <p style="font-size:12px;color:#999999">농장과 관련된 내용들을 자유롭게 작성해주세요. </p>
