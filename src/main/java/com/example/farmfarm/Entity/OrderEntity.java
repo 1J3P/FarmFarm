@@ -28,6 +28,7 @@ public class OrderEntity {
 
     private int total_quantity;
 
+    //결제에 대한 상태
     private String status;
 
     @Column(name="is_delivery")

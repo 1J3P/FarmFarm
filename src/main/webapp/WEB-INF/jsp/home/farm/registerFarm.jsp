@@ -207,7 +207,7 @@
           </div>
         </div>
         <div class="product_pic">
-          <h3>사진을 올려주세요 <span>(선택)</span></h3>
+          <h3>사진을 올려주세요</h3>
           <div>
             <label class="file-label" for="chooseFile">파일 선택</label>
             <input class="file" id="chooseFile" type="file">
@@ -309,8 +309,11 @@
         contentType:"application/json; charset=utf-8",
         success:function (data){
           alert("농장을 개설하였습니다.");
+          var sessionValue = '<%= session.getAttribute("user") %>';
+          console.log(sessionValue);
+          sessionStorage.setItem('user', sessionValue);
           console.log(data);
-          location.href="/myPage";
+          window.location.replace("/myPage");
         },
         error:function (request, status, error){
           console.log(request);
