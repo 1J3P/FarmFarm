@@ -26,6 +26,12 @@ public class OrderDetailEntity {
     //0 일반, 1 공동, 2 경매
     private int type;
 
+    //배송 상태
+    private String deliveryStatus;
+
+    //송장번호
+    private String trackingNum;
+
     @ManyToOne
     @JoinColumn(name="au_id")
     private AuctionEntity auction;
