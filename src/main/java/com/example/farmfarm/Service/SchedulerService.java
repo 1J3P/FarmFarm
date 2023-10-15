@@ -70,25 +70,17 @@ public class SchedulerService {
     public void selectTopAuction() throws ParseException {
         List<ProductEntity> products = productService.getAllAuctionProduct();
         for (ProductEntity product : products) {
-            boolean select = false;
             if (product.getOpen_status() == 2) {
                 List<AuctionEntity> auctions = auctionService.auctionList(product); // 제시 가격이 비싼 순 -> 수량이 많은 순으로 정렬
                 int auctionQ = product.getAuction_quantity();
                 for (AuctionEntity auction : auctions) {
                     if (auction.getStatus().equals("경매 진행중")) {
-                        if (select == false) {  // 낙찰이 아직 되지 않았을 경우 계속 탐색
-                            if (auctionQ > auction.getQuantity()) {
-                                auction.setStatus("경매 낙찰 성공"); // 해당 경매건을 채택
-                                auctionQ -= auction.getQuantity();
-                                product.setAuction_quantity(auctionQ); // 상품의 경매 수량을 조정
-                                auctionRepository.save(auction);
-                                select = true; // 더이상 탐색 할 필요가 없으므로 종료
-                            } else {
-                                auctionQ = -1;
-                                auction.setStatus("경매 낙찰 실패"); // 해당 경매건을 기각
-                                auctionRepository.save(auction);
-                                paymentController.refund(auction.getPaId()); // 결제 취소 처리 후 그 다음 경매건을 탐색
-                            }
+                        if (product.getOpen_status() != 3) {  // 낙찰이 아직 되지 않았을 경우 계속 탐색(open status가 3이면 경매가 성사되었음을 뜻함)
+                            auction.setStatus("경매 낙찰 성공"); // 해당 경매건을 채택
+                            auctionQ -= auction.getQuantity();
+                            product.setAuction_quantity(auctionQ); // 상품의 경매 수량을 조정
+                            product.setOpen_status(3); // 경매 낙찰 성공 '3'
+                            auctionRepository.save(auction);
                         }
                         else {  // 낙찰이 되었을 경우 경매 기각
                             auctionQ = -1;

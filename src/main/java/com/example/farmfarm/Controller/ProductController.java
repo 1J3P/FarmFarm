@@ -196,7 +196,7 @@ public class ProductController {
             productList = productService.getAllAuctionProduct();
         }
         for (ProductEntity val : productList) {
-            if (val.isAuction()) {
+            if (val.isAuction() && val.getOpen_status() != 2) {
                 resultList.add(val);
             }
         }
