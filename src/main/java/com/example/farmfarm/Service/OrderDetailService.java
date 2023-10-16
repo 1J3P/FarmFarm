@@ -1,20 +1,21 @@
 package com.example.farmfarm.Service;
 
+import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.OrderDetailEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Repository.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
 public class OrderDetailService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private  FarmService farmService;
     @Autowired
     private ProductService productService;
 
@@ -59,7 +60,7 @@ public class OrderDetailService {
        return orderDetailRepository.save(order);
     }
 
-    public List<OrderDetailEntity> getAllOrderDetail() {
-        return (List<OrderDetailEntity>) orderDetailRepository.findAll();
+    public List<OrderDetailEntity> getAllOrderDetail(ProductEntity product) {
+        return (List<OrderDetailEntity>) orderDetailRepository.findAllByProduct(product);
     }
 }
