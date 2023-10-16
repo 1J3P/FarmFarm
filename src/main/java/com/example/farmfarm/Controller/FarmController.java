@@ -82,6 +82,13 @@ public class FarmController {
         return "redirect:" + fId ;
     }
 
+    //주문 내역 상태 변경
+    @PatchMapping("/order/{od_id}")
+    public ResponseEntity<Object> patchOrderDetail(HttpServletRequest request, @PathVariable("od_id") long odId, @RequestBody OrderDetailEntity orderDetail) {
+        OrderDetailEntity updateOrderDetail1 = orderDetailService.updateOrderDetail(request, odId, orderDetail);
+        return ResponseEntity.ok().body(updateOrderDetail1);
+    }
+
     // 농장별 상품 보기
     @GetMapping("/{f_id}/product")
     public ResponseEntity<Object> getFarmProduct(@PathVariable("f_id") long fId){

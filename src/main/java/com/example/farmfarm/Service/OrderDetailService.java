@@ -8,14 +8,16 @@ import com.example.farmfarm.Repository.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderDetailService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
-    private  FarmService farmService;
+    private  UserService userService;
     @Autowired
     private ProductService productService;
 
@@ -62,5 +64,14 @@ public class OrderDetailService {
 
     public List<OrderDetailEntity> getAllOrderDetail(ProductEntity product) {
         return (List<OrderDetailEntity>) orderDetailRepository.findAllByProduct(product);
+    }
+
+    public OrderDetailEntity updateOrderDetail(HttpServletRequest request, Long odId, OrderDetailEntity orderDetail){
+        UserEntity user = userService.getUser(request);
+        OrderDetailEntity newOrderDetail = orderDetailRepository.findByodId(odId);
+        newOrderDetail.setDeliveryStatus(orderDetail.getDeliveryStatus());
+        newOrderDetail.setTrackingNum(orderDetail.getTrackingNum());
+        orderDetailRepository.save(newOrderDetail);
+        return newOrderDetail;
     }
 }
