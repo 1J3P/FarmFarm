@@ -185,7 +185,7 @@
             <div class="input-wrapper">
               <input type="text" name="locationDetail" id="location_detail" placeholder="상세 주소" value="${addrDetail}" readonly>
             </div>
-            <label class="file-label" for="chooseFile" onclick="goPopup();" style="padding: 15px 36px;">주소 찾기</label>
+            <label class="file-label" onclick="goPopup();" style="padding: 15px 36px;">주소 찾기</label>
           </div>
         </div>
 
