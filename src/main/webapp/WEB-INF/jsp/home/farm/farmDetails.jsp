@@ -147,7 +147,7 @@
             border: inherit;
         }
 
-</style>
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
@@ -336,9 +336,9 @@
                             <p>${farm.detail}</p>
                             <p style="margin-top:-12px">
                                 <em class="link">
-<%--                                    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">--%>
-<%--                                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.--%>
-<%--                                    </a>--%>
+                                    <%--                                    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">--%>
+                                    <%--                                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.--%>
+                                    <%--                                    </a>--%>
                                 </em>
                             </p>
                             <div id="map" style="width:100%;height:350px;"></div>
@@ -386,11 +386,11 @@
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                             <c:if test="${farm.user.UId == user.UId}">
-                            <div class="item-container">
-                                <div class="sell-product-options" onclick="location.href='/product'">
-                                    판매 상품 등록
+                                <div class="item-container">
+                                    <div class="sell-product-options" onclick="location.href='/product'">
+                                        판매 상품 등록
+                                    </div>
                                 </div>
-                            </div>
                             </c:if>
                             <div class="row">
                                 <c:forEach var="product" items="${productList}">
@@ -464,24 +464,26 @@
                             <th>송장번호</th>
                             <th style="padding-right: 20px">거주지</th>
                             <th>상태</th>
-                            <tr>
-                                <td>맛있는 사과</td>
-                                <td>김솜솜</td>
-                                <td>5</td>
-                                <td>배송</td>
-                                <td class="transaction_status">상품준비</td>
-                                <td class="tracking_number">
-                                    <p style="display: none;"></p>
-                                    <input type="text" style="display: none; width:150px">
-                                </td>
-                                <td style="padding-right: 20px"><button>보기</button></td>
-                                <td><button onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
-                            </tr>
-<%--                            <c:forEach var="order" items="${}">--%>
-<%--                                <tr>--%>
-<%--                                    <td>{order.}</td>--%>
-<%--                                </tr>--%>
-<%--                            </c:forEach>--%>
+                            <c:forEach var="order" items="${myFarmOrderList}">
+                                <tr>
+                                    <td>${order.product.name}</td>
+                                    <td>${order.order.user.nickname}</td>
+                                    <td>${order.quantity}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.order.delivery == false}">직거래</c:when>
+                                            <c:when test="${order.order.delivery == true}">배송</c:when>
+                                        </c:choose>
+                                    </td>
+                                    <td class="transaction_status">${order.deliveryStatus}</td>
+                                    <td class="tracking_number">
+                                        <p style="display: none;"></p>
+                                        <input type="text" style="display: none; width:150px">
+                                    </td>
+                                    <td style="padding-right: 20px"><button>보기</button></td>
+                                    <td><button onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
+                                </tr>
+                            </c:forEach>
                         </table>
                     </div>
                 </div>
