@@ -396,7 +396,7 @@
                             <p>${product.detail}</p>
                             <p>제품 수령 방식 :
                                 <c:choose>
-                                    <c:when test="${product.direct == false}">배송</c:when>
+                                    <c:when test="${product.direct == false}">배송 또는 직거래</c:when>
                                     <c:when test="${product.direct == true}">직거래</c:when>
                                 </c:choose></p>
                         </div>
@@ -678,8 +678,6 @@
             // var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
             var pId = ${p_id};
             var quantity = parseInt(document.getElementById('quantityInput').value);
-            // console.log(formsubmitSerialArray);
-            // console.log(formsubmit);
             $.ajax({
                 type: "POST",
                 async: false,
@@ -702,6 +700,8 @@
                     console.log(request);
                     console.log(status);
                     console.log(error);
+                    alert("다른 농장의 상품을 담을 수 없습니다.");
+                    location.href = "/product/" + pId;
                 }
             });
         });

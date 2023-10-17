@@ -49,11 +49,14 @@ public class OrderController {
         ModelAndView mav = new ModelAndView("home/product/productShippingAddress");
         List<OrderDetailEntity> details = new ArrayList<>();
         Cart cart = (Cart)session.getAttribute("cart");
-        System.out.println(cart.getItemList().get(0));
+        int isDirect = 0; // 0 : 배송, 1 : 직거래만
         for (Item i : cart.getItemList()) {
             OrderDetailEntity orderDetail = new OrderDetailEntity();
             orderDetail.setQuantity(i.getQuantity());
             ProductEntity product = productService.getProduct(i.getP_id());
+            if (product.isDirect() == true) {   // 직거래만
+                isDirect = 1;
+            }
             orderDetail.setPrice(product.getPrice() * i.getQuantity());
             if (product.isGroup()) {
                 orderDetail.setType(1);
@@ -64,7 +67,7 @@ public class OrderController {
             }
             orderDetail.setProduct(product);
             details.add(orderDetail);
-            mav.addObject("product", product);
+            mav.addObject("isDirect", isDirect);
         }
         session.setAttribute("orderDetail", details);
         return mav;
@@ -81,6 +84,9 @@ public class OrderController {
         for (OrderDetailEntity d : details) {
             totalP += d.getPrice();
             totalQ += d.getQuantity();
+        }
+        if (order.isDelivery() == true) {
+            totalP += 3000;
         }
         order.setType(details.get(0).getType());
         order.setTotal_price(totalP);

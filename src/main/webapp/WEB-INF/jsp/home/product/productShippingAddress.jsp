@@ -135,10 +135,10 @@
                                         <h4>거래 방식</h4>
                                         <div class="item-input-wrap">
                                             <c:choose>
-                                                <c:when test="${product.direct == false}">
-                                                    <label><input type="radio" id="true" name="delivery" value="true" checked/>배송</label>
+                                                <c:when test="${isDirect == 0}"> <!-- 배송 / 직거래 둘 다 가능-->
+                                                    <label><input type="radio" id="true" name="delivery" value="true" checked/>배송(+3000원)</label>
                                                     <label><input type="radio" id="false" name="delivery"
-                                                                  value="false" disabled/>직거래</label>
+                                                                  value="false"/>직거래</label>
                                                     <div class="check-delivery" style="margin-top:40px;">
                                                         <h4>배송 요청사항</h4>
                                                         <div class="item-input-wrap">
@@ -159,7 +159,7 @@
                                                         </div>
                                                     </div>
                                                 </c:when>
-                                                <c:otherwise>
+                                                <c:otherwise> <!-- 직거래만 가능 -->
                                                     <label><input type="radio" id="true_" name="delivery" value="true" disabled/>배송</label>
                                                     <label><input type="radio" id="false_" name="delivery"
                                                                   value="false" checked/>직거래</label>
