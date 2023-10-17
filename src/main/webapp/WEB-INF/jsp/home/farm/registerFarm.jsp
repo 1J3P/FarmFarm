@@ -90,6 +90,7 @@
     .farm_location .input-wrapper {
       display: inline-block;
       margin-right: 10px;
+      margin-bottom: 10px;
     }
     .file-label {
       margin: 30px 0;
@@ -179,7 +180,7 @@
               <input type="text" name="locationGu" id="location_gu" placeholder="OO시/군/구" value="${sggNm}" readonly>
             </div>
             <p></p>
-            <div class="input-wrapper">
+            <div class="input-wrapper" style="width: 80%;">
               <input type="text" name="locationFull" id="location_full" placeholder="전체 주소" value="${roadAddrPart1}" readonly>
             </div>
             <div class="input-wrapper">

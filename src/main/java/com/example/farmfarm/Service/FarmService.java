@@ -19,7 +19,7 @@ public class FarmService {
     private UserService userService;
 
     // 농장 등록
-    public FarmEntity saveFarm(UserEntity user, FarmEntity farm){
+    public FarmEntity saveFarm(UserEntity user, FarmEntity farm) {
         farm.setUser(user);
         farm.setStatus("yes");
         return farmRepository.save(farm);
@@ -67,7 +67,7 @@ public class FarmService {
     }
 
     //나의 농장 조회
-    public  FarmEntity  getMyFarm(UserEntity user) {
+    public FarmEntity getMyFarm(UserEntity user) {
         FarmEntity myFarm = farmRepository.findByUserAndStatusLike(user, "yes");
         if (myFarm != null) {
             System.out.println(myFarm.getStatus());
@@ -76,11 +76,11 @@ public class FarmService {
     }
 
     // 농장 수정
-    public FarmEntity updateFarm(HttpServletRequest request, Long fId, FarmEntity farm){
+    public FarmEntity updateFarm(HttpServletRequest request, Long fId, FarmEntity farm) {
         UserEntity user = userService.getUser(request);
         FarmEntity newFarm = farmRepository.findByfIdAndStatusLike(fId, "yes");
 
-        if (Objects.equals(user.getUId(), newFarm.getUser().getUId())){
+        if (Objects.equals(user.getUId(), newFarm.getUser().getUId())) {
             // 수정되는 것들  (농장 이름, 위치-시, 위치-구, 상세, 이미지, 경매시간, 경매 참여 여부, 생성 시간?)
             newFarm.setName(farm.getName());
             newFarm.setLocationCity(farm.getLocationCity());
@@ -95,17 +95,16 @@ public class FarmService {
             newFarm.setDetail(farm.getDetail());
             farmRepository.save(newFarm);
             return newFarm;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     // 농장 삭제
-    public void deleteFarm(HttpSession session, Long fId) throws Exception{
-        UserEntity user = (UserEntity)session.getAttribute("user");
+    public void deleteFarm(HttpSession session, Long fId) throws Exception {
+        UserEntity user = (UserEntity) session.getAttribute("user");
         FarmEntity farm = farmRepository.findByfIdAndStatusLike(fId, "yes");
-        if(Objects.equals(user.getUId(), farm.getUser().getUId())){
+        if (Objects.equals(user.getUId(), farm.getUser().getUId())) {
             farm.setStatus("no");
             farmRepository.save(farm);
         } else {

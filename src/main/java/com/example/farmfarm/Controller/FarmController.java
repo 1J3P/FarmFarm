@@ -118,5 +118,14 @@ public class FarmController {
         model.addAttribute("myFarm", null);
         return ResponseEntity.ok().body("delete OK");
     }
+
+    @GetMapping("/list/{sido}/{gugun}")
+    public String getFarmList(@PathVariable("sido") String locationCity, @PathVariable("gugun") String locationGu, Model model) {
+        // gugunService를 사용하여 선택된 구군에 해당하는 농장 목록을 가져옵니다.
+        List<FarmEntity> farms = farmService.searchByLocation(locationCity, locationGu);
+
+        model.addAttribute("farms", farms);
+        return "home/farm/farmList"; // farmList.jsp로 포워딩
+    }
 }
 
