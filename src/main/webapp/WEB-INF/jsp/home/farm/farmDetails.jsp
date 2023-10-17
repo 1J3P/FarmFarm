@@ -201,36 +201,33 @@
         }
 
         function toggleEditMode(button) {
+            var patchData;
+            var selectedStatus;
             var row = button.closest('tr');
             var editButton = row.querySelector('.edit_btn');
             var statusCell = row.querySelector('.transaction_status');
             var invoiceCell = row.querySelector('.tracking_number');
+            var newTrackingNumber = invoiceCell.querySelector('input').value;
 
             if (editButton.textContent === '수정') {
-                // Change the button text to "저장"
                 editButton.textContent = '저장';
 
-                // Create a dropdown select element
                 var select = document.createElement('select');
+                select.value = statusCell.textContent;
                 var options = ['상품준비', '배송중', '배송완료'];
                 options.forEach(function(option) {
                     var optionElement = document.createElement('option');
                     optionElement.text = option;
                     select.add(optionElement);
                 });
-
-                // Set the current status as the selected value
-                select.value = statusCell.textContent;
                 select.style.appearance = "button";
 
-                // Replace the text with the select element
                 statusCell.textContent = '';
                 statusCell.appendChild(select);
 
-                // Show or hide the invoice input based on the selected status
                 select.addEventListener('change', function() {
-                    var selectedStatus = select.value;
-                    if (selectedStatus === '배송중' || selectedStatus === '배송완료') {
+                    selectedStatus = select.value;
+                    if (selectedStatus === '배송중') {
                         invoiceCell.querySelector('input').style.display = 'block';
                     }
                     else {
@@ -244,19 +241,40 @@
                     }
                 });
             } else {
-                // Change the button text back to "수정"
                 editButton.textContent = '수정';
 
-                // Update the status with the selected value from the dropdown
                 statusCell.textContent = statusCell.querySelector('select').value;
 
-                // Update the invoice value
                 var invoiceInput = invoiceCell.querySelector('input');
                 var invoiceText = invoiceCell.querySelector('p');
 
                 invoiceInput.style.display = 'none';
                 invoiceText.style.display = 'block';
                 invoiceText.textContent = invoiceInput.value;
+
+                let od_id = button.getAttribute('data-od_id');
+
+                patchData = {
+                    deliveryStatus: statusCell.textContent,
+                    trackingNum: newTrackingNumber
+                };
+
+                fetch('http://localhost:9000/farm/order/' + od_id, {
+                    method: 'PATCH',
+                    body: JSON.stringify(patchData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('사용자의 배송 상태가 올바르게 변경되었습니다.');
+                    } else {
+                        alert('오류가 발생했습니다.');
+                        throw new Error('Network response was not ok');
+                    }
+                }).catch(error => {
+                    alert('오류가 발생했습니다.');
+                });
             }
         }
 
@@ -475,13 +493,19 @@
                                             <c:when test="${order.order.delivery == true}">배송</c:when>
                                         </c:choose>
                                     </td>
-                                    <td class="transaction_status">${order.deliveryStatus}</td>
+                                    <td class="transaction_status">
+                                        <c:choose>
+                                            <c:when test="${order.deliveryStatus == null}">---</c:when>
+                                            <c:when test="${order.deliveryStatus != null}">${order.deliveryStatus}</c:when>
+                                        </c:choose>
+                                    </td>
                                     <td class="tracking_number">
+                                            ${order.trackingNum}
                                         <p style="display: none;"></p>
-                                        <input type="text" style="display: none; width:150px">
+                                        <input type="text" style="display: none; width:150px; border: #1b1b1b solid 1px ">
                                     </td>
                                     <td style="padding-right: 20px"><button>보기</button></td>
-                                    <td><button onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
+                                    <td><button data-od_id="${order.odId}" onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
                                 </tr>
                             </c:forEach>
                         </table>
