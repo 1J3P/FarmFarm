@@ -259,7 +259,7 @@
                     trackingNum: newTrackingNumber
                 };
 
-                fetch('http://localhost:9000/farm/order/' + od_id, {
+                fetch('/farm/order/' + od_id, {
                     method: 'PATCH',
                     body: JSON.stringify(patchData),
                     headers: {
