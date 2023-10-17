@@ -306,7 +306,6 @@
                 <!-- 수정 필요 -->
                 <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                 <c:if test="${farm.user.UId == user.UId}">
-                    <i class="fa-solid fa-pencil"></i>
                     <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${farm.FId})"></i>
                 </c:if>
             </div>
@@ -345,7 +344,10 @@
                         <a href="#tab-1" class="tab-link tab-link-active">농장 설명</a>
                         <a href="#tab-2" class="tab-link">판매 상품</a>
                         <a href="#tab-3" class="tab-link">경매</a>
-                        <a href="#tab-4" class="tab-link">내 상품 구매자 조회</a>
+                        <c:if test="${farm.user.UId == user.UId}">
+                            <a href="#tab-4" class="tab-link">내 상품 구매자 조회</a>
+                        </c:if>
+
                     </div>
                 </div>
                 <div class="tabs-swipeable-wrap tabs-height-auto">
