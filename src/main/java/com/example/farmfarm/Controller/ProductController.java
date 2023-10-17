@@ -146,7 +146,6 @@ public class ProductController {
     @ResponseBody
     public Cart addToCart(@PathVariable("p_id") long p_id, HttpSession session, @RequestBody Map<String, Integer> requestBody) {
         UserEntity user = (UserEntity)session.getAttribute("user");
-        System.out.println("유저 확인" + user.getUId());
         ProductEntity product = productService.getProduct(p_id);
         Item item = new Item();
         Cart cart = (Cart)session.getAttribute("cart");
@@ -154,7 +153,12 @@ public class ProductController {
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
-        System.out.println("리퀘" + requestBody.get("quantity"));
+
+        if (!(cart.getItemList().isEmpty())){
+            if (cart.getItemList().get(0).getProduct().getFarm().getFId() != product.getFarm().getFId()) {  // 같은 농장 상품인지 확인 필요. 다르다면 X
+                return null;
+            }
+        }
         item.setU_id(user.getUId());
         item.setP_id(product.getPId());
         item.setQuantity(requestBody.get("quantity"));

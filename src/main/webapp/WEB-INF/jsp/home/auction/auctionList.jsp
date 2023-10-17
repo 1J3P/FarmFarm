@@ -99,7 +99,7 @@
                             <div class="item-content">
                                 <h5>${product.farm.name}</h5>
                                 <h3 class="title">${product.name}</h3>
-                                <h4 class="price">경매 시작가 1,000원</h4>
+                                <h4 class="price">경매 시작가 ${product.price}원</h4>
                             </div>
                         </div>
                     </c:if>
