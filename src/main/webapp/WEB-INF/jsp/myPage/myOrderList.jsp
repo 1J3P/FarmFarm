@@ -155,16 +155,18 @@
             <div class="right"></div>
         </div>
     </div>
+
+
     <div class="page-content pt-60 bottom-sp60">
         <div class="container cart-list-area">
             <div class="list cart-list">
                 <c:if test="${empty orderList}">
                     <div>
-                    아직 주문 내역이 없습니다!<br>
-                    상품을 주문해보세요!!</div>
+                        <p style="text-align: center;">아직 주문 내역이 없습니다!<br>
+                            상품을 주문해보세요!!</p>
                     <a href="/product/list" class="button-large button button-fill">상품
                         보러가기</a>
-
+                    </div>
                 </c:if>
                 <ul>
                     <c:forEach var="order" items="${orderList}">

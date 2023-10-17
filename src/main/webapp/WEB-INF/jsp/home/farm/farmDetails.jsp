@@ -82,7 +82,7 @@
             color: #8E8E8E;
         }
 
-        #tab-2, #tab-3 {
+        #tab-2, #tab-3, #tab-4 {
             display: none;
         }
 
@@ -141,13 +141,14 @@
             font-weight: bold;
         }
 
+
         .transaction_status_select{
             -webkit-appearance: inherit;
             appearance: inherit;
             border: inherit;
         }
 
-</style>
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //탭 로직
@@ -201,36 +202,33 @@
         }
 
         function toggleEditMode(button) {
+            var patchData;
+            var selectedStatus;
             var row = button.closest('tr');
             var editButton = row.querySelector('.edit_btn');
             var statusCell = row.querySelector('.transaction_status');
             var invoiceCell = row.querySelector('.tracking_number');
+            var newTrackingNumber = invoiceCell.querySelector('input').value;
 
             if (editButton.textContent === '수정') {
-                // Change the button text to "저장"
                 editButton.textContent = '저장';
 
-                // Create a dropdown select element
                 var select = document.createElement('select');
+                select.value = statusCell.textContent;
                 var options = ['상품준비', '배송중', '배송완료'];
                 options.forEach(function(option) {
                     var optionElement = document.createElement('option');
                     optionElement.text = option;
                     select.add(optionElement);
                 });
-
-                // Set the current status as the selected value
-                select.value = statusCell.textContent;
                 select.style.appearance = "button";
 
-                // Replace the text with the select element
                 statusCell.textContent = '';
                 statusCell.appendChild(select);
 
-                // Show or hide the invoice input based on the selected status
                 select.addEventListener('change', function() {
-                    var selectedStatus = select.value;
-                    if (selectedStatus === '배송중' || selectedStatus === '배송완료') {
+                    selectedStatus = select.value;
+                    if (selectedStatus === '배송중') {
                         invoiceCell.querySelector('input').style.display = 'block';
                     }
                     else {
@@ -244,19 +242,40 @@
                     }
                 });
             } else {
-                // Change the button text back to "수정"
                 editButton.textContent = '수정';
 
-                // Update the status with the selected value from the dropdown
                 statusCell.textContent = statusCell.querySelector('select').value;
 
-                // Update the invoice value
                 var invoiceInput = invoiceCell.querySelector('input');
                 var invoiceText = invoiceCell.querySelector('p');
 
                 invoiceInput.style.display = 'none';
                 invoiceText.style.display = 'block';
                 invoiceText.textContent = invoiceInput.value;
+
+                let od_id = button.getAttribute('data-od_id');
+
+                patchData = {
+                    deliveryStatus: statusCell.textContent,
+                    trackingNum: newTrackingNumber
+                };
+
+                fetch('http://localhost:9000/farm/order/' + od_id, {
+                    method: 'PATCH',
+                    body: JSON.stringify(patchData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('사용자의 배송 상태가 올바르게 변경되었습니다.');
+                    } else {
+                        alert('오류가 발생했습니다.');
+                        throw new Error('Network response was not ok');
+                    }
+                }).catch(error => {
+                    alert('오류가 발생했습니다.');
+                });
             }
         }
 
@@ -288,7 +307,6 @@
                 <!-- 수정 필요 -->
                 <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                 <c:if test="${farm.user.UId == user.UId}">
-                    <i class="fa-solid fa-pencil"></i>
                     <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${farm.FId})"></i>
                 </c:if>
             </div>
@@ -327,7 +345,10 @@
                         <a href="#tab-1" class="tab-link tab-link-active">농장 설명</a>
                         <a href="#tab-2" class="tab-link">판매 상품</a>
                         <a href="#tab-3" class="tab-link">경매</a>
-                        <a href="#tab-4" class="tab-link">내 상품 구매자 조회</a>
+                        <c:if test="${farm.user.UId == user.UId}">
+                            <a href="#tab-4" class="tab-link">내 상품 구매자 조회</a>
+                        </c:if>
+
                     </div>
                 </div>
                 <div class="tabs-swipeable-wrap tabs-height-auto">
@@ -336,9 +357,9 @@
                             <p>${farm.detail}</p>
                             <p style="margin-top:-12px">
                                 <em class="link">
-<%--                                    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">--%>
-<%--                                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.--%>
-<%--                                    </a>--%>
+                                    <%--                                    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">--%>
+                                    <%--                                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.--%>
+                                    <%--                                    </a>--%>
                                 </em>
                             </p>
                             <div id="map" style="width:100%;height:350px;"></div>
@@ -386,11 +407,11 @@
                         <div id="tab-2" class="tab">
                             <!-- 로그인 아이디 == {farm.user.UId} 이면 -->
                             <c:if test="${farm.user.UId == user.UId}">
-                            <div class="item-container">
-                                <div class="sell-product-options" onclick="location.href='/product'">
-                                    판매 상품 등록
+                                <div class="item-container">
+                                    <div class="sell-product-options" onclick="location.href='/product'">
+                                        판매 상품 등록
+                                    </div>
                                 </div>
-                            </div>
                             </c:if>
                             <div class="row">
                                 <c:forEach var="product" items="${productList}">
@@ -420,38 +441,36 @@
                                 </c:if>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tab-3" class="tab">
-                    <div class="col-50 medium-25">
-                        <c:set var="auctionCount" value="0"/>
-                        <h4>진행 중인 경매</h4>
-                        <c:forEach var="product" items="${productList}">
-                            <c:if test="${product.open_status != 2}">
-                                <c:if test="${product.auction}">
-                                    <c:set var="auctionCount" value="${auctionCount + 1}"/>
-                                    <div class="item-box" onclick="location.href='/product/${product.PId}'">
-                                        <div class="item-media">
-                                            <img src=${product.image1}
-                                                         alt=""/>
-                                        </div>
-                                        <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
-                                        </div>
-                                        <div class="item-content">
-                                            <h5>${product.farm.name}</h5>
-                                            <h3 class="title">
-                                                <a href="/home/auction/auctionDetail">${product.name}</a>
-                                            </h3>
-                                            <h4 class="price">경매 시작가 1,000원</h4>
-                                        </div>
-                                    </div>
+                        <div id="tab-3" class="tab">
+                            <div class="col-50 medium-25">
+                                <c:set var="auctionCount" value="0"/>
+                                <h4>진행 중인 경매</h4>
+                                <c:forEach var="product" items="${productList}">
+                                    <c:if test="${product.open_status != 2}">
+                                        <c:if test="${product.auction}">
+                                            <c:set var="auctionCount" value="${auctionCount + 1}"/>
+                                            <div class="item-box" onclick="location.href='/product/${product.PId}'">
+                                                <div class="item-media">
+                                                    <img src=${product.image1}
+                                                                 alt=""/>
+                                                </div>
+                                                <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
+                                                </div>
+                                                <div class="item-content">
+                                                    <h5>${product.farm.name}</h5>
+                                                    <h3 class="title">
+                                                        <a href="/home/auction/auctionDetail">${product.name}</a>
+                                                    </h3>
+                                                    <h4 class="price">경매 시작가 1,000원</h4>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${auctionCount == 0}">
+                                    <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
                                 </c:if>
-                            </c:if>
-                        </c:forEach>
-                        <c:if test="${auctionCount == 0}">
-                            <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
-                        </c:if>
-                    </div>
+                        </div>
                 </div>
                 <div id="tab-4" class="tab">
                     <div class="col-50 medium-25">
@@ -464,27 +483,36 @@
                             <th>송장번호</th>
                             <th style="padding-right: 20px">거주지</th>
                             <th>상태</th>
-                            <tr>
-                                <td>맛있는 사과</td>
-                                <td>김솜솜</td>
-                                <td>5</td>
-                                <td>배송</td>
-                                <td class="transaction_status">상품준비</td>
-                                <td class="tracking_number">
-                                    <p style="display: none;"></p>
-                                    <input type="text" style="display: none; width:150px">
-                                </td>
-                                <td style="padding-right: 20px"><button>보기</button></td>
-                                <td><button onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
-                            </tr>
-<%--                            <c:forEach var="order" items="${}">--%>
-<%--                                <tr>--%>
-<%--                                    <td>{order.}</td>--%>
-<%--                                </tr>--%>
-<%--                            </c:forEach>--%>
+                            <c:forEach var="order" items="${myFarmOrderList}">
+                                <tr>
+                                    <td>${order.product.name}</td>
+                                    <td>${order.order.user.nickname}</td>
+                                    <td>${order.quantity}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.order.delivery == false}">직거래</c:when>
+                                            <c:when test="${order.order.delivery == true}">배송</c:when>
+                                        </c:choose>
+                                    </td>
+                                    <td class="transaction_status">
+                                        <c:choose>
+                                            <c:when test="${order.deliveryStatus == null}">---</c:when>
+                                            <c:when test="${order.deliveryStatus != null}">${order.deliveryStatus}</c:when>
+                                        </c:choose>
+                                    </td>
+                                    <td class="tracking_number">
+                                            ${order.trackingNum}
+                                        <p style="display: none;"></p>
+                                        <input type="text" style="display: none; width:150px; border: #1b1b1b solid 1px ">
+                                    </td>
+                                    <td style="padding-right: 20px"><button>보기</button></td>
+                                    <td><button data-od_id="${order.odId}" onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
+                                </tr>
+                            </c:forEach>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

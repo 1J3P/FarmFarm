@@ -73,6 +73,8 @@
     />
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
+        var mapContainer = document.getElementById('map');
+        mapContainer.style.display = 'none';
         $(document).ready(function () {
             $("input[name='delivery']").change(function () {
                 if ($("input[name='delivery']:checked").val() == 'true') {
@@ -82,7 +84,27 @@
                 }
             });
         });
+        function goPopup(){
+            // 주소검색을 수행할 팝업 페이지를 호출합니다.
+            // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+            var pop = window.open("/popup","pop","scrollbars=yes, resizable=yes");
+
+            // 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+            //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes");
+        }
+        function jusoCallBack(roadAddrPart1, addrDetail, siNm, sggNm){
+            // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+            console.log(roadAddrPart1);
+            document.querySelector("#delivery_address").value = roadAddrPart1;
+            document.querySelector("#delivery_address_detail").value = addrDetail;
+            console.log("전체 주소 ! " + roadAddrPart1);
+            console.log("상세 주소 ! " + addrDetail);
+            console.log("시/도 ! " + siNm);
+            console.log("시/군/구 ! " + sggNm);
+            displayMap();
+        }
     </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
     <style>
         .item-input-wrap [type="radio"] {
             vertical-align: middle;
@@ -96,6 +118,17 @@
 
         .item-input-wrap [type="radio"]:checked {
             background: #94C015;
+        }
+        .file-label {
+            margin: 30px 0;
+            background-color: #94C015;
+            color: #fff;
+            text-align: center;
+            font-size:13px;
+            padding: 7px 20px;
+            width: 60%;
+            border-radius: 13px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -146,17 +179,29 @@
                                                                    placeholder="배송 요청 사항을 입력하세요" id="email"
                                                                    class="form-control"/>
                                                         </div>
-                                                        <h4>주소</h4>
+                                                        <h4 style="display: inline-block">주소</h4><span style="margin-left: 10px;"><label class="file-label" onclick="goPopup();" style="padding: 10px 30px;">주소 찾기</label></span>
                                                         <div class="item-input-wrap">
                                                             <input type="text" name="delivery_address" placeholder="주소를 입력하세요"
-                                                                   id="address" class="form-control"/>
+                                                                   id="delivery_address" class="form-control" readonly/>
                                                         </div>
-                                                        <h4>상세 주소</h4>
                                                         <div class="item-input-wrap">
                                                             <input type="text" name="delivery_address_detail"
-                                                                   placeholder="상세 주소를 입력하세요" id="zip_code"
-                                                                   class="form-control"/>
+                                                                   placeholder="상세 주소를 입력하세요" id="delivery_address_detail"
+                                                                   class="form-control" readonly/>
                                                         </div>
+                                                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
+                                                        <p style="margin-top:-12px">
+                                                            <em class="link">
+                                                                    <%--                                    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">--%>
+                                                                    <%--                                        혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.--%>
+                                                                    <%--                                    </a>--%>
+                                                            </em>
+                                                        </p>
+                                                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
+                                                        <div id="map" style="width:100%;height:350px; "></div>
+                                                        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
+
+
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise> <!-- 직거래만 가능 -->
@@ -237,6 +282,54 @@
         });
     };
 
+    function displayMap() {
+        var address = document.getElementById('delivery_address').value;
+        console.log(address + " displayMap!");
+        var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+
+        mapContainer.style.display = 'block'; // 지도 컨테이너 표시
+        initializeMap(address); // 주소를 기반으로 지도 초기화
+    }
+    function initializeMap(address) {
+        console.log("initializeMap!");
+        // Kakao 지도 초기화 및 표시
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+// 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+        geocoder.addressSearch(address, function(result, status) {
+
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">배송 장소</div>'
+                });
+                infowindow.open(map, marker);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });
+    }
 </script>
 </body>
 </html>

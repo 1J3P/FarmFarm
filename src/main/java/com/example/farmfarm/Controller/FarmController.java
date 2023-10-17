@@ -23,9 +23,9 @@ public class FarmController {
     @Autowired
     private FarmService farmService;
     @Autowired
-    private UserService userService;
-    @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     // 농장 개설
     @PostMapping("")
@@ -59,12 +59,16 @@ public class FarmController {
     // 농장 조회 ( 전체 농장 리스트에서 클릭 시 해당 농장 페이지로 이동)
     @GetMapping("/{f_id}")
     public ModelAndView getFarm(@PathVariable("f_id") long fId) {
+        ModelAndView mav = new ModelAndView("home/farm/farmDetails");
         FarmEntity farm = farmService.getFarm(fId);
         List<ProductEntity> productList = productService.getFarmProduct(farm);
-        ModelAndView mav = new ModelAndView("home/farm/farmDetails");
+        List<OrderDetailEntity> allOrderDetailList = new ArrayList<>();
+        for (ProductEntity product : productList) {
+            allOrderDetailList.addAll(orderDetailService.getAllOrderDetail(product));
+        }
         mav.addObject("farm", farm);
-        System.out.println(farm.getLocationFull());
         mav.addObject("productList", productList);
+        mav.addObject("myFarmOrderList", allOrderDetailList);
         return mav;
     }
 
@@ -76,6 +80,13 @@ public class FarmController {
         String fId = myFarm.getFId().toString();
         System.out.println("나의 farm Id 조회: " + fId);
         return "redirect:" + fId ;
+    }
+
+    //주문 내역 상태 변경
+    @PatchMapping("/order/{od_id}")
+    public ResponseEntity<Object> patchOrderDetail(HttpServletRequest request, @PathVariable("od_id") long odId, @RequestBody OrderDetailEntity orderDetail) {
+        OrderDetailEntity updateOrderDetail1 = orderDetailService.updateOrderDetail(request, odId, orderDetail);
+        return ResponseEntity.ok().body(updateOrderDetail1);
     }
 
     // 농장별 상품 보기
@@ -106,6 +117,15 @@ public class FarmController {
         }
         model.addAttribute("myFarm", null);
         return ResponseEntity.ok().body("delete OK");
+    }
+
+    @GetMapping("/list/{sido}/{gugun}")
+    public String getFarmList(@PathVariable("sido") String locationCity, @PathVariable("gugun") String locationGu, Model model) {
+        // gugunService를 사용하여 선택된 구군에 해당하는 농장 목록을 가져옵니다.
+        List<FarmEntity> farms = farmService.searchByLocation(locationCity, locationGu);
+
+        model.addAttribute("farms", farms);
+        return "home/farm/farmList"; // farmList.jsp로 포워딩
     }
 }
 
