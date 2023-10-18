@@ -108,7 +108,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("상품이 장바구니에서 삭제되었습니다.");
-                        window.location.href = "<%=serverUrl%>/product/cart";
+                        window.location.href = "/product/cart";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
