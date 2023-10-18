@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="org.springframework.core.env.Environment" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('serverUrl')" var="jspPath" />
 <%
-    Environment environment = (Environment) request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT");
-    String serverUrl = environment.getProperty("serverUrl");
+    String serverUrl = "@environment.getProperty('serverUrl')";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -116,7 +116,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("리뷰가 삭제 되었습니다.");
-                        window.location.href = "<%=serverUrl%>/review/my";
+                        location.reload()
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -152,7 +152,7 @@
                     <c:forEach var="review" items="${reviews}">
                         <li class="list">
                             <div class="item-link item-content">
-                                <div class="item-media"><img src="../images/avatar/1.jpg" width="50"></div>
+                                <div class="item-media"><img src=${review.orderDetail.product.image1} width="50"></div>
                                 <div class="item-inner">
                                     <div class="item-title-row">
                                         <div class="item-title">${review.orderDetail.product.name}</div>
@@ -197,7 +197,6 @@
                                         </div>
                                     </div>
                                     <div class="item-text">${review.comment}</div>
-                                    <i class="fa-solid fa-pencil"></i>
                                     <i class="fa-regular fa-trash-can"
                                        onclick="confirmAndDeleteReview(${review.rpId})"></i>
                                 </div>

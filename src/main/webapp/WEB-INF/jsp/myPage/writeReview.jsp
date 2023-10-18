@@ -91,7 +91,7 @@
     <div class="page-content pt-80 bottom-sp90">
         <div class="container">
             <div class="write-reviews-box">
-                <form id="form" class="form-elements">
+                <form id="form" class="form-elements" style="margin-top: 100px;">
                     <div class="reviews-head">
                         <h3 class="title"><b>농장의 별점을 입력해주세요. </b></h3>
                     </div>

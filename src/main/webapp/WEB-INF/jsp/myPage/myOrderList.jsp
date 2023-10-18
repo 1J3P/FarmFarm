@@ -198,7 +198,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h5 class="item-title"><span>${orderDetail.product.price}</span>원</h5>
+                                            <h5 class="item-title"><span>${orderDetail.product.name}</span></h5>
                                             <div class="item-foot">
                                                 <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원
                                                 </h3>
