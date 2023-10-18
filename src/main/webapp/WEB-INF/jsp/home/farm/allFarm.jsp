@@ -170,7 +170,7 @@
                 <div class="sort">
                     <div class="sort_type">
                         <select id="sortSelect" onchange="handleSearchIconClick()">
-                            <option value="rating">인기순</option>
+                            <option value="rating" selected>인기순</option>
                             <option value="new">신규순</option>
                             <option value="old">오래된순</option>
                         </select>
