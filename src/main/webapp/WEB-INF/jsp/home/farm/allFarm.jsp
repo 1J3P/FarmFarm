@@ -110,7 +110,7 @@
             const selectElement = document.querySelector('.sort_type select');
             const selectedValue = selectElement.value;
             const inputValue = document.querySelector('.searchbar-input-wrap input').value;
-            let url = '/farm/list';
+            let url = 'http://farmfarm.store/farm/list';
 
             if (selectedValue) {
                 url += '?sort=' + encodeURIComponent(selectedValue);

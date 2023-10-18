@@ -82,7 +82,7 @@
             color: #8E8E8E;
         }
 
-        #tab-2, #tab-3 {
+        #tab-2, #tab-3, #tab-4 {
             display: none;
         }
 
@@ -131,10 +131,6 @@
             margin-bottom: 20px;
         }
 
-        .fa-pencil {
-            margin-right: 20px;
-        }
-
         .flaticon-share {
             cursor: pointer;
             font-size: 28px;
@@ -145,6 +141,10 @@
             -webkit-appearance: inherit;
             appearance: inherit;
             border: inherit;
+        }
+
+        #tab-2 .row{
+            margin-top: 20px;
         }
 
     </style>
@@ -190,7 +190,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("삭제 되었습니다.");
-                        location.href = "http://localhost:9000/myPage";
+                        location.href = "http://farmfarm.store/myPage";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -259,7 +259,7 @@
                     trackingNum: newTrackingNumber
                 };
 
-                fetch('/farm/order/' + od_id, {
+                fetch('http://farmfarm.store/farm/order/' + od_id, {
                     method: 'PATCH',
                     body: JSON.stringify(patchData),
                     headers: {
@@ -440,38 +440,36 @@
                                 </c:if>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tab-3" class="tab">
-                    <div class="col-50 medium-25">
-                        <c:set var="auctionCount" value="0"/>
-                        <h4>진행 중인 경매</h4>
-                        <c:forEach var="product" items="${productList}">
-                            <c:if test="${product.open_status != 2}">
-                                <c:if test="${product.auction}">
-                                    <c:set var="auctionCount" value="${auctionCount + 1}"/>
-                                    <div class="item-box" onclick="location.href='/product/${product.PId}'">
-                                        <div class="item-media">
-                                            <img src=${product.image1}
-                                                         alt=""/>
-                                        </div>
-                                        <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
-                                        </div>
-                                        <div class="item-content">
-                                            <h5>${product.farm.name}</h5>
-                                            <h3 class="title">
-                                                <a href="/home/auction/auctionDetail">${product.name}</a>
-                                            </h3>
-                                            <h4 class="price">경매 시작가 1,000원</h4>
-                                        </div>
-                                    </div>
+                        <div id="tab-3" class="tab">
+                            <div class="col-50 medium-25">
+                                <c:set var="auctionCount" value="0"/>
+                                <h4>진행 중인 경매</h4>
+                                <c:forEach var="product" items="${productList}">
+                                    <c:if test="${product.open_status != 2}">
+                                        <c:if test="${product.auction}">
+                                            <c:set var="auctionCount" value="${auctionCount + 1}"/>
+                                            <div class="item-box" onclick="location.href='/product/${product.PId}'">
+                                                <div class="item-media">
+                                                    <img src=${product.image1}
+                                                                 alt=""/>
+                                                </div>
+                                                <div class="auction_time"><h3 class="ac-time" data-date="${product.date}"></h3>
+                                                </div>
+                                                <div class="item-content">
+                                                    <h5>${product.farm.name}</h5>
+                                                    <h3 class="title">
+                                                        <a href="/home/auction/auctionDetail">${product.name}</a>
+                                                    </h3>
+                                                    <h4 class="price">경매 시작가 1,000원</h4>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${auctionCount == 0}">
+                                    <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
                                 </c:if>
-                            </c:if>
-                        </c:forEach>
-                        <c:if test="${auctionCount == 0}">
-                            <h4 class="price" style="text-align: center">진행 중인 경매 상품이 없어요.</h4>
-                        </c:if>
-                    </div>
+                        </div>
                 </div>
                 <div id="tab-4" class="tab">
                     <div class="col-50 medium-25">
@@ -513,6 +511,7 @@
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

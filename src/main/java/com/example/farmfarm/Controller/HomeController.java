@@ -2,7 +2,9 @@ package com.example.farmfarm.Controller;
 
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
+import com.example.farmfarm.Entity.RegionDataEntity;
 import com.example.farmfarm.Entity.UserEntity;
+import com.example.farmfarm.Service.CategoryService;
 import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
@@ -10,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +29,14 @@ public class HomeController {
     FarmService farmService;
     @Autowired
     ProductService productService;
+    @Autowired
+    CategoryService categoryService;
     @GetMapping("/index")
     public String control(HttpServletRequest request, HttpSession session) {
         try {
             System.out.println("print session Authorization : " + session.getAttribute("user"));
             if (session.getAttribute("user") != null) {
-                return "redirect:http://localhost:9000/";
+                return "redirect:http://farmfarm.store/";
             }
             else if (session.getAttribute("user") == null){
                 System.out.println("/kakao로 redirect!!!");
@@ -107,10 +109,26 @@ public class HomeController {
         return "home/home";
     }
 
+//    @GetMapping("/category")
+//    public String category() {
+//        return "category/categories";
+//    }
+
     @GetMapping("/category")
-    public String category() {
+    public String category(Model model) {
+        List<String> sidoList = categoryService.getDistinctSidoValues();
+        model.addAttribute("sidoList", sidoList);
         return "category/categories";
     }
+    @ResponseBody
+    @PostMapping("/category")
+    public List<String> getGugunList(@RequestParam String selectedSido) {
+        // 사용자가 선택한 시에 해당하는 구군(gugun) 목록을 가져옵니다.
+        List<String> gugunList = categoryService.getDistinctGugunValuesBySido(selectedSido);
+
+        return gugunList;
+    }
+
 
     @GetMapping("/search")
     public String search() {

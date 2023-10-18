@@ -75,14 +75,17 @@ public class SchedulerService {
                 int auctionQ = product.getAuction_quantity();
                 for (AuctionEntity auction : auctions) {
                     if (auction.getStatus().equals("경매 진행중")) {
-                        if (product.getOpen_status() != 3) {  // 낙찰이 아직 되지 않았을 경우 계속 탐색(open status가 3이면 경매가 성사되었음을 뜻함)
+                        if (product.getLow_price() == 0) {  // 낙찰이 아직 되지 않았을 경우 계속 탐색 (예시로 든 변수명임. 바꿀 필요 있음!)
                             auction.setStatus("경매 낙찰 성공"); // 해당 경매건을 채택
                             auctionQ -= auction.getQuantity();
                             product.setAuction_quantity(auctionQ); // 상품의 경매 수량을 조정
-                            product.setOpen_status(3); // 경매 낙찰 성공 '3'
+                            product.setLow_price(1);
+                            productRepository.save(product);
                             auctionRepository.save(auction);
+                            System.out.println(auction.getPaId() + " 경매 성공!!!!!");
                         }
                         else {  // 낙찰이 되었을 경우 경매 기각
+                            System.out.println(auction.getPaId() + " 여기로 들어오긴 하니,,?");
                             auctionQ = -1;
                             auction.setStatus("경매 낙찰 실패"); // 해당 경매건을 기각
                             auctionRepository.save(auction);

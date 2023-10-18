@@ -111,7 +111,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("리뷰가 삭제 되었습니다.");
-                        window.location.href = "http://localhost:9000/review/my";
+                        window.location.href = "http://farmfarm.store/review/my";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);

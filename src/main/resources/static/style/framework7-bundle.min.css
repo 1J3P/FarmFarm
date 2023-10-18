@@ -13470,10 +13470,9 @@ label.item-radio.active-state:after {
 
 .row {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 	align-items: flex-start;
-	--f7-cols-per-row: 1
+	--f7-cols-per-row: 1;
 }
 
 .row + .row {
@@ -13539,7 +13538,8 @@ label.item-radio.active-state:after {
 }
 
 .row .col-50 {
-	--f7-cols-per-row: 2
+	--f7-cols-per-row: 2;
+	margin-right: 8px;
 }
 
 .row .col-55 {
@@ -14048,7 +14048,8 @@ label.item-radio.active-state:after {
 	}
 
 	.row .medium-25 {
-		--f7-cols-per-row: 4
+		--f7-cols-per-row: 4;
+		margin-right:12px;
 	}
 
 	.row .medium-30 {

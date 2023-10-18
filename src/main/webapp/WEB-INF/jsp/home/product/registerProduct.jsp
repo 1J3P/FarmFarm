@@ -320,7 +320,7 @@
             $.ajax({
                 type:"POST",
                 async:true,
-                url:"http://localhost:9000/product",
+                url:"/product",
                 data:formsubmit,
                 dataType:"json",
                 contentType:"application/json; charset=utf-8",

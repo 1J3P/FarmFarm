@@ -115,7 +115,7 @@
         <div class="toolbar toolbar-bottom footer-button padding">
             <div class="container px-15">
                 <li
-                        href="http://localhost:9000/user/login/getKakaoAuthUrl"
+                        href="http://farmfarm.store/user/login/getKakaoAuthUrl"
                         class="button-large btn button-fill"
                         id="kakaoLogin"
                 ><img src="../images/kakao_login_medium_wide.png" alt=""/>

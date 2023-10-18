@@ -13375,7 +13375,6 @@ label.item-radio.disabled,
 }
 .row {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   align-items: flex-start;
   --f7-cols-per-row: 1;
