@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="org.springframework.core.env.Environment" %>
+<%
+  Environment environment = (Environment) request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT");
+  String serverUrl = environment.getProperty("serverUrl");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -110,7 +115,7 @@
       const selectElement = document.querySelector('.sort_type select');
       const selectedValue = selectElement.value;
       const inputValue = document.querySelector('.searchbar-input-wrap input').value;
-      let url = 'http://farmfarm.store/farm/list';
+      let url = '<%=serverUrl%>/farm/list';
 
       if (selectedValue) {
         url += '?sort=' + encodeURIComponent(selectedValue);
@@ -159,22 +164,9 @@
   </div>
   <div class="page-content content-area pt-30 bottom-sp80">
     <div class="container allProduct">
-      <div class="searchbar-input-wrap">
-        <input id="searchInput" type="search" placeholder="검색어를 입력해주세요." />
-        <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="handleSearchIconClick()"></i>
-      </div>
       <div class="allProduct_text">
         <div class="total">
           <h5>총 <span id="totalProductsCount">${farmList.size()}</span>개</h5>
-        </div>
-        <div class="sort">
-          <div class="sort_type">
-            <select id="sortSelect" onchange="handleSearchIconClick()">
-              <option value="rating">인기순</option>
-              <option value="new">신규순</option>
-              <option value="old">오래된순</option>
-            </select>
-          </div>
         </div>
       </div>
       <p style="margin-top:-12px">

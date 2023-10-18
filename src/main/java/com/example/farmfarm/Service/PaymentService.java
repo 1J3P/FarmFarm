@@ -28,6 +28,9 @@ public class PaymentService {
     @Value("${kakaoAdminKey}")
     private String adminKey;
 
+    @Value("${serverUrl}")
+    private String serverUrl;
+
     private KakaoReadyResponse response;
 
     public KakaoReadyResponse kakaoPayReady(OrderEntity order) {
@@ -46,9 +49,9 @@ public class PaymentService {
         parameters.add("total_amount", String.valueOf(order.getTotal_price()));
         parameters.add("vat_amount", String.valueOf(Math.round(order.getTotal_price() * 0.1)));
         parameters.add("tax_free_amount", "0");
-        parameters.add("approval_url", "http://farmfarm.store/pay/success/" + String.valueOf(order.getOId())); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://farmfarm.store/pay/cancel"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://farmfarm.store/pay/fail"); // 실패 시 redirect url
+        parameters.add("approval_url", serverUrl + "/pay/success/" + String.valueOf(order.getOId())); // 성공 시 redirect url
+        parameters.add("cancel_url",  serverUrl + "/pay/cancel"); // 취소 시 redirect url
+        parameters.add("fail_url",  serverUrl + "/pay/fail"); // 실패 시 redirect url
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 

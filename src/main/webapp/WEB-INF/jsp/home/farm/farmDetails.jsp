@@ -190,7 +190,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("삭제 되었습니다.");
-                        location.href = "http://farmfarm.store/myPage";
+                        location.href = "/myPage";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -259,7 +259,7 @@
                     trackingNum: newTrackingNumber
                 };
 
-                fetch('http://farmfarm.store/farm/order/' + od_id, {
+                fetch('/farm/order/' + od_id, {
                     method: 'PATCH',
                     body: JSON.stringify(patchData),
                     headers: {

@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="org.springframework.core.env.Environment" %>
+<%
+    Environment environment = (Environment) request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT");
+    String serverUrl = environment.getProperty("serverUrl");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -97,6 +102,7 @@
         })
     </script>
     <script>
+
         //탭 로직
         document.addEventListener('DOMContentLoaded', function () {
             var tabLinks = document.querySelectorAll('.tab-link');
@@ -171,11 +177,11 @@
                     success: function (response) {
                         alert("삭제 되었습니다.");
                         location.href="/";
-                        location.href = "http://farmfarm.store/";
-                        window.location.href("http://farmfarm.store/");
-                        window.location.href = "http://farmfarm.store/";
-                        window.location.assign("http://farmfarm.store/");
-                        window.location.replace("http://farmfarm.store/");
+                        location.href = '<%= serverUrl %>';
+                        window.location.href('<%= serverUrl %>');
+                        window.location.href = '<%= serverUrl %>';
+                        window.location.assign('<%= serverUrl %>');
+                        window.location.replace('<%= serverUrl %>');
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -711,12 +717,12 @@
             e.preventDefault();
             var pId = ${p_id};
             console.log(pId);
-            var link = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
+            var link = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
             console.log(link);
-            location.href = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.href("http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity);
-            window.location.href = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.assign("http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity);
+            location.href = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.href("<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity);
+            window.location.href = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.assign("<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity);
             window.location.replace(link);
         });
         var groupIn = document.getElementsByName("group_attend");
@@ -726,11 +732,11 @@
                 setTimeout(function () {
                     var quantity = parseInt(document.getElementById('quantityInput').value);
                     console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
-                    var link = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
-                    location.href = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.href("http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity);
-                    window.location.href = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.assign("http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity);
+                    var link = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
+                    location.href = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.href("<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity);
+                    window.location.href = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.assign("<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity);
                     window.location.replace(link);
                 }, 500);
 
