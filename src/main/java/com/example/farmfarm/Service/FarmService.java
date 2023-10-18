@@ -54,6 +54,7 @@ public class FarmService {
         }
     }
 
+
     public List<FarmEntity> searchByLocation(String locationCity, String locationGu) {
         return farmRepository.findAllByLocationCityAndLocationGu(locationCity, locationGu);
     }
