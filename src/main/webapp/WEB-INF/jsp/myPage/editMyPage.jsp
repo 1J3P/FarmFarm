@@ -294,7 +294,7 @@
             $.ajax({
                 type: "POST",
                 async: true,
-                url: "http://localhost:9000/user/profile",
+                url: "/user/profile",
                 data: formsubmit,
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",

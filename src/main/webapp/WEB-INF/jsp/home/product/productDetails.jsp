@@ -170,12 +170,12 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("삭제 되었습니다.");
-                        location.href="localhost:9000/";
-                        location.href = "http://localhost:9000/";
-                        window.location.href("http://localhost:9000/");
-                        window.location.href = "http://localhost:9000/";
-                        window.location.assign("http://localhost:9000/");
-                        window.location.replace("http://localhost:9000/");
+                        location.href="/";
+                        location.href = "http://farmfarm.store/";
+                        window.location.href("http://farmfarm.store/");
+                        window.location.href = "http://farmfarm.store/";
+                        window.location.assign("http://farmfarm.store/");
+                        window.location.replace("http://farmfarm.store/");
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -306,9 +306,9 @@
             width: 100%;
         }
 
-        /*.swiper{*/
-        /*    position: inherit;*/
-        /*}*/
+        .row .col-30{
+            margin-right:10px;
+        }
     </style>
 </head>
 <body>
@@ -522,7 +522,7 @@
                     <div class="col-30">
                         <button type="button" onclick="ViewLayer()"
                                 class="button-large button btn-block button-fill add-cart-btn active together-order"
-                                style="width:100%">같이 주문<span class="price"><fmt:formatNumber type="number"
+                                style="width:100%; display: flex; flex-direction: column;">같이 주문<span class="price"><fmt:formatNumber type="number"
                                                                                               value="${product.price * 0.9}"/>원</span>
                         </button>
                     </div>
@@ -711,12 +711,12 @@
             e.preventDefault();
             var pId = ${p_id};
             console.log(pId);
-            var link = "http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
+            var link = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
             console.log(link);
-            location.href = "http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.href("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
-            window.location.href = "http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.assign("http://localhost:9000/order/product/" + pId + "/group?quantity=" + quantity);
+            location.href = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.href("http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity);
+            window.location.href = "http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.assign("http://farmfarm.store/order/product/" + pId + "/group?quantity=" + quantity);
             window.location.replace(link);
         });
         var groupIn = document.getElementsByName("group_attend");
@@ -726,11 +726,11 @@
                 setTimeout(function () {
                     var quantity = parseInt(document.getElementById('quantityInput').value);
                     console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
-                    var link = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                    location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.href("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
-                    window.location.href = "http://localhost:9000/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.assign("http://localhost:9000/order/group/" + GID + "?quantity=" + quantity);
+                    var link = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
+                    location.href = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.href("http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity);
+                    window.location.href = "http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.assign("http://farmfarm.store/order/group/" + GID + "?quantity=" + quantity);
                     window.location.replace(link);
                 }, 500);
 

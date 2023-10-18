@@ -13473,7 +13473,6 @@ label.item-radio.active-state:after {
 	flex-wrap: wrap;
 	align-items: flex-start;
 	--f7-cols-per-row: 1;
-	margin-top:20px;
 }
 
 .row + .row {

@@ -218,7 +218,7 @@
         $.ajax({
             type: "POST",
             async: true,
-            url: "http://localhost:9000/review/${orderDetail.odId}",
+            url: "/review/${orderDetail.odId}",
             data: formsubmit,
             dataType: "json",
             contentType: "application/json; charset=utf-8",

@@ -78,7 +78,7 @@ public class UserController {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity req = new HttpEntity(headers);
         ResponseEntity<UserEntity> response = restTemplate.exchange(
-                "http://localhost:9000/user/me",
+                "http://farmfarm.store/user/me",
                 HttpMethod.GET,
                 req,
                 UserEntity.class
@@ -124,7 +124,7 @@ public class UserController {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + nickname);
         UserEntity newUser = userService.setNickname(userService.getUser(request), request.getParameter("nickname"));
         model.addAttribute("user", newUser);
-        return "redirect:localhost:9000/";
+        return "redirect:/";
     }
 
     @GetMapping("/profile")

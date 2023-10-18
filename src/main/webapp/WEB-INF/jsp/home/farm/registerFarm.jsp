@@ -304,7 +304,7 @@
       $.ajax({
         type:"POST",
         async:true,
-        url:"http://localhost:9000/farm",
+        url:"/farm",
         data:formsubmit,
         dataType:"json",
         contentType:"application/json; charset=utf-8",

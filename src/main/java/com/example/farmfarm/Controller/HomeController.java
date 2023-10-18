@@ -36,7 +36,7 @@ public class HomeController {
         try {
             System.out.println("print session Authorization : " + session.getAttribute("user"));
             if (session.getAttribute("user") != null) {
-                return "redirect:http://localhost:9000/";
+                return "redirect:http://farmfarm.store/";
             }
             else if (session.getAttribute("user") == null){
                 System.out.println("/kakao로 redirect!!!");

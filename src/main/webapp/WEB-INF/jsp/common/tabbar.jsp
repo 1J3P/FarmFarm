@@ -127,7 +127,7 @@
             jQuery.ajax({
                 type: "POST",
                 async: true,
-                url: "http://localhost:9000/myPage",
+                url: "/myPage",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function (xhr) {
