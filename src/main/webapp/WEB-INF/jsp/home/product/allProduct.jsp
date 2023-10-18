@@ -151,7 +151,7 @@
                                 <h3 class="title">
                                     ${product.name}
                                 </h3>
-                                <h4 class="price">${product.price}</h4>
+                                <h4 class="price">${product.price}원</h4>
                             </div>
                         </div>
                     </div>
