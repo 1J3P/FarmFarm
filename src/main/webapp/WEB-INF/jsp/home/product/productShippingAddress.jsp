@@ -74,7 +74,6 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         var mapContainer = document.getElementById('map');
-        mapContainer.style.display = 'none';
         $(document).ready(function () {
             $("input[name='delivery']").change(function () {
                 if ($("input[name='delivery']:checked").val() == 'true') {
@@ -103,6 +102,16 @@
             console.log("시/군/구 ! " + sggNm);
             displayMap();
         }
+        var deliveryRadio = document.getElementById("delivery-no");
+        deliveryRadio.addEventListener("click", function () {
+            console.log("클릭이벤트 발생여부")
+            var dd = document.getElementById("check-delivery");
+            if (deliveryRadio.checked) {
+                dd.style.display = "none";
+            } else {
+                dd.style.display = "block";
+            }
+        })
     </script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
     <style>
@@ -169,10 +178,9 @@
                                         <div class="item-input-wrap">
                                             <c:choose>
                                                 <c:when test="${isDirect == 0}"> <!-- 배송 / 직거래 둘 다 가능-->
-                                                    <label><input type="radio" id="true" name="delivery" value="true" checked/>배송(+3000원)</label>
-                                                    <label><input type="radio" id="false" name="delivery"
-                                                                  value="false"/>직거래</label>
-                                                    <div class="check-delivery" style="margin-top:40px;">
+                                                    <label><input type="radio" id="delivery-yes" name="delivery" value="true" checked/>배송(+3000원)</label>
+                                                    <label><input type="radio" id="delivery-no" name="delivery" value="false"/>직거래</label>
+                                                    <div class="check-delivery" id="check-delivery" style="margin-top:40px;">
                                                         <h4>배송 요청사항</h4>
                                                         <div class="item-input-wrap">
                                                             <input type="email" name="delivery_memo"
