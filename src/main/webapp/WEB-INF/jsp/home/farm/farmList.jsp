@@ -164,22 +164,9 @@
   </div>
   <div class="page-content content-area pt-30 bottom-sp80">
     <div class="container allProduct">
-      <div class="searchbar-input-wrap">
-        <input id="searchInput" type="search" placeholder="검색어를 입력해주세요." />
-        <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="handleSearchIconClick()"></i>
-      </div>
       <div class="allProduct_text">
         <div class="total">
           <h5>총 <span id="totalProductsCount">${farmList.size()}</span>개</h5>
-        </div>
-        <div class="sort">
-          <div class="sort_type">
-            <select id="sortSelect" onchange="handleSearchIconClick()">
-              <option value="rating">인기순</option>
-              <option value="new">신규순</option>
-              <option value="old">오래된순</option>
-            </select>
-          </div>
         </div>
       </div>
       <p style="margin-top:-12px">

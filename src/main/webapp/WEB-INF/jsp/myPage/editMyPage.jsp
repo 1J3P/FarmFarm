@@ -89,6 +89,10 @@
         .file {
             display: none;
         }
+
+        #formUser{
+            margin-top:80px;
+        }
     </style>
 </head>
 <body>
