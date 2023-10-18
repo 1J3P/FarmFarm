@@ -90,9 +90,9 @@
                     localStorage.setItem("selectedOption", selectedValue);
                     var url;
                     if (selectedValue === "new") {
-                        url = "http://localhost:9000/product/list";
+                        url = "http://farmfarm.store/product/list";
                     } else {
-                        url = "http://localhost:9000/product/list?sort=" + selectedValue;
+                        url = "http://farmfarm.store/product/list?sort=" + selectedValue;
                     }
                     window.location.href = url;
                 }

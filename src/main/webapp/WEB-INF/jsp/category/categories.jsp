@@ -228,7 +228,7 @@
 
                     jQuery.ajax({
                         type: "POST",
-                        url: "http://localhost:9000/category",
+                        url: "/category",
                         data: { selectedSido: selectedValue },
                         success: function(data) {
                             const gugunList = data;

@@ -246,7 +246,7 @@
             jQuery.ajax({
                 type: "POST",
                 async: true,
-                url: "http://localhost:9000/order",
+                url: "/order",
                 data: formsubmit,
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
@@ -256,7 +256,7 @@
                     jQuery.ajax({
                         type: "POST",
                         async: true,
-                        url: "http://localhost:9000/pay/order/" + data.oid,
+                        url: "/pay/order/" + data.oid,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {

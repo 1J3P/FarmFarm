@@ -211,9 +211,9 @@ public class OrderController {
             //OrderDetailRepository.delete(od);
         }
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:localhost:9000/product/"+product.getPId();
+            return "redirect:/product/"+product.getPId();
         }
-        return "redirect:localhost:9000/index";
+        return "redirect:/index";
     }
 
     @ResponseBody

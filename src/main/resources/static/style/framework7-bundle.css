@@ -13378,7 +13378,6 @@ label.item-radio.disabled,
   flex-wrap: wrap;
   align-items: flex-start;
   --f7-cols-per-row: 1;
-  margin-top: 20px;
 }
 .row + .row {
   margin-top: var(--f7-grid-row-gap);

@@ -103,7 +103,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("상품이 장바구니에서 삭제되었습니다.");
-                        window.location.href = "http://localhost:9000/product/cart";
+                        window.location.href = "http://farmfarm.store/product/cart";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);

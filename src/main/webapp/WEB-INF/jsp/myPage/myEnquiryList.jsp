@@ -111,7 +111,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("문의사항이 삭제 되었습니다.");
-                        window.location.href = "http://localhost:9000/enquiry/my";
+                        window.location.href = "http://farmfarm.store/enquiry/my";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
