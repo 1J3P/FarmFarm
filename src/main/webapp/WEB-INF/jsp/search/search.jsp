@@ -91,7 +91,7 @@
 
             searchIcon.addEventListener('click', function () {
                 var keyword = searchInput.value;
-                var url = 'http://localhost:9000/product/list?keyword=' + encodeURIComponent(keyword);
+                var url = 'http://farmfarm.store/product/list?keyword=' + encodeURIComponent(keyword);
 
                 // 페이지 이동
                 if (keyword === "") {

@@ -131,21 +131,20 @@
             margin-bottom: 20px;
         }
 
-        .fa-pencil {
-            margin-right: 20px;
-        }
-
         .flaticon-share {
             cursor: pointer;
             font-size: 28px;
             font-weight: bold;
         }
 
-
         .transaction_status_select{
             -webkit-appearance: inherit;
             appearance: inherit;
             border: inherit;
+        }
+
+        #tab-2 .row{
+            margin-top: 20px;
         }
 
     </style>
@@ -191,7 +190,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("삭제 되었습니다.");
-                        location.href = "http://localhost:9000/myPage";
+                        location.href = "http://farmfarm.store/myPage";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
@@ -260,7 +259,7 @@
                     trackingNum: newTrackingNumber
                 };
 
-                fetch('http://localhost:9000/farm/order/' + od_id, {
+                fetch('http://farmfarm.store/farm/order/' + od_id, {
                     method: 'PATCH',
                     body: JSON.stringify(patchData),
                     headers: {
