@@ -248,7 +248,7 @@
                                 if (e.target.classList.contains("dropdown-item")) {
                                     const selectedGugun = e.target.textContent;
                                     // 선택된 구군 페이지로 이동
-                                    // window.location.href = "http://localhost:9000/farm/list/" + selectedSidoValue + "/" + selectedGugun;
+                                    window.location.href = "/farm/list?si=" + selectedSidoValue + "&gugun=" + selectedGugun;
                                 }
                             });
                         },
