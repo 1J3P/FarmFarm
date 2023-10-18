@@ -9,6 +9,7 @@ import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +32,14 @@ public class HomeController {
     ProductService productService;
     @Autowired
     CategoryService categoryService;
+    @Value("${serverUrl}")
+    private String serverUrl;
     @GetMapping("/index")
     public String control(HttpServletRequest request, HttpSession session) {
         try {
             System.out.println("print session Authorization : " + session.getAttribute("user"));
             if (session.getAttribute("user") != null) {
-                return "redirect:http://farmfarm.store/";
+                return "redirect:" + serverUrl + "/";
             }
             else if (session.getAttribute("user") == null){
                 System.out.println("/kakao로 redirect!!!");

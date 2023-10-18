@@ -47,6 +47,9 @@ public class UserController {
 
     @Value("${KakaoApiUrl}")
     private String KakaoApiUrl;
+
+    @Value("${serverUrl}")
+    private String serverUrl;
     @Autowired
     private UserRepository userRepository;
 
@@ -78,7 +81,7 @@ public class UserController {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity req = new HttpEntity(headers);
         ResponseEntity<UserEntity> response = restTemplate.exchange(
-                "http://farmfarm.store/user/me",
+                serverUrl + "/user/me",
                 HttpMethod.GET,
                 req,
                 UserEntity.class
