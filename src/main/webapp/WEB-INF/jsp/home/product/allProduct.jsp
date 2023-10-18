@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="org.springframework.core.env.Environment" %>
+<%
+    Environment environment = (Environment) request.getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT");
+    String serverUrl = environment.getProperty("serverUrl");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -90,9 +95,9 @@
                     localStorage.setItem("selectedOption", selectedValue);
                     var url;
                     if (selectedValue === "new") {
-                        url = "http://farmfarm.store/product/list";
+                        url = "<%=serverUrl%>/product/list";
                     } else {
-                        url = "http://farmfarm.store/product/list?sort=" + selectedValue;
+                        url = "<%=serverUrl%>>/product/list?sort=" + selectedValue;
                     }
                     window.location.href = url;
                 }
