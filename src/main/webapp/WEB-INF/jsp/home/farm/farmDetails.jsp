@@ -147,6 +147,40 @@
             margin-top: 20px;
         }
 
+        /* 팝업 스타일 */
+        .buyer-info-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            margin:0;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 닫기 버튼 */
+        #close-popup {
+            display: block;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* 팝업의 다른 스타일은 여기에 추가할 수 있습니다. */
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -180,6 +214,38 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // "보기" 버튼 요소를 가져옵니다.
+            var viewButtons = document.querySelectorAll(".residence_btn");
+
+            // 팝업 요소를 가져옵니다.
+            var popup = document.querySelector('.buyer-info-popup');
+
+            // "닫기" 버튼 요소를 가져옵니다.
+            var closeButton = document.querySelector('.close-popup');
+
+            // "보기" 버튼에 클릭 이벤트 리스너를 추가합니다.
+            viewButtons.forEach(function (viewButton) {
+                viewButton.addEventListener('click', function () {
+                    // 팝업을 표시합니다.
+                    popup.style.display = 'block';
+
+                    // 팝업 내용을 채웁니다. (거주지 정보를 가져와서 표시)
+                    var buyerAddress = this.closest('tr').querySelector('.address').innerText;
+                    console.log(buyerAddress);
+                    var popupContent = popup.querySelector('.popup-content');
+                    popupContent.querySelector('.buyer-address').innerHTML = buyerAddress;
+                });
+            });
+
+            // "닫기" 버튼에 클릭 이벤트 리스너를 추가하여 팝업을 닫습니다.
+            closeButton.addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+        });
+
+
 
         function confirmAndDeleteFarm(fId) {
             // 알림 창을 표시하여 사용자의 확인을 받습니다.
@@ -482,6 +548,7 @@
                             <th>송장번호</th>
                             <th style="padding-right: 20px">거주지</th>
                             <th>상태</th>
+                            <th style="display: none"></th>
                             <c:forEach var="order" items="${myFarmOrderList}">
                                 <tr>
                                     <td>${order.product.name}</td>
@@ -504,9 +571,22 @@
                                         <p style="display: none;"></p>
                                         <input type="text" style="display: none; width:150px; border: #1b1b1b solid 1px ">
                                     </td>
-                                    <td style="padding-right: 20px"><button>보기</button></td>
+                                    <td style="padding-right: 20px">
+                                        <c:choose>
+                                            <c:when test="${order.order.delivery == false}"><button class="residence_btn" disabled style="background:#d9d9d9">보기</button></c:when>
+                                            <c:when test="${order.order.delivery == true}"><button class="residence_btn">보기</button></c:when>
+                                        </c:choose>
+                                    </td>
                                     <td><button data-od_id="${order.odId}" onclick="toggleEditMode(this)" class="edit_btn">수정</button></td>
+                                    <td style="display: none" class="address"><input type="hidden">${order.order.delivery_address} ${order.order.delivery_address_detail}</td>
                                 </tr>
+                                <div class="buyer-info-popup">
+                                    <div class="popup-content">
+                                        <h2>거주지 정보</h2>
+                                        <p><strong>거주지:</strong> <span class="buyer-address"></span></p>
+                                        <button class="close-popup">닫기</button>
+                                    </div>
+                                </div>
                             </c:forEach>
                         </table>
                     </div>
@@ -516,6 +596,7 @@
         </div>
     </div>
 </div>
+
 <script>
     window.onload = function () {
         const remainTimeElements = document.querySelectorAll(".ac-time");
