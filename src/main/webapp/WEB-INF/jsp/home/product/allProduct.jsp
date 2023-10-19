@@ -93,11 +93,11 @@
 
                 if (selectedValue) {
                     localStorage.setItem("selectedOption", selectedValue);
-                    var url;
+                    var url = "";
                     if (selectedValue === "new") {
-                        url = "<%=serverUrl%>/product/list";
+                        url += "";
                     } else {
-                        url = "<%=serverUrl%>>/product/list?sort=" + selectedValue;
+                        url += "?sort=" + selectedValue;
                     }
                     window.location.href = url;
                 }
