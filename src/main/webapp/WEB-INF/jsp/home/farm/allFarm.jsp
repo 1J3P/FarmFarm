@@ -115,7 +115,9 @@
             var searchInput = document.getElementById("searchInput");
             var searchText = searchInput.value;
             let url = "";
-            if (searchText) {
+            if (searchText === "") {
+                alert('검색어를 입력해주세요.');
+            } else {
                 url += '?keyword=' + encodeURIComponent(searchText);
             }
             window.location.href = url;

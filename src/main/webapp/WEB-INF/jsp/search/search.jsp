@@ -90,22 +90,18 @@
     </style>
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var searchInput = document.getElementById('searchInput');
-            var searchIcon = document.getElementById('searchIcon');
-
-            searchIcon.addEventListener('click', function () {
-                var keyword = searchInput.value;
-                var url = '<%=serverUrl%>/product/list?keyword=' + encodeURIComponent(keyword);
-
-                // 페이지 이동
-                if (keyword === "") {
-                    alert('검색어를 입력해주세요.');
-                } else {
-                    window.location.href = url;
-                }
-            });
-        });
+        function performSearch() {
+            var searchInput = document.getElementById("searchInput");
+            var searchText = searchInput.value;
+            let url = "";
+            if (searchText === "") {
+                alert('검색어를 입력해주세요.');
+            } else {
+                url += '/product/list?keyword=' + encodeURIComponent(searchText);
+            }
+            window.location.href = url;
+            console.log("검색어: " + searchText);
+        }
 
     </script>
 </head>
@@ -133,7 +129,7 @@
                         <div class="searchbar-inner">
                             <div class="searchbar-input-wrap">
                                 <input id="searchInput" type="search" placeholder="검색어를 입력해주세요."/>
-                                <i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
+                                <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="performSearch()"></i>
                             </div>
                         </div>
                     </form>
