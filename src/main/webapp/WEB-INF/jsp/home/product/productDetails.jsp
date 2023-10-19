@@ -76,133 +76,13 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
-
-    <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
     />
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script>
-        //탭 로직
-        document.addEventListener('DOMContentLoaded', function () {
-            var tabLinks = document.querySelectorAll('.tab-link');
-            var tabs = document.querySelectorAll('.tab');
-
-            // 초기에 첫 번째 탭만 보이도록 설정
-            tabs[0].style.display = 'block';
-
-            // 탭 클릭 이벤트 처리
-            tabLinks.forEach(function (link, index) {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    console.log("1511151516");
-
-                    // 모든 탭 숨기기
-                    tabs.forEach(function (tab) {
-                        tab.style.display = 'none';
-                    });
-
-                    // 클릭한 탭의 내용만 보이도록 설정
-                    var targetTabId = this.getAttribute('href');
-                    document.querySelector(targetTabId).style.display = 'block';
-
-                    // 선택된 탭 스타일 적용
-                    tabLinks.forEach(function (link) {
-                        link.classList.remove('tab-link-active');
-                    });
-                    this.classList.add('tab-link-active');
-                });
-            });
-        });
-
-        function ViewLayer() {
-            document.querySelector(".layer-page").style.display = 'block';
-            document.getElementById("mask").style.display = 'block';
-        }
-
-        function CloseLayer() {
-            document.querySelector(".layer-page").style.display = 'none';
-            document.getElementById("mask").style.display = 'none';
-        }
-
-        $(document).ready(function () {
-            $(".write-enquiry").click(function () {
-                $(".enquiry_form").toggle();
-            });
-        });
-
-        function decreaseValue() {
-            var input = document.getElementById('quantityInput');
-            var currentValue = parseInt(input.value);
-            if (currentValue > 0) {
-                input.value = currentValue - 1;
-            }
-        }
-
-
-        function increaseValue() {
-            var input = document.getElementById('quantityInput');
-            var currentValue = parseInt(input.value);
-            var maxValue = parseInt(input.max);
-            if (currentValue < maxValue) {
-                input.value = currentValue + 1;
-            }
-        }
-        function confirmAndDeleteProduct(pId) {
-            // 알림 창을 표시하여 사용자의 확인을 받습니다.
-            if (confirm("정말로 삭제하시겠습니까?")) {
-                // AJAX를 사용하여 삭제 요청을 보냅니다.
-                $.ajax({
-                    url: "/product/" + pId,
-                    type: "DELETE",
-                    success: function (response) {
-                        alert("삭제 되었습니다.");
-                        location.href="/";
-                        location.href = '<%= serverUrl %>';
-                        window.location.href('<%= serverUrl %>');
-                        window.location.href = '<%= serverUrl %>';
-                        window.location.assign('<%= serverUrl %>');
-                        window.location.replace('<%= serverUrl %>');
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                        alert("삭제 요청을 처리할 수 없습니다.");
-                    }
-                });
-            }
-        }
-
-        function clip(){
-            var url = '';
-            var textarea = document.createElement("textarea");
-            document.body.appendChild(textarea);
-            url = window.document.location.href;
-            textarea.value = url;
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            alert("URL이 복사되었습니다.")
-        }
-    </script>
-    <script>
-        $(function(){
-            var swiper = new Swiper(".swiper", {
-                spaceBetween: 30,
-                centeredSlides: true,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                autoplay: {     //자동슬라이드 (false-비활성화)
-                    delay: 3500, // 시간 설정
-                    disableOnInteraction: false, // false-스와이프 후 자동 재생
-                },
-            });
-        })
-    </script>
+    <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
         #tab-2, #tab-3 {
             display: none;
@@ -315,7 +195,121 @@
         .row .col-30{
             margin-right:10px;
         }
+
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            var swiper = new Swiper(".swiper", {
+                spaceBetween: 30,
+                centeredSlides: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {     //자동슬라이드 (false-비활성화)
+                    delay: 3500, // 시간 설정
+                    disableOnInteraction: false, // false-스와이프 후 자동 재생
+                },
+            });
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tabLinks = document.querySelectorAll('.tab-link');
+            var tabs = document.querySelectorAll('.tab');
+
+            // 초기에 첫 번째 탭만 보이도록 설정
+            tabs[0].style.display = 'block';
+
+            // 탭 클릭 이벤트 처리
+            tabLinks.forEach(function (link, index) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // 모든 탭 숨기기
+                    tabs.forEach(function (tab) {
+                        tab.style.display = 'none';
+                    });
+
+                    // 클릭한 탭의 내용만 보이도록 설정
+                    var targetTabId = this.getAttribute('href');
+                    document.querySelector(targetTabId).style.display = 'block';
+
+                    // 선택된 탭 스타일 적용
+                    tabLinks.forEach(function (link) {
+                        link.classList.remove('tab-link-active');
+                    });
+                    this.classList.add('tab-link-active');
+                });
+            });
+        });
+
+        function decreaseValue() {
+            var input = document.getElementById('quantityInput');
+            var currentValue = parseInt(input.value);
+            if (currentValue > 0) {
+                input.value = currentValue - 1;
+            }
+        }
+
+
+        function increaseValue() {
+            var input = document.getElementById('quantityInput');
+            var currentValue = parseInt(input.value);
+            var maxValue = parseInt(input.max);
+            if (currentValue < maxValue) {
+                input.value = currentValue + 1;
+            }
+        }
+
+        function confirmAndDeleteProduct(pId) {
+            // 알림 창을 표시하여 사용자의 확인을 받습니다.
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 보냅니다.
+                $.ajax({
+                    url: "/product/" + pId,
+                    type: "DELETE",
+                    success: function (response) {
+                        alert("삭제 되었습니다.");
+                        location.href = "/product/list";
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("삭제 요청을 처리할 수 없습니다.");
+                    }
+                });
+            }
+        }
+
+        function clip(){
+            var url = '';
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("URL이 복사되었습니다.")
+        }
+
+        function ViewLayer() {
+            document.querySelector(".layer-page").style.display = 'block';
+            document.getElementById("mask").style.display = 'block';
+        }
+
+        function CloseLayer() {
+            document.querySelector(".layer-page").style.display = 'none';
+            document.getElementById("mask").style.display = 'none';
+        }
+
+        $(document).ready(function () {
+            $(".write-enquiry").click(function () {
+                $(".enquiry_form").toggle();
+            });
+        });
+    </script>
 </head>
 <body>
 <input type="hidden" value="${Authorization}" id="Auth">
@@ -356,7 +350,7 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-<%--        <div class="dz-banner-height"></div>--%>
+        <%--        <div class="dz-banner-height"></div>--%>
         <div class="fixed-content py-30">
             <div class="container">
                 <div class="item-info">
@@ -529,7 +523,7 @@
                         <button type="button" onclick="ViewLayer()"
                                 class="button-large button btn-block button-fill add-cart-btn active together-order"
                                 style="width:100%; display: flex; flex-direction: column;">같이 주문<span class="price"><fmt:formatNumber type="number"
-                                                                                              value="${product.price * 0.9}"/>원</span>
+                                                                                                                                      value="${product.price * 0.9}"/>원</span>
                         </button>
                     </div>
                     <div class="col-70">
