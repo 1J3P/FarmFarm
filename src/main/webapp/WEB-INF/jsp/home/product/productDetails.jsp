@@ -78,7 +78,7 @@
     />
 
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
@@ -86,23 +86,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
-        $(function(){
-            var swiper = new Swiper(".swiper", {
-                spaceBetween: 30,
-                centeredSlides: true,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                autoplay: {     //자동슬라이드 (false-비활성화)
-                    delay: 3500, // 시간 설정
-                    disableOnInteraction: false, // false-스와이프 후 자동 재생
-                },
-            });
-        })
-    </script>
-    <script>
-
         //탭 로직
         document.addEventListener('DOMContentLoaded', function () {
             var tabLinks = document.querySelectorAll('.tab-link');
@@ -115,6 +98,7 @@
             tabLinks.forEach(function (link, index) {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
+                    console.log("1511151516");
 
                     // 모든 탭 숨기기
                     tabs.forEach(function (tab) {
@@ -202,6 +186,22 @@
             document.body.removeChild(textarea);
             alert("URL이 복사되었습니다.")
         }
+    </script>
+    <script>
+        $(function(){
+            var swiper = new Swiper(".swiper", {
+                spaceBetween: 30,
+                centeredSlides: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {     //자동슬라이드 (false-비활성화)
+                    delay: 3500, // 시간 설정
+                    disableOnInteraction: false, // false-스와이프 후 자동 재생
+                },
+            });
+        })
     </script>
     <style>
         #tab-2, #tab-3 {
