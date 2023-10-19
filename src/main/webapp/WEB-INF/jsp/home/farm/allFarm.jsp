@@ -111,38 +111,36 @@
         }
     </style>
     <script>
-        function handleSearchIconClick() {
-            const selectElement = document.querySelector('.sort_type select');
-            const selectedValue = selectElement.value;
-            const inputValue = document.querySelector('.searchbar-input-wrap input').value;
-            let url = '<%= serverUrl %>' + '/farm/list';
-
-            if (selectedValue) {
-                url += '?sort=' + encodeURIComponent(selectedValue);
+        function performSearch() {
+            var searchInput = document.getElementById("searchInput");
+            var searchText = searchInput.value;
+            let url = "";
+            if (searchText === "") {
+                alert('검색어를 입력해주세요.');
+            } else {
+                url += '?keyword=' + encodeURIComponent(searchText);
             }
-
-            if (inputValue) {
-                url += (selectedValue ? '&' : '?') + 'keyword=' + encodeURIComponent(inputValue);
-            }
-
-            localStorage.setItem("selectedOption", selectedValue);
             window.location.href = url;
+            console.log("검색어: " + searchText);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const sortSelect = document.querySelector('.sort_type select');
-
-            const selectedOption = localStorage.getItem("selectedOption");
+            var sortSelect = document.getElementById("sortSelect");
+            var selectedOption = localStorage.getItem("selectedOption");
             if (selectedOption) {
                 sortSelect.value = selectedOption;
             }
 
-            sortSelect.addEventListener('change', function() {
-                handleSearchIconClick();
-            });
+            sortSelect.addEventListener("change", function() {
+                var selectedValue = sortSelect.value;
 
-            const searchIcon = document.querySelector('.searchbar-input-wrap i');
-            searchIcon.addEventListener('click', handleSearchIconClick);
+                if (selectedValue) {
+                    localStorage.setItem("selectedOption", selectedValue);
+                    var url = "";
+                    url += "?sort=" + selectedValue;
+                    window.location.href = url;
+                }
+            });
         });
 
     </script>
@@ -166,7 +164,7 @@
         <div class="container allProduct">
             <div class="searchbar-input-wrap">
                 <input id="searchInput" type="search" placeholder="검색어를 입력해주세요." />
-                <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="handleSearchIconClick()"></i>
+                <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="performSearch()"></i>
             </div>
             <div class="allProduct_text">
                 <div class="total">
@@ -174,7 +172,7 @@
                 </div>
                 <div class="sort">
                     <div class="sort_type">
-                        <select id="sortSelect" onchange="handleSearchIconClick()">
+                        <select id="sortSelect">
                             <option value="rating" selected>인기순</option>
                             <option value="new">신규순</option>
                             <option value="old">오래된순</option>
@@ -241,16 +239,23 @@
                 });
             </script>
             <div class="row">
-                <table class="table">
-                    <tbody>
-                    <c:forEach var="farm" items="${farmList}" varStatus="status">
-                        <tr>
-                            <th scope="row">${status.count}</th>
-                            <td><a href="/farm/${farm.FId}" style="color: black;">${farm.name}</a></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <c:choose>
+                    <c:when test="${farmList.size() eq 0}">
+                        <p>검색결과 없습니다.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <table class="table">
+                            <tbody>
+                            <c:forEach var="farm" items="${farmList}" varStatus="status">
+                                <tr>
+                                    <th scope="row">${status.count}</th>
+                                    <td><a href="/farm/${farm.FId}" style="color: black;">${farm.name}</a></td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
