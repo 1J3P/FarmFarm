@@ -27,11 +27,22 @@ public class FarmController {
     private ProductService productService;
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private UserService userService;
 
     // 농장 개설
     @PostMapping("")
-    public ResponseEntity<Object> createFarm( @RequestBody FarmEntity farm, Model model, HttpSession session) {
+    public ResponseEntity<Object> createFarm(@RequestHeader("uid") String headerUId, @RequestBody FarmEntity farm, Model model, HttpSession session) {
+        System.out.println(headerUId);
+        long huid = Long.parseLong(headerUId);
+        System.out.println(huid);
         UserEntity user = (UserEntity)session.getAttribute("user");
+        if (user == null) {
+            user = userService.findByUId(huid);
+            System.out.println("로그인 풀림ㅋ");
+            System.out.println(user);
+            session.setAttribute("user", user);
+        }
         FarmEntity newFarm = farmService.saveFarm(user, farm);
         model.addAttribute("myFarm", newFarm);
         return ResponseEntity.ok().body(newFarm);

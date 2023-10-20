@@ -180,4 +180,8 @@ public class UserService {
     public UserEntity findById(long id) {
         return userRepository.findById(id);
     }
+
+    public UserEntity findByUId(long id) {
+        return userRepository.findByuId(id);
+    }
 }

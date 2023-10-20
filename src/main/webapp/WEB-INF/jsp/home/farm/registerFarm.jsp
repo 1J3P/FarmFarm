@@ -241,12 +241,15 @@
       var url = "/s3/file";
       var formData = new FormData();
       formData.append("multipartFile", image);
+      //var user = JSON.parse(<%= session.getAttribute("user") %>);
+      //console.log("user 객체 : " + user);
+      console.log("uId : " + <%= session.getAttribute("uid") %>);
 
       $.ajax({
         url:url,
         data:formData,
         type:"POST",
-        async:false,
+        async:true,
         enctype:"multipart/form-data",
         processData:false,
         contentType:false,
@@ -305,6 +308,9 @@
         type:"POST",
         async:true,
         url:"/farm",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
+        },
         data:formsubmit,
         dataType:"json",
         contentType:"application/json; charset=utf-8",

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class UserController {
 
     // 프론트에서 인가코드 받아오는 url
     @GetMapping("/login/oauth_kakao")
-    public String getLogin(RedirectAttributes attr, @RequestParam("code") String code, Model model) {
+    public String getLogin(RedirectAttributes attr, @RequestParam("code") String code, Model model, HttpSession session) {
         System.out.println("code : " + code);
         // 넘어온 인가 코드를 통해 access_token 발급
         OauthToken oauthToken= userService.getAccessToken(code);
@@ -94,6 +95,7 @@ public class UserController {
         model.addAttribute("Authorization", Auth);
         model.addAttribute("user", response.getBody());
         model.addAttribute("myFarm", farmService.getMyFarm(response.getBody()));
+        session.setAttribute("uid", response.getBody().getUId());
         if (response.getBody().getNickname() == null) {
             return "redirect:/user/nickname";
         } else {

@@ -8,6 +8,7 @@ import com.example.farmfarm.Service.CategoryService;
 import com.example.farmfarm.Service.FarmService;
 import com.example.farmfarm.Service.ProductService;
 import com.example.farmfarm.Service.UserService;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,8 @@ public class HomeController {
         try {
             System.out.println("print session Authorization : " + session.getAttribute("user"));
             if (session.getAttribute("user") != null) {
+                UserEntity user = (UserEntity)session.getAttribute("user");
+                session.setAttribute("uid", user.getUId());
                 return "redirect:" + serverUrl + "/";
             }
             else if (session.getAttribute("user") == null){
