@@ -116,7 +116,7 @@
                     type: "DELETE",
                     success: function (response) {
                         alert("문의사항이 삭제 되었습니다.");
-                        window.location.href = "<%=serverUrl%>/enquiry/my";
+                        location.reload()
                     },
                     error: function (xhr, status, error) {
                         console.error(error);

@@ -309,6 +309,25 @@
                 $(".enquiry_form").toggle();
             });
         });
+
+        function confirmAndDeleteEnquiry(eId) {
+            // 알림 창을 표시하여 사용자의 확인을 받습니다.
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 보냅니다.
+                $.ajax({
+                    url: "/enquiry/" + eId,
+                    type: "DELETE",
+                    success: function (response) {
+                        alert("문의사항이 삭제 되었습니다.");
+                        location.reload()
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("삭제 요청을 처리할 수 없습니다.");
+                    }
+                });
+            }
+        }
     </script>
 </head>
 <body>
@@ -502,7 +521,7 @@
                                                 <div class="item-title">${enquiry.user.nickname}님</div>
                                             </div>
                                             <p class="li_en">${enquiry.content}</p>
-                                            <i class="fa-regular fa-trash-can"></i>
+                                            <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteEnquiry(${enquiry.EId})"></i>
                                         </div>
                                     </c:forEach>
                                 </div>
