@@ -141,6 +141,28 @@
         }
 
     </style>
+    <script>
+        function cancelOrder(paID) {
+            // 주문 취소 함수 내부에서 orderID를 사용할 수 있습니다.
+            alert('주문 취소: ' + paID);
+
+            // 여기서 다른 동작을 수행할 수 있습니다.
+            $.ajax({
+                type: "POST",
+                url: "/pay/refund/" + paID, // 요청을 보낼 URL을 설정하세요
+                success: function (data) {
+                    // 요청이 성공했을 때 실행할 코드를 여기에 작성합니다.
+                    console.log(data);
+                    window.location.href="/myPage";
+                    // 예를 들어, 응답 데이터를 처리하거나 다른 동작을 수행할 수 있습니다.
+                },
+                error: function (error) {
+                    // 요청이 실패했을 때 실행할 코드를 여기에 작성합니다.
+                    console.error(error);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="page page-homepage light" data-name="homepage">
@@ -171,6 +193,9 @@
                 <ul>
                     <c:forEach var="order" items="${orderList}">
                         <div class="order-date">
+                            <div class="stepper-input-wrap stepperFont">
+                                    <div style="color:#FF5050; cursor: pointer" onclick="cancelOrder(${order.payment.paId})">주문 취소</div>
+                            </div>
                             <p><fmt:formatDate pattern="yyyy.MM.dd" value="${order.created_at}"/></p>
                             <div class="is-payment">
                                 <p>${order.status}</p>
@@ -206,9 +231,7 @@
                                                 <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원
                                                 </h3>
                                                 <div class="stepperForOrderList stepper-small stepper-round stepper-init">
-                                                    <div class="stepper-input-wrap stepperFont">
-                                                        <div style="color:#FF5050; cursor: pointer">주문 취소</div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

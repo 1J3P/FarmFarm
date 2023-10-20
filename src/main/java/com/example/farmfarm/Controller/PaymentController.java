@@ -103,6 +103,8 @@ public class PaymentController {
             int updateSales = sales - od.getQuantity();
             od.getProduct().setSales(updateSales);
         }
+        order.setStatus("결제취소");
+        orderRepository.save(order);
         return new ResponseEntity<>(kakaoCancelResponse, HttpStatus.OK);
     }
 }
