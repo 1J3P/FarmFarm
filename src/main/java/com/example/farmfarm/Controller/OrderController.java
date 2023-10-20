@@ -151,10 +151,15 @@ public class OrderController {
 
     //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용
     @GetMapping("/product/{pId}")
-    public String saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestParam("quantity") int quantity, @RequestParam("price") int price) {
+    public ModelAndView saveOrderDetailAuction(HttpSession session, @PathVariable("pId") long pId, @RequestParam("quantity") int quantity, @RequestParam("price") int price) {
+        ModelAndView mav = new ModelAndView("home/product/productShippingAddress");
         ProductEntity product = productService.getProduct(pId);
         UserEntity user = (UserEntity)session.getAttribute("user");
+        int isDirect = 0; // 0 : 배송, 1 : 직거래만
         if (product.isAuction()) {
+            if (product.isDirect() == true) {   // 직거래만
+                isDirect = 1;
+            }
             AuctionEntity auction = new AuctionEntity();
             auction.setPrice(price);
             auction.setQuantity(quantity);
@@ -169,7 +174,8 @@ public class OrderController {
             orderDetail.setPrice((long) auction.getPrice() * auction.getQuantity());
             details.add(orderDetail);
             session.setAttribute("orderDetail", details);
-            return "home/product/productShippingAddress";
+            mav.addObject("isDirect", isDirect);
+            return mav;
         }
         return null; //TODO: 에러페이지로 반드시 바꿀것
     }
