@@ -186,7 +186,10 @@
                                         </div>
                                         <div class="item-info">
                                             <div class="item-head">
-                                                <h6 class="category">${orderDetail.product.farm.name}</h6>
+                                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                                    <h6 class="category">${orderDetail.product.farm.name}</h6>
+
+                                                </div>
                                                 <div class="item-actions">
                                                     <h2 class="item-title"><a
                                                             href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a>
@@ -198,13 +201,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h5 class="item-title"><span>${orderDetail.product.name}</span></h5>
+                                            <h5 class="item-title"><span>${orderDetail.product.name}</span> X <span>${orderDetail.quantity}</span></h5>
                                             <div class="item-foot">
                                                 <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원
                                                 </h3>
                                                 <div class="stepperForOrderList stepper-small stepper-round stepper-init">
                                                     <div class="stepper-input-wrap stepperFont">
-                                                        X <span>${orderDetail.quantity}</span>
+                                                        <div style="color:#FF5050; cursor: pointer">주문 취소</div>
                                                     </div>
                                                 </div>
                                             </div>
