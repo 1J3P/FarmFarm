@@ -75,8 +75,15 @@ public class OrderController {
 
     //order 생성! - 이후 결제 진행
     @PostMapping("")
-    public ResponseEntity<Object> createOrder(HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
+    public ResponseEntity<Object> createOrder(@RequestHeader("uid") String headerUId, HttpSession session, HttpServletRequest request, @RequestBody OrderEntity order) {
         UserEntity user = (UserEntity)session.getAttribute("user");
+        if (user == null) {
+            long huid = Long.parseLong(headerUId);
+            user = userService.findByUId(huid);
+            System.out.println("로그인 풀림ㅋ");
+            System.out.println(user);
+            session.setAttribute("user", user);
+        }
         List<OrderDetailEntity> details = (List<OrderDetailEntity>)session.getAttribute("orderDetail");
         order.setUser(user);
         int totalP = 0;

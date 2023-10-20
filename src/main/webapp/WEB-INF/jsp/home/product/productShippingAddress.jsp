@@ -258,6 +258,9 @@
                 data: formsubmit,
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
+                },
                 success: function (data) {
                     console.log(data);
                     console.log(data.oid);
