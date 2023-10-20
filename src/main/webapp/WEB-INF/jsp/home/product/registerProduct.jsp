@@ -152,14 +152,6 @@
                     <h3>상품 이름</h3>
                     <input type="text" placeholder="상품 이름을 입력해주세요." name="name">
                 </div>
-                <div class="product_category">
-                    <h3>상품 카테고리</h3>
-                    <select>
-                        <option value="" disabled selected style="display:none">카테고리를 선택해주세요.</option>
-                        <option value="fruit">과일</option>
-                        <option value="vegetable">채소</option>
-                    </select>
-                </div>
                 <div class="product_quantity">
                     <h3>상품 수량</h3>
                     <input type="text" placeholder="상품 수량을 입력해주세요." name="quantity">
