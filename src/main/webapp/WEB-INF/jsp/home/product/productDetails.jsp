@@ -323,7 +323,6 @@
             </div>
             <div class="title"></div>
             <div class="right">
-                <i class="fa-solid fa-pencil"></i>
                 <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteProduct(${product.PId})"></i>
             </div>
         </div>
@@ -503,7 +502,6 @@
                                                 <div class="item-title">${enquiry.user.nickname}님</div>
                                             </div>
                                             <p class="li_en">${enquiry.content}</p>
-                                            <i class="fa-solid fa-pencil"></i>
                                             <i class="fa-regular fa-trash-can"></i>
                                         </div>
                                     </c:forEach>
