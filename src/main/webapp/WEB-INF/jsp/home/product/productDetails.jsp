@@ -342,7 +342,9 @@
             </div>
             <div class="title"></div>
             <div class="right">
-                <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteProduct(${product.PId})"></i>
+                <c:if test="${product.farm.user.UId == user.UId}">
+                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${product.PId})"></i>
+                </c:if>
             </div>
         </div>
     </div>
@@ -728,12 +730,12 @@
             e.preventDefault();
             var pId = ${p_id};
             console.log(pId);
-            var link = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
+            var link = "/order/product/" + pId + "/group?quantity=" + quantity;
             console.log(link);
-            location.href = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.href("<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity);
-            window.location.href = "<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity;
-            window.location.assign("<%=serverUrl%>/order/product/" + pId + "/group?quantity=" + quantity);
+            location.href = "/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.href("/order/product/" + pId + "/group?quantity=" + quantity);
+            window.location.href = "/order/product/" + pId + "/group?quantity=" + quantity;
+            window.location.assign("/order/product/" + pId + "/group?quantity=" + quantity);
             window.location.replace(link);
         });
         var groupIn = document.getElementsByName("group_attend");
@@ -743,11 +745,11 @@
                 setTimeout(function () {
                     var quantity = parseInt(document.getElementById('quantityInput').value);
                     console.log("groupId!!!!!!!!!!!!!!!!!" + GID);
-                    var link = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
-                    location.href = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.href("<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity);
-                    window.location.href = "<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity;
-                    window.location.assign("<%=serverUrl%>/order/group/" + GID + "?quantity=" + quantity);
+                    var link = "/order/group/" + GID + "?quantity=" + quantity;
+                    location.href = "/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.href("/order/group/" + GID + "?quantity=" + quantity);
+                    window.location.href = "/order/group/" + GID + "?quantity=" + quantity;
+                    window.location.assign("/order/group/" + GID + "?quantity=" + quantity);
                     window.location.replace(link);
                 }, 500);
 

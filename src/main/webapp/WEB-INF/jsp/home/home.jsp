@@ -139,30 +139,21 @@
                     <div class="swiper-slide">
                         <div class="post-card">
                             <div class="post-media">
-                                <img src="../images/banner_image.png" alt=""/>
-                                <div class="banner-text">
-                                    <h2>신선하게 공수한<br>방울 토마토 500g</h2>
-                                </div>
+                                <img src="../images/banner/banner1.png" alt=""/>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="post-card">
                             <div class="post-media">
-                                <img src="../images/banner_image.png" alt=""/>
-                                <div class="banner-text">
-                                    <h2>신선하게 공수한<br>방울 토마토 400g</h2>
-                                </div>
+                                <img src="../images/banner/banner2.png" alt=""/>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="post-card">
                             <div class="post-media">
-                                <img src="../images/banner_image.png" alt=""/>
-                                <div class="banner-text">
-                                    <h2>신선하게 공수한<br>방울 토마토 300g</h2>
-                                </div>
+                                <img src="../images/banner/banner3.png" alt=""/>
                             </div>
                         </div>
                     </div>
