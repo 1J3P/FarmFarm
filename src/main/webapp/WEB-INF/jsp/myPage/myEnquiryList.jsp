@@ -158,7 +158,6 @@
                                         <div class="item-title">${enquiry.product.name}</div>
                                     </div>
                                     <div class="item-text">${enquiry.content}</div>
-                                    <i class="fa-solid fa-pencil" onclick="/"></i>
                                     <i class="fa-regular fa-trash-can"
                                        onclick="confirmAndDeleteEnquiry(${enquiry.EId})"></i>
                                 </div>
