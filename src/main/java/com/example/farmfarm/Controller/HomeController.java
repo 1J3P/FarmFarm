@@ -96,7 +96,15 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model) {
+    public String home(HttpServletRequest request, Model model, HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            UserEntity user = (UserEntity)session.getAttribute("user");
+            session.setAttribute("uid", user.getUId());
+        }
+        else if (session.getAttribute("user") == null){
+            System.out.println("/kakao로 redirect!!!");
+            return "redirect:/kakao";
+        }
         List<ProductEntity> products = productService.getAllProduct();
         model.addAttribute("products", products);
         List<ProductEntity> auctions = productService.getAllAuctionProduct();
@@ -160,6 +168,7 @@ public class HomeController {
 //        System.out.println("111111111" + myFarm.getStatus());
         mv.put("user", user);
         model.addAttribute("user", user);
+        session.setAttribute("uid", user.getUId());
         if (myFarm == null) {
             System.out.println("bbbbnull!!!!!!!!!");
             model.addAttribute("myFarm", null);
@@ -182,7 +191,9 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("myPage/myPage");
         UserEntity user = (UserEntity)session.getAttribute("user");
         FarmEntity myFarm = farmService.getMyFarm(user);
+        System.out.println("myFarm : " + myFarm);
         mav.addObject("user", user);
+        session.setAttribute("uid", user.getUId());
         if (myFarm == null) {
             session.removeAttribute("myFarm");
             mav.addObject("myFarm", null);

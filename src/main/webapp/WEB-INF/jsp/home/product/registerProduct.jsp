@@ -218,11 +218,10 @@
                 url:url,
                 data:formData,
                 type:"POST",
-                async:false,
+                async:true,
                 enctype:"multipart/form-data",
                 processData:false,
                 contentType:false,
-
                 success: function (response){
                     console.log(JSON.stringify(response));
                     var json = JSON.stringify(response);
@@ -309,6 +308,7 @@
 
             console.log(formsubmitSerialArray);
             console.log(formsubmit);
+            console.log("uId : " + <%= session.getAttribute("uid") %>);
             $.ajax({
                 type:"POST",
                 async:true,
@@ -316,6 +316,9 @@
                 data:formsubmit,
                 dataType:"json",
                 contentType:"application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
+                },
                 success:function (data){
                     alert("상품을 등록하였습니다.");
                     console.log(data);

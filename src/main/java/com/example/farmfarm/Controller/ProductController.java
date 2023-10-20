@@ -52,8 +52,15 @@ public class ProductController {
     // 상품 등록
     @ResponseBody
     @PostMapping("")
-    public ResponseEntity<Object> registerProduct(HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) throws ParseException {
+    public ResponseEntity<Object> registerProduct(@RequestHeader("uid") String headerUId, HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) throws ParseException {
         UserEntity user = (UserEntity)session.getAttribute("user");
+        if (user == null) {
+            long huid = Long.parseLong(headerUId);
+            user = userService.findByUId(huid);
+            System.out.println("로그인 풀림ㅋ");
+            System.out.println(user);
+            session.setAttribute("user", user);
+        }
         FarmEntity myFarm = farmService.getMyFarm(user);
         FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
         if (farm.getFId() == myFarm.getFId()) {
