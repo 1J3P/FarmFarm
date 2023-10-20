@@ -93,11 +93,11 @@
 
                 if (selectedValue) {
                     localStorage.setItem("selectedOption", selectedValue);
-                    var url;
+                    var url = "";
                     if (selectedValue === "new") {
-                        url = "<%=serverUrl%>/product/list";
+                        url += "";
                     } else {
-                        url = "<%=serverUrl%>>/product/list?sort=" + selectedValue;
+                        url += "?sort=" + selectedValue;
                     }
                     window.location.href = url;
                 }
@@ -128,8 +128,8 @@
                 <div class="sort">
                     <div class="sort_type">
                         <select id="sortSelect">
-                            <option value="rating" selected>인기순</option>
-                            <option value="new">신상품순</option>
+                            <option value="rating">인기순</option>
+                            <option value="new" selected>신상품순</option>
                             <option value="lowPrice">낮은 가격순</option>
                             <option value="highPrice">높은 가격순</option>
                         </select>
