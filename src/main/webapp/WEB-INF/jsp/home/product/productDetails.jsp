@@ -624,7 +624,7 @@
                                                 </c:if>
                                                 <c:if test="${group.capacity eq 0}">
                                                     <p>공동구매완료</p>
-                                                </c:if>`
+                                                </c:if>
                                                 <c:if test="${group.isClose eq 1}">
                                                     <p>공동구매종료</p>
                                                 </c:if>

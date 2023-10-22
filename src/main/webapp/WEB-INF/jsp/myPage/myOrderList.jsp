@@ -110,6 +110,12 @@
             font-size: 13px;
         }
 
+        .order-date .order_cancel {
+            position: absolute;
+            left: 40px;
+            top: 0;
+        }
+
         .list .item-content {
             display: flex;
             flex-direction: column;
@@ -120,18 +126,12 @@
             justify-content: space-between;
             align-items: center;
         }
-        .cart-list{
+        .no_order{
             position: relative;
-            height:580px;
+            height:500px;
         }
-        /*.cart-list div{*/
-        /*    position: absolute;*/
-        /*    left: 50%;*/
-        /*    top: 40%;*/
-        /*    transform: translate(-50%, -50%);*/
-        /*    text-align: center;*/
-        /*}*/
-        .cart-list a{
+
+        .no_order a{
             width:90%;
             position: absolute;
             left:50%;
@@ -144,7 +144,7 @@
     <script>
         function cancelOrder(paID) {
             // 주문 취소 함수 내부에서 orderID를 사용할 수 있습니다.
-            alert('주문 취소: ' + paID);
+            alert('주문을 취소합니다.');
 
             // 여기서 다른 동작을 수행할 수 있습니다.
             $.ajax({
@@ -179,23 +179,25 @@
     </div>
 
 
-    <div class="page-content pt-60 bottom-sp60">
+    <div class="page-content pt-60 bottom-sp60 bottom">
         <div class="container cart-list-area">
             <div class="list cart-list">
                 <c:if test="${empty orderList}">
-                    <div>
+                    <div class="no_order">
                         <p style="text-align: center;">아직 주문 내역이 없습니다!<br>
                             상품을 주문해보세요!!</p>
-                    <a href="/product/list" class="button-large button button-fill">상품
-                        보러가기</a>
+                        <a href="/product/list" class="button-large button button-fill">상품
+                            보러가기</a>
                     </div>
                 </c:if>
                 <ul>
                     <c:forEach var="order" items="${orderList}">
                         <div class="order-date">
-                            <div class="stepper-input-wrap stepperFont">
+                            <c:if test="${order.status == '결제 완료'}">
+                                <div class="stepper-input-wrap stepperFont order_cancel">
                                     <div style="color:#FF5050; cursor: pointer" onclick="cancelOrder(${order.payment.paId})">주문 취소</div>
-                            </div>
+                                </div>
+                            </c:if>
                             <p><fmt:formatDate pattern="yyyy.MM.dd" value="${order.created_at}"/></p>
                             <div class="is-payment">
                                 <p>${order.status}</p>
@@ -207,7 +209,10 @@
                                 <div class="item-content swipeout-content">
                                     <div class="item-inner">
                                         <div class="item-media">
-                                            <img src="${orderDetail.product.image1}" alt="">
+                                            <a
+                                                    href="/product/${orderDetail.product.PId}">
+                                                <img src="${orderDetail.product.image1}" alt="">
+                                            </a>
                                         </div>
                                         <div class="item-info">
                                             <div class="item-head">
@@ -215,18 +220,17 @@
                                                     <h6 class="category">${orderDetail.product.farm.name}</h6>
 
                                                 </div>
-                                                <div class="item-actions">
-                                                    <h2 class="item-title"><a
-                                                            href="/product/${orderDetail.product.PId}">${orderDetail.product.name}</a>
-                                                    </h2>
+                                            </div>
+                                            <div style="display: flex; justify-content: space-between">
+                                                <h5 class="item-title"><span>${orderDetail.product.name}</span> X <span>${orderDetail.quantity}</span></h5>
+                                                <c:if test="${order.status == '결제 완료'}">
                                                     <div class="sell-product-options"
                                                          onclick="location.href='/review/write?odId=${orderDetail.odId}'"
                                                          style="cursor:pointer; color: #94C015">
                                                         리뷰 작성
                                                     </div>
-                                                </div>
+                                                </c:if>
                                             </div>
-                                            <h5 class="item-title"><span>${orderDetail.product.name}</span> X <span>${orderDetail.quantity}</span></h5>
                                             <div class="item-foot">
                                                 <h3 class="text-primary item-total"><span>${orderDetail.price}</span>원
                                                 </h3>
