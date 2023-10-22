@@ -85,6 +85,7 @@ public class OrderController {
             session.setAttribute("user", user);
         }
         List<OrderDetailEntity> details = (List<OrderDetailEntity>)session.getAttribute("orderDetail");
+        System.out.println("오더디테일 값은?!!!!" + details);
         order.setUser(user);
         int totalP = 0;
         int totalQ = 0;
@@ -113,7 +114,8 @@ public class OrderController {
 
     //TODO:공동 구매<단일>
     @GetMapping("/group/{gId}")
-    public String saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId, Model model) {
+    public ModelAndView saveOrderDetailGroup(HttpSession session, HttpServletRequest request, @PathVariable("gId") long gId) {
+        ModelAndView mav = new ModelAndView("home/product/productShippingAddress");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         List<OrderDetailEntity> details = new ArrayList<>();
         OrderDetailEntity orderDetail = new OrderDetailEntity();
@@ -127,16 +129,25 @@ public class OrderController {
         details.add(orderDetail);
         System.out.println(details);
         session.setAttribute("orderDetail", details);
-        //model.addAttribute("orderDetail", details);
-        return "home/product/productShippingAddress";
+        int isDirect = 0;
+        if (group.getProduct().isDirect() == true) {   // 직거래만
+            isDirect = 1;
+        }
+        mav.addObject("isDirect", isDirect);
+        return mav;
     }
 
     @GetMapping("/product/{pId}/group")
-    public String createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session, @RequestParam int quantity) {
+    public ModelAndView createGroup(HttpServletRequest request, @PathVariable("pId") long pId, HttpSession session, @RequestParam int quantity) {
+        ModelAndView mav = new ModelAndView("home/product/productShippingAddress");
         List<OrderDetailEntity> details = new ArrayList<>();
         UserEntity user = (UserEntity)session.getAttribute("user");
         ProductEntity product = productService.getProduct(pId);
         System.out.println("productId:" + product.getPId());
+        int isDirect = 0;
+        if (product.isDirect() == true) {   // 직거래만
+            isDirect = 1;
+        }
         GroupEntity group = groupService.createGroup(user, product);
         // created_at 컬럼에 저장된 시간을 가져옵니다.
         Timestamp createdAt = group.getCreated_at();
@@ -153,7 +164,8 @@ public class OrderController {
         orderDetail.setPrice((long)((long)group.getProduct().getPrice() * 0.9));
         details.add(orderDetail);
         session.setAttribute("orderDetail", details);
-        return "home/product/productShippingAddress";
+        mav.addObject("isDirect", isDirect);
+        return mav;
     }
 
     //TODO:경매 구매<단일> GET으로 바꾸기 requestparam 이용
