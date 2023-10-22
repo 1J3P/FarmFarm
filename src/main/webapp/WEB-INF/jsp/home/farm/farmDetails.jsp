@@ -9,10 +9,7 @@
 <head>
     <title>FarmFarm</title>
     <meta charset="UTF-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta
             name="apple-mobile-web-app-status-bar-style"
@@ -76,6 +73,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://kit.fontawesome.com/343192f99f.js" crossorigin="anonymous"></script>
     <style>
+        ::-webkit-scrollbar-thumb {
+            display: none;
+            -ms-overflow-style: none;
+            scrollbar-width: none; }
+
+        ::-webkit-scrollbar-thumb:horizontal {
+            display: block; /* 가로 스크롤바의 thumb 표시 */
+        }
+        html{
+            overflow: scroll;
+        }
         .farm-location {
             font-weight: bold;
             font-size: 14px;
@@ -85,7 +93,11 @@
         #tab-2, #tab-3, #tab-4 {
             display: none;
         }
-
+        #tab-4{
+            overflow-x: scroll;
+            overflow-x:scroll;
+            white-space: nowrap;
+        }
         #tab-4 > div{
             margin:1em 0;
         }
@@ -93,7 +105,10 @@
             border-top:1px solid #d9d9d9;
             border-bottom:1px solid #d9d9d9;
             border-collapse: collapse;
-            width:100%;
+            overflow-x: scroll;
+            /*width:100%;*/
+            table-layout: fixed; /* 테이블 너비 고정 */
+            /*white-space: nowrap;*/
         }
         #tab-4 th,
         #tab-4 td{
@@ -178,7 +193,16 @@
             cursor: pointer;
         }
 
-        /* 팝업의 다른 스타일은 여기에 추가할 수 있습니다. */
+        @media screen and (max-width: 768px) {
+            /* 가로 스크롤을 활성화하는 스타일 */
+            #tab-4 {
+                /*overflow-x: scroll;*/
+                width:100%;
+            }
+            #tab-4 table{
+                overflow-x: scroll;
+            }
+        }
 
 
     </style>
