@@ -766,12 +766,13 @@
             console.log("remain length : " + remains.length);
             for (let i = 0; i < remains.length; i++) {
                 let now = new Date();
+                let utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
                 var timestampString = document.getElementsByName("back_time")[i].value;
                 const parts = timestampString.split(/[- :.]/);
                 backTimestamp = new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
                 console.log("백엔드 시간 : " + backTimestamp);
-                console.log("지금 시간 : " + now);
-                timeRemaining = backTimestamp - now;
+                console.log("지금 시간 : " + utcNow);
+                timeRemaining = backTimestamp - utcNow;
                 console.log("남은 시간 : " + timeRemaining);
                 let remain = remains[i];
                 let parentDiv = remain.closest(".right");
