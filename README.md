@@ -3,7 +3,7 @@
 <img src = "https://github.com/1J3P/FarmFarm/assets/75068759/8df90eca-3799-4d87-aa53-bd75ecead973"/>
 
 ## 주의 사항
-1. http://www.farmfarm.store로 초기 접속해야합니다.
+1. http://www.farmfarm.store 로 초기 접속해야합니다.
 2. 홈 화면 로드가 잘 안된다면 탭바 좌측에 위치한 홈 버튼을 눌러주시기 바랍니다.
 
 ## 설정 사항
