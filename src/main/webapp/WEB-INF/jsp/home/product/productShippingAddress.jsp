@@ -71,8 +71,70 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
     />
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        var ajaxRequest1 = null;
+        var ajaxRequest2 = null;
+
+        function objectifyForm(formArray) {
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+
+        function sendAjaxRequest() {
+            if (ajaxRequest1 !== null) {
+                // ajaxRequest2.abort();
+                ajaxRequest1.abort();
+            }
+
+            var formsubmitSerialArray = $("#tabA1").serializeArray();
+            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+
+            console.log(formsubmitSerialArray);
+            console.log(formsubmit);
+            ajaxRequest1 = $.ajax({
+                type: "POST",
+                async: true,
+                url: "/order",
+                data: formsubmit,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
+                },
+                success: function (data) {
+                    console.log(data);
+                    console.log(data.oid);
+                    ajaxRequest2 = $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "/pay/order/" + data.oid,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            alert("결제창으로 이동합니다.");
+                            console.log(data);
+                            console.log(data.oid);
+                            console.log(data.next_redirect_pc_url);
+                            location.href = data.next_redirect_pc_url;
+                        },
+                        error: function (request, status, error) {
+                            console.log(request);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                },
+                error: function (request, status, error) {
+                    console.log(request);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
         var mapContainer = document.getElementById('map');
         $(document).ready(function () {
             $("input[name='delivery']").change(function () {
@@ -112,6 +174,110 @@
                 dd.style.display = "block";
             }
         })
+    </script>
+    <script>
+        window.onload = function () {
+
+
+
+
+
+            <%--$("#createOrder").on("click", function () {--%>
+            <%--    var formsubmitSerialArray = $("#tabA1").serializeArray();--%>
+            <%--    var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));--%>
+
+            <%--    console.log(formsubmitSerialArray);--%>
+            <%--    console.log(formsubmit);--%>
+            <%--    jQuery.ajax({--%>
+            <%--        type: "POST",--%>
+            <%--        async: true,--%>
+            <%--        url: "/order",--%>
+            <%--        data: formsubmit,--%>
+            <%--        dataType: "json",--%>
+            <%--        contentType: "application/json; charset=utf-8",--%>
+            <%--        beforeSend: function (xhr) {--%>
+            <%--            xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);--%>
+            <%--        },--%>
+            <%--        success: function (data) {--%>
+            <%--            console.log(data);--%>
+            <%--            console.log(data.oid);--%>
+            <%--            jQuery.ajax({--%>
+            <%--                type: "POST",--%>
+            <%--                async: true,--%>
+            <%--                url: "/pay/order/" + data.oid,--%>
+            <%--                dataType: "json",--%>
+            <%--                contentType: "application/json; charset=utf-8",--%>
+            <%--                success: function (data) {--%>
+            <%--                    alert("결제창으로 이동합니다.");--%>
+            <%--                    console.log(data);--%>
+            <%--                    console.log(data.oid);--%>
+            <%--                    console.log(data.next_redirect_pc_url);--%>
+            <%--                    location.href = data.next_redirect_pc_url;--%>
+            <%--                },--%>
+            <%--                error: function (request, status, error) {--%>
+            <%--                    console.log(request);--%>
+            <%--                    console.log(status);--%>
+            <%--                    console.log(error);--%>
+            <%--                }--%>
+            <%--            });--%>
+            <%--        },--%>
+            <%--        error: function (request, status, error) {--%>
+            <%--            console.log(request);--%>
+            <%--            console.log(status);--%>
+            <%--            console.log(error);--%>
+            <%--        }--%>
+            <%--    });--%>
+            <%--});--%>
+        };
+
+        function displayMap() {
+            var address = document.getElementById('delivery_address').value;
+            console.log(address + " displayMap!");
+            var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+
+            mapContainer.style.display = 'block'; // 지도 컨테이너 표시
+            initializeMap(address); // 주소를 기반으로 지도 초기화
+        }
+        function initializeMap(address) {
+            console.log("initializeMap!");
+            // Kakao 지도 초기화 및 표시
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+
+// 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+            geocoder.addressSearch(address, function(result, status) {
+
+                // 정상적으로 검색이 완료됐으면
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">배송 장소</div>'
+                    });
+                    infowindow.open(map, marker);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                }
+            });
+        }
     </script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=547b485b92252f5f3b1f8d3253d2b9d5&libraries=services"></script>
     <style>
@@ -225,7 +391,7 @@
                         </div>
                         <div class="list" style="margin-top: 50px">
                             <ul>
-                                <li class="mb-15"><a class="button-large button button-fill" id="createOrder">결제하기</a>
+                                <li class="mb-15"><a class="button-large button button-fill" id="createOrder" onclick="sendAjaxRequest();">결제하기</a>
                                 </li>
                             </ul>
                         </div>
@@ -235,112 +401,6 @@
         </div>
     </div>
 </div>
-<script>
-    window.onload = function () {
-        function objectifyForm(formArray) {
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++) {
-                returnArray[formArray[i]['name']] = formArray[i]['value'];
-            }
-            return returnArray;
-        }
 
-        $("#createOrder").on("click", function () {
-            var formsubmitSerialArray = $("#tabA1").serializeArray();
-            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-
-            console.log(formsubmitSerialArray);
-            console.log(formsubmit);
-            jQuery.ajax({
-                type: "POST",
-                async: true,
-                url: "/order",
-                data: formsubmit,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
-                },
-                success: function (data) {
-                    console.log(data);
-                    console.log(data.oid);
-                    jQuery.ajax({
-                        type: "POST",
-                        async: true,
-                        url: "/pay/order/" + data.oid,
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            alert("결제창으로 이동합니다.");
-                            console.log(data);
-                            console.log(data.oid);
-                            console.log(data.next_redirect_pc_url);
-                            location.href = data.next_redirect_pc_url;
-                        },
-                        error: function (request, status, error) {
-                            console.log(request);
-                            console.log(status);
-                            console.log(error);
-                        }
-                    });
-                },
-                error: function (request, status, error) {
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        });
-    };
-
-    function displayMap() {
-        var address = document.getElementById('delivery_address').value;
-        console.log(address + " displayMap!");
-        var mapContainer = document.getElementById('map'); // 지도를 표시할 div
-
-        mapContainer.style.display = 'block'; // 지도 컨테이너 표시
-        initializeMap(address); // 주소를 기반으로 지도 초기화
-    }
-    function initializeMap(address) {
-        console.log("initializeMap!");
-        // Kakao 지도 초기화 및 표시
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };
-
-// 지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-
-// 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-        geocoder.addressSearch(address, function(result, status) {
-
-            // 정상적으로 검색이 완료됐으면
-            if (status === kakao.maps.services.Status.OK) {
-
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">배송 장소</div>'
-                });
-                infowindow.open(map, marker);
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            }
-        });
-    }
-</script>
 </body>
 </html>
