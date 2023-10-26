@@ -189,7 +189,7 @@
                 </div>
                 <div class="list">
                     <ul>
-                        <li class="mb-15"><button type="button" class="button-large button button-fill" id="openBtn">상품 등록</button></li>
+                        <li class="mb-15"><button type="button" class="button-large button button-fill" id="openBtn" onclick="sendAjaxRequest()">상품 등록</button></li>
                     </ul>
                 </div>
             </form>
@@ -199,6 +199,90 @@
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 <script>
+    var ajaxRequest = null;
+
+    function objectifyForm(formArray){
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+    }
+
+    function sendAjaxRequest() {
+        var formsubmitSerialArray = $("#form").serializeArray();
+        var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+        console.log(formsubmitSerialArray);
+        console.log(formsubmitSerialArray[0]);
+        console.log(formsubmitSerialArray[1]);
+        console.log(formsubmitSerialArray[2]);
+        console.log(formsubmitSerialArray[3]);
+        console.log(formsubmitSerialArray[4]);
+        console.log(formsubmitSerialArray[formsubmitSerialArray.length - 1]);
+
+        if (formsubmitSerialArray[0].value.trim() === "") {
+            alert("내용을 모두 입력해주세요.");
+            return;
+        }
+
+        var hasEmptyFields = false;
+        if (formsubmitSerialArray[0].value.trim() == '0' || formsubmitSerialArray[0].value.trim() == '1') {
+            for (var i = 4; i < formsubmitSerialArray.length - 3; i++) {
+                if (formsubmitSerialArray[i].value.trim() === "") {
+                    console.log("입력 안한곳 : " + i)
+                    hasEmptyFields = true;
+                    break;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < formsubmitSerialArray.length - 3; i++) {
+                if (formsubmitSerialArray[i].value.trim() === "") {
+                    hasEmptyFields = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasEmptyFields) {
+            alert("내용을 모두 입력해주세요.");
+            return;
+        }
+
+
+        console.log(formsubmitSerialArray);
+        console.log(formsubmit);
+        console.log("uId : " + <%= session.getAttribute("uid") %>);
+
+        if (ajaxRequest !== null && ajaxRequest.readyState !== 4){
+            // ajaxRequest.abort();
+            return;
+        }
+
+        ajaxRequest = $.ajax({
+            type:"POST",
+            async:true,
+            url:"/product",
+            data:formsubmit,
+            dataType:"json",
+            contentType:"application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
+            },
+            success:function (data){
+                alert("상품을 등록하였습니다.");
+                console.log(data);
+                console.log("2" + data.pid);
+                location.href="/product/" + data.pid;
+            },
+            error:function (request, status, error){
+                alert("error");
+                console.log(request);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    }
     window.onload = function (){
         const fileInput = document.getElementById("chooseFile");
         const myImg = document.querySelector(".my-image");
@@ -257,81 +341,8 @@
             })
         });
 
-        function objectifyForm(formArray){
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++) {
-                returnArray[formArray[i]['name']] = formArray[i]['value'];
-            }
-            return returnArray;
-        }
         $("#openBtn").on("click", function (){
-            var formsubmitSerialArray = $("#form").serializeArray();
-            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-            console.log(formsubmitSerialArray);
-            console.log(formsubmitSerialArray[0]);
-            console.log(formsubmitSerialArray[1]);
-            console.log(formsubmitSerialArray[2]);
-            console.log(formsubmitSerialArray[3]);
-            console.log(formsubmitSerialArray[4]);
-            console.log(formsubmitSerialArray[formsubmitSerialArray.length - 1]);
 
-            if (formsubmitSerialArray[0].value.trim() === "") {
-                alert("내용을 모두 입력해주세요.");
-                return;
-            }
-
-            var hasEmptyFields = false;
-            if (formsubmitSerialArray[0].value.trim() == '0' || formsubmitSerialArray[0].value.trim() == '1') {
-                for (var i = 4; i < formsubmitSerialArray.length - 3; i++) {
-                    if (formsubmitSerialArray[i].value.trim() === "") {
-                        console.log("입력 안한곳 : " + i)
-                        hasEmptyFields = true;
-                        break;
-                    }
-                }
-            }
-            else {
-                for (var i = 0; i < formsubmitSerialArray.length - 3; i++) {
-                    if (formsubmitSerialArray[i].value.trim() === "") {
-                        hasEmptyFields = true;
-                        break;
-                    }
-                }
-            }
-
-
-
-            if (hasEmptyFields) {
-                alert("내용을 모두 입력해주세요.");
-                return;
-            }
-
-            console.log(formsubmitSerialArray);
-            console.log(formsubmit);
-            console.log("uId : " + <%= session.getAttribute("uid") %>);
-            $.ajax({
-                type:"POST",
-                async:true,
-                url:"/product",
-                data:formsubmit,
-                dataType:"json",
-                contentType:"application/json; charset=utf-8",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);
-                },
-                success:function (data){
-                    alert("상품을 등록하였습니다.");
-                    console.log(data);
-                    console.log("2" + data.pid);
-                    location.href="/product/" + data.pid;
-                },
-                error:function (request, status, error){
-                    alert("error");
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
         });
     };
 </script>
