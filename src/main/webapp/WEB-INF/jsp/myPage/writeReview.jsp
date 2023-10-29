@@ -126,8 +126,7 @@
                                 <div class="item-inner">
                                     <label class="form-label"><b>상품에 대한 의견을 남겨주세요</b></label>
                                     <div class="item-input-wrap">
-                                        <textarea placeholder="이곳에 의견을 남겨주세요" class="form-control"
-                                                  name="comment"/></textarea>
+                                        <textarea placeholder="이곳에 의견을 남겨주세요" class="form-control" name="comment"/></textarea>
                                     </div>
                                 </div>
                             </li>
@@ -137,14 +136,23 @@
             </div>
         </div>
         <div class="container px-15">
-            <button type="button" class="button-large button button-fill" id="openBtn">리뷰 등록</button>
+            <button type="button" class="button-large button button-fill" id="openBtn" onclick="sendAjaxRequest()">리뷰 등록</button>
         </div>
     </div>
     <%@ include file="/WEB-INF/jsp/common/tabbar.jsp" %>
 </div>
 <script>
-    var farmRating = 0.0; // 농장 별점을 저장할 변수
-    var productRating = 0.0; // 상품 별점을 저장할 변수
+    var ajaxRequest = null;
+    var farmRating = 3.0; // 농장 별점을 저장할 변수
+    var productRating = 3.0; // 상품 별점을 저장할 변수
+
+    window.onload = function () {
+        const farmStar = document.getElementById("farmStar");
+        const productStar = document.getElementById("productStar");
+
+        farmStar.setAttribute("value", farmRating)
+        productStar.setAttribute("value", productRating)
+    };
 
     $(document).ready(function () {
         // 농장 별점 클릭 이벤트 처리
@@ -188,14 +196,6 @@
         });
     });
 
-    window.onload = function () {
-        const farmStar = document.getElementById("farmStar");
-        const productStar = document.getElementById("productStar");
-
-        farmStar.setAttribute("value", ${farmRating})
-        productStar.setAttribute("value", ${productRating})
-    };
-
     function objectifyForm(formArray) {
         var returnArray = {};
         for (var i = 0; i < formArray.length; i++) {
@@ -204,7 +204,7 @@
         return returnArray;
     }
 
-    $("#openBtn").on("click", function () {
+    function sendAjaxRequest() {
         const farmStar = document.getElementById("farmStar");
         const productStar = document.getElementById("productStar");
 
@@ -215,7 +215,14 @@
         var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
         console.log(formsubmitSerialArray);
         console.log(formsubmit);
-        $.ajax({
+
+        if (ajaxRequest !== null && ajaxRequest.readyState !== 4) {
+            // ajaxRequest.abort();
+            return;
+        }
+
+        console.log("되냐?");
+        ajaxRequest = $.ajax({
             type: "POST",
             async: true,
             url: "/review/${orderDetail.odId}",
@@ -235,7 +242,8 @@
                 console.log(error);
             }
         });
-    });
+    }
+
 </script>
 </body>
 </html>
