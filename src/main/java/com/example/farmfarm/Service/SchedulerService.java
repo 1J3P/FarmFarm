@@ -2,12 +2,8 @@ package com.example.farmfarm.Service;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.farmfarm.Controller.PaymentController;
-import com.example.farmfarm.Entity.AuctionEntity;
-import com.example.farmfarm.Entity.GroupEntity;
-import com.example.farmfarm.Entity.ProductEntity;
-import com.example.farmfarm.Repository.AuctionRepository;
-import com.example.farmfarm.Repository.GroupRepository;
-import com.example.farmfarm.Repository.ProductRepository;
+import com.example.farmfarm.Entity.*;
+import com.example.farmfarm.Repository.*;
 import org.apache.jasper.compiler.JspUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,6 +30,10 @@ public class SchedulerService {
     private AuctionRepository auctionRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
     //@Scheduled(cron = "0 0 * * * *")
 //    public void openAuction() throws ParseException {
@@ -105,6 +105,20 @@ public class SchedulerService {
                 group.setIsClose(1);
                 groupRepository.save(group);
             }
+        }
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void closeNoPaidOrder() {
+        List<OrderEntity> orders = orderRepository.findAllByStatusContains("결제전");
+        for (OrderEntity order : orders) {
+            List<OrderDetailEntity> orderDetails = orderDetailRepository.findAllByOrder_oId(order.getOId());
+            for (OrderDetailEntity od : orderDetails) {
+                System.out.println("od 지워지는중~ " + od.getOdId());
+                orderDetailRepository.delete(od);
+            }
+            System.out.println("order 지워지는중~" + order.getOId());
+            orderRepository.delete(order);
         }
     }
 }
