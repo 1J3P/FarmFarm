@@ -93,6 +93,31 @@
             var formsubmitSerialArray = $("#tabA1").serializeArray();
             var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
 
+            var hasEmptyFields = false;
+            if (formsubmitSerialArray[2].value.trim() == 'false') { // 직거래
+                for (var i = 0; i < 2; i++) {
+                    if (formsubmitSerialArray[i].value.trim() === "") {
+                        console.log("입력 안한곳 : " + i)
+                        hasEmptyFields = true;
+                        break;
+                    }
+                }
+            }
+            else { // 배송
+                for (var i = 0; i < 6; i++) {
+                    if (formsubmitSerialArray[i].value.trim() === "") {
+                        console.log("입력 안한곳 : " + i)
+                        hasEmptyFields = true;
+                        break;
+                    }
+                }
+            }
+
+            if (hasEmptyFields) {
+                alert("내용을 모두 입력해주세요.");
+                return;
+            }
+
             console.log(formsubmitSerialArray);
             console.log(formsubmit);
             ajaxRequest1 = $.ajax({
@@ -176,60 +201,6 @@
         })
     </script>
     <script>
-        window.onload = function () {
-
-
-
-
-
-            <%--$("#createOrder").on("click", function () {--%>
-            <%--    var formsubmitSerialArray = $("#tabA1").serializeArray();--%>
-            <%--    var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));--%>
-
-            <%--    console.log(formsubmitSerialArray);--%>
-            <%--    console.log(formsubmit);--%>
-            <%--    jQuery.ajax({--%>
-            <%--        type: "POST",--%>
-            <%--        async: true,--%>
-            <%--        url: "/order",--%>
-            <%--        data: formsubmit,--%>
-            <%--        dataType: "json",--%>
-            <%--        contentType: "application/json; charset=utf-8",--%>
-            <%--        beforeSend: function (xhr) {--%>
-            <%--            xhr.setRequestHeader("uid", <%= session.getAttribute("uid") %>);--%>
-            <%--        },--%>
-            <%--        success: function (data) {--%>
-            <%--            console.log(data);--%>
-            <%--            console.log(data.oid);--%>
-            <%--            jQuery.ajax({--%>
-            <%--                type: "POST",--%>
-            <%--                async: true,--%>
-            <%--                url: "/pay/order/" + data.oid,--%>
-            <%--                dataType: "json",--%>
-            <%--                contentType: "application/json; charset=utf-8",--%>
-            <%--                success: function (data) {--%>
-            <%--                    alert("결제창으로 이동합니다.");--%>
-            <%--                    console.log(data);--%>
-            <%--                    console.log(data.oid);--%>
-            <%--                    console.log(data.next_redirect_pc_url);--%>
-            <%--                    location.href = data.next_redirect_pc_url;--%>
-            <%--                },--%>
-            <%--                error: function (request, status, error) {--%>
-            <%--                    console.log(request);--%>
-            <%--                    console.log(status);--%>
-            <%--                    console.log(error);--%>
-            <%--                }--%>
-            <%--            });--%>
-            <%--        },--%>
-            <%--        error: function (request, status, error) {--%>
-            <%--            console.log(request);--%>
-            <%--            console.log(status);--%>
-            <%--            console.log(error);--%>
-            <%--        }--%>
-            <%--    });--%>
-            <%--});--%>
-        };
-
         function displayMap() {
             var address = document.getElementById('delivery_address').value;
             console.log(address + " displayMap!");
