@@ -9,4 +9,5 @@ import java.util.List;
 public interface OrderDetailRepository extends CrudRepository<OrderDetailEntity, Long> {
     public OrderDetailEntity findByodId(long odId);
     public List<OrderDetailEntity> findAllByProduct(ProductEntity product);
+    public List<OrderDetailEntity> findAllByOrder_oId(long oid);
 }

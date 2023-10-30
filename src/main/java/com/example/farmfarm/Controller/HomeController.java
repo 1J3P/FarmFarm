@@ -128,6 +128,7 @@ public class HomeController {
 //        return "category/categories";
 //    }
 
+
     @GetMapping("/category")
     public String category(Model model) {
         List<String> sidoList = categoryService.getDistinctSidoValues();
