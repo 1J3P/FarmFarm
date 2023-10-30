@@ -142,12 +142,17 @@
 
     </style>
     <script>
+        var ajaxRequest = null;
         function cancelOrder(paID) {
             // 주문 취소 함수 내부에서 orderID를 사용할 수 있습니다.
             alert('주문을 취소합니다.');
 
+            if (ajaxRequest !== null && ajaxRequest.readyState !== 4){
+                return;
+            }
+
             // 여기서 다른 동작을 수행할 수 있습니다.
-            $.ajax({
+            ajaxRequest = $.ajax({
                 type: "POST",
                 url: "/pay/refund/" + paID, // 요청을 보낼 URL을 설정하세요
                 success: function (data) {

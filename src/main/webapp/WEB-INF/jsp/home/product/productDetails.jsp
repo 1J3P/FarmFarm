@@ -508,7 +508,7 @@
                                                 <ul style="margin-top:0;">
                                                     <li class="mb-15">
                                                         <button class="button-large button button-fill" type="button"
-                                                                id="enquiryBtn">작성 완료
+                                                                id="enquiryBtn" onclick="sendAjaxRequest1()">작성 완료
                                                         </button>
                                                     </li>
                                                 </ul>
@@ -547,7 +547,7 @@
                     </div>
                     <div class="col-70">
                         <button type="button" class="button-large button add-cart-btn btn-block button-fill onePurchaseBtn"
-                                style="width:100%">혼자 주문<span class="price"><fmt:formatNumber
+                                style="width:100%" onclick="sendAjaxRequest2()">혼자 주문<span class="price"><fmt:formatNumber
                                 type="number" value="${product.price}"/>원</span></button>
                     </div>
                 </c:if>
@@ -561,7 +561,7 @@
                     </div>
                     <div class="col-70" style="width:100%">
                         <button type="button" class="button-large button add-cart-btn btn-block button-fill onePurchaseBtn"
-                                style="width:100%">혼자 주문<span class="price"><fmt:formatNumber
+                                style="width:100%" onclick="sendAjaxRequest2()">혼자 주문<span class="price"><fmt:formatNumber
                                 type="number" value="${product.price}"/>원</span></button>
                     </div>
                 </c:if>
@@ -643,6 +643,8 @@
 </body>
 <script>
     var GID;
+    var ajaxRequest1 = null;
+    var ajaxRequest2 = null;
 
     function groupAttend(gId) {
         var groupInput = document.getElementById("groupId");
@@ -651,79 +653,90 @@
         console.log(gId);
     }
 
-    window.onload = function () {
-        function objectifyForm(formArray) {
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++) {
-                returnArray[formArray[i]['name']] = formArray[i]['value'];
-            }
-            return returnArray;
+    function objectifyForm(formArray) {
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++) {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+    }
+
+    var auth = document.getElementById("Auth").value;
+    console.log("auth 확인" + auth);
+
+    function sendAjaxRequest1(){
+        var formsubmitSerialArray = $("#form").serializeArray();
+        var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+        var pId = ${p_id};
+        console.log(formsubmitSerialArray);
+        console.log(formsubmit);
+
+        if (ajaxRequest1 !== null && ajaxRequest1.readyState !== 4){
+            return;
         }
 
-        var auth = document.getElementById("Auth").value;
-        console.log("auth 확인" + auth);
-        $("#enquiryBtn").on("click", function () {
-            var formsubmitSerialArray = $("#form").serializeArray();
-            var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-            var pId = ${p_id};
-            console.log(formsubmitSerialArray);
-            console.log(formsubmit);
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "/enquiry/" + pId,
-                data: formsubmit,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Content-type", "application/json");
-                    xhr.setRequestHeader("Authorization", auth);
-                },
-                success: function (data) {
-                    alert("문의사항을 등록하였습니다.");
-                    console.log(data);
-                    location.href = "/product/" + pId;
-                },
-                error: function (request, status, error) {
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
+        ajaxRequest1 = $.ajax({
+            type: "POST",
+            async: false,
+            url: "/enquiry/" + pId,
+            data: formsubmit,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.setRequestHeader("Authorization", auth);
+            },
+            success: function (data) {
+                alert("문의사항을 등록하였습니다.");
+                console.log(data);
+                location.href = "/product/" + pId;
+            },
+            error: function (request, status, error) {
+                console.log(request);
+                console.log(status);
+                console.log(error);
+            }
         });
+    }
 
-        $(".onePurchaseBtn").on("click", function () {
-            // var formsubmitSerialArray = $("#form").serializeArray();
-            // var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
-            var pId = ${p_id};
-            var quantity = parseInt(document.getElementById('quantityInput').value);
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "/product/" + pId + "/cart",
-                data: JSON.stringify({
-                    "quantity": quantity
-                }),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Content-type", "application/json");
-                    xhr.setRequestHeader("Authorization", auth);
-                },
-                success: function (data) {
-                    alert(quantity + "개의 상품이 장바구니에 담겼습니다.");
-                    console.log(data);
-                    location.href = "/product/cart";
-                },
-                error: function (request, status, error) {
-                    console.log(request);
-                    console.log(status);
-                    console.log(error);
-                    alert("다른 농장의 상품을 담을 수 없습니다.");
-                    location.href = "/product/" + pId;
-                }
-            });
+    function sendAjaxRequest2(){
+        // var formsubmitSerialArray = $("#form").serializeArray();
+        // var formsubmit = JSON.stringify(objectifyForm(formsubmitSerialArray));
+        var pId = ${p_id};
+        var quantity = parseInt(document.getElementById('quantityInput').value);
+
+        if (ajaxRequest2 !== null && ajaxRequest2.readyState !== 4){
+            return;
+        }
+
+        ajaxRequest2 = $.ajax({
+            type: "POST",
+            async: false,
+            url: "/product/" + pId + "/cart",
+            data: JSON.stringify({
+                "quantity": quantity
+            }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.setRequestHeader("Authorization", auth);
+            },
+            success: function (data) {
+                alert(quantity + "개의 상품이 장바구니에 담겼습니다.");
+                console.log(data);
+                location.href = "/product/cart";
+            },
+            error: function (request, status, error) {
+                console.log(request);
+                console.log(status);
+                console.log(error);
+                alert("다른 농장의 상품을 담을 수 없습니다.");
+                location.href = "/product/" + pId;
+            }
         });
+    }
+    window.onload = function () {
         var group = document.getElementById("group_open");
         group.addEventListener('click', function (e) {
             var quantity = parseInt(document.getElementById('quantityInput').value);
