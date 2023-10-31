@@ -48,29 +48,33 @@ public class PaymentController {
 
     @GetMapping("/success/{oId}")
     public ModelAndView afterPayRequest(@RequestParam("pg_token") String pgToken, @PathVariable("oId") long oId) {
-        OrderEntity order = orderService.getOrder(oId);
-        ApprovePaymentEntity kakaoApprove = paymentService.approveResponse(order, pgToken);
-        // 결제 성공 시 quantity 감소, sales 증가
-        List<OrderDetailEntity> detail = order.getOrders();
-        for (OrderDetailEntity od : detail) {
-            int quantity = od.getProduct().getQuantity();
-            int updateQuantity = quantity - od.getQuantity();
-            od.getProduct().setQuantity(updateQuantity);
-            int sales = od.getProduct().getSales();
-            int updateSales = sales + od.getQuantity();
-            od.getProduct().setSales(updateSales);
-            // orderDetail이 경매일 경우, auction에 paId 등록하기
-            if (od.getType() == 2) {
-                od.getAuction().setPaId(kakaoApprove.getPaId());
+        try {
+            OrderEntity order = orderService.getOrder(oId);
+            ApprovePaymentEntity kakaoApprove = paymentService.approveResponse(order, pgToken);
+            // 결제 성공 시 quantity 감소, sales 증가
+            List<OrderDetailEntity> detail = order.getOrders();
+            for (OrderDetailEntity od : detail) {
+                int quantity = od.getProduct().getQuantity();
+                int updateQuantity = quantity - od.getQuantity();
+                od.getProduct().setQuantity(updateQuantity);
+                int sales = od.getProduct().getSales();
+                int updateSales = sales + od.getQuantity();
+                od.getProduct().setSales(updateSales);
+                // orderDetail이 경매일 경우, auction에 paId 등록하기
+                if (od.getType() == 2) {
+                    od.getAuction().setPaId(kakaoApprove.getPaId());
+                }
             }
+            order.setPayment(kakaoApprove);
+            orderRepository.save(order);
+            order.setStatus("결제 완료");
+            orderService.createOrder(order);
+            ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
+            mav.addObject("kakaoApprove", kakaoApprove);
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/error");
         }
-        order.setPayment(kakaoApprove);
-        orderRepository.save(order);
-        order.setStatus("결제 완료");
-        orderService.createOrder(order);
-        ModelAndView mav = new ModelAndView("shopping/paymentSuccess");
-        mav.addObject("kakaoApprove", kakaoApprove);
-        return mav;
     }
 
     //TODO: 여기로 잘 오는지
