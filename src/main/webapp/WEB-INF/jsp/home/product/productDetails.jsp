@@ -272,12 +272,12 @@
                     url: "/product/" + pId,
                     type: "DELETE",
                     success: function (response) {
-                        alert("삭제 되었습니다.");
+                        alert("상품이 삭제 되었습니다.");
                         location.href = "/product/list";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
-                        alert("삭제 요청을 처리할 수 없습니다.");
+                        alert("주문건이 있어 상품을 삭제할 수 없습니다.");
                     }
                 });
             }
@@ -344,7 +344,7 @@
             <div class="title"></div>
             <div class="right">
                 <c:if test="${product.farm.user.UId == user.UId}">
-                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${product.PId})"></i>
+                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteProduct(${product.PId})"></i>
                 </c:if>
             </div>
         </div>

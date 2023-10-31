@@ -279,12 +279,12 @@
                     url: "/farm/" + fId,
                     type: "DELETE",
                     success: function (response) {
-                        alert("삭제 되었습니다.");
+                        alert("농장이 삭제 되었습니다.");
                         location.href = "/myPage";
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
-                        alert("삭제 요청을 처리할 수 없습니다.");
+                        alert("상품이 등록되어 있어 농장을 삭제할 수 없습니다.");
                     }
                 });
             }
