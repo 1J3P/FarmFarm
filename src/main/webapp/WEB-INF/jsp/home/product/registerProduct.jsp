@@ -340,10 +340,6 @@
                 }
             })
         });
-
-        $("#openBtn").on("click", function (){
-
-        });
     };
 </script>
 </body>
