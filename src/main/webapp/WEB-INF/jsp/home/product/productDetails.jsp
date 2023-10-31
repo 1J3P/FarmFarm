@@ -343,7 +343,7 @@
             <div class="title"></div>
             <div class="right">
                 <c:if test="${product.farm.user.UId == user.UId}">
-                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteFarm(${product.PId})"></i>
+                    <i class="fa-regular fa-trash-can" onclick="confirmAndDeleteProduct(${product.PId})"></i>
                 </c:if>
             </div>
         </div>
