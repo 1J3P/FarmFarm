@@ -256,9 +256,10 @@
 
         if (ajaxRequest !== null && ajaxRequest.readyState !== 4){
             // ajaxRequest.abort();
+            console.log("ajaxRequest가 null이 아님");
             return;
         }
-
+        console.log("상품 등록 ajax 호출 직전");
         ajaxRequest = $.ajax({
             type:"POST",
             async:true,
@@ -340,6 +341,7 @@
                 }
             })
         });
+
     };
 </script>
 </body>
