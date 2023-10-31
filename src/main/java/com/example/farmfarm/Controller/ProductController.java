@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 
@@ -53,6 +54,7 @@ public class ProductController {
     @ResponseBody
     @PostMapping("")
     public ResponseEntity<Object> registerProduct(@RequestHeader("uid") String headerUId, HttpServletRequest request, @RequestBody ProductEntity product, HttpSession session) throws ParseException {
+        System.out.println("product register url 호출");
         UserEntity user = (UserEntity)session.getAttribute("user");
         if (user == null) {
             long huid = Long.parseLong(headerUId);
@@ -61,15 +63,23 @@ public class ProductController {
             System.out.println(user);
             session.setAttribute("user", user);
         }
+        System.out.println("product register 11111");
         FarmEntity myFarm = farmService.getMyFarm(user);
         FarmEntity farm = (FarmEntity)session.getAttribute("myFarm");
-        if (farm.getFId() == myFarm.getFId()) {
+        System.out.println("myFarm fid : " + myFarm.getFId());
+        System.out.println("farm fid : " + farm.getFId());
+        if (Objects.equals(farm.getFId(), myFarm.getFId())) {
+            System.out.println("product register 22222");
             ProductEntity newProduct = productService.saveProduct(product, myFarm);
             if (newProduct == null) { // 나중에 적절하게 수정
+                System.out.println("product register 33333");
                 return null;
             }
+            System.out.println("product register 44444");
+            System.out.println("product pid : " + newProduct.getPId());
             return ResponseEntity.ok().body(newProduct);
         }
+        System.out.println("product register 55555");
         return null;
     }
 
