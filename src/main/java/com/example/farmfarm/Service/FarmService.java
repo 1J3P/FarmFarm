@@ -1,5 +1,6 @@
 package com.example.farmfarm.Service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.UserEntity;
 import com.example.farmfarm.Repository.FarmRepository;
@@ -17,6 +18,8 @@ public class FarmService {
     private FarmRepository farmRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductService productService;
 
     // 농장 등록
     public FarmEntity saveFarm(UserEntity user, FarmEntity farm) {
@@ -106,10 +109,18 @@ public class FarmService {
         UserEntity user = (UserEntity) session.getAttribute("user");
         FarmEntity farm = farmRepository.findByfIdAndStatusLike(fId, "yes");
         if (Objects.equals(user.getUId(), farm.getUser().getUId())) {
-            farm.setStatus("no");
-            farmRepository.save(farm);
+            if (productService.getFarmProduct(farm) == null || productService.getFarmProduct(farm).isEmpty()) {  // 농장에 상품이 없으면
+                System.out.println("농장에 상품 없음!!!");
+                farm.setStatus("no");
+                farmRepository.save(farm);
+            }
+            else {
+                System.out.println("농장에 상품 있음!!!");
+                System.out.println("상품이 등록되어 있어 삭제할 수 없습니다.");
+                throw new Exception();
+            }
         } else {
-            System.out.println("유저가 다름!!!!");
+            System.out.println("유저가 달라 삭제할 수 없습니다.");
             throw new Exception();
         }
     }

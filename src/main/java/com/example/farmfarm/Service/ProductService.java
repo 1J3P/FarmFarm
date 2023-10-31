@@ -1,9 +1,9 @@
 package com.example.farmfarm.Service;
 
-import com.example.farmfarm.Entity.Cart.Item;
 import com.example.farmfarm.Entity.FarmEntity;
 import com.example.farmfarm.Entity.ProductEntity;
 import com.example.farmfarm.Entity.UserEntity;
+import com.example.farmfarm.Repository.OrderDetailRepository;
 import com.example.farmfarm.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -21,6 +21,8 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
     // 상품 등록
     public ProductEntity saveProduct(ProductEntity product, FarmEntity farm) throws ParseException {
@@ -124,8 +126,16 @@ public class ProductService {
         ProductEntity product = productRepository.findBypIdAndStatusLike(p_id, "yes");
         System.out.println("유저는 ? " + product.getFarm().getUser().getUId()); //
         if (Objects.equals(user.getUId(), product.getFarm().getUser().getUId())) {
-            product.setStatus("no");
-            productRepository.save(product);
+            if (orderDetailRepository.findAllByProduct(product) == null || orderDetailRepository.findAllByProduct(product).isEmpty()) { // 상품에 대한 주문건이 없으면
+                System.out.println("주문건 없음!!!");
+                product.setStatus("no");
+                productRepository.save(product);
+            }
+            else {
+                System.out.println("주문건 있음!!!");
+                System.out.println("상품 삭제 불가");
+                throw new Exception();
+            }
         }
         else {
             throw new Exception();
